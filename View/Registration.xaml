@@ -1,0 +1,56 @@
+﻿<Page x:Class="Sanatory.View.Registration"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Sanatory.View"
+      xmlns:vm="clr-namespace:Sanatory.ViewModel"
+      mc:Ignorable="d"
+      DataContext="{DynamicResource regVM}"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Registration">
+
+    <Page.Resources>
+        <vm:RegVM x:Key="regVM"/>
+        
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Поиск номера"/>
+        <ComboBox Grid.Column="1" x:Name="Tag">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding Tags}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <ListView Grid.Row="1" Grid.ColumnSpan="4">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Статус"/>
+                    <GridViewColumn Header="Тип"/>
+                    <GridViewColumn Header="Цена"/>
+                    <GridViewColumn Header="Номер комнаты"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Menu Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+                <MenuItem Header="Добавить номер" Command="{Binding CreateRoom}"/>
+                <MenuItem Header="Изменить номер" Command="{Binding EditRoom}"/>
+                <MenuItem Header="Удалить номер" Command="{Binding DeleteRoom}"/>
+            </Menu>
+
+    </Grid>
+</Page>

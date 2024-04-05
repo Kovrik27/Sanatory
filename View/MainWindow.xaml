@@ -16,18 +16,23 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Минеральные источники" Grid.ColumnSpan="2" FontSize="24"/>
-        <Menu Grid.Column="3">
-            <MenuItem Header="Админ" FontSize="20"/>
-        </Menu>
-        <Frame NavigationUIVisibility="Hidden" Content="{Binding Pages}" Grid.Column="3"/>
+        <Label Content="Админ" Grid.Column="3" FontSize="24"/>
+        <Frame x:Name="Frame" NavigationUIVisibility="Hidden" Grid.RowSpan="5" Grid.ColumnSpan="3" Background="AliceBlue"/>
+        <Button Content="Бронирование" Grid.Column="3" Grid.Row="1" Click="ButtonBron"/>
+        <Button Content="Персонал" Grid.Column="3" Grid.Row="2" Click="ButtonPersonal"/>
+        <Button Content="Гости" Grid.Column="3" Grid.Row="3" Click="ButtonGosti"/>
+        <Button Content="Процедуры" Grid.Column="3" Grid.Row="4" Click="ButtonProceduri"/>
 
     </Grid>
 </Window>
