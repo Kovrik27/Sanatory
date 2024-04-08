@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Sanatory.ViewModel
 {
-    public class StVM
+    public class StVM : BaseVM
     {
-
+        private MainWindowVM MainVM;
+        internal void SetMainWindowVM(MainWindowVM MainVM)
+        {
+            this.MainVM = MainVM;
+        }
     }
 }

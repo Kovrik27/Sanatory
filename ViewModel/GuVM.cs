@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace Sanatory.ViewModel
 {
-    public class GuVM
+    public class GuVM : BaseVM
     {
+        private MainWindowVM MainVM;
+        internal void SetMainWindowVM(MainWindowVM MainVM)
+        {
+            this.MainVM = MainVM;
+        }
 
     }
 }

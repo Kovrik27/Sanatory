@@ -17,15 +17,14 @@ using System.Windows.Shapes;
 namespace Sanatory.View
 {
     /// <summary>
-    /// Логика взаимодействия для Guests.xaml
+    /// Логика взаимодействия для Schedule.xaml
     /// </summary>
-    public partial class Guests : Page
+    public partial class Schedule : Page
     {
-        public Guests(ViewModel.MainWindowVM MainVM)
+        public Schedule(ViewModel.MainWindowVM MainVM)
         {
             InitializeComponent();
-
-            var vm = DataContext as GuVM;
+            var vm = DataContext as ScVM;
             vm?.SetMainWindowVM(MainVM);
         }
     }

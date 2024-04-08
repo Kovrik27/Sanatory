@@ -1,0 +1,36 @@
+﻿<Page x:Class="Sanatory.View.RegAdd"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Sanatory.View"
+      xmlns:vm="clr-namespace:Sanatory.ViewModel"
+      mc:Ignorable="d"
+      DataContext="{DynamicResource regAddvm}"
+    Title="Добавить номер" Height="450" Width="800">
+
+    <Page.Resources>
+        <vm:RegAddVM x:Key="regAddvm"/>
+    </Page.Resources>
+
+
+    <Grid>
+
+        <StackPanel>
+            <StackPanel DataContext="{Binding Room}">
+                <Label Content="Номер комнаты"/>
+                <TextBox Text="{Binding Number}"/>
+                <Label Content="Тип"/>
+                <TextBox Text="{Binding Type}"/>
+                <Label Content="Цена"/>
+                <TextBox Text="{Binding Price}"/>
+                <Label Content="Статус"/>
+                <TextBox Text="{Binding Status}"/>
+            </StackPanel>
+            <Label Content="Теги"/>
+            <ListBox DisplayMemberPath="Title" ItemsSource="{Binding AllTags}" SelectionMode="Multiple"
+ x:Name="listTags"/>
+            <Button Content="Сохранить" Command="{Binding Save}"/>
+        </StackPanel>
+    </Grid>
+</Page>

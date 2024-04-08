@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sanatory.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace Sanatory.View
     /// </summary>
     public partial class Staff : Page
     {
-        public Staff()
+        public Staff(ViewModel.MainWindowVM MainVM)
         {
             InitializeComponent();
+
+            var vm = DataContext as StVM;
+            vm?.SetMainWindowVM(MainVM);
         }
     }
 }

@@ -16,12 +16,16 @@
     
     <Grid>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
-        
+
+        <Label Content=" "/>
         <ListView Grid.Row="1">
             <ListView.View>
                 <GridView>
@@ -33,12 +37,12 @@
             </ListView.View>
         </ListView>
 
-        <StackPanel Grid.Column="1">
-            <Button Content="Добавить процедуру"/>
-            <Button Content="Изменить процедуру"/>
-            <Button Content="Удалить процедуру"/>
-            <Button Content="Записать гостя на доп.процедуру"/>
-            <Button Content="Записать гостя на первичный осмотр"/>
-        </StackPanel>
+        <Menu Grid.Row="1" Grid.Column="1">
+            <MenuItem Header="Добавить процедуру"/>
+            <MenuItem Header="Изменить процедуру"/>
+            <MenuItem Header="Удалить процедуру"/>
+            <MenuItem Header="Записать гостя на доп.процедуру"/>
+            <MenuItem Header="Записать гостя на первичный осмотр"/>
+        </Menu>
     </Grid>
 </Page>

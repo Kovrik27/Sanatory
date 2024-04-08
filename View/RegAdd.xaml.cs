@@ -13,20 +13,26 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Sanatory.Model;
 
 namespace Sanatory.View
 {
     /// <summary>
-    /// Логика взаимодействия для Guests.xaml
+    /// Логика взаимодействия для RegAdd.xaml
     /// </summary>
-    public partial class Guests : Page
+    public partial class RegAdd : Page
     {
-        public Guests(ViewModel.MainWindowVM MainVM)
+        public RegAdd(ViewModel.MainWindowVM MainVM)
         {
             InitializeComponent();
-
-            var vm = DataContext as GuVM;
-            vm?.SetMainWindowVM(MainVM);
+            var vm = ((RegAddVM)DataContext);
+            vm.SetMainWindowVM(MainVM);
         }
+
+        public RegAdd(MainWindowVM mainVM, Room selectedRoom) : this(mainVM)
+        {
+            ((RegAddVM)DataContext).SetEditRoom(selectedRoom);
+        }
+
     }
 }

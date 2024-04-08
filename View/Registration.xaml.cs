@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sanatory.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,7 @@ namespace Sanatory.View
     /// </summary>
     public partial class Registration : Page
     {
-        public Registration()
+        public Registration(ViewModel.MainWindowVM MainVM)
         {
             InitializeComponent();
             List<string> Tags = new List<string>
@@ -31,7 +32,8 @@ namespace Sanatory.View
 
             Tag.ItemsSource = Tags;
 
-            var vm = DataContext as 
+            var vm = DataContext as RegVM;
+            vm?.SetMainWindowVM(MainVM);
         }
     }
 }

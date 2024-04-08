@@ -17,15 +17,15 @@ using System.Windows.Shapes;
 namespace Sanatory.View
 {
     /// <summary>
-    /// Логика взаимодействия для Guests.xaml
+    /// Логика взаимодействия для Finance.xaml
     /// </summary>
-    public partial class Guests : Page
+    public partial class Finance : Page
     {
-        public Guests(ViewModel.MainWindowVM MainVM)
+        public Finance(ViewModel.MainWindowVM MainVM)
         {
             InitializeComponent();
 
-            var vm = DataContext as GuVM;
+            var vm = DataContext as FinVM;
             vm?.SetMainWindowVM(MainVM);
         }
     }

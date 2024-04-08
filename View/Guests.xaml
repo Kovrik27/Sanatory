@@ -24,11 +24,13 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        <TextBlock Text="Карта гостя"/>
-        <TextBlock Text="Санаторно-курортная книжка" Grid.Column="1"/>
-        <ListView Grid.Row="1">
+
+        <Label Content=" "/>
+        <TextBlock Text="Карта гостя" Grid.Row="1"/>
+        <TextBlock Text="Санаторно-курортная книжка" Grid.Column="1" Grid.Row="1"/>
+        <ListView Grid.Row="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ФИО гостя"/>
@@ -38,7 +40,7 @@
             </ListView.View>
         </ListView>
 
-        <ListView Grid.Row="1" Grid.Column="1">
+        <ListView Grid.Row="2" Grid.Column="1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ФИО гостя"/>
@@ -49,11 +51,11 @@
             </ListView.View>
         </ListView>
 
-        <StackPanel Grid.Row="4" Orientation="Horizontal">
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
             <Button Content="Распечатать" />
         </StackPanel>
 
-        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
             <Button Content="Распечатать" />
         </StackPanel>
 

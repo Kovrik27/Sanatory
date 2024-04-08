@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:Sanatory.ViewModel"
         mc:Ignorable="d"
         DataContext="{DynamicResource vm}"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Минеральные источники" Height="450" Width="800">
 
     <Window.Resources>
         <vm:MainWindowVM x:Key="vm"/>
@@ -15,6 +15,8 @@
     
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -25,14 +27,18 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label Content="Админ" Grid.Column="3" FontSize="24"/>
-        <Frame x:Name="Frame" NavigationUIVisibility="Hidden" Grid.RowSpan="5" Grid.ColumnSpan="3" Background="AliceBlue"/>
-        <Button Content="Бронирование" Grid.Column="3" Grid.Row="1" Click="ButtonBron"/>
-        <Button Content="Персонал" Grid.Column="3" Grid.Row="2" Click="ButtonPersonal"/>
-        <Button Content="Гости" Grid.Column="3" Grid.Row="3" Click="ButtonGosti"/>
-        <Button Content="Процедуры" Grid.Column="3" Grid.Row="4" Click="ButtonProceduri"/>
+
+        <Frame NavigationUIVisibility="Hidden" Grid.RowSpan="7" Grid.ColumnSpan="4" Background="AliceBlue" Content="{Binding CurrentPage}"/>
+        <Menu Grid.ColumnSpan="4">
+            <MenuItem Header="Бронирование" Command="{Binding Bronirovanie}"/>
+            <MenuItem Header="Персонал" Command="{Binding Personal}"/>
+            <MenuItem Header="Гости" Command="{Binding Gosti}"/>
+            <MenuItem Header="Процедуры" Command="{Binding Proceduri}"/>
+            <MenuItem Header="Расписание" Command="{Binding Raspisanie}"/>
+            <MenuItem Header="Финансы" Command="{Binding Finansi}"/>
+        </Menu>
 
     </Grid>
 </Window>
