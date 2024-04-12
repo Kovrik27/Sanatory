@@ -18,7 +18,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -28,22 +28,14 @@
         </Grid.ColumnDefinitions>
 
         <Label Content=" "/>
-        <TextBlock Text="Поиск номера" Grid.Row="1"/>
-        <ComboBox Grid.Row="1" Grid.Column="1" x:Name="Tag">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <CheckBox Content="{Binding Tags}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
 
         <ListView Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Статус"/>
-                    <GridViewColumn Header="Тип"/>
-                    <GridViewColumn Header="Цена"/>
-                    <GridViewColumn Header="Номер комнаты"/>
+                    <GridViewColumn Header="Номер комнаты" DisplayMemberBinding="{Binding Number}"/>
+                    <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding Type}"/>
+                    <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Price}"/>
+                    <GridViewColumn Header="Статус" DisplayMemberBinding="{Binding Status}"/>
                 </GridView>
             </ListView.View>
         </ListView>

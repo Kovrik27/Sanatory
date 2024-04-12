@@ -18,6 +18,7 @@
 
         <StackPanel>
             <StackPanel DataContext="{Binding Room}">
+                <Label Content=" "/>
                 <Label Content="Номер комнаты"/>
                 <TextBox Text="{Binding Number}"/>
                 <Label Content="Тип"/>
@@ -27,9 +28,7 @@
                 <Label Content="Статус"/>
                 <TextBox Text="{Binding Status}"/>
             </StackPanel>
-            <Label Content="Теги"/>
-            <ListBox DisplayMemberPath="Title" ItemsSource="{Binding AllTags}" SelectionMode="Multiple"
- x:Name="listTags"/>
+
             <Button Content="Сохранить" Command="{Binding Save}"/>
         </StackPanel>
     </Grid>

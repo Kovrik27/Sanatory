@@ -17,16 +17,17 @@ using System.Windows.Shapes;
 namespace Sanatory.View
 {
     /// <summary>
-    /// Логика взаимодействия для Registration.xaml
+    /// Логика взаимодействия для Personal.xaml
     /// </summary>
-    public partial class Registration : Page
+    public partial class Personal : Page
     {
-        public Registration(ViewModel.MainWindowVM MainVM)
+        public Personal(ViewModel.MainWindowVM MainVM)
         {
-            InitializeComponent();           
+            InitializeComponent();
 
-            var vm = DataContext as RegVM;
+            var vm = DataContext as StVM;
             vm?.SetMainWindowVM(MainVM);
+
         }
     }
 }

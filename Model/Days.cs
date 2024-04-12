@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Sanatory.Model
 {
-    public class Finance
+    public class Days
     {
-        public int Income { get; set; }
-        public int Expenses { get; set; }
+        public int ID { get; set; }
+
+        public string Day {  get; set; }
     }
 }

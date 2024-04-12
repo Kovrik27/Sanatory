@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
@@ -28,17 +29,20 @@ namespace Sanatory.ViewModel
         }
         public RegAddVM() 
         {
-            //Save = new CommandVM(() => {
-            //    Room.Clear();
 
-            //    if (Room.ID == 0)
-            //        RoomsRepository.Instance.AddRoom(Room);
-            //    else
-            //        RoomsRepository.Instance.UpdateRoom(Room);
+            Save = new CommandVM(() =>
+            {
+
+                if (Room.ID == 0)
+                    RoomsRepository.Instance.AddRoom(Room);
+                else
+                    RoomsRepository.Instance.UpdateRoom(Room);
 
 
-            //});
-            MainVM.CurrentPage = new Registration(MainVM);
+                MainVM.CurrentPage = new Registration(MainVM);
+
+            });
+
         }
 
         internal void SetMainWindowVM(MainWindowVM MainVM)
@@ -49,8 +53,7 @@ namespace Sanatory.ViewModel
         internal void SetEditRoom(Room selectedRoom)
         {
             Room = selectedRoom;
-            //foreach (var tag in Rooms.Tags)
-                //listTags.SelectedItems.Add(tag);
+            
         }
     }
 }

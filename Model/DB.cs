@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySqlConnector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,85 +12,85 @@ namespace Sanatory.Model
     {
 
 
-        //MySqlConnection mySqlConnection;
+        MySqlConnection mySqlConnection;
 
-        //private DB()
-        //{
-        //    MySqlConnectionStringBuilder stringBuilder = new();
-        //    stringBuilder.UserID = "student";
-        //    stringBuilder.Password = "student";
-        //    stringBuilder.Database = "sanatory";
-        //    stringBuilder.Server = "192.168.200.13";
-        //    stringBuilder.CharacterSet = "utf8mb4";
-           
-        //    mySqlConnection = new MySqlConnection(stringBuilder.ToString());
-        //    OpenConnection();
-        //}
+        private DB()
+        {
+            MySqlConnectionStringBuilder stringBuilder = new();
+            stringBuilder.UserID = "student";
+            stringBuilder.Password = "student";
+            stringBuilder.Database = "sanatory";
+            stringBuilder.Server = "192.168.200.13";
+            stringBuilder.CharacterSet = "utf8mb4";
 
-        //private bool OpenConnection()
-        //{
-        //    try
-        //    {
-        //        mySqlConnection.Open();
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        return false;
-        //    }
-        //}
+            mySqlConnection = new MySqlConnection(stringBuilder.ToString());
+            OpenConnection();
+        }
 
-        //public void CloseConnection()
-        //{
-        //    try
-        //    {
-        //        mySqlConnection.Close();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //    }
-        //}
+        private bool OpenConnection()
+        {
+            try
+            {
+                mySqlConnection.Open();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
 
-        //internal MySqlConnection GetConnection()
-        //{
-        //    if (mySqlConnection.State != System.Data.ConnectionState.Open)
-        //        if (!OpenConnection())
-        //            return null;
+        public void CloseConnection()
+        {
+            try
+            {
+                mySqlConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
-        //    return mySqlConnection;
-        //}
+        internal MySqlConnection GetConnection()
+        {
+            if (mySqlConnection.State != System.Data.ConnectionState.Open)
+                if (!OpenConnection())
+                    return null;
 
-        //static DB instance;
-        //public static DB Instance
-        //{
-        //    get
-        //    {
-        //        if (instance == null)
-        //            instance = new DB();
-        //        return instance;
-        //    }
-        //}
+            return mySqlConnection;
+        }
 
-        //public int GetAutoID(string table)
-        //{
-        //    try
-        //    {
-        //        string sql = "SHOW TABLE STATUS WHERE `Name` = '" + table + "'";
-        //        using (var mc = new MySqlCommand(sql, mySqlConnection))
-        //        using (var reader = mc.ExecuteReader())
-        //        {
-        //            if (reader.Read())
-        //                return reader.GetInt32("Auto_increment");
-        //        }
-        //        return -1;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        return -1;
-        //    }
-        //}
+        static DB instance;
+        public static DB Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new DB();
+                return instance;
+            }
+        }
+
+        public int GetAutoID(string table)
+        {
+            try
+            {
+                string sql = "SHOW TABLE STATUS WHERE `Name` = '" + table + "'";
+                using (var mc = new MySqlCommand(sql, mySqlConnection))
+                using (var reader = mc.ExecuteReader())
+                {
+                    if (reader.Read())
+                        return reader.GetInt32("Auto_increment");
+                }
+                return -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return -1;
+            }
+        }
     }   
 }

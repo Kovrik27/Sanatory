@@ -72,7 +72,7 @@ namespace Sanatory.ViewModel
 
         private void OpenPersonal()
         {
-            CurrentPage = new Staff(this);
+            CurrentPage = new Personal(this);
         }
 
         private void OpenGosti()
