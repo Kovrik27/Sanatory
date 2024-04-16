@@ -8,7 +8,7 @@ namespace Sanatory.Model
 {
     public class Cabinets
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
         public string Type { get; set; }
         public int Number {  get; set; }
     }

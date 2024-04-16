@@ -37,22 +37,30 @@
         <TextBlock Text="Список задач для тех.персонала" Grid.Row="3" Grid.Column="1"/>
         <TextBlock Text="Список врачей" Grid.Row="3" Grid.Column="2"/>
         <TextBlock Text="Список свободных кабинетов" Grid.Row="3" Grid.Column="3"/>
-        <ListView Grid.Row="4">
+        <ListView Grid.Row="4" ItemsSource="{Binding Staff}" SelectedItem="{Binding SelectedStaff}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ФИО"/>
-                    <GridViewColumn Header="Должность"/>
-                    <GridViewColumn Header="Телефон"/>
-                    <GridViewColumn Header="Почта"/>
-                    <GridViewColumn Header="График работы"/>
+                    <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding Lastname}"/>
+                    <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding Surname}"/>
+                    <GridViewColumn Header="Должность" DisplayMemberBinding="{Binding JobTitle}"/>
+                    <GridViewColumn Header="Телефон" DisplayMemberBinding="{Binding Phone}"/>
+                    <GridViewColumn Header="Почта" DisplayMemberBinding="{Binding Mail}"/>
+                    <GridViewColumn Header="График работы">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ItemsControl ItemsSource="{Binding Days}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView Grid.Row="4" Grid.Column="1">
+        <ListView Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Problems}" SelectedItem="{Binding SelectedProblem}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Описание"/>
-                    <GridViewColumn Header="Местоположение"/>
+                    <GridViewColumn Header="Описание" DisplayMemberBinding="{Binding Description}" />
+                    <GridViewColumn Header="Местоположение" DisplayMemberBinding="{Binding Place}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -75,11 +83,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView Grid.Row="4" Grid.Column="3">
+        <ListView Grid.Row="4" Grid.Column="3" ItemsSource="{Binding Cabinets}" SelectedItem="{Binding SelectedCabinets}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Номер"/>
-                    <GridViewColumn Header="Тип"/>
+                    <GridViewColumn Header="Номер" DisplayMemberBinding="{Binding Number}"/>
+                    <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding Type}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -97,9 +105,9 @@
         </Menu>
 
         <Menu Grid.Row="5" Grid.Column="1">
-            <MenuItem Header="Добавить задачу"/>
-            <MenuItem Header="Изменить задачу"/>
-            <MenuItem Header="Удалить задачу"/>
+            <MenuItem Header="Добавить задачу" Command="{Binding CreateProblem}"/>
+            <MenuItem Header="Изменить задачу" Command="{Binding EditProblem}"/>
+            <MenuItem Header="Удалить задачу" Command="{Binding DeleteProblem}"/>
         </Menu>
 
         <Menu Grid.Row="5" Grid.Column="2">
@@ -107,9 +115,9 @@
         </Menu>
 
         <Menu Grid.Row="5" Grid.Column="3">
-            <MenuItem Header="Добавить кабинет"/>
-            <MenuItem Header="Изменить данные кабинета"/>
-            <MenuItem Header="Удалить кабинет"/>
+            <MenuItem Header="Добавить кабинет" Command="{Binding CreateCabinets}"/>
+            <MenuItem Header="Изменить данные кабинета" Command="{Binding UpdateCabinets}"/>
+            <MenuItem Header="Удалить кабинет" Command="{Binding DeleteCabinets}"/>
         </Menu>
     </Grid>
 </Page>
