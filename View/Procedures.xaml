@@ -6,12 +6,12 @@
       xmlns:local="clr-namespace:Sanatory.View"
       xmlns:vm="clr-namespace:Sanatory.ViewModel"
       mc:Ignorable="d" 
-      DataContext="{DynamicResource proVM}"
+      DataContext="{DynamicResource prcVM}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Procedures">
 
     <Page.Resources>
-        <vm:ProVM x:Key="proVM"/>
+        <vm:PrcVM x:Key="prcVM"/>
     </Page.Resources>
     
     <Grid>
@@ -26,21 +26,21 @@
         </Grid.ColumnDefinitions>
 
         <Label Content=" "/>
-        <ListView Grid.Row="1">
+        <ListView Grid.Row="1" ItemsSource="{Binding Procedures}" SelectedItem="{Binding SelectedProcedure}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Название процедуры"/>
-                    <GridViewColumn Header="Описание"/>
-                    <GridViewColumn Header="Длительность"/>
-                    <GridViewColumn Header="Стоимость"/>
+                    <GridViewColumn Header="Название процедуры" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="Описание" DisplayMemberBinding="{Binding Description}"/>
+                    <GridViewColumn Header="Длительность" DisplayMemberBinding="{Binding Duration}"/>
+                    <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Price}"/>
                 </GridView>
             </ListView.View>
         </ListView>
 
         <Menu Grid.Row="1" Grid.Column="1">
-            <MenuItem Header="Добавить процедуру"/>
-            <MenuItem Header="Изменить процедуру"/>
-            <MenuItem Header="Удалить процедуру"/>
+            <MenuItem Header="Добавить процедуру" Command="{Binding CreateProcedure}"/>
+            <MenuItem Header="Изменить процедуру" Command="{Binding EditProcedure}"/>
+            <MenuItem Header="Удалить процедуру" Command="{Binding DeleteProcedure}"/>
             <MenuItem Header="Записать гостя на доп.процедуру"/>
             <MenuItem Header="Записать гостя на первичный осмотр"/>
         </Menu>

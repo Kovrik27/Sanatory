@@ -38,16 +38,13 @@ namespace Sanatory.ViewModel
                     ProblemRepository.Instance.UpdateProblem(Problem);
 
 
-                MainVM.CurrentPage = new Personal(MainVM);
+                MainWindowVM.Instance.CurrentPage = new Personal();
 
             });
 
         }
 
-        internal void SetMainWindowVM(MainWindowVM MainVM)
-        {
-            this.MainVM = MainVM;
-        }
+        
 
         internal void SetEditProblem(Problem selectedProblem)
         {

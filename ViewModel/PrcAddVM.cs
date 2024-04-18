@@ -8,35 +8,35 @@ using System.Threading.Tasks;
 
 namespace Sanatory.ViewModel
 {
-    public class CbAddVM : BaseVM
+    public class PrcAddVM : BaseVM
     {
         MainWindowVM MainVM;
         public CommandVM Save { get; set; }
 
-        private Cabinet cabinets = new();
+        private Procedure procedure = new();
 
-        public Cabinet Cabinets
+        public Procedure Procedure
         {
-            get => cabinets;
+            get => procedure;
             set
             {
-                cabinets = value;
+                procedure = value;
                 Signal();
             }
         }
-        public CbAddVM()
+        public PrcAddVM()
         {
 
             Save = new CommandVM(() =>
             {
 
-                if (Cabinets.ID == 0)
-                    CabinetsRepository.Instance.AddCabinets(Cabinets);
+                if (Procedure.ID == 0)
+                    ProceduresRepository.Instance.AddProcedures(Procedure);
                 else
-                    CabinetsRepository.Instance.UpdateCabinets(Cabinets);
+                    ProceduresRepository.Instance.UpdateProcedures(Procedure);
 
 
-                MainWindowVM.Instance.CurrentPage = new CbAdd();
+                MainVM.CurrentPage = new Procedures(MainVM);
 
             });
 
@@ -47,9 +47,9 @@ namespace Sanatory.ViewModel
             this.MainVM = MainVM;
         }
 
-        internal void SetEditCabinets(Cabinet selectedCabinets)
+        internal void SetEditProcedures(Procedure selectedProcedure)
         {
-            Cabinets = selectedCabinets;
+            Procedure = selectedProcedure;
 
         }
     }

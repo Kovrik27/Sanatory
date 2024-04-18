@@ -12,7 +12,7 @@ namespace Sanatory.ViewModel
 {
     public class CbVM : BaseVM
     {
-        private ObservableCollection<Cabinets> cabinets;
+        private ObservableCollection<Cabinet> cabinets;
 
         private MainWindowVM MainVM;
         public CommandVM CreateCabinets { get; set; }
@@ -20,8 +20,8 @@ namespace Sanatory.ViewModel
         public CommandVM DeleteCabinets { get; set; }
 
 
-        public Cabinets SelectedCabinets { get; set; }
-        public ObservableCollection<Cabinets> Cabinets
+        public Cabinet SelectedCabinets { get; set; }
+        public ObservableCollection<Cabinet> Cabinets
         {
             get => cabinets;
             set
@@ -33,21 +33,22 @@ namespace Sanatory.ViewModel
 
         public CbVM()
         {
+            MainVM = MainWindowVM.Instance;
             string sql = "SELECT * FROM Cabinet";
 
-            Cabinets = new ObservableCollection<Cabinets>(CabinetsRepository.Instance.GetAllCabinets(sql));
+            Cabinets = new ObservableCollection<Cabinet>(CabinetsRepository.Instance.GetAllCabinets(sql));
 
 
 
             CreateCabinets = new CommandVM(() =>
             {
-                MainVM.CurrentPage = new CbAdd(MainVM);
+                MainWindowVM.Instance.CurrentPage = new CbAdd();
             });
 
             EditCabinets = new CommandVM(() => {
                 if (SelectedCabinets == null)
                     return;
-                MainVM.CurrentPage = new CbAdd(MainVM, SelectedCabinets);
+                MainWindowVM.Instance.CurrentPage = new CbAdd(SelectedCabinets);
             });
 
             DeleteCabinets = new CommandVM(() =>

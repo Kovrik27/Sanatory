@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Sanatory.Model
 {
-    public class Procedures
+    public class Procedure
     {
-        public int Id {  get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public int ID {  get; set; }
+        public string Title { get; set; } 
+        public string Description { get; set; } 
         public int Duration { get; set; }
-        public decimal Price { get; set; }
+        public double Price { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace Sanatory.ViewModel
 
         public Staff SelectedStaff { get; set; }
         private Days selectedDays;
-        public ObservableCollection<Days> Days { get; set; }
+        public ObservableCollection<Days> AllDays { get; set; }
 
         public ObservableCollection<Staff> Staffs
         {
@@ -49,12 +49,14 @@ namespace Sanatory.ViewModel
 
         public StVM()
         {
-            string sql = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS IDD, d.Day AS DayD FROM CrossDaysStaff cds, Staff s, Days d WHERE cds.StaffID = s.id AND cds.DaysID = d.id";
+            MainVM = MainWindowVM.Instance;
+
+            string sql = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS IDD, d.Day AS DayD FROM CrossDaysStaff cds, Staff s, Days d WHERE cds.StaffID = s.ID AND cds.DaysID = d.ID";
 
             Staffs = new ObservableCollection<Staff>(StaffRepository.Instance.GetAllStaff(sql));
-            Days = new ObservableCollection<Days> (DaysRepository.Instance.GetDays());
-            Days.Insert(0, new Days { ID = 0 });
-            SelectedDays = Days[0];
+            AllDays = new ObservableCollection<Days> (DaysRepository.Instance.GetDays());
+            AllDays.Insert(0, new Days { ID = 0 });
+            SelectedDays = AllDays[0];
 
 
             CreateStaff = new CommandVM(() =>
@@ -81,15 +83,6 @@ namespace Sanatory.ViewModel
 
             });
         }
-
-
-
-
-        internal void SetMainWindowVM(MainWindowVM MainVM)
-        {
-            this.MainVM = MainVM;
-        }
-
 
     }
 }

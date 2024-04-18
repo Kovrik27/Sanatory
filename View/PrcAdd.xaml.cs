@@ -1,4 +1,5 @@
-﻿using Sanatory.ViewModel;
+﻿using Sanatory.Model;
+using Sanatory.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,20 @@ using System.Windows.Shapes;
 namespace Sanatory.View
 {
     /// <summary>
-    /// Логика взаимодействия для Personal.xaml
+    /// Логика взаимодействия для PrcAdd.xaml
     /// </summary>
-    public partial class Personal : Page
+    public partial class PrcAdd : Page
     {
-        public Personal()
+        public PrcAdd(ViewModel.MainWindowVM MainVM)
         {
             InitializeComponent();
+            var vm = ((PrcAddVM)DataContext);
+            vm.SetMainWindowVM(MainVM);
+        }
 
+        public PrcAdd(MainWindowVM mainVM, Procedure selectedProcedure) : this(mainVM)
+        {
+            ((PrcAddVM)DataContext).SetEditProcedures(selectedProcedure);
         }
     }
 }

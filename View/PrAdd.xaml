@@ -11,13 +11,13 @@
       Title="PrAdd">
 
     <Page.Resources>
-        <vm:PrAddVM x:Key="tsAddVM"/>
+        <vm:PrAddVM x:Key="prAddVM"/>
     </Page.Resources>
     
     <Grid>
         
         <StackPanel>
-            <StackPanel DataContext="{Binding Task}">
+            <StackPanel DataContext="{Binding Problem}">
                 <Label Content=" "/>
                 <Label Content="Описание задачи"/>
                 <TextBox Text="{Binding Description}"/>

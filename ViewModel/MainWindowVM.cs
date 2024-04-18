@@ -11,6 +11,8 @@ namespace Sanatory.ViewModel
 {
     public class MainWindowVM : BaseVM
     {
+        public static MainWindowVM Instance { get; private set; }
+
         private Page currentPage;
 
         public Page CurrentPage
@@ -32,11 +34,13 @@ namespace Sanatory.ViewModel
 
         public MainWindowVM()
         {
+            Instance = this;
             Bronirovanie = new CommandVM(() =>
             {
                 OpenBronirovanie();
             });
             OpenBronirovanie();
+
 
             Personal = new CommandVM(() =>
             {
@@ -72,7 +76,7 @@ namespace Sanatory.ViewModel
 
         private void OpenPersonal()
         {
-            CurrentPage = new Personal(this);
+            CurrentPage = new Personal();
         }
 
         private void OpenGosti()

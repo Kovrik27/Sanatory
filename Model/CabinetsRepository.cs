@@ -25,23 +25,23 @@ namespace Sanatory.Model
             }
         }
 
-        internal IEnumerable<Cabinets> GetAllCabinets(string sql)
+        internal IEnumerable<Cabinet> GetAllCabinets(string sql)
         {
-            var result = new List<Cabinets>();
+            var result = new List<Cabinet>();
             var connect = DB.Instance.GetConnection();
             if (connect == null)
                 return result;
             using (var mc = new MySqlCommand(sql, connect))
             using (var reader = mc.ExecuteReader())
             {
-                Cabinets cabinets = new Cabinets();
+                Cabinet cabinets = new Cabinet();
                 int id;
                 while (reader.Read())
                 {
                     id = reader.GetInt32("ID");
                     if (cabinets.ID != id)
                     {
-                        cabinets = new Cabinets();
+                        cabinets = new Cabinet();
                         result.Add(cabinets);
                         cabinets.ID = id;
                         cabinets.Number = reader.GetInt32("Number");
@@ -54,7 +54,7 @@ namespace Sanatory.Model
             return result;
         }
 
-        internal void AddCabinets(Cabinets cabinets)
+        internal void AddCabinets(Cabinet cabinets)
         {
             var connect = DB.Instance.GetConnection();
             if (connect == null)
@@ -73,7 +73,7 @@ namespace Sanatory.Model
 
         }
 
-        internal void Remove(Cabinets cabinets)
+        internal void Remove(Cabinet cabinets)
         {
             var connect = DB.Instance.GetConnection();
             if (connect == null)
@@ -86,7 +86,7 @@ namespace Sanatory.Model
         }
 
 
-        internal void UpdateCabinets(Cabinets cabinets)
+        internal void UpdateCabinets(Cabinet cabinets)
         {
             var connect = DB.Instance.GetConnection();
             if (connect == null)

@@ -33,6 +33,7 @@ namespace Sanatory.ViewModel
 
         public PrVM()
         {
+            MainVM = MainWindowVM.Instance;
             string sql = "SELECT * FROM Problem";
 
             Problems = new ObservableCollection<Problem>(ProblemRepository.Instance.GetAllProblem(sql));
@@ -41,13 +42,13 @@ namespace Sanatory.ViewModel
 
             CreateProblem = new CommandVM(() =>
             {
-                MainVM.CurrentPage = new PrAdd(MainVM);
+                MainWindowVM.Instance.CurrentPage = new PrAdd();
             });
 
             EditProblem = new CommandVM(() => {
                 if (SelectedProblem == null)
                     return;
-                MainVM.CurrentPage = new PrAdd(MainVM, SelectedProblem);
+                MainWindowVM.Instance.CurrentPage = new PrAdd(SelectedProblem);
             });
 
             DeleteProblem = new CommandVM(() =>
@@ -65,12 +66,6 @@ namespace Sanatory.ViewModel
 
 
 
-        }
-
-
-        internal void SetMainWindowVM(MainWindowVM MainVM)
-        {
-            this.MainVM = MainVM;
         }
 
 

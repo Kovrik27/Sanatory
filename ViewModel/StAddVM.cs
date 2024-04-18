@@ -17,7 +17,7 @@ namespace Sanatory.ViewModel
         MainWindowVM MainVM;
         public CommandVM Save { get; set; }
         ListBox ListDays;
-        public List<Days> Days {  get; set; }
+        public List<Days> AllDays {  get; set; }
 
         private Staff staff = new();
 
@@ -32,7 +32,7 @@ namespace Sanatory.ViewModel
         }
         public StAddVM()
         {
-            Days = DaysRepository.Instance.GetDays();
+            AllDays = DaysRepository.Instance.GetDays();
 
 
             Save = new CommandVM(() =>
@@ -48,7 +48,7 @@ namespace Sanatory.ViewModel
                     StaffRepository.Instance.UpdateStaff(Staff);
 
 
-                MainVM.CurrentPage = new Personal(MainVM);
+                MainWindowVM.Instance.CurrentPage = new Personal();
 
             });
 

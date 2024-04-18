@@ -22,14 +22,13 @@ namespace Sanatory.View
     /// </summary>
     public partial class PrAdd : Page
     {
-        public PrAdd(ViewModel.MainWindowVM MainVM)
+        public PrAdd()
         {
             InitializeComponent();
-            var vm = ((PrAddVM)DataContext);
-            vm.SetMainWindowVM(MainVM);
+
         }
 
-        public PrAdd(MainWindowVM mainVM, Problem selectedProblem) : this(mainVM)
+        public PrAdd(Problem selectedProblem)
         {
             ((PrAddVM)DataContext).SetEditProblem(selectedProblem);
         }

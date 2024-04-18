@@ -25,7 +25,7 @@ namespace Sanatory.View
         {
             InitializeComponent();
 
-            var vm = DataContext as ProVM;
+            var vm = DataContext as PrcVM;
             vm?.SetMainWindowVM(MainVM);
         }
     }

@@ -67,7 +67,6 @@ namespace Sanatory.Model
             {
                 mc.Parameters.Add(new MySqlParameter("description", problem.Description));
                 mc.Parameters.Add(new MySqlParameter("place", problem.Place));
-
                 mc.ExecuteNonQuery();
               
             }
@@ -94,7 +93,7 @@ namespace Sanatory.Model
                 return;
 
 
-            string sql = "DELETE FROM Problem WHERE TaskID  = '" + problem.ID + "';";
+            string sql = "DELETE FROM Problem WHERE ProblemID  = '" + problem.ID + "';";
             using (var mc = new MySqlCommand(sql, connect))
                 mc.ExecuteNonQuery();
 

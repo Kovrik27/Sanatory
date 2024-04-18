@@ -22,14 +22,12 @@ namespace Sanatory.View
     /// </summary>
     public partial class CbAdd : Page
     {
-        public CbAdd(ViewModel.MainWindowVM MainVM)
+        public CbAdd()
         {
             InitializeComponent();
-            var vm = ((CbAddVM)DataContext);
-            vm.SetMainWindowVM(MainVM);
         }
 
-        public CbAdd(MainWindowVM mainVM, Cabinets selectedCabinets) : this(mainVM)
+        public CbAdd(Cabinet selectedCabinets)
         {
             ((CbAddVM)DataContext).SetEditCabinets(selectedCabinets);
         }

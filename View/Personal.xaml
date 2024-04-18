@@ -6,13 +6,15 @@
       xmlns:local="clr-namespace:Sanatory.View"
       xmlns:vm="clr-namespace:Sanatory.ViewModel"
       mc:Ignorable="d"
-      DataContext="{DynamicResource stVM}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Staff">
 
     <Page.Resources>
         <vm:StVM x:Key="stVM"/>
+        <vm:PrVM x:Key="prVM"/>
+        <vm:CbVM x:Key="cbVM"/>
     </Page.Resources>
+
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -37,7 +39,7 @@
         <TextBlock Text="Список задач для тех.персонала" Grid.Row="3" Grid.Column="1"/>
         <TextBlock Text="Список врачей" Grid.Row="3" Grid.Column="2"/>
         <TextBlock Text="Список свободных кабинетов" Grid.Row="3" Grid.Column="3"/>
-        <ListView Grid.Row="4" ItemsSource="{Binding Staff}" SelectedItem="{Binding SelectedStaff}">
+        <ListView Grid.Row="4" ItemsSource="{Binding Staffs}" SelectedItem="{Binding SelectedStaff}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding Lastname}"/>
@@ -64,22 +66,16 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView Grid.Row="4" Grid.Column="2" ItemsSource="{Binding Staffs}" SelectedItem="{Binding SelectedStaff}">
+        <ListView Grid.Row="4" Grid.Column="2">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding Lastname}"/>
-                    <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding Surname}"/>
-                    <GridViewColumn Header="Должность" DisplayMemberBinding="{Binding JobTitle}"/>
-                    <GridViewColumn Header="Телефон" DisplayMemberBinding="{Binding Phone}"/>
-                    <GridViewColumn Header="Почта" DisplayMemberBinding="{Binding Mail}"/>
-                    <GridViewColumn Header="График работы">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <ItemsControl ItemsSource="{Binding Days}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    <GridViewColumn Header="Фамилия"/>
+                    <GridViewColumn Header="Имя"/>
+                    <GridViewColumn Header="Отчество" />
+                    <GridViewColumn Header="Должность" />
+                    <GridViewColumn Header="Телефон" />
+                    <GridViewColumn Header="Почта" />
+                    <GridViewColumn Header="График работы"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -92,32 +88,42 @@
             </ListView.View>
         </ListView>
 
-        <Menu Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
-            <MenuItem Header="Добавить сотрудника" Command="{Binding CreateStaff}"/>
-            <MenuItem Header="Изменить данные" Command="{Binding EditStaff}"/>
-            <MenuItem Header="Удалить сотрудника" Command="{Binding DeleteStaff}"/>
-            <TextBlock Text="Дни недели"/>
-            <ComboBox DisplayMemberPath="Список" SelectedItem="{Binding SelectedDay}" ItemsSource="{Binding Days}"/>
-        </Menu>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" DataContext="{DynamicResource stVM}">
+            <Menu>
+                <MenuItem Header="Добавить сотрудника" Command="{Binding CreateStaff}"/>
+                <MenuItem Header="Изменить данные" Command="{Binding EditStaff}"/>
+                <MenuItem Header="Удалить сотрудника" Command="{Binding DeleteStaff}"/>
+                <TextBlock Text="Дни недели"/>
+                <ComboBox SelectedItem="{Binding SelectedDay}" ItemsSource="{Binding AllDays}" DisplayMemberPath="Day"/>
+            </Menu>
+        </StackPanel>
 
         <Menu Grid.Row="5">
             <MenuItem Header="Назначить задачу"/>
         </Menu>
 
-        <Menu Grid.Row="5" Grid.Column="1">
-            <MenuItem Header="Добавить задачу" Command="{Binding CreateProblem}"/>
-            <MenuItem Header="Изменить задачу" Command="{Binding EditProblem}"/>
-            <MenuItem Header="Удалить задачу" Command="{Binding DeleteProblem}"/>
-        </Menu>
+        <StackPanel Grid.Row="5" Grid.Column="1" DataContext="{DynamicResource prVM}">
+            <Menu>
+                <MenuItem Header="Добавить задачу" Command="{Binding CreateProblem}"/>
+                <MenuItem Header="Изменить задачу" Command="{Binding EditProblem}"/>
+                <MenuItem Header="Удалить задачу" Command="{Binding DeleteProblem}"/>
+            </Menu>
+        </StackPanel>
 
         <Menu Grid.Row="5" Grid.Column="2">
             <MenuItem Header="Назначить кабинет"/>
         </Menu>
 
-        <Menu Grid.Row="5" Grid.Column="3">
-            <MenuItem Header="Добавить кабинет" Command="{Binding CreateCabinets}"/>
-            <MenuItem Header="Изменить данные кабинета" Command="{Binding UpdateCabinets}"/>
-            <MenuItem Header="Удалить кабинет" Command="{Binding DeleteCabinets}"/>
-        </Menu>
+        <StackPanel Grid.Row="5" Grid.Column="3" DataContext="{DynamicResource cbVM}">
+            <Menu >
+                <MenuItem Header="Добавить кабинет" Command="{Binding CreateCabinets}"/>
+                <MenuItem Header="Изменить данные кабинета" Command="{Binding UpdateCabinets}"/>
+                <MenuItem Header="Удалить кабинет" Command="{Binding DeleteCabinets}"/>
+            </Menu>
+
+        </StackPanel>
+
+
     </Grid>
 </Page>

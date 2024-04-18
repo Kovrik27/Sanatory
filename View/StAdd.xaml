@@ -20,23 +20,26 @@
         <StackPanel>
             <StackPanel DataContext="{Binding Staff}">
                 <Label Content=" "/>
+                <Label Content="Фамилия сотрудника"/>
+                <TextBox Text="{Binding Lastname}"/>
                 <Label Content="Имя сотрудника"/>
                 <TextBox Text="{Binding Name}"/>
                 <Label Content="Отчество сотрудника"/>
                 <TextBox Text="{Binding Surname}"/>
-                <Label Content="Фамилия сотрудника"/>
-                <TextBox Text="{Binding Lastname}"/>
                 <Label Content="Должность"/>
                 <TextBox Text="{Binding JobTitle}"/>
                 <Label Content="Номер"/>
                 <TextBox Text="{Binding Phone}"/>
                 <Label Content="Почта"/>
                 <TextBox Text="{Binding Mail}"/>
-                <Label Content="График работы"/>
-                <ListBox DisplayMemberPath="Title" ItemsSource="{Binding Days}" SelectionMode="Multiple" x:Name="ListDays"/>
             </StackPanel>
+            <Label Content="График работы"/>
+            
+                <ListBox DisplayMemberPath="Day" ItemsSource="{Binding AllDays}" SelectionMode="Multiple" x:Name="ListDays"/>
+            
+                
 
-            <Button Content="Сохранить" Command="{Binding Save}"/>
+                <Button Content="Сохранить" Command="{Binding Save}"/>
         </StackPanel>
     </Grid>
 </Page>

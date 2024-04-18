@@ -45,16 +45,16 @@ namespace Sanatory.Model
                         staff = new Staff();
                         result.Add(staff);
                         staff.ID = id;
-                        staff.Name = reader.GetString("Name");
-                        staff.Surname = reader.GetString("Surname");
                         staff.Lastname = reader.GetString("Lastname");
+                        staff.Name = reader.GetString("Name");
+                        staff.Surname = reader.GetString("Surname");                     
                         staff.JobTitle = reader.GetString("JobTitle");
                         staff.Phone = reader.GetString("Phone");
                         staff.Mail = reader.GetString("Mail");
                     }
                     Days days = new Days
                     {
-                        ID = reader.GetInt32("IID"),
+                        ID = reader.GetInt32("IDD"),
                         Day = reader.GetString("DayD"),
                     };
                     staff.Days.Add(days);
@@ -72,20 +72,20 @@ namespace Sanatory.Model
 
             int id = DB.Instance.GetAutoID("Staff");
 
-            string sql = "INSERT INTO Staff VALUES (0, @name, @surname, @lastname, @jobtitle, @phone, @mail)";
+            string sql = "INSERT INTO Staff VALUES (0, @lastname, @name, @surname, @jobtitle, @phone, @mail)";
             using (var mc = new MySqlCommand(sql, connect))
             {
-                mc.Parameters.Add(new MySqlParameter("name", staff.Name));
-                mc.Parameters.Add(new MySqlParameter("surname", staff.Surname));
                 mc.Parameters.Add(new MySqlParameter("lastname", staff.Lastname));
+                mc.Parameters.Add(new MySqlParameter("name", staff.Name));
+                mc.Parameters.Add(new MySqlParameter("surname", staff.Surname));              
                 mc.Parameters.Add(new MySqlParameter("jobtitle", staff.JobTitle));
                 mc.Parameters.Add(new MySqlParameter("phone", staff.Phone));
                 mc.Parameters.Add(new MySqlParameter("mail", staff.Mail));
                 if (mc.ExecuteNonQuery() > 0)
                 {
-                    sql = " ";
+                    sql = "";
                     foreach (var days in staff.Days)
-                        sql += "INSERT INTO CrossDaysStaff VALUES (" + id + "," + days.ID + ");";
+                        sql += "INSERT INTO CrossDaysStaff VALUES ("+ id +","+days.ID+");";
                     using (var mcCross = new MySqlCommand(sql, connect))
                         mcCross.ExecuteNonQueryAsync();
 
@@ -130,9 +130,9 @@ namespace Sanatory.Model
             sql = "UPDATE Staff SET Name = @name, Surname = @surname, Lastname = @lastname, JobTitle = @jobtitle, Phone = @phone, Mail = @mail WHERE ID = " + staff.ID;
             using (var mc = new MySqlCommand(sql, connect))
             {
+                mc.Parameters.Add(new MySqlParameter("lastname", staff.Lastname));
                 mc.Parameters.Add(new MySqlParameter("name", staff.Name));
                 mc.Parameters.Add(new MySqlParameter("surname", staff.Surname));
-                mc.Parameters.Add(new MySqlParameter("lastname", staff.Lastname));
                 mc.Parameters.Add(new MySqlParameter("jobtitle", staff.JobTitle));
                 mc.Parameters.Add(new MySqlParameter("phone", staff.Phone));
                 mc.Parameters.Add(new MySqlParameter("mail", staff.Mail));
