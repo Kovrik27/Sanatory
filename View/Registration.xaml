@@ -29,21 +29,37 @@
 
         <Label Content=" "/>
 
-        <ListView Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Номер комнаты" DisplayMemberBinding="{Binding Number}"/>
-                    <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding Type}"/>
-                    <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Price}"/>
-                    <GridViewColumn Header="Статус" DisplayMemberBinding="{Binding Status}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="3">
+
+            <ListView x:Name="Rm" ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}" SelectionChanged="ButtonVis">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Номер комнаты" DisplayMemberBinding="{Binding Number}"/>
+                        <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding Type}"/>
+                        <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Price}"/>
+                        <GridViewColumn Header="Статус" DisplayMemberBinding="{Binding Status}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+
         <Menu Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right">
                 <MenuItem Header="Добавить номер" Command="{Binding CreateRoom}"/>
                 <MenuItem Header="Изменить номер" Command="{Binding EditRoom}"/>
                 <MenuItem Header="Удалить номер" Command="{Binding DeleteRoom}"/>
             </Menu>
+
+        <Button x:Name="Bronirovanie" Grid.Row="3" Grid.Column="3" Content="Заселить гостя в номер" Visibility="Hidden" Click="Broni">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=Rm, Path=SelectedItem}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
 
     </Grid>
 </Page>

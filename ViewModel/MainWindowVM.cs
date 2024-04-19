@@ -81,7 +81,7 @@ namespace Sanatory.ViewModel
 
         private void OpenGosti()
         {
-            CurrentPage = new Guests(this);
+            CurrentPage = new Guests();
         }
 
         private void OpenProceduri()

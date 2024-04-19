@@ -1,4 +1,5 @@
-﻿using Sanatory.ViewModel;
+﻿using Sanatory.Model;
+using Sanatory.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,20 @@ namespace Sanatory.View
 
             var vm = DataContext as RegVM;
             vm?.SetMainWindowVM(MainVM);
+        }
+
+        private void ButtonVis (object sender, SelectionChangedEventArgs e)
+        {
+            if (Rm.SelectedItem != null)            
+                Bronirovanie.Visibility = Visibility.Visible;           
+            else            
+                Bronirovanie.Visibility = Visibility.Hidden;
+            
+        }
+
+        private void Broni(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Гость заселён");
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Sanatory.Model;
+using Sanatory.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,18 +12,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Sanatory.View
 {
     /// <summary>
-    /// Логика взаимодействия для GuestsAdd.xaml
+    /// Логика взаимодействия для GuAdd.xaml
     /// </summary>
-    public partial class GuestsAdd : Window
+    public partial class GuAdd : Page
     {
-        public GuestsAdd()
+        public GuAdd()
         {
             InitializeComponent();
+        }
+
+        public GuAdd(Guest selectedGuest)
+        {
+            ((GuAddVM)DataContext).SetEditGuest(selectedGuest);
         }
     }
 }

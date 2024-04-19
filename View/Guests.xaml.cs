@@ -21,12 +21,10 @@ namespace Sanatory.View
     /// </summary>
     public partial class Guests : Page
     {
-        public Guests(ViewModel.MainWindowVM MainVM)
+        public Guests()
         {
             InitializeComponent();
-
-            var vm = DataContext as GuVM;
-            vm?.SetMainWindowVM(MainVM);
+            
         }
     }
 }

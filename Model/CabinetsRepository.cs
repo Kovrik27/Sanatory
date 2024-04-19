@@ -44,7 +44,7 @@ namespace Sanatory.Model
                         cabinets = new Cabinet();
                         result.Add(cabinets);
                         cabinets.ID = id;
-                        cabinets.Number = reader.GetInt32("Number");
+                        cabinets.Number = reader.GetInt32("CabinetsNumber");
                         cabinets.Type = reader.GetString("Type");
 
                     }

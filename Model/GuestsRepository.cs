@@ -1,0 +1,118 @@
+﻿using MySqlConnector;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Sanatory.Model
+{
+    public class GuestsRepository
+    {
+        private GuestsRepository()
+        {
+
+        }
+
+        static GuestsRepository instance;
+        public static GuestsRepository Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new GuestsRepository();
+                return instance;
+            }
+        }
+
+        internal IEnumerable<Guest> GetAllGuests(string sql)
+        {
+            var result = new List<Guest>();
+            var connect = DB.Instance.GetConnection();
+            if (connect == null)
+                return result;
+            using (var mc = new MySqlCommand(sql, connect))
+            using (var reader = mc.ExecuteReader())
+            {
+                Guest guests = new Guest();
+                int id;
+                while (reader.Read())
+                {
+                    id = reader.GetInt32("ID");
+                    if (guests.ID != id)
+                    {
+                        guests = new Guest();
+                        result.Add(guests);
+                        guests.ID = id;
+                        guests.Name = reader.GetString("Name");
+                        guests.Surname = reader.GetString("Surname");
+                        guests.Lastname = reader.GetString("Lastname");
+                        guests.Pasport = reader.GetString("Pasport");
+                        guests.Policy = reader.GetString("Policy");
+                        guests.DataArrival = reader.GetDateOnly("DataArrival");
+                        guests.DataOfDeparture = reader.GetDateOnly("DataOfDeparture");
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        internal void AddGuest(Guest guests)
+        {
+            var connect = DB.Instance.GetConnection();
+            if (connect == null)
+                return;
+
+            int id = DB.Instance.GetAutoID("Guests");
+
+            string sql = "INSERT INTO Guests VALUES (0, @name, @surname, @lastname, @pasport, @policy, @dataarrival, @dataofdeparture)";
+            using (var mc = new MySqlCommand(sql, connect))
+            {
+                mc.Parameters.Add(new MySqlParameter("name", guests.Name));
+                mc.Parameters.Add(new MySqlParameter("surname", guests.Surname));
+                mc.Parameters.Add(new MySqlParameter("lastname", guests.Lastname));
+                mc.Parameters.Add(new MySqlParameter("pasport", guests.Pasport));
+                mc.Parameters.Add(new MySqlParameter("policy", guests.Policy));
+                mc.Parameters.Add(new MySqlParameter("dataarrival", guests.DataArrival));
+                mc.Parameters.Add(new MySqlParameter("dataofdeparture", guests.DataOfDeparture));
+                mc.ExecuteNonQuery();
+            }
+
+        }
+
+        internal void Remove(Guest guests)
+        {
+            var connect = DB.Instance.GetConnection();
+            if (connect == null)
+                return;
+
+            string sql = "DELETE FROM Guests WHERE id = '" + guests.ID + "';";
+
+            using (var mc = new MySqlCommand(sql, connect))
+                mc.ExecuteNonQuery();
+        }
+
+
+        internal void UpdateGuest(Guest guests)
+        {
+            var connect = DB.Instance.GetConnection();
+            if (connect == null)
+                return;
+
+            string sql = "UPDATE Guests SET Name = @name, Surname = @surname, Lastname = @lastname, Pasport = @pasport, Policy = @policy, DataArrival = @dataarrival, DataOfDeparture = dataofdeparture WHERE ID = " + guests.ID;
+            using (var mc = new MySqlCommand(sql, connect))
+            {
+                mc.Parameters.Add(new MySqlParameter("name", guests.Name));
+                mc.Parameters.Add(new MySqlParameter("surname", guests.Surname));
+                mc.Parameters.Add(new MySqlParameter("lastname", guests.Lastname));
+                mc.Parameters.Add(new MySqlParameter("pasport", guests.Pasport));
+                mc.Parameters.Add(new MySqlParameter("policy", guests.Policy));
+                mc.Parameters.Add(new MySqlParameter("dataarrival", guests.DataArrival));
+                mc.Parameters.Add(new MySqlParameter("dataofdeparture", guests.DataOfDeparture));
+                mc.ExecuteNonQuery();
+            }
+        }
+
+    }
+}

@@ -10,7 +10,7 @@ namespace Sanatory.ViewModel
 {
     public class CbAddVM : BaseVM
     {
-        MainWindowVM MainVM;
+
         public CommandVM Save { get; set; }
 
         private Cabinet cabinets = new();
@@ -36,16 +36,12 @@ namespace Sanatory.ViewModel
                     CabinetsRepository.Instance.UpdateCabinets(Cabinets);
 
 
-                MainWindowVM.Instance.CurrentPage = new CbAdd();
+                MainWindowVM.Instance.CurrentPage = new Personal();
 
             });
 
         }
 
-        internal void SetMainWindowVM(MainWindowVM MainVM)
-        {
-            this.MainVM = MainVM;
-        }
 
         internal void SetEditCabinets(Cabinet selectedCabinets)
         {

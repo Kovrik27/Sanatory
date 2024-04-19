@@ -27,5 +27,10 @@ namespace Sanatory.View
             var vm = DataContext as ScVM;
             vm?.SetMainWindowVM(MainVM);
         }
+
+        private void GridViewColumn_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

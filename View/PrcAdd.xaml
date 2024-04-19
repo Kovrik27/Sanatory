@@ -19,7 +19,7 @@
                 <Label Content=" "/>
                 <Label Content="Название процедуры"/>
                 <TextBox Text="{Binding Title}"/>
-                <Label Content="Опсиание процедуры"/>
+                <Label Content="Опиcание процедуры"/>
                 <TextBox Text="{Binding Description}"/>
                 <Label Content="Длительность процедуры "/>
                 <TextBox Text="{Binding Duration}"/>

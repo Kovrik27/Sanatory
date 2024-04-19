@@ -69,10 +69,6 @@ namespace Sanatory.ViewModel
         }
 
 
-        internal void SetMainWindowVM(MainWindowVM MainVM)
-        {
-            this.MainVM = MainVM;
-        }
 
 
 

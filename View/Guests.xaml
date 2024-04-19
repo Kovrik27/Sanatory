@@ -30,10 +30,12 @@
         <Label Content=" "/>
         <TextBlock Text="Карта гостя" Grid.Row="1"/>
         <TextBlock Text="Санаторно-курортная книжка" Grid.Column="1" Grid.Row="1"/>
-        <ListView Grid.Row="2">
+        <ListView Grid.Row="2" ItemsSource="{Binding Guests}" SelectedItem="{Binding SelectedGuest}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ФИО гостя"/>
+                    <GridViewColumn Header="Фамилия гостя" DisplayMemberBinding="{Binding Lastname }"/>
+                    <GridViewColumn Header="Имя гостя" DisplayMemberBinding="{Binding Name }"/>
+                    <GridViewColumn Header="Отчество гостя" DisplayMemberBinding="{Binding Surname }"/>
                     <GridViewColumn Header="Номер комнаты"/>
                     <GridViewColumn Header="Период проживания"/>
                 </GridView>
@@ -43,7 +45,9 @@
         <ListView Grid.Row="2" Grid.Column="1">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ФИО гостя"/>
+                    <GridViewColumn Header="Фамилия гостя" DisplayMemberBinding="{Binding Lastname}"/>
+                    <GridViewColumn Header="Имя гостя" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Отчество гостя" DisplayMemberBinding="{Binding Surname}" />
                     <GridViewColumn Header="Номер комнаты"/>
                     <GridViewColumn Header="Период проживания"/>
                     <GridViewColumn Header="Назначенные процедуры"/>

@@ -39,6 +39,7 @@
         <TextBlock Text="Список задач для тех.персонала" Grid.Row="3" Grid.Column="1"/>
         <TextBlock Text="Список врачей" Grid.Row="3" Grid.Column="2"/>
         <TextBlock Text="Список свободных кабинетов" Grid.Row="3" Grid.Column="3"/>
+  
         <ListView Grid.Row="4" ItemsSource="{Binding Staffs}" SelectedItem="{Binding SelectedStaff}">
             <ListView.View>
                 <GridView>
@@ -58,14 +59,18 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Problems}" SelectedItem="{Binding SelectedProblem}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Описание" DisplayMemberBinding="{Binding Description}" />
-                    <GridViewColumn Header="Местоположение" DisplayMemberBinding="{Binding Place}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+
+        <StackPanel Grid.Row="4" Grid.Column="1" DataContext="{DynamicResource prVM}">
+            <ListView ItemsSource="{Binding Problems}" SelectedItem="{Binding SelectedProblem}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Описание" DisplayMemberBinding="{Binding Description}" />
+                        <GridViewColumn Header="Местоположение" DisplayMemberBinding="{Binding Place}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+       
         <ListView Grid.Row="4" Grid.Column="2">
             <ListView.View>
                 <GridView>
@@ -79,14 +84,18 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView Grid.Row="4" Grid.Column="3" ItemsSource="{Binding Cabinets}" SelectedItem="{Binding SelectedCabinets}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Номер" DisplayMemberBinding="{Binding Number}"/>
-                    <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding Type}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+
+        <StackPanel Grid.Row="4" Grid.Column="3" DataContext="{DynamicResource cbVM}">
+            <ListView ItemsSource="{Binding Cabinets}" SelectedItem="{Binding SelectedCabinets}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Номер" DisplayMemberBinding="{Binding Number}"/>
+                        <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding Type}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+        
 
 
         <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" DataContext="{DynamicResource stVM}">
