@@ -20,6 +20,7 @@ namespace Sanatory.ViewModel
         public CommandVM CreateRoom {  get; set; }
         public CommandVM EditRoom { get; set;}
         public CommandVM DeleteRoom { get; set;}
+        public CommandVM Broni { get; set; }
 
 
         public Room SelectedRoom { get; set; }
@@ -34,6 +35,7 @@ namespace Sanatory.ViewModel
 
         public RegVM()
         {
+            MainVM = MainWindowVM.Instance;
             string sql = "SELECT * FROM Rooms";
 
             Rooms = new ObservableCollection<Room>(RoomsRepository.Instance.GetAllRooms(sql));
@@ -42,13 +44,13 @@ namespace Sanatory.ViewModel
 
             CreateRoom = new CommandVM(() =>
             {
-                MainVM.CurrentPage = new RegAdd(MainVM);
+                MainWindowVM.Instance.CurrentPage = new RegAdd();
             });
 
             EditRoom = new CommandVM(() => {
                 if (SelectedRoom == null)
                     return;
-                MainVM.CurrentPage = new RegAdd(MainVM, SelectedRoom);
+                MainWindowVM.Instance.CurrentPage = new RegAdd(SelectedRoom);
             });
 
             DeleteRoom = new CommandVM(() =>
@@ -64,15 +66,15 @@ namespace Sanatory.ViewModel
 
             });
 
-            
+            Broni = new CommandVM(() => {
+                MainWindowVM.Instance.CurrentPage = new GuAdd(SelectedRoom);
+
+            });
 
         }
 
 
-        internal void SetMainWindowVM(MainWindowVM MainVM)
-        {
-            this.MainVM = MainVM;
-        }
+        
 
 
 

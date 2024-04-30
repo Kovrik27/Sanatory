@@ -29,6 +29,7 @@ namespace Sanatory.View
 
         public CbAdd(Cabinet selectedCabinets)
         {
+            InitializeComponent();
             ((CbAddVM)DataContext).SetEditCabinets(selectedCabinets);
         }
     }

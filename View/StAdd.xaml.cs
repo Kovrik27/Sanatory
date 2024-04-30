@@ -22,16 +22,17 @@ namespace Sanatory.View
     /// </summary>
     public partial class StAdd : Page
     {
-        public StAdd(ViewModel.MainWindowVM MainVM)
+        public StAdd()
         {
             InitializeComponent();
-            var vm = ((StAddVM)DataContext);
-            vm.SetMainWindowVM(MainVM, ListDays);
+            ((StAddVM)DataContext).SetList(ListDays);
         }
 
-        public StAdd(MainWindowVM mainVM, Staff selectedStaff) : this(mainVM)
+        public StAdd(Staff selectedStaff)
         {
+            InitializeComponent();
             ((StAddVM)DataContext).SetEditStaff(selectedStaff);
+            ((StAddVM)DataContext).SetList(ListDays);
         }
     }
 }

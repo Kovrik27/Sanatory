@@ -22,15 +22,15 @@ namespace Sanatory.View
     /// </summary>
     public partial class PrcAdd : Page
     {
-        public PrcAdd(ViewModel.MainWindowVM MainVM)
+        public PrcAdd()
         {
             InitializeComponent();
-            var vm = ((PrcAddVM)DataContext);
-            vm.SetMainWindowVM(MainVM);
+
         }
 
-        public PrcAdd(MainWindowVM mainVM, Procedure selectedProcedure) : this(mainVM)
+        public PrcAdd(Procedure selectedProcedure)
         {
+            InitializeComponent();
             ((PrcAddVM)DataContext).SetEditProcedures(selectedProcedure);
         }
     }

@@ -24,7 +24,6 @@ namespace Sanatory.View
         public Personal()
         {
             InitializeComponent();
-
         }
 
        

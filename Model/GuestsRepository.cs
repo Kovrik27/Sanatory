@@ -44,13 +44,14 @@ namespace Sanatory.Model
                         guests = new Guest();
                         result.Add(guests);
                         guests.ID = id;
-                        guests.Name = reader.GetString("Name");
                         guests.Surname = reader.GetString("Surname");
+                        guests.Name = reader.GetString("Name");
                         guests.Lastname = reader.GetString("Lastname");
                         guests.Pasport = reader.GetString("Pasport");
                         guests.Policy = reader.GetString("Policy");
                         guests.DataArrival = reader.GetDateOnly("DataArrival");
                         guests.DataOfDeparture = reader.GetDateOnly("DataOfDeparture");
+                        guests.RoomID = reader.GetInt32("RoomID");
                     }
                 }
             }
@@ -66,16 +67,17 @@ namespace Sanatory.Model
 
             int id = DB.Instance.GetAutoID("Guests");
 
-            string sql = "INSERT INTO Guests VALUES (0, @name, @surname, @lastname, @pasport, @policy, @dataarrival, @dataofdeparture)";
+            string sql = "INSERT INTO Guests VALUES (0, @surname, @name, @lastname, @pasport, @policy, @dataarrival, @dataofdeparture, @roomid)";
             using (var mc = new MySqlCommand(sql, connect))
             {
-                mc.Parameters.Add(new MySqlParameter("name", guests.Name));
                 mc.Parameters.Add(new MySqlParameter("surname", guests.Surname));
+                mc.Parameters.Add(new MySqlParameter("name", guests.Name));
                 mc.Parameters.Add(new MySqlParameter("lastname", guests.Lastname));
                 mc.Parameters.Add(new MySqlParameter("pasport", guests.Pasport));
                 mc.Parameters.Add(new MySqlParameter("policy", guests.Policy));
                 mc.Parameters.Add(new MySqlParameter("dataarrival", guests.DataArrival));
                 mc.Parameters.Add(new MySqlParameter("dataofdeparture", guests.DataOfDeparture));
+                mc.Parameters.Add(new MySqlParameter("roomid", guests.RoomID));
                 mc.ExecuteNonQuery();
             }
 
@@ -100,11 +102,11 @@ namespace Sanatory.Model
             if (connect == null)
                 return;
 
-            string sql = "UPDATE Guests SET Name = @name, Surname = @surname, Lastname = @lastname, Pasport = @pasport, Policy = @policy, DataArrival = @dataarrival, DataOfDeparture = dataofdeparture WHERE ID = " + guests.ID;
+            string sql = "UPDATE Guests SET Surname = @surname, Name = @name, Lastname = @lastname, Pasport = @pasport, Policy = @policy, DataArrival = @dataarrival, DataOfDeparture = dataofdeparture WHERE ID = " + guests.ID;
             using (var mc = new MySqlCommand(sql, connect))
             {
-                mc.Parameters.Add(new MySqlParameter("name", guests.Name));
                 mc.Parameters.Add(new MySqlParameter("surname", guests.Surname));
+                mc.Parameters.Add(new MySqlParameter("name", guests.Name));
                 mc.Parameters.Add(new MySqlParameter("lastname", guests.Lastname));
                 mc.Parameters.Add(new MySqlParameter("pasport", guests.Pasport));
                 mc.Parameters.Add(new MySqlParameter("policy", guests.Policy));

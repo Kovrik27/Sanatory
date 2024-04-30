@@ -11,7 +11,6 @@ namespace Sanatory.ViewModel
 {
     public class PrAddVM : BaseVM
     {
-        MainWindowVM MainVM;
         public CommandVM Save { get; set; }
 
         private Problem problem = new();

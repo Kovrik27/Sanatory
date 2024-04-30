@@ -12,8 +12,7 @@ using System.Windows.Controls;
 namespace Sanatory.ViewModel
 {
     public class RegAddVM : BaseVM
-    {
-        MainWindowVM MainVM;
+    {       
         public CommandVM Save {  get; set; }
 
         private Room room = new();
@@ -39,16 +38,12 @@ namespace Sanatory.ViewModel
                     RoomsRepository.Instance.UpdateRoom(Room);
 
 
-                MainVM.CurrentPage = new Registration(MainVM);
+                MainWindowVM.Instance.CurrentPage = new Registration();
 
             });
 
         }
 
-        internal void SetMainWindowVM(MainWindowVM MainVM)
-        {
-            this.MainVM = MainVM;           
-        }
 
         internal void SetEditRoom(Room selectedRoom)
         {

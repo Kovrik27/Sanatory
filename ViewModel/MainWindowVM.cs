@@ -70,7 +70,7 @@ namespace Sanatory.ViewModel
 
         private void OpenBronirovanie()
         {
-            CurrentPage = new Registration(this);
+            CurrentPage = new Registration();
         }
         
 
@@ -86,7 +86,7 @@ namespace Sanatory.ViewModel
 
         private void OpenProceduri()
         {
-            CurrentPage = new Procedures(this);
+            CurrentPage = new Procedures();
         }
 
         private void OpenRaspisanie()
@@ -96,7 +96,7 @@ namespace Sanatory.ViewModel
 
         private void OpenFinansi()
         {
-            CurrentPage = new Finance(this);
+            CurrentPage = new Finance();
         }
 
     }

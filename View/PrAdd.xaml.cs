@@ -29,7 +29,8 @@ namespace Sanatory.View
         }
 
         public PrAdd(Problem selectedProblem)
-        {
+        { 
+            InitializeComponent();
             ((PrAddVM)DataContext).SetEditProblem(selectedProblem);
         }
     }

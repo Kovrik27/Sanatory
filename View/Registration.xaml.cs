@@ -2,6 +2,7 @@
 using Sanatory.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,26 +23,33 @@ namespace Sanatory.View
     /// </summary>
     public partial class Registration : Page
     {
-        public Registration(ViewModel.MainWindowVM MainVM)
+        public Registration()
         {
             InitializeComponent();           
-
-            var vm = DataContext as RegVM;
-            vm?.SetMainWindowVM(MainVM);
         }
 
         private void ButtonVis (object sender, SelectionChangedEventArgs e)
         {
-            if (Rm.SelectedItem != null)            
-                Bronirovanie.Visibility = Visibility.Visible;           
-            else            
-                Bronirovanie.Visibility = Visibility.Hidden;
-            
+            if (Rm.SelectedItem != null)
+            {
+                var vm = DataContext as RegVM;
+                if (vm.SelectedRoom.Status == "Свободен")
+                    Bronirovanie.Visibility = Visibility.Visible;
+                else
+                    Visilenie.Visibility = Visibility.Visible;
+            }
+
         }
 
-        private void Broni(object sender, RoutedEventArgs e)
+        //private void Broni(object sender, RoutedEventArgs e)
+        //{
+
+        //    MainWindowVM.Instance.CurrentPage = new GuAdd();
+        //}
+
+        private void Viselit(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Гость заселён");
+            MessageBox.Show("Гость выселен");
         }
     }
 }

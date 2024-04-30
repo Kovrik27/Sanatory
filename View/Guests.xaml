@@ -33,11 +33,12 @@
         <ListView Grid.Row="2" ItemsSource="{Binding Guests}" SelectedItem="{Binding SelectedGuest}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Фамилия гостя" DisplayMemberBinding="{Binding Lastname }"/>
+                    <GridViewColumn Header="Фамилия гостя" DisplayMemberBinding="{Binding Surname }"/>
                     <GridViewColumn Header="Имя гостя" DisplayMemberBinding="{Binding Name }"/>
-                    <GridViewColumn Header="Отчество гостя" DisplayMemberBinding="{Binding Surname }"/>
-                    <GridViewColumn Header="Номер комнаты"/>
-                    <GridViewColumn Header="Период проживания"/>
+                    <GridViewColumn Header="Отчество гостя" DisplayMemberBinding="{Binding LastName }"/>
+                    <GridViewColumn Header="Номер комнаты" DisplayMemberBinding="{Binding RoomID}"/>
+                    <GridViewColumn Header="Дата заезда" DisplayMemberBinding="{Binding DataArrival}"/>
+                    <GridViewColumn Header="Дата выезда" DisplayMemberBinding="{Binding DataOfDeparture}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -45,11 +46,12 @@
         <ListView Grid.Row="2" Grid.Column="1">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Фамилия гостя" DisplayMemberBinding="{Binding Lastname}"/>
+                    <GridViewColumn Header="Фамилия гостя" DisplayMemberBinding="{Binding Surname}"/>
                     <GridViewColumn Header="Имя гостя" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="Отчество гостя" DisplayMemberBinding="{Binding Surname}" />
+                    <GridViewColumn Header="Отчество гостя" DisplayMemberBinding="{Binding Lastname}" />
                     <GridViewColumn Header="Номер комнаты"/>
-                    <GridViewColumn Header="Период проживания"/>
+                    <GridViewColumn Header="Дата заезда" DisplayMemberBinding="{Binding DataArrival}"/>
+                    <GridViewColumn Header="Дата выезда" DisplayMemberBinding="{Binding DataOfDeparture}"/>
                     <GridViewColumn Header="Назначенные процедуры"/>
                 </GridView>
             </ListView.View>

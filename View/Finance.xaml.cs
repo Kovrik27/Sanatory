@@ -21,12 +21,9 @@ namespace Sanatory.View
     /// </summary>
     public partial class Finance : Page
     {
-        public Finance(ViewModel.MainWindowVM MainVM)
+        public Finance()
         {
             InitializeComponent();
-
-            var vm = DataContext as FinVM;
-            vm?.SetMainWindowVM(MainVM);
         }
     }
 }

@@ -34,16 +34,16 @@ namespace Sanatory.ViewModel
         public GuVM()
         {
             MainVM = MainWindowVM.Instance;
-            string sql = "SELECT * FROM Guests";
+            string sql = "SELECT g.Surname, g.Name, g.Lastname, g.DataArrival, g.DataOfDeparture, r.Number FROM Guests g, Room r WHERE RoomID = ID";
 
             Guests = new ObservableCollection<Guest>(GuestsRepository.Instance.GetAllGuests(sql));
 
 
 
-            CreateGuests = new CommandVM(() =>
-            {
-                MainWindowVM.Instance.CurrentPage = new GuAdd();
-            });
+            //CreateGuests = new CommandVM(() =>
+            //{
+            //    MainWindowVM.Instance.CurrentPage = new GuAdd();
+            //});
 
             EditGuests = new CommandVM(() => {
                 if (SelectedGuests == null)

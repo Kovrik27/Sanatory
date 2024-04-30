@@ -14,7 +14,6 @@ namespace Sanatory.ViewModel
 {
     public class StAddVM : BaseVM
     {
-        MainWindowVM MainVM;
         public CommandVM Save { get; set; }
         ListBox ListDays;
         public List<Days> AllDays {  get; set; }
@@ -54,18 +53,17 @@ namespace Sanatory.ViewModel
 
         }
 
-        internal void SetMainWindowVM(MainWindowVM MainVM, ListBox ListDays)
-        {
-            this.MainVM = MainVM;
-            this.ListDays = ListDays;
-        }
-
         internal void SetEditStaff(Staff selectedStaff)
         {
             Staff = selectedStaff;
             foreach (var days in Staff.Days)
                 ListDays.SelectedItems.Add(days);
 
+        }
+
+        internal void SetList(ListBox listDays)
+        {
+            ListDays = listDays;
         }
     }
 }

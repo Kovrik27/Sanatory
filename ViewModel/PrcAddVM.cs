@@ -10,7 +10,6 @@ namespace Sanatory.ViewModel
 {
     public class PrcAddVM : BaseVM
     {
-        MainWindowVM MainVM;
         public CommandVM Save { get; set; }
 
         private Procedure procedure = new();
@@ -36,15 +35,10 @@ namespace Sanatory.ViewModel
                     ProceduresRepository.Instance.UpdateProcedures(Procedure);
 
 
-                MainVM.CurrentPage = new Procedures(MainVM);
+                MainWindowVM.Instance.CurrentPage = new Procedures();
 
             });
 
-        }
-
-        internal void SetMainWindowVM(MainWindowVM MainVM)
-        {
-            this.MainVM = MainVM;
         }
 
         internal void SetEditProcedures(Procedure selectedProcedure)

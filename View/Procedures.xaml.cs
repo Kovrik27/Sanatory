@@ -21,12 +21,9 @@ namespace Sanatory.View
     /// </summary>
     public partial class Procedures : Page
     {
-        public Procedures(ViewModel.MainWindowVM MainVM)
+        public Procedures()
         {
             InitializeComponent();
-
-            var vm = DataContext as PrcVM;
-            vm?.SetMainWindowVM(MainVM);
         }
     }
 }

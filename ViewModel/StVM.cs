@@ -8,12 +8,15 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls.Primitives;
+using System.Windows.Shapes;
 
 namespace Sanatory.ViewModel
 {
     public class StVM : BaseVM
     {
         private ObservableCollection<Staff> staffs;
+        private ObservableCollection<Staff> staffs2;
 
 
         private MainWindowVM MainVM;
@@ -37,6 +40,17 @@ namespace Sanatory.ViewModel
             }
         }
 
+        public ObservableCollection<Staff> Staffs2
+        {
+            get => staffs2;
+            set
+            {
+                staffs2 = value;
+                Signal();
+            }
+        }
+
+
         public Days SelectedDays
         {
             get => selectedDays;
@@ -51,23 +65,24 @@ namespace Sanatory.ViewModel
         {
             MainVM = MainWindowVM.Instance;
 
-            string sql = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS IDD, d.Day AS DayD FROM CrossDaysStaff cds, Staff s, Days d WHERE cds.StaffID = s.ID AND cds.DaysID = d.ID";
-
+            string sql = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay FROM CrossDaysStaff cds, Staff s, Days d WHERE cds.StaffID = s.ID AND cds.DaysID = d.ID AND JobTitle NOT LIKE 'Врач%'";
+            string sql2 = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay FROM CrossDaysStaff cds, Staff s, Days d WHERE cds.StaffID = s.ID AND cds.DaysID = d.ID AND JobTitle LIKE 'Врач%'";
             Staffs = new ObservableCollection<Staff>(StaffRepository.Instance.GetAllStaff(sql));
+            Staffs2 = new ObservableCollection<Staff>(StaffRepository.Instance.GetAllStaff(sql2));
             AllDays = new ObservableCollection<Days> (DaysRepository.Instance.GetDays());
-            AllDays.Insert(0, new Days { ID = 0 });
+            AllDays.Insert(0, new Days { ID = 0, Day = "Все теги" });
             SelectedDays = AllDays[0];
 
 
             CreateStaff = new CommandVM(() =>
             {
-                MainVM.CurrentPage = new StAdd(MainVM);
+                MainWindowVM.Instance.CurrentPage = new StAdd();
             });
 
             EditStaff = new CommandVM(() => {
                 if (SelectedStaff == null)
                     return;
-                MainVM.CurrentPage = new StAdd(MainVM, SelectedStaff);
+                MainWindowVM.Instance.CurrentPage = new StAdd(SelectedStaff);
             });
 
             DeleteStaff = new CommandVM(() =>

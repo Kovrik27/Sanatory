@@ -54,8 +54,8 @@ namespace Sanatory.Model
                     }
                     Days days = new Days
                     {
-                        ID = reader.GetInt32("IDD"),
-                        Day = reader.GetString("DayD"),
+                        ID = reader.GetInt32("daysID"),
+                        Day = reader.GetString("daysDay"),
                     };
                     staff.Days.Add(days);
                 }
@@ -85,9 +85,9 @@ namespace Sanatory.Model
                 {
                     sql = "";
                     foreach (var days in staff.Days)
-                        sql += "INSERT INTO CrossDaysStaff VALUES ("+ id +","+days.ID+");";
+                        sql += "INSERT INTO CrossDaysStaff VALUES ("+ days.ID +","+id+");";
                     using (var mcCross = new MySqlCommand(sql, connect))
-                        mcCross.ExecuteNonQueryAsync();
+                        mcCross.ExecuteNonQuery();
 
                 }
             }

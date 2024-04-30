@@ -22,15 +22,14 @@ namespace Sanatory.View
     /// </summary>
     public partial class RegAdd : Page
     {
-        public RegAdd(ViewModel.MainWindowVM MainVM)
+        public RegAdd()
         {
             InitializeComponent();
-            var vm = ((RegAddVM)DataContext);
-            vm.SetMainWindowVM(MainVM);
         }
 
-        public RegAdd(MainWindowVM mainVM, Room selectedRoom) : this(mainVM)
+        public RegAdd(Room selectedRoom)
         {
+            InitializeComponent();
             ((RegAddVM)DataContext).SetEditRoom(selectedRoom);
         }
 

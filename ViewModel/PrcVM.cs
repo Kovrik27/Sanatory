@@ -14,7 +14,6 @@ namespace Sanatory.ViewModel
     {
         private ObservableCollection<Procedure> procedures;
 
-        private MainWindowVM MainVM;
         public CommandVM CreateProcedure { get; set; }
         public CommandVM EditProcedure { get; set; }
         public CommandVM DeleteProcedure { get; set; }
@@ -41,13 +40,13 @@ namespace Sanatory.ViewModel
 
             CreateProcedure = new CommandVM(() =>
             {
-                MainVM.CurrentPage = new PrcAdd(MainVM);
+                MainWindowVM.Instance.CurrentPage = new PrcAdd();
             });
 
             EditProcedure = new CommandVM(() => {
                 if (SelectedProcedure == null)
                     return;
-                MainVM.CurrentPage = new PrcAdd(MainVM, SelectedProcedure);
+                MainWindowVM.Instance.CurrentPage = new PrcAdd(SelectedProcedure);
             });
 
             DeleteProcedure = new CommandVM(() =>
@@ -65,12 +64,6 @@ namespace Sanatory.ViewModel
 
 
 
-        }
-
-
-        internal void SetMainWindowVM(MainWindowVM MainVM)
-        {
-            this.MainVM = MainVM;
         }
 
 

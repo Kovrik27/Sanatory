@@ -32,5 +32,10 @@ namespace Sanatory.View
         {
 
         }
+
+        private void Calendar_DisplayModeChanged(object sender, CalendarModeChangedEventArgs e)
+        {
+
+        }
     }
 }

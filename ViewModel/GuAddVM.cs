@@ -9,45 +9,50 @@ using System.Threading.Tasks;
 namespace Sanatory.ViewModel
 {
     public class GuAddVM : BaseVM
-    {       
+    {
 
-            public CommandVM Save { get; set; }
+        public CommandVM Save { get; set; }
 
-            private Guest guests = new();
+        private Guest guests = new();
 
-            public Guest Guests
+        public Guest Guests
+        {
+            get => guests;
+            set
             {
-                get => guests;
-                set
-                {
                 guests = value;
-                    Signal();
-                }
+                Signal();
             }
-            public GuAddVM()
+        }
+        public GuAddVM()
+        {
+
+            Save = new CommandVM(() =>
             {
 
-                Save = new CommandVM(() =>
-                {
-
-                    if (Guests.ID == 0)
-                        GuestsRepository.Instance.AddGuest(Guests);
-                    else
-                        GuestsRepository.Instance.UpdateGuest(Guests);
+                if (Guests.ID == 0)
+                    GuestsRepository.Instance.AddGuest(Guests);
+                else
+                    GuestsRepository.Instance.UpdateGuest(Guests);
 
 
-                    MainWindowVM.Instance.CurrentPage = new Guests();
+                MainWindowVM.Instance.CurrentPage = new Guests();
 
-                });
+            });
 
-            }
+        }
 
 
-            internal void SetEditGuest(Guest selectedGuest)
-            {
-                Guests = selectedGuest;
+        internal void SetEditGuest(Guest selectedGuest)
+        {
+            Guests = selectedGuest;
 
-            }
-        
+        }
+
+        internal void SetRoom(Room? selectedRoom)
+        {
+            guests.RoomID = selectedRoom.ID;
+            guests.Room = selectedRoom;
+        }
     }
 }

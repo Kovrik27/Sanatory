@@ -34,12 +34,10 @@
                 <TextBox Text="{Binding Mail}"/>
             </StackPanel>
             <Label Content="График работы"/>
-            
-                <ListBox DisplayMemberPath="Day" ItemsSource="{Binding AllDays}" SelectionMode="Multiple" x:Name="ListDays"/>
-            
-                
 
-                <Button Content="Сохранить" Command="{Binding Save}"/>
+            <ListBox DisplayMemberPath="Day" ItemsSource="{Binding AllDays}" SelectionMode="Multiple" x:Name="ListDays"/>
+
+            <Button Content="Сохранить" Command="{Binding Save}"/>
         </StackPanel>
     </Grid>
 </Page>

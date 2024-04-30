@@ -25,11 +25,20 @@ namespace Sanatory.View
         public GuAdd()
         {
             InitializeComponent();
+
+
         }
 
         public GuAdd(Guest selectedGuest)
         {
+            InitializeComponent();
             ((GuAddVM)DataContext).SetEditGuest(selectedGuest);
+        }
+
+        public GuAdd(Room? selectedRoom)
+        {
+            InitializeComponent();
+            ((GuAddVM)DataContext).SetRoom(selectedRoom);
         }
     }
 }

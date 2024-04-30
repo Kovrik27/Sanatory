@@ -29,7 +29,7 @@
 
         <Label Content=" "/>
 
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="3">
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="3" DataContext="{DynamicResource regVM}">
 
             <ListView x:Name="Rm" ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}" SelectionChanged="ButtonVis">
                 <ListView.View>
@@ -43,13 +43,30 @@
             </ListView>
         </StackPanel>
 
-        <Menu Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" DataContext="{DynamicResource regVM}">
+            <Menu>
                 <MenuItem Header="Добавить номер" Command="{Binding CreateRoom}"/>
                 <MenuItem Header="Изменить номер" Command="{Binding EditRoom}"/>
                 <MenuItem Header="Удалить номер" Command="{Binding DeleteRoom}"/>
             </Menu>
+        </StackPanel>
 
-        <Button x:Name="Bronirovanie" Grid.Row="3" Grid.Column="3" Content="Заселить гостя в номер" Visibility="Hidden" Click="Broni">
+        <Button x:Name="Bronirovanie" Grid.Row="3" Grid.Column="3" Content="Заселить гостя в номер" Visibility="Hidden"
+                Command="{Binding Broni}"
+                >
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=Rm, Path=SelectedItem}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+
+        <Button x:Name="Visilenie" Grid.Row="3" Grid.Column="3" Content="Выселить гостя из номера" Visibility="Hidden" Click="Viselit">
             <Button.Style>
                 <Style TargetType="Button">
                     <Style.Triggers>
