@@ -9,9 +9,6 @@ namespace Sanatory.ViewModel
     public class ScVM : BaseVM
     {
         private MainWindowVM MainVM;
-        internal void SetMainWindowVM(MainWindowVM MainVM)
-        {
-            this.MainVM = MainVM;
-        }
+        
     }
 }

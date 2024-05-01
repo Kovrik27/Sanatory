@@ -140,6 +140,18 @@ namespace Sanatory.Model
             }
         }
 
+        internal void AddProblem(Staff staff)
+        {
+            var connect = DB.Instance.GetConnection();
+            if (connect == null)
+                return;
+            string sql = "UPDATE Staff SET ProblemID = @problemid" + staff.ID;
+            using (var mc = new MySqlCommand(sql, connect))
+            {
+                mc.Parameters.Add(new MySqlParameter("problemid", staff.ProblemID));                             
+            }
+        }
+
     }
 }
 

@@ -8,10 +8,13 @@ namespace Sanatory.Model
 {
     public class Events
     {
-        public int Id { get; set; }
-        public string Data { get; set; }
+        public int ID { get; set; }
         public string Title { get; set; }
-        public int Time { get; set; }
-        public string Place {  get; set; }
+        public TimeOnly Time { get; set; }
+        public string Place { get; set; }
+        public int DaytimeID { get; set; }
+        public Daytime Daytime { get; set; }
+
+
     }
 }

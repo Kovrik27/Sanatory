@@ -16,6 +16,8 @@ namespace Sanatory.Model
         public string Phone { get; set; }
         public string Mail { get; set; }
         public List<Days> Days { get; set; } = new();
+        public int ProblemID { get; set; }
+
 
     }
 }

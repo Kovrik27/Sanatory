@@ -25,6 +25,7 @@ namespace Sanatory.ViewModel
         public CommandVM EditStaff { get; set; }
         public CommandVM DeleteStaff { get; set; }
 
+        public CommandVM AddProblem {  get; set; }
 
         public Staff SelectedStaff { get; set; }
         private Days selectedDays;
@@ -97,6 +98,13 @@ namespace Sanatory.ViewModel
                 }
 
             });
+
+            AddProblem = new CommandVM(() =>
+            {
+                MainWindowVM.Instance.CurrentPage = new PrAddSt();
+            });
+
+            
         }
 
     }

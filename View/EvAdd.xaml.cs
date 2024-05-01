@@ -1,4 +1,5 @@
-﻿using Sanatory.ViewModel;
+﻿using Sanatory.Model;
+using Sanatory.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,16 +18,25 @@ using System.Windows.Shapes;
 namespace Sanatory.View
 {
     /// <summary>
-    /// Логика взаимодействия для Schedule.xaml
+    /// Логика взаимодействия для EvAdd.xaml
     /// </summary>
-    public partial class Schedule : Page
+    public partial class EvAdd : Page
     {
-        public Schedule()
+        public EvAdd()
         {
             InitializeComponent();
-
         }
 
-        
+        public EvAdd(Events selectedEvents)
+        {
+            InitializeComponent();
+            ((EvAddVM)DataContext).SetEditEvent(selectedEvents);
+        }
+
+        public EvAdd(Daytime? selectedDaytime)
+        {
+            InitializeComponent();
+            ((EvAddVM)DataContext).SetDay(selectedDaytime);
+        }
     }
 }

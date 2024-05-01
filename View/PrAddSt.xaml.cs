@@ -1,5 +1,4 @@
-﻿using Sanatory.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +16,11 @@ using System.Windows.Shapes;
 namespace Sanatory.View
 {
     /// <summary>
-    /// Логика взаимодействия для Finance.xaml
+    /// Логика взаимодействия для PrAddSt.xaml
     /// </summary>
-    public partial class Finance : Page
+    public partial class PrAddSt : Page
     {
-        public Finance()
+        public PrAddSt()
         {
             InitializeComponent();
         }

@@ -131,7 +131,7 @@
         </StackPanel>
 
         <Menu Grid.Row="5">
-            <MenuItem Header="Назначить задачу"/>
+            <MenuItem Header="Назначить задачу" Command="{Binding AddProblem}"/>
         </Menu>
 
         <StackPanel Grid.Row="5" Grid.Column="1" DataContext="{DynamicResource prVM}">

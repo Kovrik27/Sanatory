@@ -15,6 +15,7 @@ namespace Sanatory.ViewModel
     public class StAddVM : BaseVM
     {
         public CommandVM Save { get; set; }
+        public CommandVM Add { get; set; }
         ListBox ListDays;
         public List<Days> AllDays {  get; set; }
 
@@ -49,6 +50,11 @@ namespace Sanatory.ViewModel
 
                 MainWindowVM.Instance.CurrentPage = new Personal();
 
+            });
+
+            Add = new CommandVM(() =>
+            {
+                StaffRepository.Instance.AddProblem(Staff);
             });
 
         }

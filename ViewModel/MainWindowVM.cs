@@ -30,7 +30,7 @@ namespace Sanatory.ViewModel
         public CommandVM Gosti {  get; set; }
         public CommandVM Proceduri {  get; set; }
         public CommandVM Raspisanie { get; set; }
-        public CommandVM Finansi {  get; set; }
+
 
         public MainWindowVM()
         {
@@ -62,10 +62,7 @@ namespace Sanatory.ViewModel
                 OpenRaspisanie();
             });
 
-            Finansi = new CommandVM(() =>
-            {
-                OpenFinansi();
-            });
+           
         }
 
         private void OpenBronirovanie()
@@ -91,13 +88,10 @@ namespace Sanatory.ViewModel
 
         private void OpenRaspisanie()
         {
-            CurrentPage = new Schedule(this);
+            CurrentPage = new Schedule();
         }
 
-        private void OpenFinansi()
-        {
-            CurrentPage = new Finance();
-        }
+       
 
     }
 }
