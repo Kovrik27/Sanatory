@@ -124,7 +124,7 @@ namespace Sanatory.Model
             foreach (var days in staff.Days)
                 sql += "INSERT INTO CrossDaysStaff VALUES (" + staff.ID + "," + days.ID + ");";
             using (var mcCross = new MySqlCommand(sql, connect))
-                mcCross.ExecuteNonQueryAsync();
+                mcCross.ExecuteNonQuery();
 
 
             sql = "UPDATE Staff SET Name = @name, Surname = @surname, Lastname = @lastname, JobTitle = @jobtitle, Phone = @phone, Mail = @mail WHERE ID = " + staff.ID;
@@ -140,15 +140,17 @@ namespace Sanatory.Model
             }
         }
 
-        internal void AddProblem(Staff staff)
+        internal void AddProblem(Staff staff, Problem s)
         {
             var connect = DB.Instance.GetConnection();
             if (connect == null)
                 return;
-            string sql = "UPDATE Staff SET ProblemID = @problemid" + staff.ID;
+            string sql = "UPDATE Staff SET ProblemID = @problemID WHERE ID = " + staff.ID;
             using (var mc = new MySqlCommand(sql, connect))
             {
-                mc.Parameters.Add(new MySqlParameter("problemid", staff.ProblemID));                             
+                mc.Parameters.Add(new MySqlParameter("ID", staff.ID));
+                mc.Parameters.Add(new MySqlParameter("problemID", s.ID));
+                mc.ExecuteNonQuery();
             }
         }
 

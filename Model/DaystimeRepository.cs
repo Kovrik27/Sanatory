@@ -45,7 +45,7 @@ namespace Sanatory.Model
                         daytime = new Daytime();
                         result.Add(daytime);
                         daytime.ID = id;
-                        daytime.DayTim = reader.GetDateOnly("Data");
+                        daytime.Time = reader.GetString("Time");
                     }
                 }
             }
@@ -61,10 +61,10 @@ namespace Sanatory.Model
 
             int id = DB.Instance.GetAutoID("Daytime");
 
-            string sql = "INSERT INTO Daytime VALUES (0, @data)";
+            string sql = "INSERT INTO Daytime VALUES (0, @time)";
             using (var mc = new MySqlCommand(sql, connect))
             {
-                mc.Parameters.Add(new MySqlParameter("daytim", daytime.DayTim));
+                mc.Parameters.Add(new MySqlParameter("time", daytime.Time));
                 mc.ExecuteNonQuery();
 
             }

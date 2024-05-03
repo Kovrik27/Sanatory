@@ -24,8 +24,7 @@ namespace Sanatory.View
     {
         public GuAdd()
         {
-            InitializeComponent();
-
+            InitializeComponent();          
 
         }
 

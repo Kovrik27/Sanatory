@@ -6,8 +6,13 @@
       xmlns:local="clr-namespace:Sanatory.View"
       xmlns:vm="clr-namespace:Sanatory.ViewModel"
       mc:Ignorable="d"
+      DataContext="{DynamicResource dayTimVM}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Schedule">
+
+    <Page.Resources>
+        <vm:DayTimVM x:Key="dayTimVM"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -24,15 +29,15 @@
 
         <Label Content=" "/>
         <Menu Grid.Column="2" Grid.Row="1" Grid.RowSpan="3">
-            <MenuItem Header="Добавить день"/>
+            <MenuItem Header="Добавить день" Command="{Binding CreateDay}"/>
             <MenuItem Header="Добавить мероприятие на определённый день" Grid.Column="1" Grid.Row="2"/>
         </Menu>
 
-        
-        <ListView Grid.Row="1" Grid.ColumnSpan="2">
+
+        <ListView Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Daytimes}" SelectedItem="{Binding SelectedDaytime}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="День"/>
+                    <GridViewColumn Header="День" DisplayMemberBinding="{Binding Time}"/>
                     <GridViewColumn Header="Мероприятие"/>
                     <GridViewColumn Header="Время"/>
                     <GridViewColumn Header="Место"/>

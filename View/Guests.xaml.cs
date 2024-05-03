@@ -1,4 +1,5 @@
-﻿using Sanatory.ViewModel;
+﻿using Sanatory.Model;
+using Sanatory.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,12 @@ namespace Sanatory.View
         {
             InitializeComponent();
             
+        }
+
+        public Guests(Room? selectedRoom)
+        {
+            InitializeComponent();
+            ((GuVM)DataContext).SetRoom(selectedRoom);
         }
     }
 }

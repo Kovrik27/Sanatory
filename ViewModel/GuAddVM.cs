@@ -51,8 +51,9 @@ namespace Sanatory.ViewModel
 
         internal void SetRoom(Room? selectedRoom)
         {
-            guests.RoomID = selectedRoom.ID;
-            guests.Room = selectedRoom;
+            Guests.RoomID = selectedRoom.ID;
+            Guests.Room = selectedRoom;
+            Signal(nameof(Guests));
         }
     }
 }

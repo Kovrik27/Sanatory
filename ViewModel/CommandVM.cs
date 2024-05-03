@@ -28,4 +28,26 @@ namespace Sanatory.ViewModel
             action();
         }
     }
+
+    public class CommandVM<T> : ICommand
+    {
+        Action<T> action;
+
+        public CommandVM(Action<T> action)
+        {
+            this.action = action;
+        }
+
+        public event EventHandler? CanExecuteChanged;
+
+        public bool CanExecute(object? parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object? parameter)
+        {
+            action((T)parameter);
+        }
+    }
 }

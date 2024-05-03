@@ -29,7 +29,7 @@
 
         <Label Content=" "/>
 
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="3" DataContext="{DynamicResource regVM}">
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="3">
 
             <ListView x:Name="Rm" ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}" SelectionChanged="ButtonVis">
                 <ListView.View>
@@ -43,7 +43,7 @@
             </ListView>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" DataContext="{DynamicResource regVM}">
+        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right">
             <Menu>
                 <MenuItem Header="Добавить номер" Command="{Binding CreateRoom}"/>
                 <MenuItem Header="Изменить номер" Command="{Binding EditRoom}"/>

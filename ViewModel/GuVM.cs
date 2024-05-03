@@ -15,6 +15,8 @@ namespace Sanatory.ViewModel
         private ObservableCollection<Guest> guests;
 
         private MainWindowVM MainVM;
+        private Guest guest;
+
         public CommandVM CreateGuests { get; set; }
         public CommandVM EditGuests { get; set; }
         public CommandVM DeleteGuests { get; set; }
@@ -30,11 +32,12 @@ namespace Sanatory.ViewModel
                 Signal();
             }
         }
+        
 
         public GuVM()
         {
             MainVM = MainWindowVM.Instance;
-            string sql = "SELECT g.Surname, g.Name, g.Lastname, g.DataArrival, g.DataOfDeparture, r.Number FROM Guests g, Room r WHERE RoomID = ID";
+            string sql = "SELECT g.ID, g.Surname, g.Name, g.Lastname, g.Pasport, g.Policy, g.DataArrival, g.DataOfDeparture, r.Number FROM Guests g, Rooms r WHERE RoomID = r.ID";
 
             Guests = new ObservableCollection<Guest>(GuestsRepository.Instance.GetAllGuests(sql));
 
@@ -45,7 +48,8 @@ namespace Sanatory.ViewModel
             //    MainWindowVM.Instance.CurrentPage = new GuAdd();
             //});
 
-            EditGuests = new CommandVM(() => {
+            EditGuests = new CommandVM(() =>
+            {
                 if (SelectedGuests == null)
                     return;
                 MainWindowVM.Instance.CurrentPage = new GuAdd(SelectedGuests);
@@ -68,9 +72,6 @@ namespace Sanatory.ViewModel
 
         }
 
-
-
-
-
+        
     }
 }

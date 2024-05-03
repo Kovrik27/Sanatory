@@ -15,8 +15,8 @@ namespace Sanatory.Model
         public string Lastname { get; set; }
         public string Pasport { get; set; }
         public string Policy { get; set; }
-        public DateOnly DataArrival { get; set; } = DateOnly.MaxValue;
-        public DateOnly DataOfDeparture { get; set; }
+        public string DataArrival { get; set; }
+        public string DataOfDeparture { get; set; }
         public int RoomID {  get; set; }
 
         public Room Room { get; set; } = new();

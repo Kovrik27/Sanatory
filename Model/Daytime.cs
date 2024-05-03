@@ -10,7 +10,7 @@ namespace Sanatory.Model
     public class Daytime
     {
         public int ID { get; set; }
-        public DateOnly DayTim { get; set; } = DateOnly.MaxValue; 
+        public string Time { get; set; }
 
     }
 }

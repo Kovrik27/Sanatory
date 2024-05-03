@@ -21,9 +21,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Label Content="Выберите задачу, чтобы назначить её сотруднику"/>
-        <StackPanel DataContext="{DynamicResource prVM}">
-            <ListBox Grid.Row="1" ItemsSource="{Binding Problems}"/>
+        <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{DynamicResource prVM}">
+            <ListView x:Name="listProblems" ItemsSource="{Binding Problems}" SelectedItem="{Binding SelectedProblem}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Description}" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Place}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </StackPanel>
-        <Button Grid.Row="2" Content="Назначить задачу" Command="{Binding Add}"/>
+        <StackPanel Grid.Row="2" DataContext="{DynamicResource stAddVM}" >
+            <Button Content="Назначить задачу" Command="{Binding Add}" CommandParameter="{Binding ElementName=listProblems, Path=SelectedItem}"/>
+        </StackPanel>
     </Grid>
 </Page>

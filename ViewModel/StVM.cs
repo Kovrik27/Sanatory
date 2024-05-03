@@ -66,7 +66,7 @@ namespace Sanatory.ViewModel
         {
             MainVM = MainWindowVM.Instance;
 
-            string sql = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay FROM CrossDaysStaff cds, Staff s, Days d WHERE cds.StaffID = s.ID AND cds.DaysID = d.ID AND JobTitle NOT LIKE 'Врач%'";
+            string sql = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay, p.Description FROM CrossDaysStaff cds, Staff s, Days d, Problem p WHERE cds.StaffID = s.ID AND cds.DaysID = d.ID AND p.ID = ProblemID AND JobTitle NOT LIKE 'Врач%'";
             string sql2 = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay FROM CrossDaysStaff cds, Staff s, Days d WHERE cds.StaffID = s.ID AND cds.DaysID = d.ID AND JobTitle LIKE 'Врач%'";
             Staffs = new ObservableCollection<Staff>(StaffRepository.Instance.GetAllStaff(sql));
             Staffs2 = new ObservableCollection<Staff>(StaffRepository.Instance.GetAllStaff(sql2));
@@ -101,7 +101,9 @@ namespace Sanatory.ViewModel
 
             AddProblem = new CommandVM(() =>
             {
-                MainWindowVM.Instance.CurrentPage = new PrAddSt();
+                if (SelectedStaff == null)
+                    return;
+                MainWindowVM.Instance.CurrentPage = new PrAddSt(SelectedStaff);
             });
 
             

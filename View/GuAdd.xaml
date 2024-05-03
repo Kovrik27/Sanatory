@@ -21,13 +21,13 @@
             <StackPanel>
                 <StackPanel DataContext="{Binding Guests}">
                 <Label Content=" "/>
-                <Label Content="Имя гостя"/>
+                    <Label Content="Фамилия гостя"/>
+                    <TextBox Text="{Binding Lastname}"/>
+                    <Label Content="Имя гостя"/>
                 <TextBox Text="{Binding Name}"/>
                 <Label Content="Отчество гостя"/>
-                <TextBox Text="{Binding Surname}"/>
-                <Label Content="Фамилия гостя"/>
-                <TextBox Text="{Binding Lastname}"/>
-                <Label Content="Паспорт гостя"/>
+                    <TextBox Text="{Binding Surname}"/>
+                    <Label Content="Паспорт гостя"/>
                 <TextBox Text="{Binding Pasport}"/>
                 <Label Content="Полис гостя"/>
                 <TextBox Text="{Binding Policy}"/>

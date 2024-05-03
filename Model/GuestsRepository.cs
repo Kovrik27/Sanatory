@@ -49,9 +49,9 @@ namespace Sanatory.Model
                         guests.Lastname = reader.GetString("Lastname");
                         guests.Pasport = reader.GetString("Pasport");
                         guests.Policy = reader.GetString("Policy");
-                        guests.DataArrival = reader.GetDateOnly("DataArrival");
-                        guests.DataOfDeparture = reader.GetDateOnly("DataOfDeparture");
-                        guests.RoomID = reader.GetInt32("RoomID");
+                        guests.DataArrival = reader.GetString("DataArrival");
+                        guests.DataOfDeparture = reader.GetString("DataOfDeparture");
+                        //guests.RoomID = reader.GetInt32("RoomID");
                     }
                 }
             }
@@ -89,7 +89,7 @@ namespace Sanatory.Model
             if (connect == null)
                 return;
 
-            string sql = "DELETE FROM Guests WHERE id = '" + guests.ID + "';";
+            string sql = "DELETE FROM Guests WHERE ID = '" + guests.ID + "';";
 
             using (var mc = new MySqlCommand(sql, connect))
                 mc.ExecuteNonQuery();

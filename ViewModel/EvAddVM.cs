@@ -49,8 +49,9 @@ namespace Sanatory.ViewModel
 
         internal void SetDay(Daytime? selectedDaytime)
         {
-            events.DaytimeID = selectedDaytime.ID;
-            events.Daytime = selectedDaytime;
+            Events.DaytimeID = selectedDaytime.ID;
+            Events.Daytime = selectedDaytime;
+            Signal(nameof(Events));
         }
     }
 }

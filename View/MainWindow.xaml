@@ -37,7 +37,6 @@
             <MenuItem Header="Гости" Command="{Binding Gosti}"/>
             <MenuItem Header="Процедуры" Command="{Binding Proceduri}"/>
             <MenuItem Header="Расписание" Command="{Binding Raspisanie}"/>
-            <MenuItem Header="Финансы" Command="{Binding Finansi}"/>
         </Menu>
 
     </Grid>
