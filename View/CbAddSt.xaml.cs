@@ -18,20 +18,19 @@ using System.Windows.Shapes;
 namespace Sanatory.View
 {
     /// <summary>
-    /// Логика взаимодействия для Guests.xaml
+    /// Логика взаимодействия для CbAddSt.xaml
     /// </summary>
-    public partial class Guests : Page
+    public partial class CbAddSt : Page
     {
-        public Guests()
+        public CbAddSt()
         {
             InitializeComponent();
-            
         }
 
-        public Guests(Room? selectedRoom)
+        public CbAddSt(Staff selectedStaff)
         {
             InitializeComponent();
-            ((GuAddVM)DataContext).SetRoom(selectedRoom);
+            ((CbAddVM)DataContext).SetStaff(selectedStaff);
         }
     }
 }

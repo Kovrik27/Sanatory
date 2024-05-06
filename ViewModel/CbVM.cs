@@ -18,6 +18,8 @@ namespace Sanatory.ViewModel
         public CommandVM CreateCabinets { get; set; }
         public CommandVM EditCabinets { get; set; }
         public CommandVM DeleteCabinets { get; set; }
+        public CommandVM AddCabinet { get; set; }
+        public Staff SelectedStaff { get; set; }
 
 
         public Cabinet SelectedCabinets { get; set; }
@@ -65,7 +67,12 @@ namespace Sanatory.ViewModel
             });
 
 
-
+            AddCabinet = new CommandVM(() =>
+            {
+                if (SelectedStaff == null)
+                    return;
+                MainWindowVM.Instance.CurrentPage = new CbAddSt(SelectedStaff);
+            });
         }
 
 

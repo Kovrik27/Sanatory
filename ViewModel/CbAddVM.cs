@@ -12,6 +12,7 @@ namespace Sanatory.ViewModel
     {
 
         public CommandVM Save { get; set; }
+        public CommandVM Add { get; set; }
 
         private Cabinet cabinets = new();
 
@@ -24,6 +25,19 @@ namespace Sanatory.ViewModel
                 Signal();
             }
         }
+
+        private Staff staff = new();
+
+        public Staff Staff
+        {
+            get => staff;
+            set
+            {
+                staff = value;
+                Signal();
+            }
+        }
+
         public CbAddVM()
         {
 
@@ -40,13 +54,23 @@ namespace Sanatory.ViewModel
 
             });
 
+            Add = new CommandVM(()=>
+            {
+                CabinetsRepository.Instance.AddCb(Staff, Cabinets);
+                MainWindowVM.Instance.CurrentPage = new Personal();
+            });
+
         }
 
 
         internal void SetEditCabinets(Cabinet selectedCabinets)
         {
             Cabinets = selectedCabinets;
+        }
 
+        internal void SetStaff(Staff selectedStaff)
+        {
+            Staff = selectedStaff;
         }
     }
 }

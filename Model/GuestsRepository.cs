@@ -34,25 +34,24 @@ namespace Sanatory.Model
             using (var mc = new MySqlCommand(sql, connect))
             using (var reader = mc.ExecuteReader())
             {
-                Guest guests = new Guest();
-                int id;
+                Guest guests;
                 while (reader.Read())
                 {
-                    id = reader.GetInt32("ID");
-                    if (guests.ID != id)
+                    guests = new Guest();
+                    result.Add(guests);
+                    guests.ID = reader.GetInt32("ID");
+                    guests.Surname = reader.GetString("Surname");
+                    guests.Name = reader.GetString("Name");
+                    guests.Lastname = reader.GetString("Lastname");
+                    guests.Pasport = reader.GetString("Pasport");
+                    guests.Policy = reader.GetString("Policy");
+                    guests.DataArrival = reader.GetString("DataArrival");
+                    guests.DataOfDeparture = reader.GetString("DataOfDeparture");
+                    guests.Room = new Room()
                     {
-                        guests = new Guest();
-                        result.Add(guests);
-                        guests.ID = id;
-                        guests.Surname = reader.GetString("Surname");
-                        guests.Name = reader.GetString("Name");
-                        guests.Lastname = reader.GetString("Lastname");
-                        guests.Pasport = reader.GetString("Pasport");
-                        guests.Policy = reader.GetString("Policy");
-                        guests.DataArrival = reader.GetString("DataArrival");
-                        guests.DataOfDeparture = reader.GetString("DataOfDeparture");
-                        //guests.RoomID = reader.GetInt32("RoomID");
-                    }
+                        Number = reader.GetInt32("Number")
+                    };
+                    result.Add(guests);
                 }
             }
 

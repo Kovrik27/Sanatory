@@ -44,7 +44,7 @@ namespace Sanatory.Model
                         cabinets = new Cabinet();
                         result.Add(cabinets);
                         cabinets.ID = id;
-                        cabinets.Number = reader.GetInt32("CabinetsNumber");
+                        cabinets.Number = reader.GetInt32("Number");
                         cabinets.Type = reader.GetString("Type");
 
                     }
@@ -98,6 +98,20 @@ namespace Sanatory.Model
                 mc.Parameters.Add(new MySqlParameter("number", cabinets.Number));
                 mc.Parameters.Add(new MySqlParameter("type", cabinets.Type));
 
+                mc.ExecuteNonQuery();
+            }
+        }
+
+        internal void AddCb(Staff staff, Cabinet cabinets)
+        {
+            var connect = DB.Instance.GetConnection();
+            if (connect == null)
+                return;
+            string sql = "UPDATE Staff SET CabinetID = @cabinetid WHERE ID = " + staff.ID;
+            using (var mc = new MySqlCommand(sql, connect))
+            {
+                mc.Parameters.Add(new MySqlParameter("ID", staff.ID));
+                mc.Parameters.Add(new MySqlParameter("cabinetsID", cabinets.ID));
                 mc.ExecuteNonQuery();
             }
         }

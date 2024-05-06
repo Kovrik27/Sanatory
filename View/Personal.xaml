@@ -81,7 +81,7 @@
                         <GridViewColumn Header="Задача">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ItemsControl Style="{StaticResource ProblemItem}" DisplayMemberPath="Description" ItemsSource="{Binding Problem}"/>
+                                    <ItemsControl Style="{StaticResource ProblemItem}" DisplayMemberPath="Description" ItemsSource="{Binding Problems}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -161,9 +161,11 @@
             </Menu>
         </StackPanel>
 
-        <Menu Grid.Row="5" Grid.Column="2">
-            <MenuItem Header="Назначить кабинет"/>
-        </Menu>
+        <StackPanel Grid.Row="5" Grid.Column="2" DataContext="{DynamicResource cbVM}">
+            <Menu>
+                <MenuItem Header="Назначить кабинет" Command="{Binding AddCabinet}"/>
+            </Menu>
+        </StackPanel>
 
         <StackPanel Grid.Row="5" Grid.Column="3" DataContext="{DynamicResource cbVM}">
             <Menu >

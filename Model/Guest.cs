@@ -18,7 +18,6 @@ namespace Sanatory.Model
         public string DataArrival { get; set; }
         public string DataOfDeparture { get; set; }
         public int RoomID {  get; set; }
-
         public Room Room { get; set; } = new();
     }
 }
