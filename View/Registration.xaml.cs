@@ -47,9 +47,9 @@ namespace Sanatory.View
         //    MainWindowVM.Instance.CurrentPage = new GuAdd();
         //}
 
-        private void Viselit(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Гость выселен");
-        }
+        //private void Viselit(object sender, RoutedEventArgs e)
+        //{
+        //    MessageBox.Show("Гость выселен");
+        //}
     }
 }

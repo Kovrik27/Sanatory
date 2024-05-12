@@ -1,4 +1,5 @@
 ﻿using MySqlConnector;
+using Sanatory.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,6 +59,19 @@ namespace Sanatory.Model
                         Day = reader.GetString("daysDay"),
                     };
                     staff.Days.Add(days);
+
+                    staff.Problem = new Problem()
+                    {
+                        Description = reader.GetString("Description")
+                    };
+                    result.Add(staff);
+
+                    staff.Cabinet = new Cabinet()
+                    {
+                        Number = reader.GetInt32("Number")
+                    };
+                    result.Add(staff);
+
                 }
             }
 
@@ -150,6 +164,20 @@ namespace Sanatory.Model
             {
                 mc.Parameters.Add(new MySqlParameter("ID", staff.ID));
                 mc.Parameters.Add(new MySqlParameter("problemID", s.ID));
+                mc.ExecuteNonQuery();
+            }
+        }
+
+        internal void AddCabinet(Staff staff, Cabinet s)
+        {
+            var connect = DB.Instance.GetConnection();
+            if (connect == null)
+                return;
+            string sql = "UPDATE Staff SET CabinetID = @cabinetID WHERE ID = " + staff.ID;
+            using (var mc = new MySqlCommand(sql, connect))
+            {
+                mc.Parameters.Add(new MySqlParameter("ID", staff.ID));
+                mc.Parameters.Add(new MySqlParameter("cabinetID", s.ID));
                 mc.ExecuteNonQuery();
             }
         }

@@ -6,13 +6,13 @@
       xmlns:vm="clr-namespace:Sanatory.ViewModel"
       xmlns:local="clr-namespace:Sanatory.View"
       mc:Ignorable="d" 
-      DataContext="{DynamicResource cbVM}"
+      DataContext="{DynamicResource prVM}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CbAddSt">
 
     <Page.Resources>
-        <vm:CbVM x:Key="cbVM"/>
-        <vm:CbAddVM x:Key="cbAddVM"/>
+        <vm:PrVM x:Key="prVM"/>
+        <vm:PrAddVM x:Key="prAddVM"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -20,17 +20,19 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Label Content="Выберите кабинет, чтобы назначить его сотруднику"/>
-        <ListView x:Name="listProblems" ItemsSource="{Binding Cabinets}" SelectedItem="{Binding SelectedCabinet}">
+        <Label Content="Выберите процедуры, чтобы назначить их гостю"/>
+        <ListView ItemsSource="{Binding Procedures}" SelectedItem="{Binding SelectedProcedure}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Type}" />
-                    <GridViewColumn DisplayMemberBinding="{Binding Number}"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Title}" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Description}"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Duration}"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Price}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <StackPanel Grid.Row="2" DataContext="{DynamicResource cbAddVM}" >
-            <Button Content="Назначить кабинет" Command="{Binding Add}"/>
+        <StackPanel Grid.Row="2" DataContext="{DynamicResource prAddVM}" >
+            <Button Content="Назначить процедуры" Command="{Binding Add}"/>
         </StackPanel>
     </Grid>
 </Page>

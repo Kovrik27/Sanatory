@@ -67,12 +67,7 @@ namespace Sanatory.ViewModel
             });
 
 
-            AddCabinet = new CommandVM(() =>
-            {
-                if (SelectedStaff == null)
-                    return;
-                MainWindowVM.Instance.CurrentPage = new CbAddSt(SelectedStaff);
-            });
+        
         }
 
 

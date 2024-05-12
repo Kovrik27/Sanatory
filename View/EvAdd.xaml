@@ -15,15 +15,17 @@
     </Page.Resources>
     <Grid>
         <StackPanel>
-            <StackPanel DataContext="{Binding Room}">
+            <StackPanel DataContext="{Binding Procedures}">
                 <Label Content=" "/>
-                <Label Content="Номер комнаты"/>
-                <TextBox Text="{Binding Number}"/>
-                <Label Content="Тип"/>
+                <StackPanel>
+                    <Label Content="День мероприятия"/>
+                    <TextBox Text="{Binding Procedures.Daytime.Time}"/>
+                </StackPanel>
+                <Label Content="Мероприятие"/>
                 <TextBox Text="{Binding Type}"/>
-                <Label Content="Цена"/>
+                <Label Content="Время"/>
                 <TextBox Text="{Binding Price}"/>
-                <Label Content="Статус"/>
+                <Label Content="Место"/>
                 <TextBox Text="{Binding Status}"/>
             </StackPanel>
 

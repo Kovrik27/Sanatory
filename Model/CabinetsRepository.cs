@@ -102,19 +102,7 @@ namespace Sanatory.Model
             }
         }
 
-        internal void AddCb(Staff staff, Cabinet cabinets)
-        {
-            var connect = DB.Instance.GetConnection();
-            if (connect == null)
-                return;
-            string sql = "UPDATE Staff SET CabinetID = @cabinetid WHERE ID = " + staff.ID;
-            using (var mc = new MySqlCommand(sql, connect))
-            {
-                mc.Parameters.Add(new MySqlParameter("ID", staff.ID));
-                mc.Parameters.Add(new MySqlParameter("cabinetsID", cabinets.ID));
-                mc.ExecuteNonQuery();
-            }
-        }
+        
 
     }
 }

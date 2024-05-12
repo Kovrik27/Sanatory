@@ -68,7 +68,7 @@ namespace Sanatory.ViewModel
 
             Broni = new CommandVM(() => {
                 MainWindowVM.Instance.CurrentPage = new GuAdd(SelectedRoom);
-
+                
             });
 
         }

@@ -20,6 +20,7 @@ namespace Sanatory.ViewModel
         public CommandVM DeleteProblem { get; set; }
 
 
+
         public Problem SelectedProblem { get; set; }
         public ObservableCollection<Problem> Problems
         {
@@ -63,6 +64,8 @@ namespace Sanatory.ViewModel
                 }
 
             });
+
+           
 
 
 

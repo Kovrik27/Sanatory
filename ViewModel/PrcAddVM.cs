@@ -10,7 +10,9 @@ namespace Sanatory.ViewModel
 {
     public class PrcAddVM : BaseVM
     {
+
         public CommandVM Save { get; set; }
+        public CommandVM Add { get; set; }
 
         private Procedure procedure = new();
 
@@ -23,6 +25,19 @@ namespace Sanatory.ViewModel
                 Signal();
             }
         }
+
+        private Guests guests = new();
+
+        public Guests Guests
+        {
+            get => guests;
+            set
+            {
+                guests = value;
+                Signal();
+            }
+        }
+
         public PrcAddVM()
         {
 
@@ -35,16 +50,27 @@ namespace Sanatory.ViewModel
                     ProceduresRepository.Instance.UpdateProcedures(Procedure);
 
 
-                MainWindowVM.Instance.CurrentPage = new Procedures();
+                MainWindowVM.Instance.CurrentPage = new Guests();
 
+            });
+
+            Add = new CommandVM(() =>
+            {
+                ProceduresRepository.Instance.AddPrc(Guests, Procedure);
+                MainWindowVM.Instance.CurrentPage = new Guests();
             });
 
         }
 
+
         internal void SetEditProcedures(Procedure selectedProcedure)
         {
             Procedure = selectedProcedure;
+        }
 
+        internal void SetGuests(Guests selectedGuests)
+        {
+            Guests = selectedGuests;
         }
     }
 }

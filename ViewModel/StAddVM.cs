@@ -15,7 +15,8 @@ namespace Sanatory.ViewModel
     public class StAddVM : BaseVM
     {
         public CommandVM Save { get; set; }
-        public CommandVM<Problem> Add { get; set; }
+        public CommandVM<Problem> AddP { get; set; }
+        public CommandVM<Cabinet> AddC { get; set; }
         ListBox ListDays;
         public List<Days> AllDays {  get; set; }
 
@@ -52,9 +53,17 @@ namespace Sanatory.ViewModel
 
             });
 
-            Add = new CommandVM<Problem>(s =>
+            AddP = new CommandVM<Problem>(s =>
             {
                 StaffRepository.Instance.AddProblem(Staff, s);
+                MainWindowVM.Instance.CurrentPage = new Personal();
+                
+
+            });
+
+            AddC = new CommandVM<Cabinet>(s =>
+            {
+                StaffRepository.Instance.AddCabinet(Staff, s);
                 MainWindowVM.Instance.CurrentPage = new Personal();
             });
 

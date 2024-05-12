@@ -105,5 +105,19 @@ namespace Sanatory.Model
             }
         }
 
+        internal void AddPrc(Guest guests, Procedure procedures)
+        {
+            var connect = DB.Instance.GetConnection();
+            if (connect == null)
+                return;
+            string sql = "UPDATE Guests SET ProcedureID = @procedureid WHERE ID = " + guests.ID;
+            using (var mc = new MySqlCommand(sql, connect))
+            {
+                mc.Parameters.Add(new MySqlParameter("ID", guests.ID));
+                mc.Parameters.Add(new MySqlParameter("proceduresID", procedures.ID));
+                mc.ExecuteNonQuery();
+            }
+        }
+
     }
 }

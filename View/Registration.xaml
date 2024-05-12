@@ -12,6 +12,7 @@
 
     <Page.Resources>
         <vm:RegVM x:Key="regVM"/>
+        <vm:GuVM x:Key="guVM"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -65,18 +66,20 @@
             </Button.Style>
         </Button>
 
-
-        <Button x:Name="Visilenie" Grid.Row="3" Grid.Column="3" Content="Выселить гостя из номера" Visibility="Hidden" Click="Viselit">
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=Rm, Path=SelectedItem}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
+        <StackPanel Grid.Row="3" Grid.Column="3" DataContext="{Binding guVM}">
+            <Button x:Name="Visilenie" Content="Выселить гостя из номера" Visibility="Hidden" Command="{Binding DeleteGuests}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=Rm, Path=SelectedItem}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+       
 
     </Grid>
 </Page>

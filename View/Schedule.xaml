@@ -30,7 +30,7 @@
         <Label Content=" "/>
         <Menu Grid.Column="2" Grid.Row="1" Grid.RowSpan="3">
             <MenuItem Header="Добавить день" Command="{Binding CreateDay}"/>
-            <MenuItem Header="Добавить мероприятие на определённый день" Grid.Column="1" Grid.Row="2"/>
+            <MenuItem Header="Добавить мероприятие на определённый день" Grid.Column="1" Grid.Row="2" Command="{Binding Meropriyatie}"/>
         </Menu>
 
 
@@ -38,9 +38,9 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="День" DisplayMemberBinding="{Binding Time}"/>
-                    <GridViewColumn Header="Мероприятие"/>
-                    <GridViewColumn Header="Время"/>
-                    <GridViewColumn Header="Место"/>
+                    <GridViewColumn Header="Мероприятие" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="Время" DisplayMemberBinding="{Binding Times}"/>
+                    <GridViewColumn Header="Место" DisplayMemberBinding="{Binding Place}"/>
                 </GridView>
             </ListView.View>
         </ListView>

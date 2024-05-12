@@ -150,6 +150,7 @@
         <StackPanel Grid.Row="5" DataContext="{DynamicResource stVM}">
             <Menu>
                 <MenuItem Header="Назначить задачу" Command="{Binding AddProblem}"/>
+                <MenuItem Header="Задача выполнена" Command="{Binding AddProblem}"/>
             </Menu>
         </StackPanel>
 

@@ -41,8 +41,6 @@
             <MenuItem Header="Добавить процедуру" Command="{Binding CreateProcedure}"/>
             <MenuItem Header="Изменить процедуру" Command="{Binding EditProcedure}"/>
             <MenuItem Header="Удалить процедуру" Command="{Binding DeleteProcedure}"/>
-            <MenuItem Header="Записать гостя на доп.процедуру"/>
-            <MenuItem Header="Записать гостя на первичный осмотр"/>
         </Menu>
     </Grid>
 </Page>

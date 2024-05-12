@@ -1,4 +1,5 @@
 ﻿using MySqlConnector;
+using Sanatory.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,8 +46,13 @@ namespace Sanatory.Model
                         result.Add(events);
                         events.ID = id;
                         events.Title = reader.GetString("Title");
-                        events.Time = reader.GetTimeOnly("Time");
+                        events.Times = reader.GetInt32("Time");
                         events.Place = reader.GetString("Place");
+                        events.Daytime = new Daytime()
+                        {
+                            Time = reader.GetString("Time")
+                        };
+                        result.Add(events);
                     }
                 }
             }
@@ -60,14 +66,15 @@ namespace Sanatory.Model
             if (connect == null)
                 return;
 
-            int id = DB.Instance.GetAutoID("Rooms");
+            int id = DB.Instance.GetAutoID("Events");
 
-            string sql = "INSERT INTO Events VALUES (0, @title, @time, @place)";
+            string sql = "INSERT INTO Events VALUES (0, @title, @time, @place, @daytimeid)";
             using (var mc = new MySqlCommand(sql, connect))
             {
-                mc.Parameters.Add(new MySqlParameter("number", events.Title));
-                mc.Parameters.Add(new MySqlParameter("type", events.Time));
-                mc.Parameters.Add(new MySqlParameter("price", events.Place));
+                mc.Parameters.Add(new MySqlParameter("title", events.Title));
+                mc.Parameters.Add(new MySqlParameter("time", events.Times));
+                mc.Parameters.Add(new MySqlParameter("place", events.Place));
+                mc.Parameters.Add(new MySqlParameter("daytimid", events.DaytimeID));
                 mc.ExecuteNonQuery();
             }
 
@@ -96,7 +103,7 @@ namespace Sanatory.Model
             using (var mc = new MySqlCommand(sql, connect))
             {
                 mc.Parameters.Add(new MySqlParameter("title", events.Title));
-                mc.Parameters.Add(new MySqlParameter("time", events.Time));
+                mc.Parameters.Add(new MySqlParameter("time", events.Times));
                 mc.Parameters.Add(new MySqlParameter("place", events.Place));
                 mc.ExecuteNonQuery();
             }
