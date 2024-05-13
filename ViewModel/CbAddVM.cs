@@ -54,11 +54,7 @@ namespace Sanatory.ViewModel
 
             });
 
-            Add = new CommandVM(()=>
-            {
-                CabinetsRepository.Instance.AddCb(Staff, Cabinets);
-                MainWindowVM.Instance.CurrentPage = new Personal();
-            });
+            
 
         }
 

@@ -56,7 +56,7 @@ namespace Sanatory.ViewModel
 
             Add = new CommandVM(() =>
             {
-                ProceduresRepository.Instance.AddPrc(Guests, Procedure);
+                //ProceduresRepository.Instance.AddPrc(Guests, Procedure);
                 MainWindowVM.Instance.CurrentPage = new Guests();
             });
 

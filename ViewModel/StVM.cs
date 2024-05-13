@@ -27,7 +27,6 @@ namespace Sanatory.ViewModel
         public CommandVM DeleteStaff { get; set; }
 
         public CommandVM AddProblem {  get; set; }
-        public CommandVM AddCabinet { get; set; }
         public CommandVM ProblemDone { get; set; }
 
         public Staff SelectedStaff { get; set; }
@@ -80,7 +79,7 @@ namespace Sanatory.ViewModel
         {
             MainVM = MainWindowVM.Instance;
 
-            string sql = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay, p.Description FROM CrossDaysStaff cds, Staff s, Days d, Problem p WHERE cds.StaffID = s.ID AND cds.DaysID = d.ID AND p.ID = ProblemID AND JobTitle NOT LIKE 'Врач%'";
+            string sql = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay, p.Description AS Description FROM CrossDaysStaff cds, Staff s, Days d, Problem p WHERE cds.StaffID = s.ID AND cds.DaysID = d.ID AND p.ID = ProblemID AND JobTitle NOT LIKE 'Врач%'";
             string sql2 = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay FROM CrossDaysStaff cds, Staff s, Days d WHERE cds.StaffID = s.ID AND cds.DaysID = d.ID AND JobTitle LIKE 'Врач%'";
             Staffs = new ObservableCollection<Staff>(StaffRepository.Instance.GetAllStaff(sql));
             Staffs2 = new ObservableCollection<Staff>(StaffRepository.Instance.GetAllStaff(sql2));
@@ -120,22 +119,17 @@ namespace Sanatory.ViewModel
                     return;
                 MainWindowVM.Instance.CurrentPage = new PrAddSt(SelectedStaff);
             });
-
-            AddCabinet = new CommandVM(() =>
-            {
-                if (SelectedStaff == null)
-                    return;
-                MainWindowVM.Instance.CurrentPage = new CbAddSt(SelectedStaff);
-            });
+       
 
             ProblemDone = new CommandVM(() =>
             {
-                if (SelectedProblem  == null) 
+                if (SelectedStaff  == null) 
                     return;
 
-                MessageBox.Show("Задача выполнена!");
+
+                if (MessageBox.Show("Задача выполнена?", "Молодец", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    ProblemRepository.Instance.Remove(SelectedProblem);
+                    //ProblemRepository.Instance.RemoveFromStaff(SelectedProblem);
                     Problems.Remove(SelectedProblem);
                 }
             });

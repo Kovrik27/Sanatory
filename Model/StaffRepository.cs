@@ -60,17 +60,17 @@ namespace Sanatory.Model
                     };
                     staff.Days.Add(days);
 
-                    staff.Problem = new Problem()
-                    {
-                        Description = reader.GetString("Description")
-                    };
-                    result.Add(staff);
+                    //staff.Problem = new Problem()
+                    //{
+                    //    Description = reader.GetString("Description")
+                    //};
+                    //result.Add(staff);
 
-                    staff.Cabinet = new Cabinet()
-                    {
-                        Number = reader.GetInt32("Number")
-                    };
-                    result.Add(staff);
+                    //staff.Cabinet = new Cabinet()
+                    //{
+                    //    Number = reader.GetInt32("Number")
+                    //};
+                    //result.Add(staff);
 
                 }
             }

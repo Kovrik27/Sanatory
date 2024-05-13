@@ -32,6 +32,7 @@ namespace Sanatory.ViewModel
 
                 if (Guests.ID == 0)
                     GuestsRepository.Instance.AddGuest(Guests);
+                
                 else
                     GuestsRepository.Instance.UpdateGuest(Guests);
 

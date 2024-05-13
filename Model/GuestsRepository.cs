@@ -80,6 +80,7 @@ namespace Sanatory.Model
                 mc.ExecuteNonQuery();
             }
 
+
         }
 
         internal void Remove(Guest guests)
@@ -114,6 +115,8 @@ namespace Sanatory.Model
                 mc.ExecuteNonQuery();
             }
         }
+
+        
 
     }
 }

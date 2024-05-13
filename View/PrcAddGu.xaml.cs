@@ -22,7 +22,7 @@ namespace Sanatory.View
     {
         public PrcAddGu()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }

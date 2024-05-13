@@ -105,5 +105,13 @@ namespace Sanatory.Model
             }
         }
 
+        internal void UpdateStatus(Room room)
+        {
+            var connect = DB.Instance.GetConnection();
+            if (connect == null) return;
+
+            string sql = "UPDATE Rooms SET Status = 'Занят' WHERE "
+        }
+
     }
 }

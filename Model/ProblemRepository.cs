@@ -46,7 +46,7 @@ namespace Sanatory.Model
                         result.Add(problem);
                         problem.ID = id;
                         problem.Description = reader.GetString("Description");
-                        problem.Place = reader.GetString("Place");
+                        //problem.Place = reader.GetString("Place");
                     }
                 }
             }
@@ -106,6 +106,17 @@ namespace Sanatory.Model
                 mc.ExecuteNonQuery();
             }
         }
+
+        //internal void RemoveFromStaff(Problem problem, Staff staff)
+        //{
+        //    var connect = DB.Instance.GetConnection();
+        //    if (connect == null) 
+        //        return;
+
+        //    string sql = "UPDATE Staff SET ProblemID = NULL WHERE StaffID ='" + staff.ID + "';";
+        //    using (var mc = new MySqlCommand(sql, connect))
+        //        mc.ExecuteNonQuery();
+        //}
 
     }
 }
