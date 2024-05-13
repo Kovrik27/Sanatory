@@ -66,8 +66,8 @@
             </Button.Style>
         </Button>
 
-        <StackPanel Grid.Row="3" Grid.Column="3" DataContext="{Binding guVM}">
-            <Button x:Name="Visilenie" Content="Выселить гостя из номера" Visibility="Hidden" Command="{Binding DeleteGuests}">
+        <StackPanel Grid.Row="3" Grid.Column="3">
+            <Button x:Name="Visilenie" Content="Выселить гостя из номера" Visibility="Hidden">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Style.Triggers>

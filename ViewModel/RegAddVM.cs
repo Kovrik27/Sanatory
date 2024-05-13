@@ -33,7 +33,11 @@ namespace Sanatory.ViewModel
             {
 
                 if (Room.ID == 0)
+                {
                     RoomsRepository.Instance.AddRoom(Room);
+                    RoomsRepository.Instance.UpdateStatus(Room);
+                }
+                    
                 else
                     RoomsRepository.Instance.UpdateRoom(Room);
 

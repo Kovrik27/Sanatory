@@ -41,7 +41,7 @@
                         <GridViewColumn Header="Отчество гостя" DisplayMemberBinding="{Binding Lastname }"/>
                         <GridViewColumn Header="Дата заезда" DisplayMemberBinding="{Binding DataArrival}"/>
                         <GridViewColumn Header="Дата выезда" DisplayMemberBinding="{Binding DataOfDeparture}"/>
-                    <GridViewColumn Header="Номер комнаты" DisplayMemberBinding="{Binding Number}"/>
+                    <GridViewColumn Header="Номер комнаты" DisplayMemberBinding="{Binding Room.Number}"/>
                 </GridView>
                 </ListView.View>
             </ListView>

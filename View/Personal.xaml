@@ -78,13 +78,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Задача">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ItemsControl Style="{StaticResource ProblemItem}" DisplayMemberPath="Description" ItemsSource="{Binding Problem}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+                        <GridViewColumn Header="Задача" DisplayMemberBinding="{Binding Problem.Description}"/>
                     </GridView>
                 </ListView.View>
             </ListView>

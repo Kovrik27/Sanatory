@@ -80,9 +80,9 @@ namespace Sanatory.ViewModel
             MainVM = MainWindowVM.Instance;
 
             string sql = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay, p.Description AS Description FROM CrossDaysStaff cds, Staff s, Days d, Problem p WHERE cds.StaffID = s.ID AND cds.DaysID = d.ID AND p.ID = ProblemID AND JobTitle NOT LIKE 'Врач%'";
-            string sql2 = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay FROM CrossDaysStaff cds, Staff s, Days d WHERE cds.StaffID = s.ID AND cds.DaysID = d.ID AND JobTitle LIKE 'Врач%'";
-            Staffs = new ObservableCollection<Staff>(StaffRepository.Instance.GetAllStaff(sql));
-            Staffs2 = new ObservableCollection<Staff>(StaffRepository.Instance.GetAllStaff(sql2));
+            string sql2 = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay, c.Number AS Number FROM CrossDaysStaff cds, Staff s, Days d, Cabinet c WHERE cds.StaffID = s.ID AND cds.DaysID = d.ID AND c.ID = CabinetID AND JobTitle LIKE 'Врач%'";
+            Staffs = new ObservableCollection<Staff>(StaffRepository.Instance.GetTechStaff(sql));
+            Staffs2 = new ObservableCollection<Staff>(StaffRepository.Instance.GetMedStaff(sql2));
             AllDays = new ObservableCollection<Days> (DaysRepository.Instance.GetDays());
             Problems = new ObservableCollection<Problem>(ProblemRepository.Instance.GetAllProblem(sql));
             AllDays.Insert(0, new Days { ID = 0, Day = "Все теги" });
@@ -129,8 +129,7 @@ namespace Sanatory.ViewModel
 
                 if (MessageBox.Show("Задача выполнена?", "Молодец", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    //ProblemRepository.Instance.RemoveFromStaff(SelectedProblem);
-                    Problems.Remove(SelectedProblem);
+                    
                 }
             });
         }
