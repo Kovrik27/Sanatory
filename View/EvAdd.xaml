@@ -15,7 +15,7 @@
     </Page.Resources>
     <Grid>
         <StackPanel>
-            <StackPanel DataContext="{Binding Procedures}">
+            <StackPanel DataContext="{Binding Events}">
                 <Label Content=" "/>
                 <StackPanel>
                     <Label Content="День мероприятия"/>

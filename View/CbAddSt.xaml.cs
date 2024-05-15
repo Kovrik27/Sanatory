@@ -18,11 +18,11 @@ using System.Windows.Shapes;
 namespace Sanatory.View
 {
     /// <summary>
-    /// Логика взаимодействия для PrAddSt.xaml
+    /// Логика взаимодействия для CbAddSt.xaml
     /// </summary>
-    public partial class PrAddSt : Page
+    public partial class CbAddSt : Page
     {
-        public PrAddSt(Staff selectedStaff)
+        public CbAddSt(Staff selectedStaff)
         {
             InitializeComponent();
             ((StAddVM)DataContext).SetStaff(selectedStaff);

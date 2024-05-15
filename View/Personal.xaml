@@ -113,6 +113,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
+                        <GridViewColumn Header="Кабинет" DisplayMemberBinding="{Binding Cabinet.Number}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -147,11 +148,6 @@
             </Menu>
         </StackPanel>
 
-        <StackPanel Grid.Row="5" HorizontalAlignment="Right" DataContext="{DynamicResource stVM}">
-            <Menu>
-                <MenuItem Header="Задача выполнена" Command="{Binding ProblemDone}"/>
-            </Menu>
-        </StackPanel>
 
         <StackPanel Grid.Row="5" Grid.Column="1" DataContext="{DynamicResource prVM}">
             <Menu>
@@ -161,7 +157,7 @@
             </Menu>
         </StackPanel>
 
-        <StackPanel Grid.Row="5" Grid.Column="2" DataContext="{DynamicResource cbVM}">
+        <StackPanel Grid.Row="5" Grid.Column="2" DataContext="{DynamicResource stVM}">
             <Menu>
                 <MenuItem Header="Назначить кабинет" Command="{Binding AddCabinet}"/>
             </Menu>

@@ -12,10 +12,7 @@
 
     <Page.Resources>
         <vm:GuAddVM x:Key="guAddVM"/>
-        <vm:RegVM x:Key="regVM"/>
     </Page.Resources>
-    
-    
     <Grid>
         <StackPanel>
             <StackPanel>

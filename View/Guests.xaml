@@ -36,9 +36,9 @@
             <ListView Grid.Row="2" ItemsSource="{Binding Guests}" SelectedItem="{Binding SelectedGuest}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Фамилия гостя" DisplayMemberBinding="{Binding Surname }"/>
+                    <GridViewColumn Header="Фамилия гостя" DisplayMemberBinding="{Binding Lastname }"/>
                         <GridViewColumn Header="Имя гостя" DisplayMemberBinding="{Binding Name }"/>
-                        <GridViewColumn Header="Отчество гостя" DisplayMemberBinding="{Binding Lastname }"/>
+                        <GridViewColumn Header="Отчество гостя" DisplayMemberBinding="{Binding Surname }"/>
                         <GridViewColumn Header="Дата заезда" DisplayMemberBinding="{Binding DataArrival}"/>
                         <GridViewColumn Header="Дата выезда" DisplayMemberBinding="{Binding DataOfDeparture}"/>
                     <GridViewColumn Header="Номер комнаты" DisplayMemberBinding="{Binding Room.Number}"/>
@@ -49,28 +49,23 @@
 
 
 
-        <ListView Grid.Row="2" Grid.Column="1">
+        <ListView Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Guests}" SelectedItem="{Binding SelectedGuest}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Фамилия гостя" DisplayMemberBinding="{Binding Surname}"/>
                     <GridViewColumn Header="Имя гостя" DisplayMemberBinding="{Binding Name}" />
                     <GridViewColumn Header="Отчество гостя" DisplayMemberBinding="{Binding Lastname}" />
-                    <GridViewColumn Header="Номер комнаты"/>
+                    <GridViewColumn Header="Номер комнаты" DisplayMemberBinding="{Binding Room.Number}"/>
                     <GridViewColumn Header="Дата заезда" DisplayMemberBinding="{Binding DataArrival}"/>
                     <GridViewColumn Header="Дата выезда" DisplayMemberBinding="{Binding DataOfDeparture}"/>
                     <GridViewColumn Header="Назначенные процедуры"/>
-                    <GridViewColumn Header="Кабинет процедуры"/>
-                    <GridViewColumn Header="Врач"/>
                 </GridView>
             </ListView.View>
         </ListView>
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal">
-            <Button Content="Распечатать" />
-        </StackPanel>
+        
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-            <Button Content="Распечатать" />
             <Button Content="Добавить гостю назначенную процедуру" Command="{Binding AddProcedure}"/>
         </StackPanel>
 

@@ -35,7 +35,7 @@ namespace Sanatory.ViewModel
         public PrVM()
         {
             MainVM = MainWindowVM.Instance;
-            string sql = "SELECT * FROM Problem";
+            string sql = "SELECT p.Description, p.Place FROM Problem p, Staff s WHERE s.ID = StaffID AND StaffID = Null";
 
             Problems = new ObservableCollection<Problem>(ProblemRepository.Instance.GetAllProblem(sql));
 

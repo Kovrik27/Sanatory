@@ -2,6 +2,7 @@
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,7 +45,6 @@ namespace Sanatory.Model
 
                     {
                         staff = new Staff();
-                        result.Add(staff);
                         staff.ID = id;
                         staff.Lastname = reader.GetString("Lastname");
                         staff.Name = reader.GetString("Name");
@@ -52,10 +52,13 @@ namespace Sanatory.Model
                         staff.JobTitle = reader.GetString("JobTitle");
                         staff.Phone = reader.GetString("Phone");
                         staff.Mail = reader.GetString("Mail");
-                        staff.Problem = new Problem()
+                        if (!reader.IsDBNull("Description"))
                         {
-                            Description = reader.GetString("Description")
-                        };
+                            staff.Problem = new Problem()
+                            {
+                                Description = reader.GetString("Description")
+                            };
+                        }                     
                         result.Add(staff);
                     }
                     Days days = new Days
@@ -91,7 +94,6 @@ namespace Sanatory.Model
 
                     {
                         staff = new Staff();
-                        result.Add(staff);
                         staff.ID = id;
                         staff.Lastname = reader.GetString("Lastname");
                         staff.Name = reader.GetString("Name");
@@ -99,10 +101,13 @@ namespace Sanatory.Model
                         staff.JobTitle = reader.GetString("JobTitle");
                         staff.Phone = reader.GetString("Phone");
                         staff.Mail = reader.GetString("Mail");
-                        staff.Cabinet = new Cabinet()
+                        if (!reader.IsDBNull("Number"))
                         {
-                            Number = reader.GetInt32("Number")
-                        };
+                            staff.Cabinet = new Cabinet()
+                            {
+                                Number = reader.GetInt32("Number")
+                            };
+                        }
                         result.Add(staff);
                     }
                     Days days = new Days

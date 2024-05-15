@@ -27,6 +27,7 @@ namespace Sanatory.ViewModel
         public CommandVM DeleteStaff { get; set; }
 
         public CommandVM AddProblem {  get; set; }
+        public CommandVM AddCabinet { get; set; }
         public CommandVM ProblemDone { get; set; }
 
         public Staff SelectedStaff { get; set; }
@@ -79,12 +80,12 @@ namespace Sanatory.ViewModel
         {
             MainVM = MainWindowVM.Instance;
 
-            string sql = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay, p.Description AS Description FROM CrossDaysStaff cds, Staff s, Days d, Problem p WHERE cds.StaffID = s.ID AND cds.DaysID = d.ID AND p.ID = ProblemID AND JobTitle NOT LIKE 'Врач%'";
-            string sql2 = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay, c.Number AS Number FROM CrossDaysStaff cds, Staff s, Days d, Cabinet c WHERE cds.StaffID = s.ID AND cds.DaysID = d.ID AND c.ID = CabinetID AND JobTitle LIKE 'Врач%'";
+            string sql = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay, p.Description AS Description FROM Days d JOIN CrossDaysStaff cds ON cds.DaysID = d.ID JOIN Staff s ON cds.StaffID = s.ID LEFT JOIN Problem p ON p.ID = s.ProblemID AND JobTitle NOT LIKE 'Врач%'";
+            string sql2 = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay, c.Number AS Number  FROM Days d JOIN CrossDaysStaff cds ON cds.DaysID = d.ID JOIN Staff s ON cds.StaffID = s.ID LEFT JOIN Cabinet c ON c.ID = s.CabinetID WHERE JobTitle LIKE 'Врач%'";
             Staffs = new ObservableCollection<Staff>(StaffRepository.Instance.GetTechStaff(sql));
             Staffs2 = new ObservableCollection<Staff>(StaffRepository.Instance.GetMedStaff(sql2));
             AllDays = new ObservableCollection<Days> (DaysRepository.Instance.GetDays());
-            Problems = new ObservableCollection<Problem>(ProblemRepository.Instance.GetAllProblem(sql));
+            //Problems = new ObservableCollection<Problem>(ProblemRepository.Instance.GetAllProblem(sql));
             AllDays.Insert(0, new Days { ID = 0, Day = "Все теги" });
             SelectedDays = AllDays[0];
 
@@ -119,7 +120,14 @@ namespace Sanatory.ViewModel
                     return;
                 MainWindowVM.Instance.CurrentPage = new PrAddSt(SelectedStaff);
             });
-       
+
+            AddCabinet = new CommandVM(() =>
+            {
+                if (SelectedStaff == null)
+                    return;
+                MainWindowVM.Instance.CurrentPage = new CbAddSt(SelectedStaff);
+            });
+
 
             ProblemDone = new CommandVM(() =>
             {

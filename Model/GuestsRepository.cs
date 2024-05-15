@@ -38,7 +38,6 @@ namespace Sanatory.Model
                 while (reader.Read())
                 {
                     guests = new Guest();
-                    result.Add(guests);
                     guests.ID = reader.GetInt32("ID");
                     guests.Surname = reader.GetString("Surname");
                     guests.Name = reader.GetString("Name");

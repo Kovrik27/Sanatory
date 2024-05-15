@@ -37,7 +37,7 @@ namespace Sanatory.ViewModel
         public GuVM()
         {
             MainVM = MainWindowVM.Instance;
-            string sql = "SELECT g.ID, g.Surname, g.Name, g.Lastname, g.DataArrival, g.DataOfDeparture, r.Number AS Number FROM Guests g, Rooms r WHERE RoomID = r.ID";
+            string sql = "SELECT g.ID, g.Surname, g.Name, g.Lastname, g.DataArrival, g.DataOfDeparture, r.Number AS Number FROM Guests g, Rooms r WHERE RoomID = r.ID and r.ID = g.RoomID";
 
             Guests = new ObservableCollection<Guest>(GuestsRepository.Instance.GetAllGuests(sql));
 

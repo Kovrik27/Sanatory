@@ -4,6 +4,67 @@
              xmlns:local="clr-namespace:Sanatory"
              StartupUri="View\MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+
+            <!-- Style for the main window -->
+            <Style x:Key="Page" TargetType="Page">
+                <Setter Property="Background" Value="#F0F0F0"/>
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+
+            <!-- Style for the menu -->
+            <Style x:Key="Menu" TargetType="Menu">
+                <Setter Property="Background" Value="#333333"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
+
+            <!-- Style for menu items -->
+            <Style x:Key="MenuItem" TargetType="MenuItem">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
+
+            <!-- Style for buttons -->
+            <Style x:Key="Button" TargetType="Button">
+                <Setter Property="Background" Value="#007ACC"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
+
+            <!-- Style for ListView -->
+            <Style x:Key="ListView" TargetType="ListView">
+                <Setter Property="Background" Value="#FFFFFF"/>
+                <Setter Property="BorderBrush" Value="#CCCCCC"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+
+            <!-- Style for ListViewItem -->
+            <Style x:Key="ListViewItem" TargetType="ListViewItem">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Padding" Value="5"/>
+            </Style>
+
+            <Style x:Key="Label" TargetType="Label">
+                <Setter Property="Foreground" Value="#333333"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="Background" Value="#EFEFEF"/>
+            </Style>
+
+            <Style  x:Key="TextBox" TargetType="TextBox">
+                <Setter Property="Foreground" Value="#333333"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="BorderBrush" Value="#CCCCCC"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Background" Value="#FFFFFF"/>
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

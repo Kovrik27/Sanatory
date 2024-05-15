@@ -1,4 +1,4 @@
-﻿<Page x:Class="Sanatory.View.PrAddSt"
+﻿<Page x:Class="Sanatory.View.CbAddSt"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,10 +6,12 @@
       xmlns:local="clr-namespace:Sanatory.View"
       xmlns:vm="clr-namespace:Sanatory.ViewModel"
       mc:Ignorable="d" 
+      DataContext="{DynamicResource stAddVM}"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PrAddSt">
+      Title="CbAddSt" Style="{StaticResource Page}">
+
     <Page.Resources>
-        <vm:PrVM x:Key="prVM"/>
+        <vm:CbVM x:Key="cbVM"/>
         <vm:StAddVM x:Key="stAddVM"/>
     </Page.Resources>
     <Grid>
@@ -18,19 +20,19 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Label Content="Выберите задачу, чтобы назначить её сотруднику"/>
-        <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{DynamicResource prVM}">
-            <ListView x:Name="listProblems" ItemsSource="{Binding Problems}" SelectedItem="{Binding SelectedProblem}">
+        <Label Content="Выберите кабинет, чтобы назначить его сотруднику" Style="{StaticResource Label}"/>
+        <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{DynamicResource cbVM}">
+            <ListView x:Name="listCabinets" ItemsSource="{Binding Cabinets}" SelectedItem="{Binding SelectedCabinet}" Style="{StaticResource ListView}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Description}" />
-                        <GridViewColumn DisplayMemberBinding="{Binding Place}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Type}" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Number}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
         </StackPanel>
         <StackPanel Grid.Row="2" DataContext="{DynamicResource stAddVM}" >
-            <Button Content="Назначить задачу" Command="{Binding AddP}" CommandParameter="{Binding ElementName=listProblems, Path=SelectedItem}"/>
+            <Button Content="Назначить задачу" Command="{Binding AddC}" CommandParameter="{Binding ElementName=listCabinets, Path=SelectedItem}" Style="{StaticResource Button}"/>
         </StackPanel>
     </Grid>
 </Page>

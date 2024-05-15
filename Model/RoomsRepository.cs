@@ -110,7 +110,12 @@ namespace Sanatory.Model
             var connect = DB.Instance.GetConnection();
             if (connect == null) return;
 
-            string sql = "UPDATE Rooms SET Status = 'Занят' WHERE '" + room.ID + "';"; 
+            string sql = "UPDATE Rooms SET Status = 'Занят' WHERE ID = " + room.ID;
+            using (var mc = new MySqlCommand(sql, connect))
+            {
+                mc.Parameters.Add(new MySqlParameter("status", room.Status));
+                mc.ExecuteNonQuery();
+            }
         }
 
     }

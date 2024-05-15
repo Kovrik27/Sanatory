@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Sanatory.Model;
+using Sanatory.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,12 @@ namespace Sanatory.View
         public DataTimAdd()
         {
             InitializeComponent();
+        }
+
+        public DataTimAdd(Daytime selectedDaytime)
+        {
+            InitializeComponent();
+            ((DaysTimAddVM)DataContext).SetEditDaytime(selectedDaytime);
         }
     }
 }
