@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sanatory.ViewModel
 {
@@ -12,6 +13,9 @@ namespace Sanatory.ViewModel
     {
 
         public CommandVM Save { get; set; }
+        public CommandVM DeleteGuests { get; set; }
+
+        public CommandVM AddPrc { get; set; }
 
         private Guest guests = new();
 
@@ -37,14 +41,24 @@ namespace Sanatory.ViewModel
                 }
                                    
                 else
-                    GuestsRepository.Instance.UpdateGuest(Guests);
+                    GuestsRepository.Instance.UpdateGuests(Guests);
 
 
                 MainWindowVM.Instance.CurrentPage = new Guests();
 
             });
 
+
+            AddPrc = new CommandVM(() =>
+            {
+                GuestsRepository.Instance.AddPrc(Guests);
+                MainWindowVM.Instance.CurrentPage = new Guests();
+
+
+            });
+
         }
+
 
 
         internal void SetEditGuest(Guest selectedGuest)

@@ -31,12 +31,12 @@
         </Grid.ColumnDefinitions>
 
         <Frame NavigationUIVisibility="Hidden" Grid.RowSpan="7" Grid.ColumnSpan="4" Background="AliceBlue" Content="{Binding CurrentPage}"/>
-        <Menu Grid.ColumnSpan="4">
-            <MenuItem Header="Бронирование" Command="{Binding Bronirovanie}"/>
-            <MenuItem Header="Персонал" Command="{Binding Personal}"/>
-            <MenuItem Header="Гости" Command="{Binding Gosti}"/>
-            <MenuItem Header="Процедуры" Command="{Binding Proceduri}"/>
-            <MenuItem Header="Расписание" Command="{Binding Raspisanie}"/>
+        <Menu Grid.ColumnSpan="4" Style="{StaticResource Menu}">
+            <MenuItem Header="Бронирование" Command="{Binding Bronirovanie}" Style="{StaticResource MenuItem}"/>
+            <MenuItem Header="Персонал" Command="{Binding Personal}"  Style="{StaticResource MenuItem}"/>
+            <MenuItem Header="Гости" Command="{Binding Gosti}"  Style="{StaticResource MenuItem}"/>
+            <MenuItem Header="Процедуры" Command="{Binding Processes}"  Style="{StaticResource MenuItem}"/>
+            <MenuItem Header="Расписание" Command="{Binding Raspisanie}"  Style="{StaticResource MenuItem}"/>
         </Menu>
 
     </Grid>

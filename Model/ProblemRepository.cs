@@ -46,7 +46,6 @@ namespace Sanatory.Model
                         result.Add(problem);
                         problem.ID = id;
                         problem.Description = reader.GetString("Description");
-                        problem.StaffID = reader.GetInt32("StaffID");
                         //problem.Place = reader.GetString("Place");
                     }
                 }
@@ -63,12 +62,11 @@ namespace Sanatory.Model
 
             int id = DB.Instance.GetAutoID("Problem");
 
-            string sql = "INSERT INTO Problem VALUES (0, @description, @place, @staffid)";
+            string sql = "INSERT INTO Problem VALUES (0, @description, @place)";
             using (var mc = new MySqlCommand(sql, connect))
             {
                 mc.Parameters.Add(new MySqlParameter("description", problem.Description));
-                mc.Parameters.Add(new MySqlParameter("place", problem.Place));
-                mc.Parameters.Add(new MySqlParameter("staffid", problem.Place));
+                mc.Parameters.Add(new MySqlParameter("place", problem.Place));         
                 mc.ExecuteNonQuery();
               
             }

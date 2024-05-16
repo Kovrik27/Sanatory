@@ -25,34 +25,31 @@ namespace Sanatory.Model
             }
         }
 
-        internal IEnumerable<Procedure> GetAllProcedures(string sql)
+        internal List<Procedure> GetAllProcedures()
         {
-            var result = new List<Procedure>();
+            List<Procedure> result = new List<Procedure>();
             var connect = DB.Instance.GetConnection();
+            string sql = "SELECT * FROM Procedures";
             if (connect == null)
                 return result;
             using (var mc = new MySqlCommand(sql, connect))
             using (var reader = mc.ExecuteReader())
             {
-                Procedure procedures = new Procedure();
-                int id;
                 while (reader.Read())
                 {
-                    id = reader.GetInt32("ID");
-                    if (procedures.ID != id)
+                    var procedures = new Procedure
                     {
-                        procedures = new Procedure();
-                        result.Add(procedures);
-                        procedures.ID = id;
-                        procedures.Title = reader.GetString("Title");
-                        procedures.Description = reader.GetString("Description");
-                        procedures.Duration = reader.GetInt32("Duration");
-                        procedures.Price = reader.GetDouble("Price");
-                    }
+                        ID = reader.GetInt32("ID"),
+                        Title = reader.GetString("Title"),
+                        Description = reader.GetString("Description"),
+                        Duration = reader.GetInt32("Duration"),
+                        Price = reader.GetDouble("Price")
+                    };
+                    result.Add(procedures);
                 }
             }
 
-            return result;
+          return result;
         }
 
         internal void AddProcedures(Procedure procedures)
@@ -105,19 +102,7 @@ namespace Sanatory.Model
             }
         }
 
-        internal void AddPrc(Guest guests, Procedure procedures)
-        {
-            var connect = DB.Instance.GetConnection();
-            if (connect == null)
-                return;
-            string sql = "UPDATE Guests SET ProcedureID = @procedureid WHERE ID = " + guests.ID;
-            using (var mc = new MySqlCommand(sql, connect))
-            {
-                mc.Parameters.Add(new MySqlParameter("ID", guests.ID));
-                mc.Parameters.Add(new MySqlParameter("proceduresID", procedures.ID));
-                mc.ExecuteNonQuery();
-            }
-        }
+        
 
     }
 }

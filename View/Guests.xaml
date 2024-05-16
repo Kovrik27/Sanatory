@@ -8,12 +8,31 @@
       mc:Ignorable="d" 
       DataContext="{DynamicResource guVM}"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Guests">
+      Title="Guests" Style="{StaticResource Page}">
 
     <Page.Resources>
         <vm:GuAddVM x:Key="guAddVM"/>
         <vm:GuVM x:Key="guVM"/>
+        <Style x:Key="ProcedureItem" TargetType="ItemsControl">
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="CabinetItem" TargetType="ItemsControl">
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
+    
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -29,11 +48,11 @@
         </Grid.RowDefinitions>
 
         <Label Content=" "/>
-        <TextBlock Text="Карта гостя" Grid.Row="1"/>
-        <TextBlock Text="Санаторно-курортная книжка" Grid.Column="1" Grid.Row="1"/>
+        <Label Content="Карта гостя" Grid.Row="1" Style="{StaticResource Label}"/>
+        <Label Content="Санаторно-курортная книжка" Grid.Column="1" Grid.Row="1" Style="{StaticResource Label}"/>
 
         
-            <ListView Grid.Row="2" ItemsSource="{Binding Guests}" SelectedItem="{Binding SelectedGuest}">
+            <ListView Grid.Row="2" ItemsSource="{Binding Guests}" SelectedItem="{Binding SelectedGuest}" Style="{StaticResource ListView}">
                 <ListView.View>
                     <GridView>
                     <GridViewColumn Header="Фамилия гостя" DisplayMemberBinding="{Binding Lastname }"/>
@@ -42,14 +61,36 @@
                         <GridViewColumn Header="Дата заезда" DisplayMemberBinding="{Binding DataArrival}"/>
                         <GridViewColumn Header="Дата выезда" DisplayMemberBinding="{Binding DataOfDeparture}"/>
                     <GridViewColumn Header="Номер комнаты" DisplayMemberBinding="{Binding Room.Number}"/>
+                    <GridViewColumn Header="Процедуры">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ItemsControl Style="{StaticResource ProcedureItem}" DisplayMemberPath="Title" ItemsSource="{Binding Procedure}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Кабинет">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ItemsControl Style="{StaticResource CabinetItem}" DisplayMemberPath="Number" ItemsSource="{Binding Cabinet}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
                 </ListView.View>
-            </ListView>
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="Background" Value="#EFEFEF"/>
+                    <Setter Property="Foreground" Value="#333333"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="FontSize" Value="14"/>
+                </Style>
+            </ListView.Resources>
+        </ListView>
 
 
 
 
-        <ListView Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Guests}" SelectedItem="{Binding SelectedGuest}">
+        <ListView Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Guests}" SelectedItem="{Binding SelectedGuest}" Style="{StaticResource ListView}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Фамилия гостя" DisplayMemberBinding="{Binding Surname}"/>
@@ -61,12 +102,22 @@
                     <GridViewColumn Header="Назначенные процедуры"/>
                 </GridView>
             </ListView.View>
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="Background" Value="#EFEFEF"/>
+                    <Setter Property="Foreground" Value="#333333"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="FontSize" Value="14"/>
+                </Style>
+            </ListView.Resources>
         </ListView>
 
-        
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <Button Content="Выселить гостя" Command="{Binding DeleteGuests}" Style="{StaticResource Button}"/>
+        </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-            <Button Content="Добавить гостю назначенную процедуру" Command="{Binding AddProcedure}"/>
+            <Button Content="Добавить гостю назначенную процедуру" Command="{Binding AddProcedure}" Style="{StaticResource Button}"/>
         </StackPanel>
 
     </Grid>

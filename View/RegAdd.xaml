@@ -7,7 +7,7 @@
       xmlns:vm="clr-namespace:Sanatory.ViewModel"
       mc:Ignorable="d"
       DataContext="{DynamicResource regAddvm}"
-    Title="Добавить номер" Height="450" Width="800">
+    Title="RegAdd" Height="450" Width="800" Style="{StaticResource Page}">
 
     <Page.Resources>
         <vm:RegAddVM x:Key="regAddvm"/>
@@ -19,17 +19,17 @@
         <StackPanel>
             <StackPanel DataContext="{Binding Room}">
                 <Label Content=" "/>
-                <Label Content="Номер комнаты"/>
-                <TextBox Text="{Binding Number}"/>
-                <Label Content="Тип"/>
-                <TextBox Text="{Binding Type}"/>
-                <Label Content="Цена"/>
-                <TextBox Text="{Binding Price}"/>
-                <Label Content="Статус"/>
-                <TextBox Text="{Binding Status}"/>
+                <Label Content="Номер комнаты" Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding Number}" Style="{StaticResource TextBox}"/>
+                <Label Content="Тип" Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding Type}" Style="{StaticResource TextBox}"/>
+                <Label Content="Цена" Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding Price}" Style="{StaticResource TextBox}"/>
+                <Label Content="Статус" Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding Status}" Style="{StaticResource TextBox}"/>
             </StackPanel>
 
-            <Button Content="Сохранить" Command="{Binding Save}"/>
+            <Button Content="Сохранить" Command="{Binding Save}" Style="{StaticResource Button}"/>
         </StackPanel>
     </Grid>
 </Page>

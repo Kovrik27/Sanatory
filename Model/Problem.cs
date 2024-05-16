@@ -11,6 +11,5 @@ namespace Sanatory.Model
         public int ID { get; set; }
         public string Description { get; set; }
         public string Place {  get; set; }
-        public int StaffID { get; set; }
     }
 }

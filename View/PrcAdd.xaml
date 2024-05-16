@@ -8,7 +8,7 @@
       mc:Ignorable="d" 
       DataContext="{DynamicResource prcAddVM}"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PrcAdd">
+      Title="PrcAdd" Style="{StaticResource Page}">
 
     <Page.Resources>
         <vm:PrcAddVM x:Key="prcAddVM"/>
@@ -17,17 +17,17 @@
         <StackPanel>
             <StackPanel DataContext="{Binding Procedure}">
                 <Label Content=" "/>
-                <Label Content="Название процедуры"/>
-                <TextBox Text="{Binding Title}"/>
-                <Label Content="Опиcание процедуры"/>
-                <TextBox Text="{Binding Description}"/>
-                <Label Content="Длительность процедуры "/>
-                <TextBox Text="{Binding Duration}"/>
-                <Label Content="Цена"/>
-                <TextBox Text="{Binding Price}"/>
+                <Label Content="Название процедуры" Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding Title}" Style="{StaticResource TextBox}"/>
+                <Label Content="Опиcание процедуры" Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding Description}" Style="{StaticResource TextBox}"/>
+                <Label Content="Длительность процедуры " Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding Duration}" Style="{StaticResource TextBox}"/>
+                <Label Content="Цена" Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding Price}" Style="{StaticResource TextBox}"/>
             </StackPanel>
 
-            <Button Content="Сохранить" Command="{Binding Save}"/>
+            <Button Content="Сохранить" Command="{Binding Save}" Style="{StaticResource Button}"/>
         </StackPanel>
     </Grid>
 </Page>

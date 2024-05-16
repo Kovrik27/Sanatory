@@ -28,7 +28,7 @@ namespace Sanatory.ViewModel
         public CommandVM Bronirovanie { get; set; }
         public CommandVM Personal {  get; set; }
         public CommandVM Gosti {  get; set; }
-        public CommandVM Proceduri {  get; set; }
+        public CommandVM Processes {  get; set; }
         public CommandVM Raspisanie { get; set; }
 
 
@@ -39,7 +39,6 @@ namespace Sanatory.ViewModel
             {
                 OpenBronirovanie();
             });
-            OpenBronirovanie();
 
 
             Personal = new CommandVM(() =>
@@ -52,9 +51,9 @@ namespace Sanatory.ViewModel
                 OpenGosti();
             });
 
-            Proceduri = new CommandVM(() =>
+            Processes = new CommandVM(() =>
             {
-                OpenProceduri();
+                OpenProcesses();
             });
 
             Raspisanie = new CommandVM(() =>
@@ -81,9 +80,9 @@ namespace Sanatory.ViewModel
             CurrentPage = new Guests();
         }
 
-        private void OpenProceduri()
+        private void OpenProcesses()
         {
-            CurrentPage = new Procedures();
+            CurrentPage = new Processes();
         }
 
         private void OpenRaspisanie()

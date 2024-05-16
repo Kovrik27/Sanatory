@@ -1,5 +1,4 @@
-﻿using Sanatory.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +16,11 @@ using System.Windows.Shapes;
 namespace Sanatory.View
 {
     /// <summary>
-    /// Логика взаимодействия для Procedures.xaml
+    /// Логика взаимодействия для Processes.xaml
     /// </summary>
-    public partial class Procedures : Page
+    public partial class Processes : Page
     {
-        public Procedures()
+        public Processes()
         {
             InitializeComponent();
         }

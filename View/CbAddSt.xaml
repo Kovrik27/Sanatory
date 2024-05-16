@@ -29,6 +29,14 @@
                         <GridViewColumn DisplayMemberBinding="{Binding Number}"/>
                     </GridView>
                 </ListView.View>
+                <ListView.Resources>
+                    <Style TargetType="GridViewColumnHeader">
+                        <Setter Property="Background" Value="#EFEFEF"/>
+                        <Setter Property="Foreground" Value="#333333"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="FontSize" Value="14"/>
+                    </Style>
+                </ListView.Resources>
             </ListView>
         </StackPanel>
         <StackPanel Grid.Row="2" DataContext="{DynamicResource stAddVM}" >

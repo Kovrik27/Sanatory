@@ -1,0 +1,115 @@
+﻿<Page x:Class="Sanatory.View.Processes"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Sanatory.View" xmlns:vm="clr-namespace:Sanatory.ViewModel"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Processes" Style="{StaticResource Page}">
+
+    <Page.Resources>
+        <vm:PrcVM x:Key="prcVM"/>
+        <vm:CbVM x:Key="cbVM"/>
+        <vm:PrVM x:Key="prVM"/>
+    </Page.Resources>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content=" "/>
+        <Label Content="Список процедур" Style="{StaticResource Label}"/>
+        <Label Content="Список задач" Style="{StaticResource Label}" Grid.Column="1"/>
+        <Label Content="Список кабинетов" Style="{StaticResource Label}" Grid.Column="2"/>
+        <ListView Grid.Row="2" ItemsSource="{Binding Procedures}" SelectedItem="{Binding SelectedProcedure}" Style="{StaticResource ListView}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Название процедуры" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="Описание" DisplayMemberBinding="{Binding Description}"/>
+                    <GridViewColumn Header="Длительность" DisplayMemberBinding="{Binding Duration}"/>
+                    <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Price}"/>
+                </GridView>
+            </ListView.View>
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="Background" Value="#EFEFEF"/>
+                    <Setter Property="Foreground" Value="#333333"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="FontSize" Value="14"/>
+                </Style>
+            </ListView.Resources>
+        </ListView>
+
+        <StackPanel Grid.Row="3" DataContext="{DynamicResource prcVM}">
+            <Menu Style="{StaticResource Menu}">
+                <MenuItem Header="Добавить процедуру" Command="{Binding CreateProcedure}" Style="{StaticResource MenuItem}"/>
+                <MenuItem Header="Изменить процедуру" Command="{Binding EditProcedure}" Style="{StaticResource MenuItem}"/>
+                <MenuItem Header="Удалить процедуру" Command="{Binding DeleteProcedure}" Style="{StaticResource MenuItem}"/>
+            </Menu>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.Column="1" DataContext="{DynamicResource prVM}">
+            <Menu Style="{StaticResource Menu}">
+                <MenuItem Header="Добавить задачу" Command="{Binding CreateProblem}" Style="{StaticResource MenuItem}"/>
+                <MenuItem Header="Изменить задачу" Command="{Binding EditProblem}" Style="{StaticResource MenuItem}"/>
+                <MenuItem Header="Удалить задачу" Command="{Binding DeleteProblem}" Style="{StaticResource MenuItem}"/>
+    </Menu>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1" DataContext="{DynamicResource prVM}">
+     <ListView ItemsSource="{Binding Problems}" SelectedItem="{Binding SelectedProblem}" Style="{StaticResource ListView}">
+         <ListView.View>
+             <GridView>
+                 <GridViewColumn Header="Описание" DisplayMemberBinding="{Binding Description}" />
+                 <GridViewColumn Header="Местоположение" DisplayMemberBinding="{Binding Place}"/>
+             </GridView>
+         </ListView.View>
+                <ListView.Resources>
+                    <Style TargetType="GridViewColumnHeader">
+                        <Setter Property="Background" Value="#EFEFEF"/>
+                        <Setter Property="Foreground" Value="#333333"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="FontSize" Value="14"/>
+                    </Style>
+                </ListView.Resources>
+            </ListView>
+ </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.Column="2" DataContext="{DynamicResource cbVM}">
+            <Menu Style="{StaticResource Menu }" >
+         <MenuItem Header="Добавить кабинет" Command="{Binding CreateCabinets}" Style="{StaticResource MenuItem}"/>
+                <MenuItem Header="Изменить данные кабинета" Command="{Binding EditCabinets}" Style="{StaticResource MenuItem}"/>
+                <MenuItem Header="Удалить кабинет" Command="{Binding DeleteCabinets}" Style="{StaticResource MenuItem}"/>
+     </Menu>
+            </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="2" DataContext="{DynamicResource cbVM}">
+    <ListView ItemsSource="{Binding Cabinets}" SelectedItem="{Binding SelectedCabinets}" Style="{StaticResource ListView}">
+        <ListView.View>
+            <GridView>
+                <GridViewColumn Header="Номер" DisplayMemberBinding="{Binding Number}"/>
+                <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding Type}"/>
+            </GridView>
+        </ListView.View>
+                <ListView.Resources>
+                    <Style TargetType="GridViewColumnHeader">
+                        <Setter Property="Background" Value="#EFEFEF"/>
+                        <Setter Property="Foreground" Value="#333333"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="FontSize" Value="14"/>
+                    </Style>
+                </ListView.Resources>
+            </ListView>
+</StackPanel>
+
+    </Grid>
+</Page>

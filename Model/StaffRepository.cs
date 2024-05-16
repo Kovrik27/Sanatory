@@ -188,7 +188,7 @@ namespace Sanatory.Model
                 mcCross.ExecuteNonQuery();
 
 
-            sql = "UPDATE Staff SET Name = @name, Surname = @surname, Lastname = @lastname, JobTitle = @jobtitle, Phone = @phone, Mail = @mail WHERE ID = " + staff.ID;
+            sql = "UPDATE Staff SET Lastname = @lastname, Name = @name, Surname = @surname, JobTitle = @jobtitle, Phone = @phone, Mail = @mail WHERE ID = " + staff.ID;
             using (var mc = new MySqlCommand(sql, connect))
             {
                 mc.Parameters.Add(new MySqlParameter("lastname", staff.Lastname));

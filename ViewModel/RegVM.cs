@@ -21,6 +21,7 @@ namespace Sanatory.ViewModel
         public CommandVM EditRoom { get; set;}
         public CommandVM DeleteRoom { get; set;}
         public CommandVM Broni { get; set; }
+        public CommandVM Visilenie { get; set; }
 
 
         public Room SelectedRoom { get; set; }
@@ -32,6 +33,8 @@ namespace Sanatory.ViewModel
                 Signal();
             }
         }
+
+      
 
         public RegVM()
         {
@@ -70,7 +73,7 @@ namespace Sanatory.ViewModel
                 MainWindowVM.Instance.CurrentPage = new GuAdd(SelectedRoom);
                 
             });
-
+           
         }
 
 

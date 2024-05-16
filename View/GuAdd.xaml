@@ -8,7 +8,7 @@
       DataContext="{DynamicResource guAddVM}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="GuAdd">
+      Title="GuAdd" Style="{StaticResource Page}">
 
     <Page.Resources>
         <vm:GuAddVM x:Key="guAddVM"/>
@@ -18,27 +18,27 @@
             <StackPanel>
                 <StackPanel DataContext="{Binding Guests}">
                 <Label Content=" "/>
-                    <Label Content="Фамилия гостя"/>
-                    <TextBox Text="{Binding Lastname}"/>
-                    <Label Content="Имя гостя"/>
-                <TextBox Text="{Binding Name}"/>
-                <Label Content="Отчество гостя"/>
-                    <TextBox Text="{Binding Surname}"/>
-                    <Label Content="Паспорт гостя"/>
-                <TextBox Text="{Binding Pasport}"/>
-                <Label Content="Полис гостя"/>
-                <TextBox Text="{Binding Policy}"/>
-                <Label Content="Дата заезда гостя"/>
-                <TextBox Text="{Binding DataArrival}"/>
-                <Label Content="Дата выезда гостя"/>
-                <TextBox Text="{Binding DataOfDeparture}"/>
+                    <Label Content="Фамилия гостя" Style="{StaticResource Label}"/>
+                    <TextBox Text="{Binding Lastname}" Style="{StaticResource TextBox}"/>
+                    <Label Content="Имя гостя" Style="{StaticResource Label}"/>
+                    <TextBox Text="{Binding Name}" Style="{StaticResource TextBox}"/>
+                    <Label Content="Отчество гостя" Style="{StaticResource Label}"/>
+                    <TextBox Text="{Binding Surname}" Style="{StaticResource TextBox}"/>
+                    <Label Content="Паспорт гостя" Style="{StaticResource Label}"/>
+                    <TextBox Text="{Binding Pasport}" Style="{StaticResource TextBox}"/>
+                    <Label Content="Полис гостя" Style="{StaticResource Label}"/>
+                    <TextBox Text="{Binding Policy}" Style="{StaticResource TextBox}"/>
+                    <Label Content="Дата заезда гостя" Style="{StaticResource Label}"/>
+                    <TextBox Text="{Binding DataArrival}" Style="{StaticResource TextBox}"/>
+                    <Label Content="Дата выезда гостя" Style="{StaticResource Label}"/>
+                    <TextBox Text="{Binding DataOfDeparture}" Style="{StaticResource TextBox}"/>
             </StackPanel>
             </StackPanel>
             <StackPanel>
-                <Label Content="Номер"/>
-                <TextBox Text="{Binding Guests.Room.Number}"/>
+                <Label Content="Номер" Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding Guests.Room.Number}" Style="{StaticResource TextBox}"/>
             </StackPanel>
-            <Button Content="Сохранить" Command="{Binding Save}"/>
+            <Button Content="Сохранить" Command="{Binding Save}" Style="{StaticResource Button}"/>
         </StackPanel>
     </Grid>
 </Page>

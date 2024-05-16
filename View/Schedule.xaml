@@ -8,7 +8,7 @@
       mc:Ignorable="d"
       DataContext="{DynamicResource dayTimVM}"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Schedule">
+      Title="Schedule" Style="{StaticResource Page}">
 
     <Page.Resources>
         <vm:DayTimVM x:Key="dayTimVM"/>
@@ -28,21 +28,29 @@
         </Grid.ColumnDefinitions>
 
         <Label Content=" "/>
-        <Menu Grid.Column="2" Grid.Row="1" Grid.RowSpan="3">
-            <MenuItem Header="Добавить день" Command="{Binding CreateDay}"/>
-            <MenuItem Header="Добавить мероприятие на определённый день" Grid.Column="1" Grid.Row="2" Command="{Binding Meropriyatie}"/>
+        <Menu Grid.Column="2" Grid.Row="1" Grid.RowSpan="3" Style="{StaticResource Menu}">
+            <MenuItem Header="Добавить день" Command="{Binding CreateDay}" Style="{StaticResource MenuItem}"/>
+            <MenuItem Header="Добавить мероприятие на определённый день" Grid.Column="1" Grid.Row="2" Command="{Binding Meropriyatie}" Style="{StaticResource MenuItem}"/>
         </Menu>
 
 
-        <ListView Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Daytimes}" SelectedItem="{Binding SelectedDaytime}">
+        <ListView Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Daytimes}" SelectedItem="{Binding SelectedDaytime}" Style="{StaticResource ListView}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="День" DisplayMemberBinding="{Binding Time}"/>
+                    <GridViewColumn Header="День" DisplayMemberBinding="{Binding Daytime.Time}"/>
                     <GridViewColumn Header="Мероприятие" DisplayMemberBinding="{Binding Title}"/>
                     <GridViewColumn Header="Время" DisplayMemberBinding="{Binding Times}"/>
                     <GridViewColumn Header="Место" DisplayMemberBinding="{Binding Place}"/>
                 </GridView>
             </ListView.View>
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="Background" Value="#EFEFEF"/>
+                    <Setter Property="Foreground" Value="#333333"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="FontSize" Value="14"/>
+                </Style>
+            </ListView.Resources>
         </ListView>
     </Grid>
 </Page>

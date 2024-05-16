@@ -8,7 +8,7 @@
       mc:Ignorable="d"
       DataContext="{DynamicResource prAddVM}"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PrAdd">
+      Title="PrAdd" Style="{StaticResource Page}">
 
     <Page.Resources>
         <vm:PrAddVM x:Key="prAddVM"/>
@@ -19,13 +19,13 @@
         <StackPanel>
             <StackPanel DataContext="{Binding Problem}">
                 <Label Content=" "/>
-                <Label Content="Описание задачи"/>
-                <TextBox Text="{Binding Description}"/>
-                <Label Content="Место выполнения"/>
-                <TextBox Text="{Binding Place}"/>
+                <Label Content="Описание задачи" Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding Description}" Style="{StaticResource TextBox}"/>
+                <Label Content="Место выполнения" Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding Place}" Style="{StaticResource TextBox}"/>
             </StackPanel>
 
-            <Button Content="Сохранить" Command="{Binding Save}"/>
+            <Button Content="Сохранить" Command="{Binding Save}" Style="{StaticResource Button}"/>
         </StackPanel>
     </Grid>
 </Page>

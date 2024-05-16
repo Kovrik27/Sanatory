@@ -28,10 +28,8 @@ namespace Sanatory.ViewModel
 
         public CommandVM AddProblem {  get; set; }
         public CommandVM AddCabinet { get; set; }
-        public CommandVM ProblemDone { get; set; }
 
         public Staff SelectedStaff { get; set; }
-        public Problem SelectedProblem { get; set; }
         private Days selectedDays;
         public ObservableCollection<Days> AllDays { get; set; }
 
@@ -85,7 +83,6 @@ namespace Sanatory.ViewModel
             Staffs = new ObservableCollection<Staff>(StaffRepository.Instance.GetTechStaff(sql));
             Staffs2 = new ObservableCollection<Staff>(StaffRepository.Instance.GetMedStaff(sql2));
             AllDays = new ObservableCollection<Days> (DaysRepository.Instance.GetDays());
-            //Problems = new ObservableCollection<Problem>(ProblemRepository.Instance.GetAllProblem(sql));
             AllDays.Insert(0, new Days { ID = 0, Day = "Все теги" });
             SelectedDays = AllDays[0];
 
@@ -129,17 +126,7 @@ namespace Sanatory.ViewModel
             });
 
 
-            ProblemDone = new CommandVM(() =>
-            {
-                if (SelectedStaff  == null) 
-                    return;
-
-
-                if (MessageBox.Show("Задача выполнена?", "Молодец", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    
-                }
-            });
+        
         }
 
     }

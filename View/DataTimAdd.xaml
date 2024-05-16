@@ -21,12 +21,12 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Label Content=" "/>
-        <Label Content="День" Grid.Row="1"/>
-        <StackPanel>
+        <Label Content="День" Grid.Row="1" Style="{StaticResource Label}"/>
+        <StackPanel Grid.Row="2">
             <StackPanel DataContext="{Binding Daytime}">
-                <TextBox Grid.Row="2" Text="{Binding Time}"/>
+                <TextBox Text="{Binding Time}" Style="{StaticResource TextBox}"/>
             </StackPanel>
-            <Button Grid.Row="3" Content="Сохранить" Command="{Binding Save}"/>
+            <Button Grid.Row="3" Content="Сохранить" Command="{Binding Save}" Style="{StaticResource Button}"/>
         </StackPanel>
         
     </Grid>
