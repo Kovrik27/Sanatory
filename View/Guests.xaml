@@ -68,13 +68,6 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Кабинет">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <ItemsControl Style="{StaticResource CabinetItem}" DisplayMemberPath="Number" ItemsSource="{Binding Cabinet}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
                 </GridView>
                 </ListView.View>
             <ListView.Resources>

@@ -28,10 +28,18 @@ namespace Sanatory.ViewModel
 
             Save = new CommandVM(() =>
             {
-                DaystimeRepository.Instance.AddDaytime(Daytime);
-                MainWindowVM.Instance.CurrentPage = new Schedule();
+
+                if (Daytime.ID == 0)
+                    DaystimeRepository.Instance.AddDaytime(Daytime);
+                else
+                    DaystimeRepository.Instance.UpdateDaytime(Daytime);
+
+
+                MainWindowVM.Instance.CurrentPage = new Guests();
 
             });
+
+
 
         }
 

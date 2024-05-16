@@ -40,12 +40,11 @@ namespace Sanatory.Model
                 {
                     id = reader.GetInt32("ID");
                     if (daytime.ID != id)
-
                     {
                         daytime = new Daytime();
                         result.Add(daytime);
                         daytime.ID = id;
-                        daytime.Time = reader.GetString("Time");
+                        daytime.Time = reader.GetString("Title");
                     }
                 }
             }
@@ -61,14 +60,41 @@ namespace Sanatory.Model
 
             int id = DB.Instance.GetAutoID("Daytime");
 
-            string sql = "INSERT INTO Daytime VALUES (0, @time)";
+            string sql = "INSERT INTO Events VALUES (0, @time)";
             using (var mc = new MySqlCommand(sql, connect))
             {
                 mc.Parameters.Add(new MySqlParameter("time", daytime.Time));
                 mc.ExecuteNonQuery();
-
             }
 
         }
+
+        internal void Remove(Daytime daytime)
+        {
+            var connect = DB.Instance.GetConnection();
+            if (connect == null)
+                return;
+
+            string sql = "DELETE FROM Daytime WHERE id = '" + daytime.ID + "';";
+
+            using (var mc = new MySqlCommand(sql, connect))
+                mc.ExecuteNonQuery();
+        }
+
+
+        internal void UpdateDaytime(Daytime daytime)
+        {
+            var connect = DB.Instance.GetConnection();
+            if (connect == null)
+                return;
+
+            string sql = "UPDATE Daytime SET Time = @time" + daytime.ID;
+            using (var mc = new MySqlCommand(sql, connect))
+            {
+                mc.Parameters.Add(new MySqlParameter("time", daytime.Time));
+                mc.ExecuteNonQuery();
+            }
+        }
+
     }
 }
