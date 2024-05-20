@@ -44,8 +44,8 @@ namespace Sanatory.Model
                     guests.Lastname = reader.GetString("Lastname");
                     guests.Name = reader.GetString("Name");
                     guests.Surname = reader.GetString("Surname");
-                    //guests.Pasport = reader.GetString("Pasport");
-                    //guests.Policy = reader.GetString("Policy");
+                    guests.Pasport = reader.GetString("Pasport");
+                    guests.Policy = reader.GetString("Policy");
                     guests.DataArrival = reader.GetString("DataArrival");
                     guests.DataOfDeparture = reader.GetString("DataOfDeparture");
                     guests.Room = new Room()

@@ -13,7 +13,6 @@ namespace Sanatory.ViewModel
     {
 
         public CommandVM Save { get; set; }
-        public CommandVM DeleteGuests { get; set; }
 
         public CommandVM AddPrc { get; set; }
 

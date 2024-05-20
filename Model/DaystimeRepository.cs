@@ -60,7 +60,7 @@ namespace Sanatory.Model
 
             int id = DB.Instance.GetAutoID("Daytime");
 
-            string sql = "INSERT INTO Events VALUES (0, @time)";
+            string sql = "INSERT INTO Daytime VALUES (0, @time)";
             using (var mc = new MySqlCommand(sql, connect))
             {
                 mc.Parameters.Add(new MySqlParameter("time", daytime.Time));

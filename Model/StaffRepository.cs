@@ -133,7 +133,7 @@ namespace Sanatory.Model
 
             int id = DB.Instance.GetAutoID("Staff");
 
-            string sql = "INSERT INTO Staff VALUES (0, @lastname, @name, @surname, @jobtitle, @phone, @mail)";
+            string sql = "INSERT INTO Staff VALUES (0, @lastname, @name, @surname, @jobtitle, @phone, @mail, @cabinetid, @problemid)";
             using (var mc = new MySqlCommand(sql, connect))
             {
                 mc.Parameters.Add(new MySqlParameter("lastname", staff.Lastname));
@@ -142,6 +142,8 @@ namespace Sanatory.Model
                 mc.Parameters.Add(new MySqlParameter("jobtitle", staff.JobTitle));
                 mc.Parameters.Add(new MySqlParameter("phone", staff.Phone));
                 mc.Parameters.Add(new MySqlParameter("mail", staff.Mail));
+                mc.Parameters.Add(new MySqlParameter("cabinetid", null));
+                mc.Parameters.Add(new MySqlParameter("problemid", null));
                 if (mc.ExecuteNonQuery() > 0)
                 {
                     sql = "";

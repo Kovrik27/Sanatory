@@ -24,7 +24,7 @@ namespace Sanatory.View
     {
         public PrcAddGu(Guest selectedGuest)
         {
-            InitializeComponent();
+           //InitializeComponent();
             ((GuAddVM)DataContext).SetEditGuest(selectedGuest);
         }
     }

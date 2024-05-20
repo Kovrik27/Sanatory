@@ -34,7 +34,7 @@ namespace Sanatory.ViewModel
         {
             string sql = "SELECT * FROM Procedures";
 
-            Procedures = new ObservableCollection<Procedure>(ProceduresRepository.Instance.GetAllProcedures(sql));
+            Procedures = new ObservableCollection<Procedure>(ProceduresRepository.Instance.GetAllProcedures());
 
 
 

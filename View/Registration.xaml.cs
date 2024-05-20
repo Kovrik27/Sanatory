@@ -34,9 +34,7 @@ namespace Sanatory.View
             {
                 var vm = DataContext as RegVM;
                 if (vm.SelectedRoom.Status == "Свободен")
-                    Bronirovanie.Visibility = Visibility.Visible;
-                else
-                    Visilenie.Visibility = Visibility.Visible;
+                    Bronirovanie.Visibility = Visibility.Visible;             
             }
 
         }
