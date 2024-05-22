@@ -19,7 +19,7 @@ namespace Sanatory.Model
         public string DataOfDeparture { get; set; }
         public int RoomID {  get; set; }
         public Room Room { get; set; } = new();
-        public List<Procedure> Procedures { get; set; } = new();
-        public List<Cabinet> Cabinets { get; set;} = new();
+        public int ProcedureID { get; set; } = new();
+        public Procedure Procedure { get; set; }
     }
 }

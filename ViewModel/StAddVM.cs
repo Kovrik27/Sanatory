@@ -68,6 +68,8 @@ namespace Sanatory.ViewModel
                 MainWindowVM.Instance.CurrentPage = new Personal();
             });
 
+
+
         }
 
         internal void SetEditStaff(Staff selectedStaff)
@@ -80,7 +82,7 @@ namespace Sanatory.ViewModel
 
         internal void SetList(ListBox listDays)
         {
-            ListDays = listDays;
+           this.ListDays = listDays;
         }
 
         internal void SetStaff (Staff selectedStaff)

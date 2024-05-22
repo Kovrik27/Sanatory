@@ -35,7 +35,7 @@ namespace Sanatory.ViewModel
                     DaystimeRepository.Instance.UpdateDaytime(Daytime);
 
 
-                MainWindowVM.Instance.CurrentPage = new Guests();
+                MainWindowVM.Instance.CurrentPage = new Schedule();
 
             });
 

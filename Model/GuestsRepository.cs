@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Sanatory.Model
@@ -52,14 +53,11 @@ namespace Sanatory.Model
                     {
                         Number = reader.GetInt32("Number")
                     };
-                    result.Add(guests);
-
-                    Procedure procedure = new Procedure
+                    guests.Procedure = new Procedure()
                     {
-                        ID = reader.GetInt32("prcID"),
-                        Title = reader.GetString("prcPrc"),
+                        Title = reader.GetString("Title")
                     };
-                    guests.Procedures.Add(procedure);
+                    result.Add(guests);
                 }
             }
 
@@ -74,7 +72,7 @@ namespace Sanatory.Model
 
             int id = DB.Instance.GetAutoID("Guests");
 
-            string sql = "INSERT INTO Guests VALUES (0, @surname, @name, @lastname, @pasport, @policy, @dataarrival, @dataofdeparture, @roomid)";
+            string sql = "INSERT INTO Guests VALUES (0, @surname, @name, @lastname, @pasport, @policy, @dataarrival, @dataofdeparture, @roomid, @procedureid)";
             using (var mc = new MySqlCommand(sql, connect))
             {
                 mc.Parameters.Add(new MySqlParameter("surname", guests.Surname));
@@ -85,15 +83,8 @@ namespace Sanatory.Model
                 mc.Parameters.Add(new MySqlParameter("dataarrival", guests.DataArrival));
                 mc.Parameters.Add(new MySqlParameter("dataofdeparture", guests.DataOfDeparture));
                 mc.Parameters.Add(new MySqlParameter("roomid", guests.RoomID));
-                if (mc.ExecuteNonQuery() > 0)
-                {
-                    sql = "";
-                    foreach (var procedure in guests.Procedures)
-                        sql += "INSERT INTO CrossRegistration VALUES (" + procedure.ID + "," + id + ");";
-                    using (var mcCross = new MySqlCommand(sql, connect))
-                    mcCross.ExecuteNonQuery();
-
-                }
+                mc.Parameters.Add(new MySqlParameter("procedureid", null));
+                mc.ExecuteNonQuery();
             }
 
 
@@ -122,18 +113,7 @@ namespace Sanatory.Model
                 return;
 
 
-            string sql = "DELETE FROM CrossRegistration WHERE IDGuests  = '" + guests.ID + "';";
-            using (var mc = new MySqlCommand(sql, connect))
-                mc.ExecuteNonQuery();
-
-
-            sql = " ";
-            foreach (var procedures in guests.Procedures)
-                sql += "INSERT INTO CrossRegistration VALUES (" + guests.ID + "," + procedures.ID + ");";
-            using (var mcCross = new MySqlCommand(sql, connect))
-
-
-            sql = "UPDATE Guests SET Lastname = @lastname, Name = @name, Surname = @surname, Pasport = @pasport, Phone = @phone, Policy = @policy, DataArrival = @dataarrival, DataOfDeparture = @dataofdeparture WHERE ID = " + guests.ID;
+            string sql = "UPDATE Guests SET Lastname = @lastname, Name = @name, Surname = @surname, Pasport = @pasport, Phone = @phone, Policy = @policy, DataArrival = @dataarrival, DataOfDeparture = @dataofdeparture WHERE ID = " + guests.ID;
             using (var mc = new MySqlCommand(sql, connect))
             {
                 mc.Parameters.Add(new MySqlParameter("surname", guests.Surname));
@@ -148,23 +128,18 @@ namespace Sanatory.Model
             }
         }
 
-        internal void AddPrc(Guest guests)
+        internal void AddProcedure(Guest guests, Procedure s)
         {
             var connect = DB.Instance.GetConnection();
             if (connect == null)
                 return;
-
-
-            string sql = "DELETE FROM CrossRegistration WHERE IDGuests  = '" + guests.ID + "';";
+            string sql = "UPDATE Guests SET ProcedureID = @procedureID WHERE ID = " + guests.ID;
             using (var mc = new MySqlCommand(sql, connect))
+            {
+                mc.Parameters.Add(new MySqlParameter("ID", guests.ID));
+                mc.Parameters.Add(new MySqlParameter("procedureid", s.ID));
                 mc.ExecuteNonQuery();
-
-
-            sql = " ";
-            foreach (var procedures in guests.Procedures)
-                sql += "INSERT INTO CrossRegistration VALUES (" + guests.ID + "," + procedures.ID + ");";
-            using (var mcCross = new MySqlCommand(sql, connect))
-                mcCross.ExecuteNonQuery();
+            }
         }
 
     }

@@ -17,7 +17,7 @@
         <StackPanel>
             <StackPanel>
                 <StackPanel DataContext="{Binding Guests}">
-                <Label Content=" "/>
+                    <Label Content=" "/>
                     <Label Content="Фамилия гостя" Style="{StaticResource Label}"/>
                     <TextBox Text="{Binding Lastname}" Style="{StaticResource TextBox}"/>
                     <Label Content="Имя гостя" Style="{StaticResource Label}"/>
@@ -32,7 +32,7 @@
                     <TextBox Text="{Binding DataArrival}" Style="{StaticResource TextBox}"/>
                     <Label Content="Дата выезда гостя" Style="{StaticResource Label}"/>
                     <TextBox Text="{Binding DataOfDeparture}" Style="{StaticResource TextBox}"/>
-            </StackPanel>
+                </StackPanel>
             </StackPanel>
             <StackPanel>
                 <Label Content="Номер" Style="{StaticResource Label}"/>

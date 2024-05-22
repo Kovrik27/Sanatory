@@ -21,7 +21,6 @@ namespace Sanatory.ViewModel
         public CommandVM EditGuests { get; set; }
         public CommandVM DeleteGuests { get; set; }
         private Procedure selectedProcedure;
-        public ObservableCollection<Procedure> AllProcedures { get; set; }
         public CommandVM AddProcedure { get; set; }
         public Guest SelectedGuests { get; set; }
         public ObservableCollection<Guest> Guests
@@ -48,11 +47,9 @@ namespace Sanatory.ViewModel
         public GuVM()
         {
             MainVM = MainWindowVM.Instance;
-            string sql = "SELECT g.ID, g.Surname, g.Name, g.Lastname, g.DataArrival, g.DataOfDeparture, r.Number AS Number, p.ID AS prcID, p.Title AS Prcprc FROM Procedure p JOIN CrossRegistration cr ON cr.IDProcedures = p.ID JOIN Guests g ON cr.IDGuests = g.ID LEFT JOIN Rooms r, WHERE RoomID = r.ID and r.ID = g.RoomID";
+            string sql = "SELECT g.ID, g.Surname, g.Name, g.Lastname, g.DataArrival, g.DataOfDeparture, r.Number AS Number, p.ID AS prcID, p.Title AS Prcprc FROM Procedures p JOIN CrossRegistration cr ON cr.ProcedureID = p.ID JOIN Guests g ON cr.GuestsID = g.ID LEFT JOIN Rooms r on RoomID = r.ID";
 
             Guests = new ObservableCollection<Guest>(GuestsRepository.Instance.GetAllGuests(sql));
-            AllProcedures = new ObservableCollection<Procedure>(ProceduresRepository.Instance.GetAllProcedures());
-            SelectedProcedures = AllProcedures[0];
 
 
 

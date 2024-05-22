@@ -29,6 +29,8 @@ namespace Sanatory.ViewModel
         public CommandVM AddProblem {  get; set; }
         public CommandVM AddCabinet { get; set; }
 
+        public CommandVM DoneProblem { get; set; }
+
         public Staff SelectedStaff { get; set; }
         private Days selectedDays;
         public ObservableCollection<Days> AllDays { get; set; }
@@ -83,7 +85,7 @@ namespace Sanatory.ViewModel
             Staffs = new ObservableCollection<Staff>(StaffRepository.Instance.GetTechStaff(sql));
             Staffs2 = new ObservableCollection<Staff>(StaffRepository.Instance.GetMedStaff(sql2));
             AllDays = new ObservableCollection<Days> (DaysRepository.Instance.GetDays());
-            AllDays.Insert(0, new Days { ID = 0, Day = "Все теги" });
+            //AllDays.Insert(0, new Days { ID = 0, Day = "Все теги" });
             SelectedDays = AllDays[0];
 
 
@@ -125,8 +127,13 @@ namespace Sanatory.ViewModel
                 MainWindowVM.Instance.CurrentPage = new CbAddSt(SelectedStaff);
             });
 
-
-        
+            DoneProblem = new CommandVM(() =>
+            {
+                if (SelectedStaff == null)
+                    return;
+                StaffRepository.Instance.Done(SelectedStaff);
+                MainWindowVM.Instance.CurrentPage = new Personal();
+            });
         }
 
     }

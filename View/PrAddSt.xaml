@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:Sanatory.View"
       xmlns:vm="clr-namespace:Sanatory.ViewModel"
       mc:Ignorable="d" 
+      DataContext="{DynamicResource stAddVM}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PrAddSt" Style="{StaticResource Page}">
     <Page.Resources>

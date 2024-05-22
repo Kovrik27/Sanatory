@@ -44,7 +44,7 @@ namespace Sanatory.Model
                         daytime = new Daytime();
                         result.Add(daytime);
                         daytime.ID = id;
-                        daytime.Time = reader.GetString("Title");
+                        daytime.Time = reader.GetString("Time");
                     }
                 }
             }

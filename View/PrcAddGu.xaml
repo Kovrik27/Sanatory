@@ -20,7 +20,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Label Content=" "/>
-        <Label Grid.Row="1" Content="Выберите процедуры, чтобы назначить их гостю" Style="{StaticResource Label}"/>
+        <Label Grid.Row="1" Content="Выберите процедуру, чтобы назначить её гостю" Style="{StaticResource Label}"/>
         <ListView ItemsSource="{Binding Procedures}" SelectedItem="{Binding SelectedProcedure}" Grid.Row="2" Style="{StaticResource ListView}">
             <ListView.View>
                 <GridView>

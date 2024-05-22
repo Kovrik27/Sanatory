@@ -21,6 +21,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -29,9 +31,9 @@
         </Grid.ColumnDefinitions>
 
         <Label Content=" "/>
-        <Label Content="Список процедур" Style="{StaticResource Label}"/>
-        <Label Content="Список задач" Style="{StaticResource Label}" Grid.Column="1"/>
-        <Label Content="Список кабинетов" Style="{StaticResource Label}" Grid.Column="2"/>
+        <Label Content="Список процедур" Style="{StaticResource Label}" Grid.Row="1"/>
+        <Label Content="Список задач" Style="{StaticResource Label}" Grid.Column="1" Grid.Row="1"/>
+        <Label Content="Список кабинетов" Style="{StaticResource Label}" Grid.Column="2" Grid.Row="1"/>
         <ListView Grid.Row="2" ItemsSource="{Binding Procedures}" SelectedItem="{Binding SelectedProcedure}" Style="{StaticResource ListView}">
             <ListView.View>
                 <GridView>
@@ -50,7 +52,6 @@
                 </Style>
             </ListView.Resources>
         </ListView>
-
         <StackPanel Grid.Row="3" DataContext="{DynamicResource prcVM}">
             <Menu Style="{StaticResource Menu}">
                 <MenuItem Header="Добавить процедуру" Command="{Binding CreateProcedure}" Style="{StaticResource MenuItem}"/>

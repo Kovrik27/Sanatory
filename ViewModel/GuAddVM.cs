@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Sanatory.ViewModel
 {
@@ -18,6 +19,7 @@ namespace Sanatory.ViewModel
 
         private Guest guests = new();
 
+
         public Guest Guests
         {
             get => guests;
@@ -29,7 +31,6 @@ namespace Sanatory.ViewModel
         }
         public GuAddVM()
         {
-
             Save = new CommandVM(() =>
             {
 
@@ -48,13 +49,11 @@ namespace Sanatory.ViewModel
             });
 
 
-            AddPrc = new CommandVM(() =>
-            {
-                GuestsRepository.Instance.AddPrc(Guests);
-                MainWindowVM.Instance.CurrentPage = new Guests();
-
-
-            });
+            //AddPrc = new CommandVM<Procedure>(s =>
+            //{
+            //    GuestsRepository.Instance.AddProcedure(Guests, s);
+            //    MainWindowVM.Instance.CurrentPage = new Guests();
+            //});
 
         }
 
@@ -63,7 +62,6 @@ namespace Sanatory.ViewModel
         internal void SetEditGuest(Guest selectedGuest)
         {
             Guests = selectedGuest;
-
         }
 
         internal void SetRoom(Room? selectedRoom)
