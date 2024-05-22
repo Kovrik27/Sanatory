@@ -15,7 +15,7 @@ namespace Sanatory.ViewModel
 
         public CommandVM Save { get; set; }
 
-        public CommandVM AddPrc { get; set; }
+        public CommandVM<Procedure> AddPrc { get; set; }
 
         private Guest guests = new();
 
@@ -49,11 +49,11 @@ namespace Sanatory.ViewModel
             });
 
 
-            //AddPrc = new CommandVM<Procedure>(s =>
-            //{
-            //    GuestsRepository.Instance.AddProcedure(Guests, s);
-            //    MainWindowVM.Instance.CurrentPage = new Guests();
-            //});
+            AddPrc = new CommandVM<Procedure>(s =>
+            {
+                GuestsRepository.Instance.AddProcedure(Guests, s);
+                MainWindowVM.Instance.CurrentPage = new Guests();
+            });
 
         }
 

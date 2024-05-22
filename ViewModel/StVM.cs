@@ -30,6 +30,7 @@ namespace Sanatory.ViewModel
         public CommandVM AddCabinet { get; set; }
 
         public CommandVM DoneProblem { get; set; }
+        public CommandVM DoneCabinet { get; set; }
 
         public Staff SelectedStaff { get; set; }
         private Days selectedDays;
@@ -128,10 +129,22 @@ namespace Sanatory.ViewModel
             });
 
             DoneProblem = new CommandVM(() =>
+            {              
+                if (SelectedStaff == null)
+                    return;
+                if (MessageBox.Show("Сотрудник выполнил задачу?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    StaffRepository.Instance.DoneP(SelectedStaff);
+                    MainWindowVM.Instance.CurrentPage = new Personal();
+                }
+                
+            });
+
+            DoneCabinet = new CommandVM(() =>
             {
                 if (SelectedStaff == null)
                     return;
-                StaffRepository.Instance.Done(SelectedStaff);
+                StaffRepository.Instance.DoneC(SelectedStaff);
                 MainWindowVM.Instance.CurrentPage = new Personal();
             });
         }

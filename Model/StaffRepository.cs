@@ -231,7 +231,7 @@ namespace Sanatory.Model
             }
         }
 
-        internal void Done(Staff staff)
+        internal void DoneP(Staff staff)
         {
             var connect = DB.Instance.GetConnection();
             if (connect == null)
@@ -241,6 +241,20 @@ namespace Sanatory.Model
             {
                 mc.Parameters.Add(new MySqlParameter("ID", staff.ID));
                 mc.Parameters.Add(new MySqlParameter("problemid", staff.ProblemID));
+                mc.ExecuteNonQuery();
+            }
+        }
+
+        internal void DoneC(Staff staff)
+        {
+            var connect = DB.Instance.GetConnection();
+            if (connect == null)
+                return;
+            string sql = "UPDATE Staff SET CabinetID = NULL WHERE ID = " + staff.ID;
+            using (var mc = new MySqlCommand(sql, connect))
+            {
+                mc.Parameters.Add(new MySqlParameter("ID", staff.ID));
+                mc.Parameters.Add(new MySqlParameter("cabinetid", staff.ProblemID));
                 mc.ExecuteNonQuery();
             }
         }
