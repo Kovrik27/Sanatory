@@ -19,9 +19,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Label Content="Выберите кабинет, чтобы назначить его сотруднику" Style="{StaticResource Label}"/>
-        <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{DynamicResource cbVM}">
+        <Label Content=" "/>
+        <Label Grid.Row="1" Content="Выберите кабинет, чтобы назначить его сотруднику" Style="{StaticResource Label}"/>
+        <StackPanel Grid.Row="2" Grid.Column="1" DataContext="{DynamicResource cbVM}">
             <ListView x:Name="listCabinets" ItemsSource="{Binding Cabinets}" SelectedItem="{Binding SelectedCabinet}" Style="{StaticResource ListView}">
                 <ListView.View>
                     <GridView>
@@ -39,7 +41,7 @@
                 </ListView.Resources>
             </ListView>
         </StackPanel>
-        <StackPanel Grid.Row="2" DataContext="{DynamicResource stAddVM}" >
+        <StackPanel Grid.Row="3" DataContext="{DynamicResource stAddVM}" >
             <Button Content="Назначить задачу" Command="{Binding AddC}" CommandParameter="{Binding ElementName=listCabinets, Path=SelectedItem}" Style="{StaticResource Button}"/>
         </StackPanel>
     </Grid>

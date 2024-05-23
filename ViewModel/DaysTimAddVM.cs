@@ -43,9 +43,7 @@ namespace Sanatory.ViewModel
             AddEvent = new CommandVM<Events>(s =>
             {
                 DaystimeRepository.Instance.AddEvent(Daytime, s);
-                MainWindowVM.Instance.CurrentPage = new Personal();
-
-
+                MainWindowVM.Instance.CurrentPage = new Schedule();
             });
 
 

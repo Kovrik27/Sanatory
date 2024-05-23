@@ -11,7 +11,6 @@
       Title="Guests" Style="{StaticResource Page}">
 
     <Page.Resources>
-        <vm:GuAddVM x:Key="guAddVM"/>
         <vm:GuVM x:Key="guVM"/>
         <Style x:Key="ProcedureItem" TargetType="ItemsControl">
             <Setter Property="ItemsPanel">
@@ -99,12 +98,17 @@
         </ListView>
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" DataContext="{DynamicResource guVM}">
-            <Button Content="Изменить данные или продлить бронь" Command="{Binding EditGuests}" Style="{StaticResource Button}"/>
-            <Button Content="Выселить гостя" Command="{Binding DeleteGuests}" Style="{StaticResource Button}"/>
+            <Menu Style="{StaticResource Menu}">
+                <MenuItem Header="Изменить данные или продлить бронь" Command="{Binding EditGuests}" Style="{StaticResource MenuItem}"/>
+                <MenuItem Header="Выселить гостя" Command="{Binding DeleteGuests}" Style="{StaticResource MenuItem}"/>
+            </Menu>
+            
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-            <Button Content="Добавить гостю назначенную процедуру" Command="{Binding AddProcedure}" Style="{StaticResource Button}"/>
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" DataContext="{DynamicResource guVM}">
+            <Menu Style="{StaticResource Menu}">
+                <MenuItem Header="Добавить гостю назначенную процедуру" Command="{Binding AddProcedure}" Style="{StaticResource MenuItem}"/>
+            </Menu>
         </StackPanel>
 
     </Grid>

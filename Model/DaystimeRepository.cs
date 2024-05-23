@@ -49,7 +49,7 @@ namespace Sanatory.Model
                         daytime.Event = new Events()
                         {
                             Title = reader.GetString("Title"),
-                            Times = reader.GetInt32("Time"),
+                            Times = reader.GetInt32("Times"),
                             Place = reader.GetString("Place")
                         };
                     }

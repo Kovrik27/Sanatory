@@ -46,7 +46,7 @@ namespace Sanatory.Model
                         result.Add(events);
                         events.ID = id;
                         events.Title = reader.GetString("Title");
-                        events.Times = reader.GetInt32("Time");
+                        events.Times = reader.GetInt32("Times");
                         events.Place = reader.GetString("Place");
                         result.Add(events);
                     }
@@ -64,11 +64,11 @@ namespace Sanatory.Model
 
             int id = DB.Instance.GetAutoID("Events");
 
-            string sql = "INSERT INTO Events VALUES (0, @title, @time, @place, @daytimeid)";
+            string sql = "INSERT INTO Events VALUES (0, @title, @times, @place)";
             using (var mc = new MySqlCommand(sql, connect))
             {
                 mc.Parameters.Add(new MySqlParameter("title", events.Title));
-                mc.Parameters.Add(new MySqlParameter("time", events.Times));
+                mc.Parameters.Add(new MySqlParameter("times", events.Times));
                 mc.Parameters.Add(new MySqlParameter("place", events.Place));
                 mc.ExecuteNonQuery();
             }
@@ -94,11 +94,11 @@ namespace Sanatory.Model
             if (connect == null)
                 return;
 
-            string sql = "UPDATE Events SET Title = @title, Time = @time, Place = @place" + events.ID;
+            string sql = "UPDATE Events SET Title = @title, Times = @times, Place = @place" + events.ID;
             using (var mc = new MySqlCommand(sql, connect))
             {
                 mc.Parameters.Add(new MySqlParameter("title", events.Title));
-                mc.Parameters.Add(new MySqlParameter("time", events.Times));
+                mc.Parameters.Add(new MySqlParameter("times", events.Times));
                 mc.Parameters.Add(new MySqlParameter("place", events.Place));
                 mc.ExecuteNonQuery();
             }
