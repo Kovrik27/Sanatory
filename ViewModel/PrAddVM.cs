@@ -37,7 +37,7 @@ namespace Sanatory.ViewModel
                     ProblemRepository.Instance.UpdateProblem(Problem);
 
 
-                MainWindowVM.Instance.CurrentPage = new Personal();
+                MainWindowVM.Instance.CurrentPage = new Processes();
 
             });
 

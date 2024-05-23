@@ -46,7 +46,7 @@ namespace Sanatory.Model
                         result.Add(problem);
                         problem.ID = id;
                         problem.Description = reader.GetString("Description");
-                        //problem.Place = reader.GetString("Place");
+                        problem.Place = reader.GetString("Place");
                     }
                 }
             }
@@ -93,12 +93,7 @@ namespace Sanatory.Model
                 return;
 
 
-            string sql = "DELETE FROM Problem WHERE ID  = '" + problem.ID + "';";
-            using (var mc = new MySqlCommand(sql, connect))
-                mc.ExecuteNonQuery();
-
-
-            sql = "UPDATE Problem SET Description = @description, Place = @place, WHERE ID = " + problem.ID;
+            string sql = "UPDATE Problem SET Description = @description, Place = @place WHERE ID = " + problem.ID;
             using (var mc = new MySqlCommand(sql, connect))
             {
                 mc.Parameters.Add(new MySqlParameter("description", problem.Description));

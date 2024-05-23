@@ -10,7 +10,9 @@ namespace Sanatory.Model
     public class Daytime
     {
         public int ID { get; set; }
-        public string Time { get; set; }
+        public DateOnly Time { get; set; }
+        public int EventID { get; set; } 
+        public Events Event { get; set; }
 
     }
 }

@@ -25,33 +25,38 @@ namespace Sanatory.Model
             }
         }
 
-        internal List<Procedure> GetAllProcedures()
+        internal IEnumerable<Procedure> GetAllProcedure(string sql)
         {
-            List<Procedure> result = new List<Procedure>();
+            var result = new List<Procedure>();
             var connect = DB.Instance.GetConnection();
-            string sql = "SELECT * FROM Procedures";
             if (connect == null)
                 return result;
             using (var mc = new MySqlCommand(sql, connect))
             using (var reader = mc.ExecuteReader())
             {
+                Procedure procedure = new Procedure();
+                int id;
                 while (reader.Read())
                 {
-                    var procedures = new Procedure
+                    id = reader.GetInt32("ID");
+                    if (procedure.ID != id)
+
                     {
-                        ID = reader.GetInt32("ID"),
-                        Title = reader.GetString("Title"),
-                        Description = reader.GetString("Description"),
-                        Duration = reader.GetInt32("Duration"),
-                        Price = reader.GetDouble("Price")
-                    };
-                    result.Add(procedures);
+                        procedure = new Procedure();
+                        result.Add(procedure);
+                        procedure.ID = id;
+                        procedure.Title = reader.GetString("Title");
+                        procedure.Description = reader.GetString("Description");
+                        procedure.Duration = reader.GetInt32("Duration");
+                        procedure.Price = reader.GetDouble("Price");
+                    }
                 }
             }
 
-          return result;
+            return result;
         }
 
+        
         internal void AddProcedures(Procedure procedures)
         {
             var connect = DB.Instance.GetConnection();

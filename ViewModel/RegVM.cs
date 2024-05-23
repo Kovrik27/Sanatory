@@ -61,6 +61,11 @@ namespace Sanatory.ViewModel
                 if (SelectedRoom == null)
                     return;
 
+                if (SelectedRoom.Status == "Занят")
+                {
+                    MessageBox.Show("Ошибка! Номер не может быть удалён", "Ошибка", MessageBoxButton.OK);
+                }
+                else
                 if (MessageBox.Show("Удалить номер?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     RoomsRepository.Instance.Remove(SelectedRoom);

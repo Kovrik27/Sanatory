@@ -1,4 +1,5 @@
 ﻿using MySqlConnector;
+using Sanatory.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +45,13 @@ namespace Sanatory.Model
                         daytime = new Daytime();
                         result.Add(daytime);
                         daytime.ID = id;
-                        daytime.Time = reader.GetString("Time");
+                        daytime.Time = reader.GetDateOnly("Time");
+                        daytime.Event = new Events()
+                        {
+                            Title = reader.GetString("Title"),
+                            Times = reader.GetInt32("Time"),
+                            Place = reader.GetString("Place")
+                        };
                     }
                 }
             }
@@ -60,10 +67,11 @@ namespace Sanatory.Model
 
             int id = DB.Instance.GetAutoID("Daytime");
 
-            string sql = "INSERT INTO Daytime VALUES (0, @time)";
+            string sql = "INSERT INTO Daytime VALUES (0, @time, @eventid)";
             using (var mc = new MySqlCommand(sql, connect))
             {
                 mc.Parameters.Add(new MySqlParameter("time", daytime.Time));
+                mc.Parameters.Add(new MySqlParameter("eventid", 1));
                 mc.ExecuteNonQuery();
             }
 
@@ -96,5 +104,18 @@ namespace Sanatory.Model
             }
         }
 
+        internal void AddEvent(Daytime daytime, Events s)
+        {
+            var connect = DB.Instance.GetConnection();
+            if (connect == null)
+                return;
+            string sql = "UPDATE Daytime SET EventID = @eventID WHERE ID = " + daytime.ID;
+            using (var mc = new MySqlCommand(sql, connect))
+            {
+                mc.Parameters.Add(new MySqlParameter("ID", daytime.ID));
+                mc.Parameters.Add(new MySqlParameter("eventID", s.ID));
+                mc.ExecuteNonQuery();
+            }
+        }
     }
 }

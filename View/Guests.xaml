@@ -61,13 +61,6 @@
                         <GridViewColumn Header="Дата заезда" DisplayMemberBinding="{Binding DataArrival}"/>
                         <GridViewColumn Header="Дата выезда" DisplayMemberBinding="{Binding DataOfDeparture}"/>
                     <GridViewColumn Header="Номер комнаты" DisplayMemberBinding="{Binding Room.Number}"/>
-                    <GridViewColumn Header="Процедуры">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <ItemsControl Style="{StaticResource ProcedureItem}" DisplayMemberPath="Title" ItemsSource="{Binding Procedure}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
                 </GridView>
                 </ListView.View>
             <ListView.Resources>
@@ -92,7 +85,7 @@
                     <GridViewColumn Header="Номер комнаты" DisplayMemberBinding="{Binding Room.Number}"/>
                     <GridViewColumn Header="Дата заезда" DisplayMemberBinding="{Binding DataArrival}"/>
                     <GridViewColumn Header="Дата выезда" DisplayMemberBinding="{Binding DataOfDeparture}"/>
-                    <GridViewColumn Header="Назначенные процедуры"/>
+                    <GridViewColumn Header="Назначенные процедуры" DisplayMemberBinding="{Binding Procedure.Title}"/>
                 </GridView>
             </ListView.View>
             <ListView.Resources>
@@ -105,7 +98,8 @@
             </ListView.Resources>
         </ListView>
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" DataContext="{DynamicResource guVM}">
+            <Button Content="Изменить данные или продлить бронь" Command="{Binding EditGuests}" Style="{StaticResource Button}"/>
             <Button Content="Выселить гостя" Command="{Binding DeleteGuests}" Style="{StaticResource Button}"/>
         </StackPanel>
 

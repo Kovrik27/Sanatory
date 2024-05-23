@@ -50,7 +50,7 @@ namespace Sanatory.ViewModel
                     CabinetsRepository.Instance.UpdateCabinets(Cabinets);
 
 
-                MainWindowVM.Instance.CurrentPage = new Personal();
+                MainWindowVM.Instance.CurrentPage = new Processes();
 
             });
 

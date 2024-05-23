@@ -47,16 +47,10 @@ namespace Sanatory.ViewModel
         public GuVM()
         {
             MainVM = MainWindowVM.Instance;
-            string sql = "SELECT g.ID, g.Surname, g.Name, g.Lastname, g.DataArrival, g.DataOfDeparture, r.Number AS Number, p.Title AS Title FROM Guests g, Rooms r, Procedures p WHERE RoomID = r.ID and r.ID = g.RoomID and p.ID = g.ProcedureID";
+            string sql = "SELECT g.ID, g.Surname, g.Name, g.Lastname, g.Pasport, g.Policy, g.DataArrival, g.DataOfDeparture, r.Number AS Number, p.Title AS Title FROM Guests g JOIN Rooms r, Procedures p WHERE g.RoomID = r.ID  AND  g.ProcedureID = p.ID;";
 
             Guests = new ObservableCollection<Guest>(GuestsRepository.Instance.GetAllGuests(sql));
 
-
-
-            //CreateGuests = new CommandVM(() =>
-            //{
-            //    MainWindowVM.Instance.CurrentPage = new GuAdd();
-            //});
 
             EditGuests = new CommandVM(() =>
             {
@@ -72,8 +66,9 @@ namespace Sanatory.ViewModel
 
                 if (MessageBox.Show("Выселить гостя?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    GuestsRepository.Instance.Remove(SelectedGuests);
-                    Guests.Remove(SelectedGuests);
+                    GuestsRepository.Instance.DoneG(SelectedGuests);
+                    MainWindowVM.Instance.CurrentPage = new Guests();
+                    //Guests.Remove(SelectedGuests);
                 }
 
             });

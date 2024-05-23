@@ -35,7 +35,7 @@
             <MenuItem Header="Бронирование" Command="{Binding Bronirovanie}" Style="{StaticResource MenuItem}"/>
             <MenuItem Header="Персонал" Command="{Binding Personal}"  Style="{StaticResource MenuItem}"/>
             <MenuItem Header="Гости" Command="{Binding Gosti}"  Style="{StaticResource MenuItem}"/>
-            <MenuItem Header="Процедуры" Command="{Binding Processes}"  Style="{StaticResource MenuItem}"/>
+            <MenuItem Header="Процессы" Command="{Binding Processes}"  Style="{StaticResource MenuItem}"/>
             <MenuItem Header="Расписание" Command="{Binding Raspisanie}"  Style="{StaticResource MenuItem}"/>
         </Menu>
 

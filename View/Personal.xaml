@@ -142,7 +142,7 @@
 
 
 
-        <StackPanel Grid.Row="5" Grid.Column="2" DataContext="{DynamicResource stVM}">
+        <StackPanel Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" DataContext="{DynamicResource stVM}" Orientation="Horizontal">
             <Menu Style="{StaticResource Menu}">
                 <MenuItem Header="Назначить кабинет" Command="{Binding AddCabinet}" Style="{StaticResource MenuItem}"/>
                 <MenuItem Header="Освободить кабинет" Command="{Binding DoneCabinet}" Style="{StaticResource MenuItem}"/>

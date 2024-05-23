@@ -48,10 +48,6 @@ namespace Sanatory.Model
                         events.Title = reader.GetString("Title");
                         events.Times = reader.GetInt32("Time");
                         events.Place = reader.GetString("Place");
-                        events.Daytime = new Daytime()
-                        {
-                            Time = reader.GetString("Time")
-                        };
                         result.Add(events);
                     }
                 }
@@ -74,7 +70,6 @@ namespace Sanatory.Model
                 mc.Parameters.Add(new MySqlParameter("title", events.Title));
                 mc.Parameters.Add(new MySqlParameter("time", events.Times));
                 mc.Parameters.Add(new MySqlParameter("place", events.Place));
-                mc.Parameters.Add(new MySqlParameter("daytimid", events.DaytimeID));
                 mc.ExecuteNonQuery();
             }
 

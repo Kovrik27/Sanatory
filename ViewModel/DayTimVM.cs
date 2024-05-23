@@ -13,9 +13,9 @@ namespace Sanatory.ViewModel
     {
         public ObservableCollection<Daytime> daytimes;
         private MainWindowVM MainVM;
-        public CommandVM Meropriyatie { get; set; }
         public CommandVM CreateDay { get; set; }
         public Daytime SelectedDaytime {  get; set; }
+        public CommandVM AddEvent { get; set; }
 
 
         public ObservableCollection<Daytime> Daytimes
@@ -31,7 +31,7 @@ namespace Sanatory.ViewModel
         public DayTimVM()
         {
             MainVM = MainWindowVM.Instance;
-            string sql = "SELECT * FROM Daytime";
+            string sql = "SELECT d.Time, e.ID, e.Title, e.Time, e.Place FROM Daytime d, Events e WHERE EventID = e.ID";
 
             Daytimes = new ObservableCollection<Daytime>(DaystimeRepository.Instance.GetAllDaytime(sql));
 
@@ -42,9 +42,11 @@ namespace Sanatory.ViewModel
                 MainWindowVM.Instance.CurrentPage = new DataTimAdd();
             });
 
-            Meropriyatie = new CommandVM(() => {
-                MainWindowVM.Instance.CurrentPage = new EvAdd(SelectedDaytime);
-
+            AddEvent = new CommandVM(() =>
+            {
+                if (SelectedDaytime == null)
+                    return;
+                MainWindowVM.Instance.CurrentPage = new EvAdd();
             });
         }
 

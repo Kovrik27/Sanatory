@@ -39,7 +39,7 @@ namespace Sanatory.ViewModel
                     ProceduresRepository.Instance.UpdateProcedures(Procedure);
 
 
-                MainWindowVM.Instance.CurrentPage = new Guests();
+                MainWindowVM.Instance.CurrentPage = new Processes();
 
             });
 

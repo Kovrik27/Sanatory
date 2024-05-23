@@ -3,6 +3,7 @@ using Sanatory.View;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -42,21 +43,21 @@ namespace Sanatory.Model
                 {
                     guests = new Guest();
                     guests.ID = reader.GetInt32("ID");
-                    guests.Lastname = reader.GetString("Lastname");
-                    guests.Name = reader.GetString("Name");
                     guests.Surname = reader.GetString("Surname");
+                    guests.Name = reader.GetString("Name");
+                    guests.Lastname = reader.GetString("Lastname");
                     guests.Pasport = reader.GetString("Pasport");
                     guests.Policy = reader.GetString("Policy");
-                    guests.DataArrival = reader.GetString("DataArrival");
-                    guests.DataOfDeparture = reader.GetString("DataOfDeparture");
+                    guests.DataArrival = reader.GetDateOnly("DataArrival");
+                    guests.DataOfDeparture = reader.GetDateOnly("DataOfDeparture");
                     guests.Room = new Room()
                     {
                         Number = reader.GetInt32("Number")
-                    };
-                    guests.Procedure = new Procedure()
-                    {
-                        Title = reader.GetString("Title")
-                    };
+                    };                   
+                        guests.Procedure = new Procedure()
+                        {
+                            Title = reader.GetString("Title")
+                        };
                     result.Add(guests);
                 }
             }
@@ -83,25 +84,28 @@ namespace Sanatory.Model
                 mc.Parameters.Add(new MySqlParameter("dataarrival", guests.DataArrival));
                 mc.Parameters.Add(new MySqlParameter("dataofdeparture", guests.DataOfDeparture));
                 mc.Parameters.Add(new MySqlParameter("roomid", guests.RoomID));
-                mc.Parameters.Add(new MySqlParameter("procedureid", null));
+                mc.Parameters.Add(new MySqlParameter("procedureid", 1));
                 mc.ExecuteNonQuery();
             }
 
 
         }
 
-        internal void Remove(Guest guests)
+        internal void DoneG(Guest guests)
         {
             var connect = DB.Instance.GetConnection();
             if (connect == null)
                 return;
 
             string sql = "UPDATE Guests SET RoomID = NULL WHERE ID = " + guests.ID;
-            sql += "DELETE FROM CrossRegistration WHERE IDGuests  = '" + guests.ID + "';";
-            sql += "DELETE FROM Guests WHERE ID = '" + guests.ID + "';";
 
             using (var mc = new MySqlCommand(sql, connect))
+            {
+                mc.Parameters.Add(new MySqlParameter("ID", guests.ID));
+                mc.Parameters.Add(new MySqlParameter("roomid", guests.RoomID));
                 mc.ExecuteNonQuery();
+            }
+                
         }
 
 

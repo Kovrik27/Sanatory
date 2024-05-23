@@ -33,10 +33,6 @@ namespace Sanatory.View
             ((EvAddVM)DataContext).SetEditEvent(selectedEvents);
         }
 
-        public EvAdd(Daytime? selectedDaytime)
-        {
-            InitializeComponent();
-            ((EvAddVM)DataContext).SetDay(selectedDaytime);
-        }
+      
     }
 }
