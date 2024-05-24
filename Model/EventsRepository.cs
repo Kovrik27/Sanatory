@@ -35,21 +35,16 @@ namespace Sanatory.Model
             using (var mc = new MySqlCommand(sql, connect))
             using (var reader = mc.ExecuteReader())
             {
-                Events events = new Events();
+                Events events;
                 int id;
                 while (reader.Read())
                 {
-                    id = reader.GetInt32("ID");
-                    if (events.ID != id)
-                    {
                         events = new Events();
-                        result.Add(events);
-                        events.ID = id;
+                        events.ID = reader.GetInt32("ID");
                         events.Title = reader.GetString("Title");
                         events.Times = reader.GetInt32("Times");
                         events.Place = reader.GetString("Place");
                         result.Add(events);
-                    }
                 }
             }
 

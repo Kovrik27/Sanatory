@@ -34,7 +34,7 @@ namespace Sanatory.ViewModel
         public EvVM()
         {
             MainVM = MainWindowVM.Instance;
-            string sql = "SELECT * FROM Events";
+            string sql = "SELECT * FROM Events WHERE ID > 1";
 
             Events = new ObservableCollection<Events>(EventsRepository.Instance.GetAllEvents(sql));
 

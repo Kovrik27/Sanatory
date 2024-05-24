@@ -117,7 +117,7 @@ namespace Sanatory.Model
                 return;
 
 
-            string sql = "UPDATE Guests SET Lastname = @lastname, Name = @name, Surname = @surname, Pasport = @pasport, Phone = @phone, Policy = @policy, DataArrival = @dataarrival, DataOfDeparture = @dataofdeparture WHERE ID = " + guests.ID;
+            string sql = "UPDATE Guests SET Lastname = @lastname, Name = @name, Surname = @surname, Pasport = @pasport, Policy = @policy, DataArrival = @dataarrival, DataOfDeparture = @dataofdeparture WHERE ID = " + guests.ID;
             using (var mc = new MySqlCommand(sql, connect))
             {
                 mc.Parameters.Add(new MySqlParameter("surname", guests.Surname));
@@ -137,7 +137,7 @@ namespace Sanatory.Model
             var connect = DB.Instance.GetConnection();
             if (connect == null)
                 return;
-            string sql = "UPDATE Guests SET ProcedureID = @procedureID WHERE ID = " + guests.ID;
+            string sql = "UPDATE Guests SET ProcedureID = @procedureid WHERE ID = " + guests.ID;
             using (var mc = new MySqlCommand(sql, connect))
             {
                 mc.Parameters.Add(new MySqlParameter("ID", guests.ID));

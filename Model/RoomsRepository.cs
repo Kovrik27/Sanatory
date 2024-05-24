@@ -118,5 +118,18 @@ namespace Sanatory.Model
             }
         }
 
+        internal void UpdateStatus2(Room room)
+        {
+            var connect = DB.Instance.GetConnection();
+            if (connect == null) return;
+
+            string sql = "UPDATE Rooms SET Status = 'Свободен' WHERE ID = " + room.ID;
+            using (var mc = new MySqlCommand(sql, connect))
+            {
+                mc.Parameters.Add(new MySqlParameter("status", room.Status));
+                mc.ExecuteNonQuery();
+            }
+        }
+
     }
 }

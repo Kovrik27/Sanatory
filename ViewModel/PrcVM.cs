@@ -32,7 +32,7 @@ namespace Sanatory.ViewModel
 
         public PrcVM()
         {
-            string sql = "SELECT * FROM Procedures";
+            string sql = "SELECT * FROM Procedures WHERE ID > 1";
 
             Procedures = new ObservableCollection<Procedure>(ProceduresRepository.Instance.GetAllProcedure(sql));
 

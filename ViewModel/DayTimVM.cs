@@ -46,7 +46,7 @@ namespace Sanatory.ViewModel
             {
                 if (SelectedDaytime == null)
                     return;
-                MainWindowVM.Instance.CurrentPage = new EvAdd();
+                MainWindowVM.Instance.CurrentPage = new EvAddDay(SelectedDaytime);
             });
         }
 

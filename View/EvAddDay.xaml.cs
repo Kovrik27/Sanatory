@@ -18,14 +18,14 @@ using System.Windows.Shapes;
 namespace Sanatory.View
 {
     /// <summary>
-    /// Логика взаимодействия для PrcAddGu.xaml
+    /// Логика взаимодействия для EvAddDay.xaml
     /// </summary>
-    public partial class PrcAddGu : Page
+    public partial class EvAddDay : Page
     {
-        public PrcAddGu(Guest selectedGuest)
+        public EvAddDay(Daytime selectedDaytime)
         {
             InitializeComponent();
-            ((GuAddVM)DataContext).SetEditGuest(selectedGuest);
+            ((DaysTimAddVM)DataContext).SetEditDaytime(selectedDaytime);
         }
     }
 }

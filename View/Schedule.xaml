@@ -12,6 +12,7 @@
 
     <Page.Resources>
         <vm:DayTimVM x:Key="dayTimVM"/>
+        <vm:EvVM x:Key="evVM"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -31,13 +32,16 @@
         <Menu Grid.Column="2" Grid.Row="1" Grid.RowSpan="3" Style="{StaticResource Menu}">
             <MenuItem Header="Добавить день" Command="{Binding CreateDay}" Style="{StaticResource MenuItem}"/>
             <MenuItem Header="Добавить мероприятие на определённый день" Grid.Column="1" Grid.Row="2" Command="{Binding AddEvent}" Style="{StaticResource MenuItem}"/>
-        </Menu>
+        </Menu >
+      
+        
+        
 
 
-        <ListView Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Daytime}" SelectedItem="{Binding SelectedDaytime}" Style="{StaticResource ListView}">
+        <ListView Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Daytimes}" SelectedItem="{Binding SelectedDaytime}" Style="{StaticResource ListView}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="День" DisplayMemberBinding="{Binding Time}"/>
+                    <GridViewColumn Header="День" DisplayMemberBinding="{Binding Time, StringFormat=dd.MM.yyyy}"/>
                     <GridViewColumn Header="Мероприятие" DisplayMemberBinding="{Binding Event.Title}"/>
                     <GridViewColumn Header="Время" DisplayMemberBinding="{Binding Event.Times}"/>
                     <GridViewColumn Header="Место" DisplayMemberBinding="{Binding Event.Place}"/>

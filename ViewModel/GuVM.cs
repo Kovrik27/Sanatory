@@ -22,7 +22,7 @@ namespace Sanatory.ViewModel
         public CommandVM DeleteGuests { get; set; }
         private Procedure selectedProcedure;
         public CommandVM AddProcedure { get; set; }
-        public Guest SelectedGuests { get; set; }
+        public Guest SelectedGuest { get; set; }
         public ObservableCollection<Guest> Guests
         {
             get => guests;
@@ -54,20 +54,22 @@ namespace Sanatory.ViewModel
 
             EditGuests = new CommandVM(() =>
             {
-                if (SelectedGuests == null)
+                if (SelectedGuest == null)
                     return;
-                MainWindowVM.Instance.CurrentPage = new GuAdd(SelectedGuests);
+                MainWindowVM.Instance.CurrentPage = new GuAdd(SelectedGuest);
             });
 
             DeleteGuests = new CommandVM(() =>
             {
-                if (SelectedGuests == null)
+                if (SelectedGuest == null)
                     return;
 
                 if (MessageBox.Show("Выселить гостя?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    GuestsRepository.Instance.DoneG(SelectedGuests);
+                    GuestsRepository.Instance.DoneG(SelectedGuest);
+                    //RoomsRepository.Instance.UpdateStatus2();
                     MainWindowVM.Instance.CurrentPage = new Guests();
+                 
                     //Guests.Remove(SelectedGuests);
                 }
 
@@ -75,9 +77,9 @@ namespace Sanatory.ViewModel
 
             AddProcedure = new CommandVM(() =>
             {
-                if (SelectedGuests == null)
+                if (SelectedGuest == null)
                     return;
-                MainWindowVM.Instance.CurrentPage = new PrcAddGu(SelectedGuests);
+                MainWindowVM.Instance.CurrentPage = new PrcAddGu(SelectedGuest);
             });
 
 

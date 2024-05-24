@@ -24,7 +24,7 @@
         <Label Content="День" Grid.Row="1" Style="{StaticResource Label}"/>
         <StackPanel Grid.Row="2">
             <StackPanel DataContext="{Binding Daytime}">
-                <TextBox Text="{Binding Time}" Style="{StaticResource TextBox}"/>
+                <DatePicker SelectedDate="{Binding Time}" Style="{StaticResource DatePicker}"/>
             </StackPanel>
             <Button Grid.Row="3" Content="Сохранить" Command="{Binding Save}" Style="{StaticResource Button}"/>
         </StackPanel>

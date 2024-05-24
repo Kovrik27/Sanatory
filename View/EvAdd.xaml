@@ -15,12 +15,8 @@
     </Page.Resources>
     <Grid>
         <StackPanel>
-            <StackPanel DataContext="{Binding Events}">
+            <StackPanel DataContext="{Binding Event}">
                 <Label Content=" "/>
-                <StackPanel>
-                    <Label Content="День мероприятия" Style="{StaticResource Label}"/>
-                    <TextBox Text="{Binding Events.Daytime.Time}" Style="{StaticResource TextBox}"/>
-                </StackPanel>
                 <Label Content="Мероприятие" Style="{StaticResource Label}"/>
                 <TextBox Text="{Binding Type}" Style="{StaticResource TextBox}"/>
                 <Label Content="Время" Style="{StaticResource Label}"/>
@@ -28,7 +24,7 @@
                 <Label Content="Место" Style="{StaticResource Label}"/>
                 <TextBox Text="{Binding Status}" Style="{StaticResource TextBox}"/>
             </StackPanel>
-
+            
             <Button Content="Сохранить" Command="{Binding Save}" Style="{StaticResource Button}"/>
         </StackPanel>
     </Grid>

@@ -1,4 +1,5 @@
-﻿using MySqlConnector;
+﻿using Microsoft.Extensions.Logging;
+using MySqlConnector;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -35,24 +36,20 @@ namespace Sanatory.Model
             using (var mc = new MySqlCommand(sql, connect))
             using (var reader = mc.ExecuteReader())
             {
-                Daytime daytime = new Daytime();
+                Daytime daytime;
                 int id;
                 while (reader.Read())
                 {
-                    id = reader.GetInt32("ID");
-                    if (daytime.ID != id)
+                    daytime = new Daytime();
+                    daytime.ID = reader.GetInt32("ID");
+                    daytime.Time = reader.GetDateTime("Time");
+                    daytime.Event = new Events()
                     {
-                        daytime = new Daytime();
-                        result.Add(daytime);
-                        daytime.ID = id;
-                        daytime.Time = reader.GetDateOnly("Time");
-                        daytime.Event = new Events()
-                        {
-                            Title = reader.GetString("Title"),
-                            Times = reader.GetInt32("Times"),
-                            Place = reader.GetString("Place")
-                        };
-                    }
+                        Title = reader.GetString("Title"),
+                        Times = reader.GetInt32("Times"),
+                        Place = reader.GetString("Place")
+                    };
+                    result.Add(daytime);
                 }
             }
 
@@ -109,7 +106,7 @@ namespace Sanatory.Model
             var connect = DB.Instance.GetConnection();
             if (connect == null)
                 return;
-            string sql = "UPDATE Daytime SET EventID = @eventID WHERE ID = " + daytime.ID;
+            string sql = "UPDATE Daytime SET EventID = 3 WHERE ID = 32";
             using (var mc = new MySqlCommand(sql, connect))
             {
                 mc.Parameters.Add(new MySqlParameter("ID", daytime.ID));
