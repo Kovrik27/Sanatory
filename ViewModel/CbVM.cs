@@ -34,37 +34,37 @@ namespace Sanatory.ViewModel
         }
 
         public CbVM()
-        {
-            MainVM = MainWindowVM.Instance;
-            string sql = "SELECT * FROM Cabinet";
+        //{
+        //    MainVM = MainWindowVM.Instance;
+        //    string sql = "SELECT * FROM Cabinet";
 
-            Cabinets = new ObservableCollection<Cabinet>(CabinetsRepository.Instance.GetAllCabinets(sql));
+        //    Cabinets = new ObservableCollection<Cabinet>(CabinetsRepository.Instance.GetAllCabinets(sql));
 
 
 
-            CreateCabinets = new CommandVM(() =>
-            {
-                MainWindowVM.Instance.CurrentPage = new CbAdd();
-            });
+        //    CreateCabinets = new CommandVM(() =>
+        //    {
+        //        MainWindowVM.Instance.CurrentPage = new CbAdd();
+        //    });
 
-            EditCabinets = new CommandVM(() => {
-                if (SelectedCabinets == null)
-                    return;
-                MainWindowVM.Instance.CurrentPage = new CbAdd(SelectedCabinets);
-            });
+        //    EditCabinets = new CommandVM(() => {
+        //        if (SelectedCabinets == null)
+        //            return;
+        //        MainWindowVM.Instance.CurrentPage = new CbAdd(SelectedCabinets);
+        //    });
 
-            DeleteCabinets = new CommandVM(() =>
-            {
-                if (SelectedCabinets == null)
-                    return;
+        //    DeleteCabinets = new CommandVM(() =>
+        //    {
+        //        if (SelectedCabinets == null)
+        //            return;
 
-                if (MessageBox.Show("Удалить кабинет?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    CabinetsRepository.Instance.Remove(SelectedCabinets);
-                    Cabinets.Remove(SelectedCabinets);
-                }
+        //        if (MessageBox.Show("Удалить кабинет?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+        //        {
+        //            CabinetsRepository.Instance.Remove(SelectedCabinets);
+        //            Cabinets.Remove(SelectedCabinets);
+        //        }
 
-            });
+        //    });
 
 
         

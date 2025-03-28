@@ -33,37 +33,37 @@ namespace Sanatory.ViewModel
         }
 
         public PrVM()
-        {
-            MainVM = MainWindowVM.Instance;
-            string sql = "SELECT * FROM Problem";
+        //{
+        //    MainVM = MainWindowVM.Instance;
+        //    string sql = "SELECT * FROM Problem";
 
-            Problems = new ObservableCollection<Problem>(ProblemRepository.Instance.GetAllProblem(sql));
+        //    Problems = new ObservableCollection<Problem>(ProblemRepository.Instance.GetAllProblem(sql));
 
 
 
-            CreateProblem = new CommandVM(() =>
-            {
-                MainWindowVM.Instance.CurrentPage = new PrAdd();
-            });
+        //    CreateProblem = new CommandVM(() =>
+        //    {
+        //        MainWindowVM.Instance.CurrentPage = new PrAdd();
+        //    });
 
-            EditProblem = new CommandVM(() => {
-                if (SelectedProblem == null)
-                    return;
-                MainWindowVM.Instance.CurrentPage = new PrAdd(SelectedProblem);
-            });
+        //    EditProblem = new CommandVM(() => {
+        //        if (SelectedProblem == null)
+        //            return;
+        //        MainWindowVM.Instance.CurrentPage = new PrAdd(SelectedProblem);
+        //    });
 
-            DeleteProblem = new CommandVM(() =>
-            {
-                if (SelectedProblem == null)
-                    return;
+        //    DeleteProblem = new CommandVM(() =>
+        //    {
+        //        if (SelectedProblem == null)
+        //            return;
 
-                if (MessageBox.Show("Удалить задачу?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    ProblemRepository.Instance.Remove(SelectedProblem);
-                    Problems.Remove(SelectedProblem);
-                }
+        //        if (MessageBox.Show("Удалить задачу?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+        //        {
+        //            ProblemRepository.Instance.Remove(SelectedProblem);
+        //            Problems.Remove(SelectedProblem);
+        //        }
 
-            });
+        //    });
 
            
 

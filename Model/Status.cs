@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Sanatory.Model
 {
-    public class Days
+    public class Status
     {
-        public int ID { get; set; }
-        public string Day {  get; set; }
+        public int Id { get; set; }
+        public string Title {  get; set; }
     }
 }

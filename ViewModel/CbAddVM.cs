@@ -41,18 +41,18 @@ namespace Sanatory.ViewModel
         public CbAddVM()
         {
 
-            Save = new CommandVM(() =>
-            {
+            //Save = new CommandVM(() =>
+            //{
 
-                if (Cabinets.ID == 0)
-                    CabinetsRepository.Instance.AddCabinets(Cabinets);
-                else
-                    CabinetsRepository.Instance.UpdateCabinets(Cabinets);
+            //    if (Cabinets.ID == 0)
+            //        CabinetsRepository.Instance.AddCabinets(Cabinets);
+            //    else
+            //        CabinetsRepository.Instance.UpdateCabinets(Cabinets);
 
 
-                MainWindowVM.Instance.CurrentPage = new Processes();
+            //    MainWindowVM.Instance.CurrentPage = new Processes();
 
-            });
+            //});
 
             
 

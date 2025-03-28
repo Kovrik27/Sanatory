@@ -31,29 +31,29 @@ namespace Sanatory.ViewModel
         }
         public GuAddVM()
         {
-            Save = new CommandVM(() =>
-            {
+            //Save = new CommandVM(() =>
+            //{
 
-                if (Guests.ID == 0)
-                {
-                    GuestsRepository.Instance.AddGuest(Guests);
-                    RoomsRepository.Instance.UpdateStatus(Guests.Room);
-                }
+            //    if (Guests.ID == 0)
+            //    {
+            //        GuestsRepository.Instance.AddGuest(Guests);
+            //        RoomsRepository.Instance.UpdateStatus(Guests.Room);
+            //    }
                                    
-                else
-                    GuestsRepository.Instance.UpdateGuests(Guests);
+            //    else
+            //        GuestsRepository.Instance.UpdateGuests(Guests);
 
 
-                MainWindowVM.Instance.CurrentPage = new Guests();
+            //    MainWindowVM.Instance.CurrentPage = new Guests();
 
-            });
+            //});
 
 
-            AddPrc = new CommandVM<Procedure>(s =>
-            {
-                GuestsRepository.Instance.AddProcedure(Guests, s);
-                MainWindowVM.Instance.CurrentPage = new Guests();
-            });
+            //AddPrc = new CommandVM<Procedure>(s =>
+            //{
+            //    GuestsRepository.Instance.AddProcedure(Guests, s);
+            //    MainWindowVM.Instance.CurrentPage = new Guests();
+            //});
 
         }
 

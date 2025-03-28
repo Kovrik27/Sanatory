@@ -29,21 +29,21 @@ namespace Sanatory.ViewModel
         public RegAddVM() 
         {
 
-            Save = new CommandVM(() =>
-            {
+            //Save = new CommandVM(() =>
+            //{
 
-                if (Room.ID == 0)
-                {
-                    RoomsRepository.Instance.AddRoom(Room);
-                }
+            //    if (Room.ID == 0)
+            //    {
+            //        RoomsRepository.Instance.AddRoom(Room);
+            //    }
                     
-                else
-                    RoomsRepository.Instance.UpdateRoom(Room);
+            //    else
+            //        RoomsRepository.Instance.UpdateRoom(Room);
 
 
-                MainWindowVM.Instance.CurrentPage = new Registration();
+            //    MainWindowVM.Instance.CurrentPage = new Registration();
 
-            });
+            //});
 
         }
 

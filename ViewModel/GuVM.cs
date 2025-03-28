@@ -46,32 +46,32 @@ namespace Sanatory.ViewModel
 
         public GuVM()
         {
-            MainVM = MainWindowVM.Instance;
-            string sql = "SELECT g.ID, g.Surname, g.Name, g.Lastname, g.Pasport, g.Policy, g.DataArrival, g.DataOfDeparture, r.Number AS Number, p.Title AS Title FROM Guests g JOIN Rooms r, Procedures p WHERE g.RoomID = r.ID  AND  g.ProcedureID = p.ID;";
+            //MainVM = MainWindowVM.Instance;
+            //string sql = "SELECT g.ID, g.Surname, g.Name, g.Lastname, g.Pasport, g.Policy, g.DataArrival, g.DataOfDeparture, r.Number AS Number, p.Title AS Title FROM Guests g JOIN Rooms r, Procedures p WHERE g.RoomID = r.ID  AND  g.ProcedureID = p.ID;";
 
-            Guests = new ObservableCollection<Guest>(GuestsRepository.Instance.GetAllGuests(sql));
+            //Guests = new ObservableCollection<Guest>(GuestsRepository.Instance.GetAllGuests(sql));
 
 
-            EditGuests = new CommandVM(() =>
-            {
-                if (SelectedGuest == null)
-                    return;
-                MainWindowVM.Instance.CurrentPage = new GuAdd(SelectedGuest);
-            });
+            //EditGuests = new CommandVM(() =>
+            //{
+            //    if (SelectedGuest == null)
+            //        return;
+            //    MainWindowVM.Instance.CurrentPage = new GuAdd(SelectedGuest);
+            //});
 
-            DeleteGuests = new CommandVM(() =>
-            {
-                if (SelectedGuest == null)
-                    return;
+            //DeleteGuests = new CommandVM(() =>
+            //{
+            //    if (SelectedGuest == null)
+            //        return;
 
-                if (MessageBox.Show("Выселить гостя?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    GuestsRepository.Instance.DoneG(SelectedGuest);
-                    //RoomsRepository.Instance.UpdateStatus2();
-                    MainWindowVM.Instance.CurrentPage = new Guests();
+            //    if (MessageBox.Show("Выселить гостя?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            //    {
+            //        GuestsRepository.Instance.DoneG(SelectedGuest);
+            //        //RoomsRepository.Instance.UpdateStatus2();
+            //        MainWindowVM.Instance.CurrentPage = new Guests();
                  
-                    //Guests.Remove(SelectedGuests);
-                }
+            //        //Guests.Remove(SelectedGuests);
+            //    }
 
             });
 

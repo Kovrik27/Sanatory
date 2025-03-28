@@ -27,23 +27,23 @@ namespace Sanatory.ViewModel
         public DaysTimAddVM()
         {
 
-            Save = new CommandVM(() =>
-            {
+            //Save = new CommandVM(() =>
+            //{
 
-                if (Daytime.ID == 0)
-                    DaystimeRepository.Instance.AddDaytime(Daytime);
-                else
-                    DaystimeRepository.Instance.UpdateDaytime(Daytime);
+            //    if (Daytime.ID == 0)
+            //        DaystimeRepository.Instance.AddDaytime(Daytime);
+            //    else
+            //        DaystimeRepository.Instance.UpdateDaytime(Daytime);
 
-                MainWindowVM.Instance.CurrentPage = new Schedule();
+            //    MainWindowVM.Instance.CurrentPage = new Schedule();
 
-            });
+            //});
 
-            AddEvent = new CommandVM<Events>(s =>
-            {
-                DaystimeRepository.Instance.AddEvent(Daytime, s);
-                MainWindowVM.Instance.CurrentPage = new Schedule();
-            });
+            //AddEvent = new CommandVM<Events>(s =>
+            //{
+            //    DaystimeRepository.Instance.AddEvent(Daytime, s);
+            //    MainWindowVM.Instance.CurrentPage = new Schedule();
+            //});
 
 
 

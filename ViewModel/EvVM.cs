@@ -33,36 +33,36 @@ namespace Sanatory.ViewModel
 
         public EvVM()
         {
-            MainVM = MainWindowVM.Instance;
-            string sql = "SELECT * FROM Events WHERE ID > 1";
+            //MainVM = MainWindowVM.Instance;
+            //string sql = "SELECT * FROM Events WHERE ID > 1";
 
-            Events = new ObservableCollection<Events>(EventsRepository.Instance.GetAllEvents(sql));
+            //Events = new ObservableCollection<Events>(EventsRepository.Instance.GetAllEvents(sql));
 
 
 
-            CreateEvent = new CommandVM(() =>
-            {
-                MainWindowVM.Instance.CurrentPage = new EvAdd();
-            });
+            //CreateEvent = new CommandVM(() =>
+            //{
+            //    MainWindowVM.Instance.CurrentPage = new EvAdd();
+            //});
 
-            EditEvent = new CommandVM(() => {
-                if (SelectedEvent == null)
-                    return;
-                MainWindowVM.Instance.CurrentPage = new EvAdd(SelectedEvent);
-            });
+            //EditEvent = new CommandVM(() => {
+            //    if (SelectedEvent == null)
+            //        return;
+            //    MainWindowVM.Instance.CurrentPage = new EvAdd(SelectedEvent);
+            //});
 
-            DeleteEvent = new CommandVM(() =>
-            {
-                if (SelectedEvent == null)
-                    return;
+            //DeleteEvent = new CommandVM(() =>
+            //{
+            //    if (SelectedEvent == null)
+            //        return;
 
-                if (MessageBox.Show("Удалить мероприятие?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    EventsRepository.Instance.Remove(SelectedEvent);
-                    Events.Remove(SelectedEvent);
-                }
+            //    if (MessageBox.Show("Удалить мероприятие?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            //    {
+            //        EventsRepository.Instance.Remove(SelectedEvent);
+            //        Events.Remove(SelectedEvent);
+            //    }
 
-            });
+            //});
 
 
 

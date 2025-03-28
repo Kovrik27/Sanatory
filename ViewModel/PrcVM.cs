@@ -32,35 +32,35 @@ namespace Sanatory.ViewModel
 
         public PrcVM()
         {
-            string sql = "SELECT * FROM Procedures WHERE ID > 1";
+            //string sql = "SELECT * FROM Procedures WHERE ID > 1";
 
-            Procedures = new ObservableCollection<Procedure>(ProceduresRepository.Instance.GetAllProcedure(sql));
+            //Procedures = new ObservableCollection<Procedure>(ProceduresRepository.Instance.GetAllProcedure(sql));
 
 
 
-            CreateProcedure = new CommandVM(() =>
-            {
-                MainWindowVM.Instance.CurrentPage = new PrcAdd();
-            });
+            //CreateProcedure = new CommandVM(() =>
+            //{
+            //    MainWindowVM.Instance.CurrentPage = new PrcAdd();
+            //});
 
-            EditProcedure = new CommandVM(() => {
-                if (SelectedProcedure == null)
-                    return;
-                MainWindowVM.Instance.CurrentPage = new PrcAdd(SelectedProcedure);
-            });
+            //EditProcedure = new CommandVM(() => {
+            //    if (SelectedProcedure == null)
+            //        return;
+            //    MainWindowVM.Instance.CurrentPage = new PrcAdd(SelectedProcedure);
+            //});
 
-            DeleteProcedure = new CommandVM(() =>
-            {
-                if (SelectedProcedure == null)
-                    return;
+            //DeleteProcedure = new CommandVM(() =>
+            //{
+            //    if (SelectedProcedure == null)
+            //        return;
 
-                if (MessageBox.Show("Удалить процедуру?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    ProceduresRepository.Instance.Remove(SelectedProcedure);
-                    Procedures.Remove(SelectedProcedure);
-                }
+            //    if (MessageBox.Show("Удалить процедуру?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            //    {
+            //        ProceduresRepository.Instance.Remove(SelectedProcedure);
+            //        Procedures.Remove(SelectedProcedure);
+            //    }
 
-            });
+            //});
 
 
 

@@ -26,18 +26,18 @@ namespace Sanatory.ViewModel
         public EvAddVM()
         {
 
-            Save = new CommandVM(() =>
-            {
+            //Save = new CommandVM(() =>
+            //{
 
-                if (Events.ID == 0)
-                    EventsRepository.Instance.AddEvent(Events);
-                else
-                    EventsRepository.Instance.UpdateEvent(Events);
+            //    if (Events.ID == 0)
+            //        EventsRepository.Instance.AddEvent(Events);
+            //    else
+            //        EventsRepository.Instance.UpdateEvent(Events);
 
 
-                MainWindowVM.Instance.CurrentPage = new Schedule();
+            //    MainWindowVM.Instance.CurrentPage = new Schedule();
 
-            });
+            //});
 
         }
 

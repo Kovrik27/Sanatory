@@ -38,41 +38,41 @@ namespace Sanatory.ViewModel
 
         public RegVM()
         {
-            MainVM = MainWindowVM.Instance;
-            string sql = "SELECT * FROM Rooms";
+            //MainVM = MainWindowVM.Instance;
+            //string sql = "SELECT * FROM Rooms";
 
-            Rooms = new ObservableCollection<Room>(RoomsRepository.Instance.GetAllRooms(sql));
+            //Rooms = new ObservableCollection<Room>(RoomsRepository.Instance.GetAllRooms(sql));
 
 
 
-            CreateRoom = new CommandVM(() =>
-            {
-                MainWindowVM.Instance.CurrentPage = new RegAdd();
-            });
+            //CreateRoom = new CommandVM(() =>
+            //{
+            //    MainWindowVM.Instance.CurrentPage = new RegAdd();
+            //});
 
-            EditRoom = new CommandVM(() => {
-                if (SelectedRoom == null)
-                    return;
-                MainWindowVM.Instance.CurrentPage = new RegAdd(SelectedRoom);
-            });
+            //EditRoom = new CommandVM(() => {
+            //    if (SelectedRoom == null)
+            //        return;
+            //    MainWindowVM.Instance.CurrentPage = new RegAdd(SelectedRoom);
+            //});
 
-            DeleteRoom = new CommandVM(() =>
-            {
-                if (SelectedRoom == null)
-                    return;
+            //DeleteRoom = new CommandVM(() =>
+            //{
+            //    if (SelectedRoom == null)
+            //        return;
 
-                if (SelectedRoom.Status == "Занят")
-                {
-                    MessageBox.Show("Ошибка! Номер не может быть удалён", "Ошибка", MessageBoxButton.OK);
-                }
-                else
-                if (MessageBox.Show("Удалить номер?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    RoomsRepository.Instance.Remove(SelectedRoom);
-                    Rooms.Remove(SelectedRoom);
-                }
+            //    if (SelectedRoom.Status == "Занят")
+            //    {
+            //        MessageBox.Show("Ошибка! Номер не может быть удалён", "Ошибка", MessageBoxButton.OK);
+            //    }
+            //    else
+            //    if (MessageBox.Show("Удалить номер?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            //    {
+            //        RoomsRepository.Instance.Remove(SelectedRoom);
+            //        Rooms.Remove(SelectedRoom);
+            //    }
 
-            });
+            //});
 
             Broni = new CommandVM(() => {
                 MainWindowVM.Instance.CurrentPage = new GuAdd(SelectedRoom);

@@ -30,18 +30,18 @@ namespace Sanatory.ViewModel
         public PrcAddVM()
         {
 
-            Save = new CommandVM(() =>
-            {
+            //Save = new CommandVM(() =>
+            //{
 
-                if (Procedure.ID == 0)
-                    ProceduresRepository.Instance.AddProcedures(Procedure);
-                else
-                    ProceduresRepository.Instance.UpdateProcedures(Procedure);
+            //    if (Procedure.ID == 0)
+            //        ProceduresRepository.Instance.AddProcedures(Procedure);
+            //    else
+            //        ProceduresRepository.Instance.UpdateProcedures(Procedure);
 
 
-                MainWindowVM.Instance.CurrentPage = new Processes();
+            //    MainWindowVM.Instance.CurrentPage = new Processes();
 
-            });
+            //});
 
           
 

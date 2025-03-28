@@ -33,40 +33,40 @@ namespace Sanatory.ViewModel
             }
         }
         public StAddVM()
-        {
-            AllDays = DaysRepository.Instance.GetDays();
+        //{
+        //    AllDays = DaysRepository.Instance.GetDays();
 
 
-            Save = new CommandVM(() =>
-            {
-                Staff.Days.Clear();
-                foreach (Days days in ListDays.SelectedItems)
-                Staff.Days.Add(days);
+        //    Save = new CommandVM(() =>
+        //    {
+        //        Staff.Days.Clear();
+        //        foreach (Days days in ListDays.SelectedItems)
+        //        Staff.Days.Add(days);
                                    
 
-                if (Staff.ID == 0)
-                    StaffRepository.Instance.AddStaff(Staff);
-                else
-                    StaffRepository.Instance.UpdateStaff(Staff);
+        //        if (Staff.ID == 0)
+        //            StaffRepository.Instance.AddStaff(Staff);
+        //        else
+        //            StaffRepository.Instance.UpdateStaff(Staff);
 
 
-                MainWindowVM.Instance.CurrentPage = new Personal();
+        //        MainWindowVM.Instance.CurrentPage = new Personal();
 
-            });
+        //    });
 
-            AddP = new CommandVM<Problem>(s =>
-            {
-                StaffRepository.Instance.AddProblem(Staff, s);
-                MainWindowVM.Instance.CurrentPage = new Personal();
+        //    AddP = new CommandVM<Problem>(s =>
+        //    {
+        //        StaffRepository.Instance.AddProblem(Staff, s);
+        //        MainWindowVM.Instance.CurrentPage = new Personal();
                 
 
-            });
+        //    });
 
-            AddC = new CommandVM<Cabinet>(s =>
-            {
-                StaffRepository.Instance.AddCabinet(Staff, s);
-                MainWindowVM.Instance.CurrentPage = new Personal();
-            });
+        //    AddC = new CommandVM<Cabinet>(s =>
+        //    {
+        //        StaffRepository.Instance.AddCabinet(Staff, s);
+        //        MainWindowVM.Instance.CurrentPage = new Personal();
+        //    });
 
 
 

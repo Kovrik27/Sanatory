@@ -28,18 +28,18 @@ namespace Sanatory.ViewModel
         {
 
 
-            Save = new CommandVM(() =>
-            {
+            //Save = new CommandVM(() =>
+            //{
 
-                if (Problem.ID == 0)
-                    ProblemRepository.Instance.AddProblem(Problem);
-                else
-                    ProblemRepository.Instance.UpdateProblem(Problem);
+            //    if (Problem.ID == 0)
+            //        ProblemRepository.Instance.AddProblem(Problem);
+            //    else
+            //        ProblemRepository.Instance.UpdateProblem(Problem);
 
 
-                MainWindowVM.Instance.CurrentPage = new Processes();
+            //    MainWindowVM.Instance.CurrentPage = new Processes();
 
-            });
+            //});
 
         }
 
