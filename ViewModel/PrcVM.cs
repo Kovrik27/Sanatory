@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -32,41 +33,37 @@ namespace Sanatory.ViewModel
 
         public PrcVM()
         {
-            //string sql = "SELECT * FROM Procedures WHERE ID > 1";
 
-            //Procedures = new ObservableCollection<Procedure>(ProceduresRepository.Instance.GetAllProcedure(sql));
+            CreateProcedure = new CommandVM(() =>
+            {
+                MainWindowVM.Instance.CurrentPage = new PrcAdd();
+            });
 
+            EditProcedure = new CommandVM(() =>
+            {
+                if (SelectedProcedure == null)
+                    return;
+                MainWindowVM.Instance.CurrentPage = new PrcAdd(SelectedProcedure);
+            });
 
+            DeleteProcedure = new CommandVM(async() =>
+            {
+                if (SelectedProcedure == null)
+                    return;
 
-            //CreateProcedure = new CommandVM(() =>
-            //{
-            //    MainWindowVM.Instance.CurrentPage = new PrcAdd();
-            //});
+                if (MessageBox.Show("Удалить процедуру?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    await DB.GetInstance().DeleteProcedure(SelectedProcedure.ID);
+                    Procedures.Remove(SelectedProcedure);
+                }
 
-            //EditProcedure = new CommandVM(() => {
-            //    if (SelectedProcedure == null)
-            //        return;
-            //    MainWindowVM.Instance.CurrentPage = new PrcAdd(SelectedProcedure);
-            //});
-
-            //DeleteProcedure = new CommandVM(() =>
-            //{
-            //    if (SelectedProcedure == null)
-            //        return;
-
-            //    if (MessageBox.Show("Удалить процедуру?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            //    {
-            //        ProceduresRepository.Instance.Remove(SelectedProcedure);
-            //        Procedures.Remove(SelectedProcedure);
-            //    }
-
-            //});
-
-
-
+            });
         }
 
-
+        public async void OnAppearing()
+        {
+            Procedures = await DB.GetInstance().GetAllProcedure();
+        }
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -14,14 +15,14 @@ namespace Sanatory.ViewModel
         public CommandVM Save { get; set; }
         public CommandVM Add { get; set; }
 
-        private Cabinet cabinets = new();
+        private Cabinet cabinet = new();
 
-        public Cabinet Cabinets
+        public Cabinet Cabinet
         {
-            get => cabinets;
+            get => cabinet;
             set
             {
-                cabinets = value;
+                cabinet = value;
                 Signal();
             }
         }
@@ -41,27 +42,26 @@ namespace Sanatory.ViewModel
         public CbAddVM()
         {
 
-            //Save = new CommandVM(() =>
-            //{
+            Save = new CommandVM(async() =>
+            {
+                Cabinet = new Cabinet();
+                if (Cabinet.ID == 0)
+                    await DB.GetInstance().AddNewCabinet(Cabinet);
+                else
+                    await DB.GetInstance().EditCabinet(Cabinet);
 
-            //    if (Cabinets.ID == 0)
-            //        CabinetsRepository.Instance.AddCabinets(Cabinets);
-            //    else
-            //        CabinetsRepository.Instance.UpdateCabinets(Cabinets);
+                MainWindowVM.Instance.CurrentPage = new Processes();
+                
+            });
 
 
-            //    MainWindowVM.Instance.CurrentPage = new Processes();
-
-            //});
-
-            
 
         }
 
 
-        internal void SetEditCabinets(Cabinet selectedCabinets)
+        internal void SetEditCabinet(Cabinet selectedCabinet)
         {
-            Cabinets = selectedCabinets;
+            Cabinet = selectedCabinet;
         }
 
         internal void SetStaff(Staff selectedStaff)

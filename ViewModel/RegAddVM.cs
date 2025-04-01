@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -28,23 +29,20 @@ namespace Sanatory.ViewModel
         }
         public RegAddVM() 
         {
+            Save = new CommandVM(async() =>
+            {
 
-            //Save = new CommandVM(() =>
-            //{
+                if (Room.ID == 0)
+                {
+                    await DB.GetInstance().AddNewRoom(Room);
+                }
 
-            //    if (Room.ID == 0)
-            //    {
-            //        RoomsRepository.Instance.AddRoom(Room);
-            //    }
-                    
-            //    else
-            //        RoomsRepository.Instance.UpdateRoom(Room);
+                else
+                   await DB.GetInstance().EditRoom(Room);
 
+                MainWindowVM.Instance.CurrentPage = new Registration();
 
-            //    MainWindowVM.Instance.CurrentPage = new Registration();
-
-            //});
-
+            });
         }
 
 

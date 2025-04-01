@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -27,23 +28,23 @@ namespace Sanatory.ViewModel
         public DaysTimAddVM()
         {
 
-            //Save = new CommandVM(() =>
-            //{
+            Save = new CommandVM(async() =>
+            {
 
-            //    if (Daytime.ID == 0)
-            //        DaystimeRepository.Instance.AddDaytime(Daytime);
-            //    else
-            //        DaystimeRepository.Instance.UpdateDaytime(Daytime);
+                if (Daytime.ID == 0)
+                    await DB.GetInstance().AddNewDaytime(Daytime);
+                else
+                    await DB.GetInstance().EditDaytime(Daytime);
 
-            //    MainWindowVM.Instance.CurrentPage = new Schedule();
+                MainWindowVM.Instance.CurrentPage = new Schedule();
 
-            //});
+            });
 
-            //AddEvent = new CommandVM<Events>(s =>
-            //{
-            //    DaystimeRepository.Instance.AddEvent(Daytime, s);
-            //    MainWindowVM.Instance.CurrentPage = new Schedule();
-            //});
+            AddEvent = new CommandVM<Events>(s =>
+            {
+                DB.GetInstance().AddNewEvent(Daytime, s);
+                MainWindowVM.Instance.CurrentPage = new Schedule();
+            });
 
 
 

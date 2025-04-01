@@ -30,6 +30,7 @@ namespace Sanatory.ViewModel
         public CommandVM Gosti {  get; set; }
         public CommandVM Processes {  get; set; }
         public CommandVM Raspisanie { get; set; }
+        public CommandVM UsersList { get; set; }
 
 
         public MainWindowVM()
@@ -61,6 +62,11 @@ namespace Sanatory.ViewModel
                 OpenRaspisanie();
             });
 
+            UsersList = new CommandVM(() =>
+            {
+                OpenUsersList();
+            });
+
            
         }
 
@@ -90,7 +96,10 @@ namespace Sanatory.ViewModel
             CurrentPage = new Schedule();
         }
 
-       
+       private void OpenUsersList()
+        {
+            CurrentPage = new UsersList();
+        }
 
     }
 }

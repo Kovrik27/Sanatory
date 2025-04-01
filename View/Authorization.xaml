@@ -1,0 +1,31 @@
+﻿<Window x:Class="Sanatory.View.Authorization"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sanatory.View"
+        mc:Ignorable="d"
+        Title="Authorization" Height="250" Width="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.ColumnSpan="3">
+            <TextBlock Text="Добро пожаловать в наш санаторий!" FontSize="20" HorizontalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+            <TextBox/>
+            <TextBox/>
+            <Button Content="Войти"/>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
+            <Label Content="Введите логин"/>
+            <Label Content="Введите пароль"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
+            <TextBlock><Hyperlink NavigateUri="Authorization.xaml">Ещё не зарегистрированы?</Hyperlink></TextBlock>
+        </StackPanel>
+    </Grid>
+</Window>

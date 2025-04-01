@@ -1,6 +1,7 @@
 ﻿using Sanatory.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -31,7 +32,7 @@ namespace Sanatory.Api
             client.BaseAddress = new Uri("http://localhost:5179");
         }
 
-        public async Task<List<User>> GetAllUsers()
+        public async Task<ObservableCollection<User>> GetAllUsers()
         {
             var responce = await client.GetAsync($"Users/GetAllUsers");
             if(responce.StatusCode != System.Net.HttpStatusCode.OK)
@@ -41,7 +42,7 @@ namespace Sanatory.Api
             }
             else
             {
-                var users = await responce.Content.ReadFromJsonAsync<List<User>>();
+                var users = await responce.Content.ReadFromJsonAsync<ObservableCollection<User>>();
                 return users;
             }
         }
@@ -51,6 +52,19 @@ namespace Sanatory.Api
             var arg = JsonSerializer.Serialize(user);
             var responce = await client.PostAsync($"Users/AddNewUser", new StringContent(arg, Encoding.UTF8, "application/json"));
             if(responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
+        public async Task DeleteUser(int id)
+        {
+            var responce = await client.DeleteAsync($"Users/DeleteUser");
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
             }
@@ -77,7 +91,7 @@ namespace Sanatory.Api
         }
         ////////////////////////////
 
-        public async Task<List<Cabinet>> GetAllCabinets()
+        public async Task<ObservableCollection<Cabinet>> GetAllCabinets()
         {
             var responce = await client.GetAsync($"Cabinets/GetAllCabinets");
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
@@ -87,7 +101,7 @@ namespace Sanatory.Api
             }
             else
             {
-                var cabinets = await responce.Content.ReadFromJsonAsync<List<Cabinet>>();
+                var cabinets = await responce.Content.ReadFromJsonAsync<ObservableCollection<Cabinet>>();
                 return cabinets;
             }
         }
@@ -134,7 +148,7 @@ namespace Sanatory.Api
         }
         ///////////////////////////
 
-        public async Task<List<Daytime>> GetAllDaytime()
+        public async Task<ObservableCollection<Daytime>> GetAllDaytime()
         {
             var responce = await client.GetAsync($"Daytims/GetAllDaytime");
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
@@ -144,7 +158,7 @@ namespace Sanatory.Api
             }
             else
             {
-                var daytime = await responce.Content.ReadFromJsonAsync<List<Daytime>>();
+                var daytime = await responce.Content.ReadFromJsonAsync<ObservableCollection<Daytime>>();
                 return daytime;
             }
         }
@@ -249,7 +263,7 @@ namespace Sanatory.Api
 
         //////////////////////////////
 
-        public async Task<List<Guest>> GetAllGuests()
+        public async Task<ObservableCollection<Guest>> GetAllGuests()
         {
             var responce = await client.GetAsync($"Guests/GetAllGuests");
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
@@ -259,7 +273,7 @@ namespace Sanatory.Api
             }
             else
             {
-                var guests = await responce.Content.ReadFromJsonAsync<List<Guest>>();
+                var guests = await responce.Content.ReadFromJsonAsync<ObservableCollection<Guest>>();
                 return guests;
             }
         }
@@ -292,7 +306,7 @@ namespace Sanatory.Api
             }
         }
 
-        public async Task DeleteGuests(int id)
+        public async Task DeleteGuest(int id)
         {
             var responce = await client.DeleteAsync($"Guests/GoOutGuest");
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
@@ -306,7 +320,7 @@ namespace Sanatory.Api
         }
         ///////////////////////
 
-        public async Task<List<Problem>> GetAllProblems()
+        public async Task<ObservableCollection<Problem>> GetAllProblems()
         {
             var responce = await client.GetAsync($"Problems/GetAllProblems");
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
@@ -316,7 +330,7 @@ namespace Sanatory.Api
             }
             else
             {
-                var problems = await responce.Content.ReadFromJsonAsync<List<Problem>>();
+                var problems = await responce.Content.ReadFromJsonAsync<ObservableCollection<Problem>>();
                 return problems;
             }
         }
@@ -364,7 +378,7 @@ namespace Sanatory.Api
 
         ///////////////////////
 
-        public async Task<List<Procedure>> GetAllProcedure()
+        public async Task<ObservableCollection<Procedure>> GetAllProcedure()
         {
             var responce = await client.GetAsync($"Procedures/GetAllProcedures");
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
@@ -374,12 +388,12 @@ namespace Sanatory.Api
             }
             else
             {
-                var procedures = await responce.Content.ReadFromJsonAsync<List<Procedure>>();
+                var procedures = await responce.Content.ReadFromJsonAsync<ObservableCollection<Procedure>>();
                 return procedures;
             }
         }
 
-        public async Task AddNewProcedure(Procedure procedure)
+        public async Task AddNewProcedure(Guest guest, Procedure procedure)
         {
             var arg = JsonSerializer.Serialize(procedure);
             var responce = await client.PostAsync($"Procedures/AddNewProcedure", new StringContent(arg, Encoding.UTF8, "application/json"));
@@ -421,7 +435,7 @@ namespace Sanatory.Api
         }
         ///////////////////////
 
-        public async Task<List<Room>> GetAllRooms()
+        public async Task<ObservableCollection<Room>> GetAllRooms()
         {
             var responce = await client.GetAsync($"Rooms/GetAllRooms");
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
@@ -431,7 +445,7 @@ namespace Sanatory.Api
             }
             else
             {
-                var rooms = await responce.Content.ReadFromJsonAsync<List<Room>>();
+                var rooms = await responce.Content.ReadFromJsonAsync<ObservableCollection<Room>>();
                 return rooms;
             }
         }
@@ -478,7 +492,7 @@ namespace Sanatory.Api
         }
         ////////////////////////////////
 
-        public async Task<List<Staff>> GetAllStaff()
+        public async Task<ObservableCollection<Staff>> GetAllStaff()
         {
             var responce = await client.GetAsync($"Staff/GetAllStaff");
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
@@ -488,7 +502,7 @@ namespace Sanatory.Api
             }
             else
             {
-                var staff = await responce.Content.ReadFromJsonAsync<List<Staff>>();
+                var staff = await responce.Content.ReadFromJsonAsync<ObservableCollection<Staff>>();
                 return staff;
             }
         }

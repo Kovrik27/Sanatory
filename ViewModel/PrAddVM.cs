@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -27,23 +28,20 @@ namespace Sanatory.ViewModel
         public PrAddVM()
         {
 
+            Save = new CommandVM(async() =>
+            {
 
-            //Save = new CommandVM(() =>
-            //{
+                if (Problem.ID == 0)
+                   await DB.GetInstance().AddNewProblem(Problem);
+                else
+                   await DB.GetInstance().EditProblem(Problem);
 
-            //    if (Problem.ID == 0)
-            //        ProblemRepository.Instance.AddProblem(Problem);
-            //    else
-            //        ProblemRepository.Instance.UpdateProblem(Problem);
+                MainWindowVM.Instance.CurrentPage = new Processes();
 
-
-            //    MainWindowVM.Instance.CurrentPage = new Processes();
-
-            //});
+            });
 
         }
-
-        
+      
 
         internal void SetEditProblem(Problem selectedProblem)
         {

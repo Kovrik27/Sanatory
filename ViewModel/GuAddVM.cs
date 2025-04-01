@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -17,58 +18,56 @@ namespace Sanatory.ViewModel
 
         public CommandVM<Procedure> AddPrc { get; set; }
 
-        private Guest guests = new();
+        private Guest guest = new();
 
 
-        public Guest Guests
+        public Guest Guest
         {
-            get => guests;
+            get => guest;
             set
             {
-                guests = value;
+                guest = value;
                 Signal();
             }
         }
         public GuAddVM()
         {
-            //Save = new CommandVM(() =>
-            //{
+            Save = new CommandVM(async() =>
+            {
 
-            //    if (Guests.ID == 0)
-            //    {
-            //        GuestsRepository.Instance.AddGuest(Guests);
-            //        RoomsRepository.Instance.UpdateStatus(Guests.Room);
-            //    }
-                                   
-            //    else
-            //        GuestsRepository.Instance.UpdateGuests(Guests);
+                if (Guest.ID == 0)
+                {
+                    await DB.GetInstance().AddNewGuest(Guest);
+                    //доделать await DB.GetInstance().EditStatus(Guests.Room);
+                }
 
-
-            //    MainWindowVM.Instance.CurrentPage = new Guests();
-
-            //});
+                else
+                    await DB.GetInstance().EditGuest(Guest);
 
 
-            //AddPrc = new CommandVM<Procedure>(s =>
-            //{
-            //    GuestsRepository.Instance.AddProcedure(Guests, s);
-            //    MainWindowVM.Instance.CurrentPage = new Guests();
-            //});
+                MainWindowVM.Instance.CurrentPage = new Guests();
+
+            });
+
+
+            AddPrc = new CommandVM<Procedure>(s =>
+            {
+                //await DB.GetInstance().AddNewProcedure(Guest, s);
+                MainWindowVM.Instance.CurrentPage = new Guests();
+            });
 
         }
 
-
-
         internal void SetEditGuest(Guest selectedGuest)
         {
-            Guests = selectedGuest;
+            Guest = selectedGuest;
         }
 
         internal void SetRoom(Room? selectedRoom)
         {
-            Guests.RoomID = selectedRoom.ID;
-            Guests.Room = selectedRoom;
-            Signal(nameof(Guests));
+            Guest.RoomID = selectedRoom.ID;
+            Guest.Room = selectedRoom;
+            Signal(nameof(Guest));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -33,45 +34,39 @@ namespace Sanatory.ViewModel
         }
 
         public PrVM()
-        //{
-        //    MainVM = MainWindowVM.Instance;
-        //    string sql = "SELECT * FROM Problem";
+        {
+            MainVM = MainWindowVM.Instance;
 
-        //    Problems = new ObservableCollection<Problem>(ProblemRepository.Instance.GetAllProblem(sql));
+            CreateProblem = new CommandVM(() =>
+            {
+                MainWindowVM.Instance.CurrentPage = new PrAdd();
+            });
 
+            EditProblem = new CommandVM(() =>
+            {
+                if (SelectedProblem == null)
+                    return;
+                MainWindowVM.Instance.CurrentPage = new PrAdd(SelectedProblem);
+            });
 
+            DeleteProblem = new CommandVM(async() =>
+            {
+                if (SelectedProblem == null)
+                    return;
 
-        //    CreateProblem = new CommandVM(() =>
-        //    {
-        //        MainWindowVM.Instance.CurrentPage = new PrAdd();
-        //    });
+                if (MessageBox.Show("Удалить задачу?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    await DB.GetInstance().DeleteProblem(SelectedProblem.ID);
+                    Problems.Remove(SelectedProblem);
+                }
 
-        //    EditProblem = new CommandVM(() => {
-        //        if (SelectedProblem == null)
-        //            return;
-        //        MainWindowVM.Instance.CurrentPage = new PrAdd(SelectedProblem);
-        //    });
-
-        //    DeleteProblem = new CommandVM(() =>
-        //    {
-        //        if (SelectedProblem == null)
-        //            return;
-
-        //        if (MessageBox.Show("Удалить задачу?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-        //        {
-        //            ProblemRepository.Instance.Remove(SelectedProblem);
-        //            Problems.Remove(SelectedProblem);
-        //        }
-
-        //    });
-
-           
-
-
+            });
 
         }
 
-
-
+        public async void OnAppearing()
+        {
+            Problems = await DB.GetInstance().GetAllProblems();
+        }
     }
 }

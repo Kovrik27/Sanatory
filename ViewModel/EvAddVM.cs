@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -12,39 +13,39 @@ namespace Sanatory.ViewModel
     {
         public CommandVM Save { get; set; }
 
-        private Events events = new();
+        private Events eventt = new();
 
-        public Events Events
+        public Events Event
         {
-            get => events;
+            get => eventt;
             set
             {
-                events = value;
+                eventt = value;
                 Signal();
             }
         }
         public EvAddVM()
         {
 
-            //Save = new CommandVM(() =>
-            //{
+            Save = new CommandVM(async() =>
+            {
 
-            //    if (Events.ID == 0)
-            //        EventsRepository.Instance.AddEvent(Events);
-            //    else
-            //        EventsRepository.Instance.UpdateEvent(Events);
+                //if (Event.ID == 0)
+                //    DB.GetInstance().AddNewEvent(Event);
+                //else
+                    await DB.GetInstance().EditEvent(Event);
 
 
-            //    MainWindowVM.Instance.CurrentPage = new Schedule();
+                MainWindowVM.Instance.CurrentPage = new Schedule();
 
-            //});
+            });
 
         }
 
        
         internal void SetEditEvent(Events selectedEvent)
         {
-            Events = selectedEvent;
+            Event = selectedEvent;
         }
 
     }

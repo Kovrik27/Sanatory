@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -33,40 +34,40 @@ namespace Sanatory.ViewModel
             }
         }
         public StAddVM()
-        //{
-        //    AllDays = DaysRepository.Instance.GetDays();
+        {
+            //AllDays = DaysRepository.Instance.GetDays();
 
 
-        //    Save = new CommandVM(() =>
-        //    {
-        //        Staff.Days.Clear();
-        //        foreach (Days days in ListDays.SelectedItems)
-        //        Staff.Days.Add(days);
-                                   
-
-        //        if (Staff.ID == 0)
-        //            StaffRepository.Instance.AddStaff(Staff);
-        //        else
-        //            StaffRepository.Instance.UpdateStaff(Staff);
+            Save = new CommandVM(async() =>
+            {
+                Staff.Days.Clear();
+                foreach (Days days in ListDays.SelectedItems)
+                    Staff.Days.Add(days);
 
 
-        //        MainWindowVM.Instance.CurrentPage = new Personal();
+                if (Staff.ID == 0)
+                    await DB.GetInstance().AddNewStaff(Staff);
+                else
+                    await DB.GetInstance().EditStaff(Staff);
 
-        //    });
 
-        //    AddP = new CommandVM<Problem>(s =>
-        //    {
-        //        StaffRepository.Instance.AddProblem(Staff, s);
-        //        MainWindowVM.Instance.CurrentPage = new Personal();
-                
+                MainWindowVM.Instance.CurrentPage = new Personal();
 
-        //    });
+            });
 
-        //    AddC = new CommandVM<Cabinet>(s =>
-        //    {
-        //        StaffRepository.Instance.AddCabinet(Staff, s);
-        //        MainWindowVM.Instance.CurrentPage = new Personal();
-        //    });
+            AddP = new CommandVM<Problem>(s =>
+            {
+                DB.GetInstance().AddNewProblem(Staff, s);
+                MainWindowVM.Instance.CurrentPage = new Personal();
+
+
+            });
+
+            AddC = new CommandVM<Cabinet>(s =>
+            {
+                //DB.GetInstance().AddNewCabinet(Staff, s);
+                MainWindowVM.Instance.CurrentPage = new Personal();
+            });
 
 
 

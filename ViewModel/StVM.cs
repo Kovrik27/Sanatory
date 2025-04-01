@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -79,86 +80,87 @@ namespace Sanatory.ViewModel
 
         public StVM()
         {
-        //    MainVM = MainWindowVM.Instance;
-
-        //    string sql = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay, p.Description AS Description FROM Days d JOIN CrossDaysStaff cds ON cds.DaysID = d.ID JOIN Staff s ON cds.StaffID = s.ID LEFT JOIN Problem p ON p.ID = s.ProblemID AND JobTitle NOT LIKE 'Врач%'";
-        //    string sql2 = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay, c.Number AS Number  FROM Days d JOIN CrossDaysStaff cds ON cds.DaysID = d.ID JOIN Staff s ON cds.StaffID = s.ID LEFT JOIN Cabinet c ON c.ID = s.CabinetID WHERE JobTitle LIKE 'Врач%'";
-        //    Staffs = new ObservableCollection<Staff>(StaffRepository.Instance.GetTechStaff(sql));
-        //    Staffs2 = new ObservableCollection<Staff>(StaffRepository.Instance.GetMedStaff(sql2));
-        //    AllDays = new ObservableCollection<Days> (DaysRepository.Instance.GetDays());
-        //    //AllDays.Insert(0, new Days { ID = 0, Day = "Все теги" });
-        //    SelectedDays = AllDays[0];
+            MainVM = MainWindowVM.Instance;
+            //Staffs2 = new ObservableCollection<Staff>(StaffRepository.Instance.GetMedStaff(sql2));
+            //AllDays = new ObservableCollection<Days>(DaysRepository.Instance.GetDays());
+            //AllDays.Insert(0, new Days { ID = 0, Day = "Все теги" });
+            SelectedDays = AllDays[0];
 
 
-        //    CreateStaff = new CommandVM(() =>
-        //    {
-        //        MainWindowVM.Instance.CurrentPage = new StAdd();
-        //    });
+            CreateStaff = new CommandVM(() =>
+            {
+                MainWindowVM.Instance.CurrentPage = new StAdd();
+            });
 
-        //    EditStaff = new CommandVM(() => {
-        //        if (SelectedStaff == null)
-        //            return;
-        //        MainWindowVM.Instance.CurrentPage = new StAdd(SelectedStaff);
-        //    });
+            EditStaff = new CommandVM(() =>
+            {
+                if (SelectedStaff == null)
+                    return;
+                MainWindowVM.Instance.CurrentPage = new StAdd(SelectedStaff);
+            });
 
-        //    DeleteStaff = new CommandVM(() =>
-        //    {
-        //        if (SelectedStaff == null)
-        //            return;
+            DeleteStaff = new CommandVM(async() =>
+            {
+                if (SelectedStaff == null)
+                    return;
 
-        //        if (SelectedStaff.ProblemID != 0 || SelectedStaff.CabinetID != 0)
-        //        {
-        //            {
-        //                MessageBox.Show("Ошибка! Сотрудник не может быть удалён", "Ошибка", MessageBoxButton.OK);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            if (MessageBox.Show("Удалить сотрудника?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-        //            {
-        //                StaffRepository.Instance.Remove(SelectedStaff);
-        //                Staffs.Remove(SelectedStaff);
-        //                MainWindowVM.Instance.CurrentPage = new Personal();
-        //            }
-        //        }
+                if (SelectedStaff.ProblemID != 0 || SelectedStaff.CabinetID != 0)
+                {
+                    {
+                        MessageBox.Show("Ошибка! Сотрудник не может быть удалён", "Ошибка", MessageBoxButton.OK);
+                    }
+                }
+                else
+                {
+                    if (MessageBox.Show("Удалить сотрудника?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        await DB.GetInstance().DeleteStaff(SelectedStaff.ID);
+                        Staffs.Remove(SelectedStaff);
+                        MainWindowVM.Instance.CurrentPage = new Personal();
+                    }
+                }
 
-        //    });
+            });
 
-        //    AddProblem = new CommandVM(() =>
-        //    {
-        //        if (SelectedStaff == null)
-        //            return;
-        //        MainWindowVM.Instance.CurrentPage = new PrAddSt(SelectedStaff);
-        //    });
+            AddProblem = new CommandVM(() =>
+            {
+                if (SelectedStaff == null)
+                    return;
+                MainWindowVM.Instance.CurrentPage = new PrAddSt(SelectedStaff);
+            });
 
-        //    AddCabinet = new CommandVM(() =>
-        //    {
-        //        if (SelectedStaff == null)
-        //            return;
-        //        MainWindowVM.Instance.CurrentPage = new CbAddSt(SelectedStaff);
-        //    });
+            AddCabinet = new CommandVM(() =>
+            {
+                if (SelectedStaff == null)
+                    return;
+                MainWindowVM.Instance.CurrentPage = new CbAddSt(SelectedStaff);
+            });
 
-        //    DoneProblem = new CommandVM(() =>
-        //    {
-        //        if (SelectedStaff == null)
-        //            return;
+            //DoneProblem = new CommandVM(() =>
+            //{
+            //    if (SelectedStaff == null)
+            //        return;
 
-        //        if (MessageBox.Show("Сотрудник выполнил задачу?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-        //        {
-        //            StaffRepository.Instance.DoneP(SelectedStaff);
-        //            MainWindowVM.Instance.CurrentPage = new Personal();
-        //        }
+            //    if (MessageBox.Show("Сотрудник выполнил задачу?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            //    {
+            //        StaffRepository.Instance.DoneP(SelectedStaff);
+            //        MainWindowVM.Instance.CurrentPage = new Personal();
+            //    }
 
-        //    });
+            //});
 
-        //    DoneCabinet = new CommandVM(() =>
-        //    {
-        //        if (SelectedStaff == null)
-        //            return;
-        //        StaffRepository.Instance.DoneC(SelectedStaff);
-        //        MainWindowVM.Instance.CurrentPage = new Personal();
-        //    });
-        //}
+            //DoneCabinet = new CommandVM(() =>
+            //{
+            //    if (SelectedStaff == null)
+            //        return;
+            //    StaffRepository.Instance.DoneC(SelectedStaff);
+            //    MainWindowVM.Instance.CurrentPage = new Personal();
+            //});
+        }
 
+        public async void OnAppearing()
+        {
+            Staffs = await DB.GetInstance().GetAllStaff();
+        }
     }
 }
