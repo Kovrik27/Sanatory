@@ -55,19 +55,19 @@ namespace Sanatory.ViewModel
 
             });
 
-            AddP = new CommandVM<Problem>(s =>
-            {
-                DB.GetInstance().AddNewProblem(Staff, s);
-                MainWindowVM.Instance.CurrentPage = new Personal();
+            //AddP = new CommandVM<Problem>(s =>
+            //{
+            //    DB.GetInstance().AddNewProblem(Staff, s);
+            //    MainWindowVM.Instance.CurrentPage = new Personal();
 
 
-            });
+            //});
 
-            AddC = new CommandVM<Cabinet>(s =>
-            {
-                //DB.GetInstance().AddNewCabinet(Staff, s);
-                MainWindowVM.Instance.CurrentPage = new Personal();
-            });
+            //AddC = new CommandVM<Cabinet>(s =>
+            //{
+            //    //DB.GetInstance().AddNewCabinet(Staff, s);
+            //    MainWindowVM.Instance.CurrentPage = new Personal();
+            //});
 
 
 

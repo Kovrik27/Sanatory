@@ -82,7 +82,6 @@ namespace Sanatory.ViewModel
         {
             MainVM = MainWindowVM.Instance;
             //Staffs2 = new ObservableCollection<Staff>(StaffRepository.Instance.GetMedStaff(sql2));
-            //AllDays = new ObservableCollection<Days>(DaysRepository.Instance.GetDays());
             //AllDays.Insert(0, new Days { ID = 0, Day = "Все теги" });
             SelectedDays = AllDays[0];
 
@@ -143,24 +142,25 @@ namespace Sanatory.ViewModel
 
             //    if (MessageBox.Show("Сотрудник выполнил задачу?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             //    {
-            //        StaffRepository.Instance.DoneP(SelectedStaff);
+            //        //DB.GetInstance().(SelectedStaff);
             //        MainWindowVM.Instance.CurrentPage = new Personal();
             //    }
 
-            //});
+            //    //});
 
-            //DoneCabinet = new CommandVM(() =>
-            //{
-            //    if (SelectedStaff == null)
-            //        return;
-            //    StaffRepository.Instance.DoneC(SelectedStaff);
-            //    MainWindowVM.Instance.CurrentPage = new Personal();
-            //});
-        }
+            //    //DoneCabinet = new CommandVM(() =>
+            //    //{
+            //    //    if (SelectedStaff == null)
+            //    //        return;
+            //    //    StaffRepository.Instance.DoneC(SelectedStaff);
+            //    //    MainWindowVM.Instance.CurrentPage = new Personal();
+            //    //});
+            }
 
         public async void OnAppearing()
         {
             Staffs = await DB.GetInstance().GetAllStaff();
+            AllDays = await DB.GetInstance().GetAllDays();
         }
     }
 }

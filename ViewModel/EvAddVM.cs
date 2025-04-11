@@ -33,7 +33,7 @@ namespace Sanatory.ViewModel
                 //if (Event.ID == 0)
                 //    DB.GetInstance().AddNewEvent(Event);
                 //else
-                    await DB.GetInstance().EditEvent(Event);
+                //await DB.GetInstance().EditEvent(Event);
 
 
                 MainWindowVM.Instance.CurrentPage = new Schedule();

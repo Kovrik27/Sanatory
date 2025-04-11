@@ -33,21 +33,22 @@ namespace Sanatory.View
             if (Rm.SelectedItem != null)
             {
                 var vm = DataContext as RegVM;
-                if (vm.SelectedRoom.Status == "Свободен")
-                    Bronirovanie.Visibility = Visibility.Visible;             
+                if (vm.SelectedRoom.StatusId == 1)
+                    Bronirovanie.Visibility = Visibility.Visible;
+                else
+                    Bronirovanie.Visibility = Visibility.Collapsed;
             }
 
         }
 
-        //private void Broni(object sender, RoutedEventArgs e)
-        //{
+        private void Broni(object sender, RoutedEventArgs e)
+        {
+            MainWindowVM.Instance.CurrentPage = new GuAdd();
+        }
 
-        //    MainWindowVM.Instance.CurrentPage = new GuAdd();
-        //}
-
-        //private void Viselit(object sender, RoutedEventArgs e)
-        //{
-        //    MessageBox.Show("Гость выселен");
-        //}
+        private void Viselit(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Гость выселен");
+        }
     }
 }

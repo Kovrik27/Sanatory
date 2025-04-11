@@ -22,6 +22,10 @@ namespace Sanatory.View
     /// </summary>
     public partial class GuAdd : Page
     {
+        public GuAdd()
+        {
+            InitializeComponent();
+        }
 
         public GuAdd(Guest selectedGuest)
         {

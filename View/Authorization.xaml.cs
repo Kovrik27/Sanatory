@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sanatory.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,13 +25,33 @@ namespace Sanatory.View
             InitializeComponent();
             DataContext = this;
 
-            TextBlock tb = new TextBlock();
-            Hyperlink hyperlink = new Hyperlink();
-            Run run = new Run();
-            run.Text = "Ещё не зарегистрированы?";
-            hyperlink.NavigateUri = new Uri("Authorization.xaml");
-            hyperlink.Inlines.Add(run);
-            tb.Inlines.Add(hyperlink);         
-        }            
+            //TextBlock tb = new TextBlock();
+            //Hyperlink hyperlink = new Hyperlink();
+            //Run run = new Run();
+            //run.Text = "Ещё не зарегистрированы?";
+            //hyperlink.NavigateUri = new Uri("AddNewUser.xaml");
+            //hyperlink.Inlines.Add(run);
+            //tb.Inlines.Add(hyperlink);
+        }
+
+
+
+        private void AuthorizationButton(object sender, RoutedEventArgs e)
+        {
+            AddNewUser addNewUser = new AddNewUser();
+            addNewUser.ShowDialog();
+        }
+
+        private void PathButton(object sender, RoutedEventArgs e)
+        {
+            string username = UserTextBox.Text;
+
+            if (username == "Admin")
+            {
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.ShowDialog();
+                this.Close();
+            }
+        }
     }
 }

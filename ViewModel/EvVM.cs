@@ -48,18 +48,18 @@ namespace Sanatory.ViewModel
                 MainWindowVM.Instance.CurrentPage = new EvAdd(SelectedEvent);
             });
 
-            DeleteEvent = new CommandVM(async() =>
-            {
-                if (SelectedEvent == null)
-                    return;
+            //DeleteEvent = new CommandVM(async() =>
+            //{
+            //    if (SelectedEvent == null)
+            //        return;
 
-                if (MessageBox.Show("Удалить мероприятие?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    await DB.GetInstance().DeleteEvent(SelectedEvent.ID);
-                    Events.Remove(SelectedEvent);
-                }
+            //    if (MessageBox.Show("Удалить мероприятие?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            //    {
+            //        await DB.GetInstance().DeleteEvent(SelectedEvent.ID);
+            //        Events.Remove(SelectedEvent);
+            //    }
 
-            });
+            //});
 
         }
 

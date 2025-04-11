@@ -40,11 +40,11 @@ namespace Sanatory.ViewModel
 
             });
 
-            AddEvent = new CommandVM<Events>(s =>
-            {
-                DB.GetInstance().AddNewEvent(Daytime, s);
-                MainWindowVM.Instance.CurrentPage = new Schedule();
-            });
+            //AddEvent = new CommandVM<Events>(s =>
+            //{
+            //    DB.GetInstance().AddNewEvent(Daytime, s);
+            //    MainWindowVM.Instance.CurrentPage = new Schedule();
+            //});
 
 
 

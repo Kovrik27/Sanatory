@@ -1,4 +1,6 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.DTO;
+using Sanatory.Api;
+using Sanatory.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -123,7 +125,7 @@ namespace Sanatory.Api
         public async Task EditCabinet(Cabinet cabinet)
         {
             var arg = JsonSerializer.Serialize(cabinet);
-            var responce = await client.PutAsync($"Cabinets/AddNewCabinet", new StringContent(arg, Encoding.UTF8, "application/json"));
+            var responce = await client.PutAsync($"Cabinets/EditCabinet", new StringContent(arg, Encoding.UTF8, "application/json"));
             if(responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
@@ -203,63 +205,56 @@ namespace Sanatory.Api
                 var result = await responce.Content.ReadAsStringAsync();
             }
         }
-        ///////////////////////////
 
-        //public async Task<List<Daytime>> GetAllEvents()
+        public async Task AddNewEventOnDay(Daytime daytime, List<Events> eventt)
+        {
+            var eventOnDayDTO = new EventOnDayDTO
+            {
+                Events = eventt,
+                Day = daytime.Time
+            };
+
+            var arg = JsonSerializer.Serialize(eventOnDayDTO);
+            var responce = await client.PostAsync($"Events/AddNewEventOnDay", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
+        ///////////////////////////
+     
+
+        //public async Task EditEvent(Events eventt)
         //{
-        //    var responce = await client.GetAsync($"Daytims/GetAllDaytime");
+        //    var arg = JsonSerializer.Serialize(eventt);
+        //    var responce = await client.PutAsync($"Events/EditEvent", new StringContent(arg, Encoding.UTF8, "application/json"));
         //    if (responce.StatusCode != System.Net.HttpStatusCode.OK)
         //    {
         //        var result = await responce.Content.ReadAsStringAsync();
-        //        return null;
         //    }
         //    else
         //    {
-        //        var daytime = await responce.Content.ReadFromJsonAsync<List<Daytime>>();
-        //        return daytime;
+        //        var result = await responce.Content.ReadAsStringAsync();
         //    }
         //}
 
-        public async Task AddNewEvent(Events eventt)
-        {
-            var arg = JsonSerializer.Serialize(eventt);
-            var responce = await client.PostAsync($"Events/AddNewEvent", new StringContent(arg, Encoding.UTF8, "application/json"));
-            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
-            {
-                var result = await responce.Content.ReadAsStringAsync();
-            }
-            else
-            {
-                var result = await responce.Content.ReadAsStringAsync();
-            }
-        }
-
-        public async Task EditEvent(Events eventt)
-        {
-            var arg = JsonSerializer.Serialize(eventt);
-            var responce = await client.PutAsync($"Events/EditEvent", new StringContent(arg, Encoding.UTF8, "application/json"));
-            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
-            {
-                var result = await responce.Content.ReadAsStringAsync();
-            }
-            else
-            {
-                var result = await responce.Content.ReadAsStringAsync();
-            }
-        }
-
-        public async Task DeleteEvent(int id)
-        {
-            var responce = await client.DeleteAsync($"Events/DeleteEvent");
-            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
-            {
-                var result = await responce.Content.ReadAsStringAsync();
-            }
-            else
-            {
-                var result = await responce.Content.ReadAsStringAsync();
-            }
-        }
+        //public async Task DeleteEvent(int id)
+        //{
+        //    var responce = await client.DeleteAsync($"Events/DeleteEvent");
+        //    if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+        //    {
+        //        var result = await responce.Content.ReadAsStringAsync();
+        //    }
+        //    else
+        //    {
+        //        var result = await responce.Content.ReadAsStringAsync();
+        //    }
+        //}
 
         //////////////////////////////
 
@@ -318,6 +313,7 @@ namespace Sanatory.Api
                 var result = await responce.Content.ReadAsStringAsync();
             }
         }
+
         ///////////////////////
 
         public async Task<ObservableCollection<Problem>> GetAllProblems()
@@ -376,6 +372,20 @@ namespace Sanatory.Api
             }
         }
 
+        public async Task DoneProblem(int id)
+        {
+            var responce = await client.DeleteAsync($"Staffs/DoneProblem");
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
+
         ///////////////////////
 
         public async Task<ObservableCollection<Procedure>> GetAllProcedure()
@@ -393,7 +403,7 @@ namespace Sanatory.Api
             }
         }
 
-        public async Task AddNewProcedure(Guest guest, Procedure procedure)
+        public async Task AddNewProcedure(Procedure procedure)
         {
             var arg = JsonSerializer.Serialize(procedure);
             var responce = await client.PostAsync($"Procedures/AddNewProcedure", new StringContent(arg, Encoding.UTF8, "application/json"));
@@ -433,6 +443,8 @@ namespace Sanatory.Api
                 var result = await responce.Content.ReadAsStringAsync();
             }
         }
+
+       
         ///////////////////////
 
         public async Task<ObservableCollection<Room>> GetAllRooms()
@@ -545,6 +557,63 @@ namespace Sanatory.Api
             else
             {
                 var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
+        public async Task AddCabinetOnStaff(Staff staff, Cabinet cabinet)
+        {
+            var cabinetOnStaffDTO = new CabinetOnStaffDTO
+            {
+                StaffId = staff.ID,
+                CabinetId = cabinet.ID
+            };
+           
+            var arg = JsonSerializer.Serialize(cabinetOnStaffDTO);
+            var responce = await client.PostAsync($"Staffs/AddCabinetOnStaff", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
+        public async Task AddProblemOnStaff(Staff staff, Problem problem)
+        {
+            var problemOnStaffDTO = new ProblemOnStaffDTO
+            {
+                StaffId = staff.ID,
+                ProblemId = problem.ID
+            };
+
+            var arg = JsonSerializer.Serialize(problemOnStaffDTO);
+            var responce = await client.PostAsync($"Staffs/AddProblemOnStaff", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
+        ///////////////////////////////
+
+        public async Task<ObservableCollection<Days>> GetAllDays()
+        {
+            var responce = await client.GetAsync($"Days/GetAllDays");
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                return null;
+            }
+            else
+            {
+                var days = await responce.Content.ReadFromJsonAsync<ObservableCollection<Days>>();
+                return days;
             }
         }
     }

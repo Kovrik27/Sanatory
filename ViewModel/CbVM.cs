@@ -58,7 +58,7 @@ namespace Sanatory.ViewModel
                 if (MessageBox.Show("Удалить кабинет?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     await DB.GetInstance().DeleteCabinet(SelectedCabinet.ID);
-                    Cabinets.Remove(SelectedCabinet);
+                    //Cabinets.Remove(SelectedCabinet);
                 }
 
             });

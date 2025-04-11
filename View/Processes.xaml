@@ -91,13 +91,13 @@
 
         <StackPanel Grid.Row="3" Grid.Column="2" DataContext="{DynamicResource cbVM}">
             <Menu Style="{StaticResource Menu }" >
-         <MenuItem Header="Добавить кабинет" Command="{Binding CreateCabinets}" Style="{StaticResource MenuItem}"/>
-                <MenuItem Header="Изменить данные кабинета" Command="{Binding EditCabinets}" Style="{StaticResource MenuItem}"/>
-                <MenuItem Header="Удалить кабинет" Command="{Binding DeleteCabinets}" Style="{StaticResource MenuItem}"/>
+         <MenuItem Header="Добавить кабинет" Command="{Binding CreateCabinet}" Style="{StaticResource MenuItem}"/>
+                <MenuItem Header="Изменить данные кабинета" Command="{Binding EditCabinet}" Style="{StaticResource MenuItem}"/>
+                <MenuItem Header="Удалить кабинет" Command="{Binding DeleteCabinet}" Style="{StaticResource MenuItem}"/>
      </Menu>
             </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="2" DataContext="{DynamicResource cbVM}">
-    <ListView ItemsSource="{Binding Cabinets}" SelectedItem="{Binding SelectedCabinets}" Style="{StaticResource ListView}">
+    <ListView ItemsSource="{Binding Cabinets}" SelectedItem="{Binding SelectedCabinet}" Style="{StaticResource ListView}">
         <ListView.View>
             <GridView>
                 <GridViewColumn Header="Номер" DisplayMemberBinding="{Binding Number}"/>
