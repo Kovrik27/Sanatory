@@ -43,11 +43,12 @@ namespace Sanatory.ViewModel
         }
 
 
+
         public GuVM()
         {
-            MainVM = MainWindowVM.Instance;        
+            MainVM = MainWindowVM.Instance;
 
-
+            //Guests = await DB.GetInstance().GetAllGuests();
 
             EditGuests = new CommandVM(() =>
             {
@@ -80,9 +81,9 @@ namespace Sanatory.ViewModel
 
         }
 
-        public async void OnAppearing()
-        {
-            Guests = await DB.GetInstance().GetAllGuests();
-        }
+        //public async void OnAppearing()
+        //{
+        //    Guests = await DB.GetInstance().GetAllGuests();
+        //}
     }
 }

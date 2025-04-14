@@ -19,6 +19,7 @@ namespace Sanatory.ViewModel
         public CommandVM CreateUser { get; set; }
         public CommandVM EditUser { get; set; }
         public CommandVM DeleteUser { get; set; }
+        public CommandVM CheckUser { get; set; }
 
         public User SelectedUser { get; set; }
         public ObservableCollection<User> Users
@@ -58,6 +59,11 @@ namespace Sanatory.ViewModel
                     Users.Remove(SelectedUser);
                     MainWindowVM.Instance.CurrentPage = new UsersList();
                 }
+            });
+
+            CheckUser = new CommandVM(async () =>
+            {
+                //await DB.GetInstance().CheckUser()
             });
         }
 

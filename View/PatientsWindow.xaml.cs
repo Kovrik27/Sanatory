@@ -10,21 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Sanatory.Model;
 
 namespace Sanatory.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для PatientsWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PatientsWindow : Window
     {
-        public MainWindow()
+        public PatientsWindow()
         {
             InitializeComponent();
         }
-
     }
 }
