@@ -40,6 +40,7 @@ namespace Sanatory.ViewModel
         public RegVM()
         {
             MainVM = MainWindowVM.Instance;
+            GetAllRooms();
 
             CreateRoom = new CommandVM(() =>
             {
@@ -78,7 +79,7 @@ namespace Sanatory.ViewModel
            
         }
 
-        public async void OnAppearing()
+        public async void GetAllRooms()
         {
             Rooms = await DB.GetInstance().GetAllRooms();
         }

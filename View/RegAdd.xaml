@@ -26,7 +26,7 @@
                 <Label Content="Цена" Style="{StaticResource Label}"/>
                 <TextBox Text="{Binding Price}" Style="{StaticResource TextBox}"/>
                 <Label Content="Статус" Style="{StaticResource Label}"/>
-                <TextBox Text="{Binding Status}" Style="{StaticResource TextBox}"/>
+                <ComboBox ItemsSource="{Binding Status.Title}"/>
             </StackPanel>
 
             <Button Content="Сохранить" Command="{Binding Save}" Style="{StaticResource Button}"/>

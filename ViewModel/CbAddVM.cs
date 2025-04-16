@@ -44,7 +44,6 @@ namespace Sanatory.ViewModel
 
             Save = new CommandVM(async() =>
             {
-                Cabinet = new Cabinet();
                 if (Cabinet.ID == 0)
                     await DB.GetInstance().AddNewCabinet(Cabinet);
                 else

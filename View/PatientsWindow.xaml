@@ -16,8 +16,8 @@
     <Grid>
         <Frame NavigationUIVisibility="Hidden" Grid.RowSpan="7" Grid.ColumnSpan="4" Background="AliceBlue"/>
         <Menu Grid.ColumnSpan="4" Style="{StaticResource Menu}">
-            <MenuItem Header="Информация" Style="{StaticResource MenuItem}"/>
-            <MenuItem Header="Процедуры" Style="{StaticResource MenuItem}"/>
+            <MenuItem Header="Информация" Command="{Binding Information}" Style="{StaticResource MenuItem}"/>
+            <MenuItem Header="Процедуры" Command="{Binding ProceduresGuest}" Style="{StaticResource MenuItem}"/>
         </Menu>
     </Grid>
 </Window>

@@ -83,7 +83,8 @@ namespace Sanatory.ViewModel
             MainVM = MainWindowVM.Instance;
             //Staffs2 = new ObservableCollection<Staff>(StaffRepository.Instance.GetMedStaff(sql2));
             //AllDays.Insert(0, new Days { ID = 0, Day = "Все теги" });
-            SelectedDays = AllDays[0];
+            //SelectedDays = AllDays[0];
+            GetAll();
 
 
             CreateStaff = new CommandVM(() =>
@@ -135,29 +136,29 @@ namespace Sanatory.ViewModel
                 MainWindowVM.Instance.CurrentPage = new CbAddSt(SelectedStaff);
             });
 
-            //DoneProblem = new CommandVM(() =>
-            //{
-            //    if (SelectedStaff == null)
-            //        return;
+            DoneProblem = new CommandVM(() =>
+            {
+                if (SelectedStaff == null)
+                    return;
 
-            //    if (MessageBox.Show("Сотрудник выполнил задачу?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            //    {
-            //        //DB.GetInstance().(SelectedStaff);
-            //        MainWindowVM.Instance.CurrentPage = new Personal();
-            //    }
+                if (MessageBox.Show("Сотрудник выполнил задачу?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    DB.GetInstance().DoneProblem(SelectedStaff.ID);
+                    MainWindowVM.Instance.CurrentPage = new Personal();
+                }
 
-            //    //});
+                });
 
-            //    //DoneCabinet = new CommandVM(() =>
-            //    //{
-            //    //    if (SelectedStaff == null)
-            //    //        return;
-            //    //    StaffRepository.Instance.DoneC(SelectedStaff);
-            //    //    MainWindowVM.Instance.CurrentPage = new Personal();
-            //    //});
-            }
+            DoneCabinet = new CommandVM(() =>
+            {
+                if (SelectedStaff == null)
+                    return;
+                DB.GetInstance().DoneCabinet(SelectedStaff, SelectedStaff.Cabinet);
+                MainWindowVM.Instance.CurrentPage = new Personal();
+            });
+        }
 
-        public async void OnAppearing()
+        public async void GetAll()
         {
             Staffs = await DB.GetInstance().GetAllStaff();
             AllDays = await DB.GetInstance().GetAllDays();

@@ -36,6 +36,7 @@ namespace Sanatory.ViewModel
         public PrVM()
         {
             MainVM = MainWindowVM.Instance;
+            GetAllProblems();
 
             CreateProblem = new CommandVM(() =>
             {
@@ -64,7 +65,7 @@ namespace Sanatory.ViewModel
 
         }
 
-        public async void OnAppearing()
+        public async void GetAllProblems()
         {
             Problems = await DB.GetInstance().GetAllProblems();
         }

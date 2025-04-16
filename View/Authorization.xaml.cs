@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,16 +43,37 @@ namespace Sanatory.View
             addNewUser.ShowDialog();
         }
 
-        private void PathButton(object sender, RoutedEventArgs e)
+        private async void PathButton(object sender, RoutedEventArgs e)
         {
             string username = UserTextBox.Text;
+            string password = PasswordTextBox.Password;
 
-            if (username == "Admin")
+            User user = new User { Login = username, Password = password };
+            User result = await DB.GetInstance().CheckUser(user);
+
+            switch (result.Login)
             {
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.ShowDialog();
-                this.Close();
+                case "Admin":
+                    MainWindow mainWindow = new MainWindow();
+                    mainWindow.ShowDialog();
+                    break;
+
+                case "Staff":
+                    StaffWindow staffWindow = new StaffWindow();
+                    staffWindow.ShowDialog();
+                    break;
+
+                case "Guest":
+                    PatientsWindow patientsWindow = new PatientsWindow();
+                    patientsWindow.ShowDialog();
+                    break;
+
+                default:
+                    MessageBox.Show("Неизвестный тип пользователя.");
+                    break;
             }
+
+            this.Close();
         }
     }
 }

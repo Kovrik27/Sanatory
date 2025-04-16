@@ -32,7 +32,7 @@ namespace Sanatory.ViewModel
         public DayTimVM()
         {
             MainVM = MainWindowVM.Instance;
-            
+            GetAllDaytime();
 
             CreateDay = new CommandVM(() =>
             {
@@ -47,7 +47,7 @@ namespace Sanatory.ViewModel
             });
         }
 
-        public async void OnAppearing()
+        public async void GetAllDaytime()
         {
             Daytimes = await DB.GetInstance().GetAllDaytime();
         }

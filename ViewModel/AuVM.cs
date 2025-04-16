@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sanatory.ViewModel
 {
@@ -31,18 +32,14 @@ namespace Sanatory.ViewModel
         {
             Authorization = new CommandVM(async () =>
             {
-                var check = await DB.GetInstance().CheckUser(User);
-                if (check == null)
-                {
-                    return;
-                }
-                else
-                {
-                    User = new User();
-                    Signal(nameof(User));
-                    MainWindow mainWindow = new MainWindow();
-                    mainWindow.Show();
-                }
+
+                await DB.GetInstance().CheckUser(User);
+                //if (check == null)
+                //    return;
+                //else
+                //{
+                //    MessageBox.Show("Ошибка! Вы не зарегистрированы");
+                //}
 
             });
         }

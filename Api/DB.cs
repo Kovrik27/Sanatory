@@ -31,7 +31,7 @@ namespace Sanatory.Api
         
         public DB()
         {
-            client.BaseAddress = new Uri("http://localhost:5179");
+            client.BaseAddress = new Uri("http://localhost:5179/api/");
         }
 
         public async Task<ObservableCollection<User>> GetAllUsers()
@@ -79,10 +79,10 @@ namespace Sanatory.Api
         public async Task<User> CheckUser(User user)
         {
             var arg = JsonSerializer.Serialize(user);
-            var responce = await client.PostAsync($"User/CheckUser", new StringContent(arg, Encoding.UTF8, "application/json"));
+            var responce = await client.PostAsync($"Users/CheckUser", new StringContent(arg, Encoding.UTF8, "application/json"));
             if(responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
-                var result = await responce.Content.ReadAsStringAsync();
+                //var result = await responce.Content.ReadAsStringAsync();
                 return null;
             }
             else
@@ -148,6 +148,27 @@ namespace Sanatory.Api
                 var result = await responce.Content.ReadAsStringAsync();
             }
         }
+
+        public async Task DoneCabinet(Staff staff, Cabinet cabinet)
+        {
+            var cabinetOnStaffDTO = new CabinetOnStaffDTO
+            {
+                StaffId = staff.ID,
+                CabinetId = cabinet.ID
+            };
+
+            var arg = JsonSerializer.Serialize(cabinetOnStaffDTO);
+            var responce = await client.PostAsync($"Staffs/DoneCabinet", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
         ///////////////////////////
 
         public async Task<ObservableCollection<Daytime>> GetAllDaytime()
@@ -228,33 +249,6 @@ namespace Sanatory.Api
 
         ///////////////////////////
      
-
-        //public async Task EditEvent(Events eventt)
-        //{
-        //    var arg = JsonSerializer.Serialize(eventt);
-        //    var responce = await client.PutAsync($"Events/EditEvent", new StringContent(arg, Encoding.UTF8, "application/json"));
-        //    if (responce.StatusCode != System.Net.HttpStatusCode.OK)
-        //    {
-        //        var result = await responce.Content.ReadAsStringAsync();
-        //    }
-        //    else
-        //    {
-        //        var result = await responce.Content.ReadAsStringAsync();
-        //    }
-        //}
-
-        //public async Task DeleteEvent(int id)
-        //{
-        //    var responce = await client.DeleteAsync($"Events/DeleteEvent");
-        //    if (responce.StatusCode != System.Net.HttpStatusCode.OK)
-        //    {
-        //        var result = await responce.Content.ReadAsStringAsync();
-        //    }
-        //    else
-        //    {
-        //        var result = await responce.Content.ReadAsStringAsync();
-        //    }
-        //}
 
         //////////////////////////////
 
@@ -385,6 +379,19 @@ namespace Sanatory.Api
             }
         }
 
+        public async Task EditStatusProblem(Problem problem)
+        {
+            var arg = JsonSerializer.Serialize(problem);
+            var responce = await client.PutAsync($"Problems/EditStatusProblem", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
 
         ///////////////////////
 

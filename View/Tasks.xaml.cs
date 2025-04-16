@@ -18,9 +18,9 @@ namespace Sanatory.View
     /// <summary>
     /// Логика взаимодействия для Task.xaml
     /// </summary>
-    public partial class Task : Page
+    public partial class Tasks : Page
     {
-        public Task()
+        public Tasks()
         {
             InitializeComponent();
         }

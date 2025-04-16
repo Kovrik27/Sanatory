@@ -33,6 +33,7 @@ namespace Sanatory.ViewModel
 
         public PrcVM()
         {
+            GetAllProcedures();
 
             CreateProcedure = new CommandVM(() =>
             {
@@ -60,7 +61,7 @@ namespace Sanatory.ViewModel
             });
         }
 
-        public async void OnAppearing()
+        public async void GetAllProcedures()
         {
             Procedures = await DB.GetInstance().GetAllProcedure();
         }

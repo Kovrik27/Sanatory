@@ -16,8 +16,8 @@
             <TextBlock Text="Добро пожаловать в наш санаторий!" FontSize="20" HorizontalAlignment="Center"/>
         </StackPanel>
         <StackPanel Grid.Column="1" VerticalAlignment="Center">
-            <TextBox Name="UserTextBox"/>
-            <TextBox/>
+            <TextBox Name="UserTextBox" />
+            <PasswordBox Name="PasswordTextBox" />
             <Button Content="Войти" Click="PathButton"/>
         </StackPanel>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">

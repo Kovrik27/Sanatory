@@ -9,6 +9,22 @@
       Title="ProceduresGuest">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label/>
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <TextBlock Text="{Binding Lastname}"/>
+        </StackPanel>
+        <StackPanel Grid.ColumnSpan="2" Grid.Row="1">
+            <Label Content="Процедуры гостя:"/>
+            <ListView>
+            </ListView>
+        </StackPanel>
     </Grid>
 </Page>

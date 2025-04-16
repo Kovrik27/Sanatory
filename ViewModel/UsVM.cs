@@ -35,6 +35,7 @@ namespace Sanatory.ViewModel
         public UsVM()
         {
             MainVM = MainWindowVM.Instance;
+            GetAllUsers();
 
             CreateUser = new CommandVM(() =>
             {
@@ -61,13 +62,13 @@ namespace Sanatory.ViewModel
                 }
             });
 
-            CheckUser = new CommandVM(async () =>
-            {
-                //await DB.GetInstance().CheckUser()
-            });
+            //CheckUser = new CommandVM(async () =>
+            //{
+            //    //await DB.GetInstance().CheckUser()
+            //});
         }
 
-        public async void OnAppearing()
+        public async void GetAllUsers()
         {
             Users = await DB.GetInstance().GetAllUsers();
         }
