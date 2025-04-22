@@ -12,13 +12,14 @@ namespace Sanatory.Model
         public string Lastname { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string JobTitle { get; set; }
+        public int JobTitleId { get; set; }
+        public JobTitle JobTitle { get; set; }
         public string Phone { get; set; }
         public string Mail { get; set; }
         public List<Days> Days { get; set; } = new();
-        public int ProblemID { get; set; }
+        public int? ProblemID { get; set; }
         public Problem Problem { get; set; } = new();
-        public int CabinetID { get; set; }
+        public int? CabinetID { get; set; }
         public Cabinet Cabinet { get; set; } = new();
 
 

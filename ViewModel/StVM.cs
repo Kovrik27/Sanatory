@@ -136,31 +136,32 @@ namespace Sanatory.ViewModel
                 MainWindowVM.Instance.CurrentPage = new CbAddSt(SelectedStaff);
             });
 
-            DoneProblem = new CommandVM(() =>
+            DoneProblem = new CommandVM(async() =>
             {
                 if (SelectedStaff == null)
                     return;
 
                 if (MessageBox.Show("Сотрудник выполнил задачу?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    DB.GetInstance().DoneProblem(SelectedStaff.ID);
+                    await DB.GetInstance().DoneProblem(SelectedStaff.ID);
                     MainWindowVM.Instance.CurrentPage = new Personal();
                 }
 
                 });
 
-            DoneCabinet = new CommandVM(() =>
+            DoneCabinet = new CommandVM(async() =>
             {
                 if (SelectedStaff == null)
                     return;
-                DB.GetInstance().DoneCabinet(SelectedStaff, SelectedStaff.Cabinet);
+                await DB.GetInstance().DoneCabinet(SelectedStaff, SelectedStaff.Cabinet);
                 MainWindowVM.Instance.CurrentPage = new Personal();
             });
         }
 
         public async void GetAll()
         {
-            Staffs = await DB.GetInstance().GetAllStaff();
+            Staffs = await DB.GetInstance().GetStaffWithProblem();
+            Staffs2 = await DB.GetInstance().GetStaffWithCabinet();
             AllDays = await DB.GetInstance().GetAllDays();
         }
     }

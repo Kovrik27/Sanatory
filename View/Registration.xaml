@@ -38,7 +38,7 @@
                         <GridViewColumn Header="Номер комнаты" DisplayMemberBinding="{Binding Number}"/>
                         <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding Type}"/>
                         <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Price}"/>
-                        <GridViewColumn Header="Статус" DisplayMemberBinding="{Binding Status}"/>
+                        <GridViewColumn Header="Статус" DisplayMemberBinding="{Binding Status.Title}"/>
                     </GridView>
                 </ListView.View>
                 <ListView.Resources>

@@ -20,7 +20,7 @@ namespace Sanatory.ViewModel
         public CommandVM<Problem> AddP { get; set; }
         public CommandVM<Cabinet> AddC { get; set; }
         ListBox ListDays;
-        public List<Days> AllDays {  get; set; }
+        public ObservableCollection<Days> AllDays {  get; set; }
 
         private Staff staff = new();
 
@@ -35,7 +35,7 @@ namespace Sanatory.ViewModel
         }
         public StAddVM()
         {
-            //AllDays = DaysRepository.Instance.GetDays();
+            GetAllDays();
 
 
             Save = new CommandVM(async() =>
@@ -89,6 +89,11 @@ namespace Sanatory.ViewModel
         internal void SetStaff (Staff selectedStaff)
         {
             Staff = selectedStaff;
+        }
+
+        private async void GetAllDays()
+        {
+            AllDays = await DB.GetInstance().GetAllDays();
         }
     }
 }

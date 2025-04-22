@@ -37,6 +37,7 @@ namespace Sanatory.ViewModel
         public CbVM()
         {
             MainVM = MainWindowVM.Instance;
+            GetAllCabinets();
 
             CreateCabinet = new CommandVM(() =>
             {
@@ -58,13 +59,13 @@ namespace Sanatory.ViewModel
                 if (MessageBox.Show("Удалить кабинет?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     await DB.GetInstance().DeleteCabinet(SelectedCabinet.ID);
-                    //Cabinets.Remove(SelectedCabinet);
+                    Cabinets.Remove(SelectedCabinet);
                 }
 
             });
         }
 
-        public async void OnAppearing()
+        public async void GetAllCabinets()
         {
             Cabinets = await DB.GetInstance().GetAllCabinets();
         }

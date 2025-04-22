@@ -13,7 +13,7 @@ namespace Sanatory.Model
         public string Type { get; set; }
         public double Price { get; set; }
         public int StatusId { get; set; } = 1;
-        public Status Status { get; set; }
+        public Status Status { get; set; } 
 
     }
 }

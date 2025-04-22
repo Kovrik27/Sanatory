@@ -33,9 +33,9 @@ namespace Sanatory.ViewModel
             Save = new CommandVM(async() =>
             {
 
-                //if (Procedure.ID == 0)
-                //    //DB.GetInstance().AddNewProcedure(Procedure);
-                //else
+                if (Procedure.ID == 0)
+                    await DB.GetInstance().AddNewProcedure(Procedure);
+                else
                     await DB.GetInstance().EditProcedure(Procedure);
                 MainWindowVM.Instance.CurrentPage = new Processes();
 

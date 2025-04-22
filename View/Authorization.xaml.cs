@@ -48,7 +48,7 @@ namespace Sanatory.View
             string username = UserTextBox.Text;
             string password = PasswordTextBox.Password;
 
-            User user = new User { Login = username, Password = password };
+            User user = new User { Login = username, Password = password, Role = new Role{ Title = "ыыы"  } };
             User result = await DB.GetInstance().CheckUser(user);
 
             switch (result.Login)
@@ -56,24 +56,28 @@ namespace Sanatory.View
                 case "Admin":
                     MainWindow mainWindow = new MainWindow();
                     mainWindow.ShowDialog();
+                    this.Close();
                     break;
 
                 case "Staff":
                     StaffWindow staffWindow = new StaffWindow();
                     staffWindow.ShowDialog();
+                    this.Close();
                     break;
 
                 case "Guest":
                     PatientsWindow patientsWindow = new PatientsWindow();
                     patientsWindow.ShowDialog();
+                    this.Close();
                     break;
 
                 default:
                     MessageBox.Show("Неизвестный тип пользователя.");
                     break;
+
             }
 
-            this.Close();
+            
         }
     }
 }

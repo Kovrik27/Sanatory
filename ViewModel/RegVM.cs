@@ -35,6 +35,7 @@ namespace Sanatory.ViewModel
             }
         }
 
+
       
 
         public RegVM()
@@ -81,7 +82,8 @@ namespace Sanatory.ViewModel
 
         public async void GetAllRooms()
         {
-            Rooms = await DB.GetInstance().GetAllRooms();
+            Rooms = await DB.GetInstance().GetRoomWithStatus();
+            //Statuses = await DB.GetInstance().GetAllStatusesForRoom();
         }
 
     }
