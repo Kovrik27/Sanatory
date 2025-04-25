@@ -27,7 +27,7 @@
                 <Label Content="Отчество сотрудника" Style="{StaticResource Label}"/>
                 <TextBox Text="{Binding Surname}" Style="{StaticResource TextBox}"/>
                 <Label Content="Должность" Style="{StaticResource Label}"/>
-                <TextBox Text="{Binding JobTitle}" Style="{StaticResource TextBox}"/>
+                <TextBox Text="{Binding JobTitle.Title}" Style="{StaticResource TextBox}"/>
                 <Label Content="Номер" Style="{StaticResource Label}"/>
                 <TextBox Text="{Binding Phone}" Style="{StaticResource TextBox}"/>
                 <Label Content="Почта" Style="{StaticResource Label}"/>

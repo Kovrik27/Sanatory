@@ -20,7 +20,7 @@ namespace Sanatory.ViewModel
         public CommandVM<Problem> AddP { get; set; }
         public CommandVM<Cabinet> AddC { get; set; }
         ListBox ListDays;
-        public ObservableCollection<Days> AllDays {  get; set; }
+        public ObservableCollection<Day> AllDays {  get; set; }
 
         private Staff staff = new();
 
@@ -40,9 +40,9 @@ namespace Sanatory.ViewModel
 
             Save = new CommandVM(async() =>
             {
-                Staff.Days.Clear();
-                foreach (Days days in ListDays.SelectedItems)
-                    Staff.Days.Add(days);
+                //Staff.Days.Clear();
+                //foreach (Day days in ListDays.SelectedItems)
+                //    Staff.Days.Add(days);
 
 
                 if (Staff.ID == 0)
@@ -75,9 +75,9 @@ namespace Sanatory.ViewModel
 
         internal void SetEditStaff(Staff selectedStaff)
         {
-            Staff = selectedStaff;
-            foreach (var days in Staff.Days)
-                ListDays.SelectedItems.Add(days);
+            //Staff = selectedStaff;
+            //foreach (var days in Staff.Days)
+            //    ListDays.SelectedItems.Add(days);
 
         }
 

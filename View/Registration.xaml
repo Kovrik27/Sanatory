@@ -79,8 +79,15 @@
             </Button.Style>
         </Button>
 
-        
-
-
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Label Content="Поиск"/>
+            <TextBox Width="155" Height="20"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <Button Content="Найти" Width="108" HorizontalAlignment="Left" Height="23"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="3" Margin="0,286,0,-286">
+            <Button Content="Выйти на экран авторизации" Click="GoOut"/>
+        </StackPanel>
     </Grid>
 </Page>

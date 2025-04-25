@@ -16,7 +16,7 @@
     <Grid>
         <StackPanel>
             <StackPanel>
-                <StackPanel DataContext="{Binding Guests}">
+                <StackPanel DataContext="{Binding Guest}">
                     <Label Content=" "/>
                     <Label Content="Фамилия гостя" Style="{StaticResource Label}"/>
                     <TextBox Text="{Binding Lastname}" Style="{StaticResource TextBox}"/>
@@ -36,7 +36,7 @@
             </StackPanel>
             <StackPanel>
                 <Label Content="Номер" Style="{StaticResource Label}"/>
-                <TextBox Text="{Binding Guests.Room.Number}" Style="{StaticResource TextBox}"/>
+                <TextBox Text="{Binding Guest.Room.Number}" Style="{StaticResource TextBox}"/>
             </StackPanel>
             <Button Content="Сохранить" Command="{Binding Save}" Style="{StaticResource Button}"/>
         </StackPanel>

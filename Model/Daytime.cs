@@ -11,8 +11,8 @@ namespace Sanatory.Model
     {
         public int ID { get; set; }
         public DateOnly Time { get; set; }
-        public int EventID { get; set; } 
-        public Events Event { get; set; }
+        public int? EventID { get; set; } 
+        public Events? Event { get; set; }
 
     }
 }

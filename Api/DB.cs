@@ -302,7 +302,7 @@ namespace Sanatory.Api
 
         public async Task DeleteGuest(int id)
         {
-            var responce = await client.DeleteAsync($"Guests/GoOutGuest");
+            var responce = await client.DeleteAsync($"Guests/GoOutGuest/{id}");
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
@@ -373,7 +373,8 @@ namespace Sanatory.Api
 
         public async Task DoneProblem(int id)
         {
-            var responce = await client.DeleteAsync($"Staffs/DoneProblem");
+            var arg = JsonSerializer.Serialize(id);
+            var responce = await client.PutAsync($"Staffs/DoneProblem/{id}", new StringContent(arg, Encoding.UTF8, "application/json"));
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
@@ -659,7 +660,7 @@ namespace Sanatory.Api
 
         ///////////////////////////////
 
-        public async Task<ObservableCollection<Days>> GetAllDays()
+        public async Task<ObservableCollection<Day>> GetAllDays()
         {
             var responce = await client.GetAsync($"Days/GetAllDays");
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
@@ -669,7 +670,7 @@ namespace Sanatory.Api
             }
             else
             {
-                var days = await responce.Content.ReadFromJsonAsync<ObservableCollection<Days>>();
+                var days = await responce.Content.ReadFromJsonAsync<ObservableCollection<Day>>();
                 return days;
             }
         }

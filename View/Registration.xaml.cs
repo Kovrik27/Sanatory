@@ -33,7 +33,7 @@ namespace Sanatory.View
             if (Rm.SelectedItem != null)
             {
                 var vm = DataContext as RegVM;
-                if (vm.SelectedRoom.StatusId == 1)
+                if (vm.SelectedRoom.Status.Title == "Чистый")
                     Bronirovanie.Visibility = Visibility.Visible;
                 else
                     Bronirovanie.Visibility = Visibility.Collapsed;
@@ -49,6 +49,13 @@ namespace Sanatory.View
         private void Viselit(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Гость выселен");
+        }
+
+        private void GoOut(object sender, RoutedEventArgs e)
+        {
+            Authorization authorization = new Authorization();  
+            authorization.Show();
+            
         }
     }
 }

@@ -63,9 +63,9 @@ namespace Sanatory.ViewModel
 
         }
 
-        //public async void OnAppearing()
+        //public async void GetAllEvents()
         //{
-        //    Events = await DB.GetInstance().GetAllEvents();
+        //    Events = await DB.GetInstance().GetAllEventsOnDay();
         //}
 
     }

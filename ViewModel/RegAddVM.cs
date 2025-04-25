@@ -18,7 +18,7 @@ namespace Sanatory.ViewModel
         public CommandVM Save {  get; set; }
 
         private Room room = new();
-        private ObservableCollection<Status> status = new();
+        private ObservableCollection<Status> statuses = new();
 
         public Room Room
         {
@@ -33,10 +33,10 @@ namespace Sanatory.ViewModel
 
         public ObservableCollection<Status> Statuses
         {
-            get => status;
+            get => statuses;
             set
             {
-                status = value;
+                statuses = value;
                 Signal();
             }
         }

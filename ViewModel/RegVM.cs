@@ -77,7 +77,20 @@ namespace Sanatory.ViewModel
                 MainWindowVM.Instance.CurrentPage = new GuAdd(SelectedRoom);
                 
             });
-           
+
+            Visilenie = new CommandVM(async () =>
+            {
+                if (SelectedRoom == null)
+                    return;
+
+                if (MessageBox.Show("Выселить гостя?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    await DB.GetInstance().DeleteGuest(SelectedRoom.ID);
+                    MainWindowVM.Instance.CurrentPage = new Guests();
+                }
+
+            });
+
         }
 
         public async void GetAllRooms()

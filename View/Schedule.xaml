@@ -37,7 +37,6 @@
         
         
 
-
         <ListView Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Daytimes}" SelectedItem="{Binding SelectedDaytime}" Style="{StaticResource ListView}">
             <ListView.View>
                 <GridView>

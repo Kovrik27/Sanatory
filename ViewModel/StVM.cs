@@ -34,8 +34,8 @@ namespace Sanatory.ViewModel
         public CommandVM DoneCabinet { get; set; }
 
         public Staff SelectedStaff { get; set; }
-        private Days selectedDays;
-        public ObservableCollection<Days> AllDays { get; set; }
+        private Day selectedDays;
+        public ObservableCollection<Day> AllDays { get; set; }
 
         public ObservableCollection<Staff> Staffs
         {
@@ -58,7 +58,7 @@ namespace Sanatory.ViewModel
         }
 
 
-        public Days SelectedDays
+        public Day SelectedDays
         {
             get => selectedDays;
             set
@@ -83,7 +83,7 @@ namespace Sanatory.ViewModel
             MainVM = MainWindowVM.Instance;
             //Staffs2 = new ObservableCollection<Staff>(StaffRepository.Instance.GetMedStaff(sql2));
             //AllDays.Insert(0, new Days { ID = 0, Day = "Все теги" });
-            //SelectedDays = AllDays[0];
+            
             GetAll();
 
 
@@ -162,7 +162,8 @@ namespace Sanatory.ViewModel
         {
             Staffs = await DB.GetInstance().GetStaffWithProblem();
             Staffs2 = await DB.GetInstance().GetStaffWithCabinet();
-            AllDays = await DB.GetInstance().GetAllDays();
+            //SelectedDays = AllDays[0];
+            // AllDays = await DB.GetInstance().GetAllDays();
         }
     }
 }

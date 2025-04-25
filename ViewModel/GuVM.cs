@@ -56,20 +56,7 @@ namespace Sanatory.ViewModel
                 MainWindowVM.Instance.CurrentPage = new GuAdd(SelectedGuest);
             });
 
-            DeleteGuests = new CommandVM(async () =>
-            {
-                if (SelectedGuest == null)
-                    return;
-
-                if (MessageBox.Show("Выселить гостя?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    await DB.GetInstance().DeleteGuest(SelectedGuest.ID);
-                    Guests.Remove(SelectedGuest);
-                    //RoomsRepository.Instance.UpdateStatus2();
-                    MainWindowVM.Instance.CurrentPage = new Guests();
-                }
-
-            });
+            
 
             AddProcedure = new CommandVM(() =>
             {

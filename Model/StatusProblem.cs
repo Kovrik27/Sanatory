@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sanatory.ViewModel
+namespace Sanatory.Model
 {
-    public class ScVM : BaseVM
+    public class StatusProblem
     {
-        private MainWindowVM MainVM;
-        
+        public int Id { get; set; }
+        public string Title { get; set; }
     }
 }

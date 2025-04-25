@@ -10,5 +10,7 @@ namespace Sanatory.Model
     {
         public int Id { get; set; }
         public string Title { get; set; } = "Чистый";
+        public int StatusProblemId { get; set; }
+        public StatusProblem StatusProblem { get; set; }
     }
 }
