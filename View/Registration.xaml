@@ -52,11 +52,10 @@
             </ListView>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
             <Menu Style="{StaticResource Menu}">
-                <MenuItem Header="Добавить номер" Command="{Binding CreateRoom}" Style="{StaticResource MenuItem}"/>
                 <MenuItem Header="Изменить номер" Command="{Binding EditRoom}" Style="{StaticResource MenuItem}"/>
-                <MenuItem Header="Удалить номер" Command="{Binding DeleteRoom}" Style="{StaticResource MenuItem}"/>
+                <MenuItem Header="Выселить гостя" Command="{Binding Visilenie}" Style="{StaticResource MenuItem}"/>
             </Menu>
         </StackPanel>
 

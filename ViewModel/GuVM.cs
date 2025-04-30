@@ -56,7 +56,6 @@ namespace Sanatory.ViewModel
                 MainWindowVM.Instance.CurrentPage = new GuAdd(SelectedGuest);
             });
 
-            
 
             AddProcedure = new CommandVM(() =>
             {

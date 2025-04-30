@@ -57,5 +57,6 @@ namespace Sanatory.View
             authorization.Show();
             
         }
+
     }
 }

@@ -29,8 +29,6 @@ namespace Sanatory.Model
 
         public Room Room { get; set; } = new();
 
-        public int? ProcedureID { get; set; } = 1;
-
-        public Procedure? Procedure { get; set; }
+        public List<Procedure>? Procedures { get; set; } = new List<Procedure>();
     }
 }

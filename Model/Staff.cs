@@ -24,7 +24,7 @@ namespace Sanatory.Model
 
         public string Mail { get; set; }
 
-        public Day Days { get; set; } = new();
+        public List<Day> Days { get; set; } = new();
 
         public int? ProblemID { get; set; }
 

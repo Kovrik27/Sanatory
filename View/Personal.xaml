@@ -81,7 +81,7 @@
                         <GridViewColumn Header="График работы">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ItemsControl Style="{StaticResource DaysItem}" DisplayMemberPath="Day" ItemsSource="{Binding Days}"/>
+                                    <ItemsControl Style="{StaticResource DaysItem}" DisplayMemberPath="Day1" ItemsSource="{Binding Days}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

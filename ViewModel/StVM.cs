@@ -19,6 +19,7 @@ namespace Sanatory.ViewModel
         private ObservableCollection<Staff> staffs;
         private ObservableCollection<Staff> staffs2;
         private ObservableCollection<Problem> problems;
+        private ObservableCollection<JobTitle> jobTitles;
 
 
         private MainWindowVM MainVM;
@@ -122,6 +123,7 @@ namespace Sanatory.ViewModel
 
             });
 
+
             AddProblem = new CommandVM(() =>
             {
                 if (SelectedStaff == null)
@@ -153,7 +155,7 @@ namespace Sanatory.ViewModel
             {
                 if (SelectedStaff == null)
                     return;
-                await DB.GetInstance().DoneCabinet(SelectedStaff, SelectedStaff.Cabinet);
+                await DB.GetInstance().DoneCabinet(SelectedStaff.ID);
                 MainWindowVM.Instance.CurrentPage = new Personal();
             });
         }
@@ -163,7 +165,7 @@ namespace Sanatory.ViewModel
             Staffs = await DB.GetInstance().GetStaffWithProblem();
             Staffs2 = await DB.GetInstance().GetStaffWithCabinet();
             //SelectedDays = AllDays[0];
-            // AllDays = await DB.GetInstance().GetAllDays();
+            AllDays = await DB.GetInstance().GetAllDays();         
         }
     }
 }

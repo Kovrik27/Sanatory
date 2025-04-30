@@ -149,16 +149,10 @@ namespace Sanatory.Api
             }
         }
 
-        public async Task DoneCabinet(Staff staff, Cabinet cabinet)
+        public async Task DoneCabinet(int id)
         {
-            var cabinetOnStaffDTO = new CabinetOnStaffDTO
-            {
-                StaffId = staff.ID,
-                CabinetId = cabinet.ID
-            };
-
-            var arg = JsonSerializer.Serialize(cabinetOnStaffDTO);
-            var responce = await client.PostAsync($"Staffs/DoneCabinet", new StringContent(arg, Encoding.UTF8, "application/json"));
+            var arg = JsonSerializer.Serialize(id);
+            var responce = await client.PutAsync($"Staffs/DoneCabinet/{id}", new StringContent(arg, Encoding.UTF8, "application/json"));
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
@@ -274,7 +268,7 @@ namespace Sanatory.Api
 
         public async Task AddNewGuest(Guest guest)
         {
-            var arg = JsonSerializer.Serialize(guest);
+            var arg = JsonSerializer.Serialize(guest);    
             var responce = await client.PostAsync($"Guests/AddNewGuest", new StringContent(arg, Encoding.UTF8, "application/json"));
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
@@ -577,6 +571,21 @@ namespace Sanatory.Api
             }
         }
 
+        public async Task<ObservableCollection<Staff>> GetStaffId(int id)
+        {
+            var responce = await client.GetAsync($"Staffs/GetStaffId/{id}");
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                return null;
+            }
+            else
+            {
+                var staffid = await responce.Content.ReadFromJsonAsync<ObservableCollection<Staff>>();
+                return staffid;
+            }
+        }
+
         public async Task AddNewStaff(Staff staff)
         {
             var arg = JsonSerializer.Serialize(staff);
@@ -689,6 +698,36 @@ namespace Sanatory.Api
                 return statuses;
             }
 
+        }
+
+        public async Task<ObservableCollection<StatusProblem>> GetAllStatusesProblem()
+        {
+            var responce = await client.GetAsync("Staffs/GetAllStatusesProblem");
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                return null;
+            }
+            else
+            {
+                var statusesproblem = await responce.Content.ReadFromJsonAsync<ObservableCollection<StatusProblem>>();
+                return statusesproblem;
+            }
+        }
+
+        public async Task<ObservableCollection<JobTitle>> GetAllJobTitle()
+        {
+            var responce = await client.GetAsync("Staffs/GetAllJobTitle");
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                return null;
+            }
+            else
+            {
+                var jobtitles = await responce.Content.ReadFromJsonAsync<ObservableCollection<JobTitle>>();
+                return jobtitles;
+            }
         }
     }
     /////////////////////TestingCheatsEnabled true

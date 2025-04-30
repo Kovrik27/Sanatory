@@ -9,10 +9,15 @@ namespace Sanatory.Model
     public class Room
     {
         public int ID { get; set; }
+
         public int Number {  get; set; }
+
         public string Type { get; set; }
+
         public double Price { get; set; }
+
         public int StatusId { get; set; } = 1;
+
         public Status Status { get; set; } 
 
     }

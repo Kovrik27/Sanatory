@@ -24,6 +24,8 @@
                 <Label Content="Место выполнения" Style="{StaticResource Label}"/>
                 <TextBox Text="{Binding Place}" Style="{StaticResource TextBox}"/>
             </StackPanel>
+            <Label Content="Статус" Style="{StaticResource Label}"/>
+            <ComboBox ItemsSource="{Binding StatusesProblem}" SelectedItem="{Binding Problem.StatusProblem}"  DisplayMemberPath="Title"/>
 
             <Button Content="Сохранить" Command="{Binding Save}" Style="{StaticResource Button}"/>
         </StackPanel>

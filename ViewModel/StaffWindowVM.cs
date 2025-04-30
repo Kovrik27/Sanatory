@@ -1,6 +1,9 @@
-﻿using Sanatory.View;
+﻿using Sanatory.Api;
+using Sanatory.Model;
+using Sanatory.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +14,7 @@ namespace Sanatory.ViewModel
     public class StaffWindowVM : BaseVM
     {
         public static StaffWindowVM Instance { get; set; }
+        private ObservableCollection<Problem> problems;
 
         private Page currentPage;
 
@@ -24,22 +28,24 @@ namespace Sanatory.ViewModel
             }
         }
 
-        public CommandVM Tasks { get; set; }
-
+        public ObservableCollection<Problem> Problems
+        {
+            get => problems;
+            set
+            {
+                problems = value;
+                Signal();
+            }
+        }
 
         public StaffWindowVM()
         {
             Instance = this;
-
-            Tasks = new CommandVM(() =>
-            {
-                OpenTasks();
-            });
         }
 
-        private void OpenTasks()
-        {
-            CurrentPage = new Tasks();
-        }
+       //public async void GetAllProblems()
+       // {
+       //     Problems = DB.GetInstance().GetStaffId(id);
+       // }
     }
 }

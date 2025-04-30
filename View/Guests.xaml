@@ -84,7 +84,7 @@
                         <GridViewColumn Header="Номер комнаты" DisplayMemberBinding="{Binding Room.Number}"/>
                         <GridViewColumn Header="Дата заезда" DisplayMemberBinding="{Binding DataArrival}"/>
                         <GridViewColumn Header="Дата выезда" DisplayMemberBinding="{Binding DataOfDeparture}"/>
-                        <GridViewColumn Header="Назначенные процедуры" DisplayMemberBinding="{Binding Procedure.Title}"/>
+                        <GridViewColumn Header="Назначенные процедуры" DisplayMemberBinding="{Binding Procedures}"/>
                     </GridView>
                 </ListView.View>
                 <ListView.Resources>
@@ -102,7 +102,6 @@
         <StackPanel Grid.Row="3" DataContext="{DynamicResource guVM}">
             <Menu Style="{StaticResource Menu}">
                 <MenuItem Header="Изменить данные или продлить бронь" Command="{Binding EditGuests}" Style="{StaticResource MenuItem}"/>
-                <MenuItem Header="Выселить гостя" Command="{Binding DeleteGuests}" Style="{StaticResource MenuItem}"/>
             </Menu>
         </StackPanel>
                       

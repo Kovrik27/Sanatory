@@ -26,16 +26,17 @@
                 <TextBox Text="{Binding Name}" Style="{StaticResource TextBox}"/>
                 <Label Content="Отчество сотрудника" Style="{StaticResource Label}"/>
                 <TextBox Text="{Binding Surname}" Style="{StaticResource TextBox}"/>
-                <Label Content="Должность" Style="{StaticResource Label}"/>
-                <TextBox Text="{Binding JobTitle.Title}" Style="{StaticResource TextBox}"/>
                 <Label Content="Номер" Style="{StaticResource Label}"/>
                 <TextBox Text="{Binding Phone}" Style="{StaticResource TextBox}"/>
                 <Label Content="Почта" Style="{StaticResource Label}"/>
                 <TextBox Text="{Binding Mail}" Style="{StaticResource TextBox}"/>
             </StackPanel>
+            <Label Content="Должность" Style="{StaticResource Label}"/>
+            <ComboBox DisplayMemberPath="Title" ItemsSource="{Binding JobTitles}"/>
             <Label Content="График работы" Style="{StaticResource Label}"/>
+            <ListBox DisplayMemberPath="Day1" ItemsSource="{Binding AllDays}" SelectionMode="Multiple" x:Name="ListDays"/>
 
-            <ListBox DisplayMemberPath="Day" ItemsSource="{Binding AllDays}" SelectionMode="Multiple" x:Name="ListDays"/>
+           
 
             <Button Content="Сохранить" Command="{Binding Save}" Style="{StaticResource Button}"/>
         </StackPanel>

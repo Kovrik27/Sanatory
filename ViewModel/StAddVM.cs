@@ -20,6 +20,7 @@ namespace Sanatory.ViewModel
         public CommandVM<Problem> AddP { get; set; }
         public CommandVM<Cabinet> AddC { get; set; }
         ListBox ListDays;
+        private ObservableCollection<JobTitle> jobTitles;
         public ObservableCollection<Day> AllDays {  get; set; }
 
         private Staff staff = new();
@@ -33,6 +34,16 @@ namespace Sanatory.ViewModel
                 Signal();
             }
         }
+
+        public ObservableCollection<JobTitle> JobTitles
+        {
+            get => jobTitles;
+            set
+            {
+                jobTitles = value;
+                Signal();
+            }
+        }
         public StAddVM()
         {
             GetAllDays();
@@ -40,9 +51,9 @@ namespace Sanatory.ViewModel
 
             Save = new CommandVM(async() =>
             {
-                //Staff.Days.Clear();
-                //foreach (Day days in ListDays.SelectedItems)
-                //    Staff.Days.Add(days);
+                Staff.Days.Clear();
+                foreach (Day days in ListDays.SelectedItems)
+                    Staff.Days.Add(days);
 
 
                 if (Staff.ID == 0)
@@ -55,29 +66,14 @@ namespace Sanatory.ViewModel
 
             });
 
-            //AddP = new CommandVM<Problem>(s =>
-            //{
-            //    DB.GetInstance().AddNewProblem(Staff, s);
-            //    MainWindowVM.Instance.CurrentPage = new Personal();
-
-
-            //});
-
-            //AddC = new CommandVM<Cabinet>(s =>
-            //{
-            //    //DB.GetInstance().AddNewCabinet(Staff, s);
-            //    MainWindowVM.Instance.CurrentPage = new Personal();
-            //});
-
-
 
         }
 
         internal void SetEditStaff(Staff selectedStaff)
         {
-            //Staff = selectedStaff;
-            //foreach (var days in Staff.Days)
-            //    ListDays.SelectedItems.Add(days);
+            Staff = selectedStaff;
+            foreach (var days in Staff.Days)
+                ListDays.SelectedItems.Add(days);
 
         }
 
@@ -94,6 +90,7 @@ namespace Sanatory.ViewModel
         private async void GetAllDays()
         {
             AllDays = await DB.GetInstance().GetAllDays();
+            JobTitles = await DB.GetInstance().GetAllJobTitle();
         }
     }
 }
