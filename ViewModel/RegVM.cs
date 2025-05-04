@@ -16,8 +16,6 @@ namespace Sanatory.ViewModel
     public class RegVM : BaseVM
     {
         private ObservableCollection<Room> rooms;
-
-        private MainWindowVM MainVM;
         public CommandVM CreateRoom {  get; set; }
         public CommandVM EditRoom { get; set;}
         public CommandVM DeleteRoom { get; set;}
@@ -35,12 +33,32 @@ namespace Sanatory.ViewModel
             }
         }
 
+        private string search;
+        private bool showCleanRoom;
 
-      
+        public string Search
+        {
+            get => search;
+            set
+            {
+                search = value;
+                Signal();
+            }
+        }
+        public bool ShowCleanRoom
+        {
+            get => showCleanRoom;
+            set
+            {
+                showCleanRoom = value;
+                Signal();
+            }
+        }
+
+
 
         public RegVM()
         {
-            MainVM = MainWindowVM.Instance;
             GetAllRooms();
 
             CreateRoom = new CommandVM(() =>
@@ -93,11 +111,24 @@ namespace Sanatory.ViewModel
 
         }
 
-        public async void GetAllRooms()
-        {
-            Rooms = await DB.GetInstance().GetRoomWithStatus();
-            //Statuses = await DB.GetInstance().GetAllStatusesForRoom();
-        }
+        //public async void GetAllRooms()
+        //{
+        //    var allRooms = await DB.GetInstance().GetRoomWithStatus();
+           
+        //    if(!string.IsNullOrEmpty(search))
+        //    {
+        //        allRooms = allRooms.Where(s=> s.Type.Contains(search)).ToList();
+        //    }
+
+        //    if(showCleanRoom)
+        //    {
+        //        allRooms = allRooms.Where(s => s.Status.Title == "Чистый").ToList();
+        //    }
+
+        //    allRooms = new ObservableCollection<Room>(allRooms);
+
+
+        //}
 
     }
 }

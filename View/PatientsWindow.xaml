@@ -9,9 +9,9 @@
         DataContext="{DynamicResource vm}"
         Title="PatientsWindow" Height="450" Width="800">
 
-    <Window.Resources>
+    <!--<Window.Resources>
         <vm:PatientWindowVM x:Key="vm"/>
-    </Window.Resources>
+    </Window.Resources>-->
 
     <Grid>
         <Frame NavigationUIVisibility="Hidden" Grid.RowSpan="7" Grid.ColumnSpan="4" Background="AliceBlue" Content="{Binding CurrentPage}"/>

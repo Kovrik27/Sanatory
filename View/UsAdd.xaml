@@ -9,6 +9,13 @@
       Title="UsAdd">
 
     <Grid>
-        
+        <StackPanel>
+            <Label Content=" "/>
+            <Label Content="Введите логин"/>
+            <TextBox/>
+            <Label Content="Введите пароль"/>
+            <TextBox/>
+            <Button Content="Сохранить"/>
+        </StackPanel>
     </Grid>
 </Page>

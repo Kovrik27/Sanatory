@@ -3,6 +3,7 @@ using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace Sanatory.ViewModel
         public CommandVM<Procedure> AddPrc { get; set; }
 
         private Guest guest = new();
+        private ObservableCollection<User> users;
 
 
         public Guest Guest
@@ -30,8 +32,20 @@ namespace Sanatory.ViewModel
                 Signal();
             }
         }
+
+        public ObservableCollection<User> Users
+        {
+            get => users;
+            set
+            {
+                users = value;
+                Signal();
+            }
+        }
         public GuAddVM()
         {
+            GetAllUsers();
+
             Save = new CommandVM(async() =>
             {
 
@@ -42,9 +56,7 @@ namespace Sanatory.ViewModel
                 }
 
                 else
-                    await DB.GetInstance().EditGuest(Guest);
-
-
+                    await DB.GetInstance().EditGuest(Guest);                
                 MainWindowVM.Instance.CurrentPage = new Guests();
 
             });
@@ -68,6 +80,11 @@ namespace Sanatory.ViewModel
             Guest.RoomID = selectedRoom.ID;
             Guest.Room = selectedRoom;
             Signal(nameof(Guest));
+        }
+
+        public async void GetAllUsers()
+        {
+            Users = await DB.GetInstance().GetAllUsers();
         }
     }
 }

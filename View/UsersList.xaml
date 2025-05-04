@@ -9,6 +9,61 @@
       Title="UsersList">
 
     <Grid>
-        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content=" "/>
+
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="3">
+
+                <ListView ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" Style="{StaticResource ListView}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Логин" DisplayMemberBinding="{Binding Login}"/>
+                            <GridViewColumn Header="Пароль" DisplayMemberBinding="{Binding Type}"/>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.Resources>
+                        <Style TargetType="GridViewColumnHeader">
+                            <Setter Property="Background" Value="#EFEFEF"/>
+                            <Setter Property="Foreground" Value="#333333"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontSize" Value="14"/>
+                        </Style>
+                    </ListView.Resources>
+                </ListView>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
+                <Menu Style="{StaticResource Menu}">
+                    <MenuItem Header="Добавить юзера" Command="{Binding AddUser}" Style="{StaticResource MenuItem}"/>
+                    <MenuItem Header="Изменить юзера" Command="{Binding EditUser}" Style="{StaticResource MenuItem}"/>
+                    <MenuItem Header="Удалить юзера" Command="{Binding EditUser}" Style="{StaticResource MenuItem}"/>
+                </Menu>
+            </StackPanel>
+
+            
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Label Content="Поиск"/>
+                <TextBox Width="155" Height="20"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="1">
+                <Button Content="Найти" Width="108" HorizontalAlignment="Left" Height="23"/>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Grid.Column="3" Margin="0,286,0,-286">
+                <Button Content="Выйти на экран авторизации"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

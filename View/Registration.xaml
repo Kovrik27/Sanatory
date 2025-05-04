@@ -10,10 +10,10 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Registration" Style="{StaticResource Page}">
 
-    <Page.Resources>
+    <!--<Page.Resources>
         <vm:RegVM x:Key="regVM"/>
         <vm:GuVM x:Key="guVM"/>
-    </Page.Resources>
+    </Page.Resources>-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -52,7 +52,7 @@
             </ListView>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="1" Grid.Column="3">
             <Menu Style="{StaticResource Menu}">
                 <MenuItem Header="Изменить номер" Command="{Binding EditRoom}" Style="{StaticResource MenuItem}"/>
                 <MenuItem Header="Выселить гостя" Command="{Binding Visilenie}" Style="{StaticResource MenuItem}"/>
@@ -80,13 +80,14 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Label Content="Поиск"/>
-            <TextBox Width="155" Height="20"/>
+            <TextBox Width="155" Height="20" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="1">
-            <Button Content="Найти" Width="108" HorizontalAlignment="Left" Height="23"/>
-        </StackPanel>
+             
         <StackPanel Grid.Row="3" Grid.Column="3" Margin="0,286,0,-286">
             <Button Content="Выйти на экран авторизации" Click="GoOut"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <RadioButton Content="Чистые номера" IsChecked="{Binding ShowCleanRoom}"/>
         </StackPanel>
     </Grid>
 </Page>
