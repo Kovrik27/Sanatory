@@ -33,7 +33,7 @@ namespace Sanatory.ViewModel
             Save = new CommandVM(async() =>
             {
 
-                if (Procedure.ID == 0)
+                if (Procedure.Id == 0)
                     await DB.GetInstance().AddNewProcedure(Procedure);
                 else
                     await DB.GetInstance().EditProcedure(Procedure);

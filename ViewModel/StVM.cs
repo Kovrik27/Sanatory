@@ -19,6 +19,7 @@ namespace Sanatory.ViewModel
         private ObservableCollection<Staff> staffs;
         private ObservableCollection<Staff> staffs2;
         private ObservableCollection<Problem> problems;
+        private ObservableCollection<Cabinet> cabinets;
         private ObservableCollection<JobTitle> jobTitles;
 
 
@@ -34,8 +35,13 @@ namespace Sanatory.ViewModel
         public CommandVM DoneProblem { get; set; }
         public CommandVM DoneCabinet { get; set; }
 
+        public CommandVM AddProblemOnStaff { get; set; }
+        public CommandVM AddCabinetOnStaff { get; set; }
+
         public Staff SelectedStaff { get; set; }
         private Day selectedDays;
+        public Problem SelectedProblem { get; set; }
+        public Cabinet SelectedCabinet { get; set; }
         public ObservableCollection<Day> AllDays { get; set; }
 
         public ObservableCollection<Staff> Staffs
@@ -79,14 +85,21 @@ namespace Sanatory.ViewModel
             }
         }
 
+        public ObservableCollection<Cabinet> Cabinets
+        {
+            get => cabinets;
+            set
+            {
+                cabinets = value;
+                Signal();
+            }
+        }
+
         public StVM()
         {
             MainVM = MainWindowVM.Instance;
-            //Staffs2 = new ObservableCollection<Staff>(StaffRepository.Instance.GetMedStaff(sql2));
-            //AllDays.Insert(0, new Days { ID = 0, Day = "Все теги" });
-            
-            GetAll();
 
+            GetAll();
 
             CreateStaff = new CommandVM(() =>
             {
@@ -138,6 +151,24 @@ namespace Sanatory.ViewModel
                 MainWindowVM.Instance.CurrentPage = new CbAddSt(SelectedStaff);
             });
 
+            AddProblemOnStaff = new CommandVM(async () =>
+            {
+                if (SelectedStaff == null)
+                    return;
+                await DB.GetInstance().AddProblemOnStaff(SelectedStaff, SelectedProblem);
+                MessageBox.Show("Задача успешно назначена сотруднику!", "Юху");
+                MainWindowVM.Instance.CurrentPage = new Personal();
+            });
+
+            AddCabinetOnStaff = new CommandVM(async () =>
+            {
+                if (SelectedStaff == null)
+                    return;
+                await DB.GetInstance().AddCabinetOnStaff(SelectedStaff, SelectedCabinet);
+                MessageBox.Show("Кабинет успешно назначен сотруднику!", "Юху");
+                MainWindowVM.Instance.CurrentPage = new Personal();
+            });
+
             DoneProblem = new CommandVM(async() =>
             {
                 if (SelectedStaff == null)
@@ -145,11 +176,12 @@ namespace Sanatory.ViewModel
 
                 if (MessageBox.Show("Сотрудник выполнил задачу?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    await DB.GetInstance().DoneProblem(SelectedStaff.ID);
+                    await DB.GetInstance().DoneProblem(SelectedProblem.ID);
+                    Problems.Remove(SelectedProblem);
                     MainWindowVM.Instance.CurrentPage = new Personal();
                 }
 
-                });
+            });
 
             DoneCabinet = new CommandVM(async() =>
             {
@@ -165,7 +197,14 @@ namespace Sanatory.ViewModel
             Staffs = await DB.GetInstance().GetStaffWithProblem();
             Staffs2 = await DB.GetInstance().GetStaffWithCabinet();
             //SelectedDays = AllDays[0];
-            AllDays = await DB.GetInstance().GetAllDays();         
+            AllDays = await DB.GetInstance().GetAllDays();
+            Problems = await DB.GetInstance().GetAllProblems();
+            Cabinets = await DB.GetInstance().GetAllCabinets();
+        }
+
+        internal void SetStaff(Staff selectedStaff)
+        {
+            SelectedStaff = selectedStaff;
         }
     }
 }

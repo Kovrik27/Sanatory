@@ -25,7 +25,9 @@ namespace Sanatory.View
         public PrAddSt(Staff selectedStaff)
         {
             InitializeComponent();
-            ((StAddVM)DataContext).SetStaff(selectedStaff);
+            ((StVM)DataContext).SetStaff(selectedStaff);       
         }
+
+   
     }
 }

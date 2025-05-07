@@ -26,13 +26,6 @@ namespace Sanatory.View
             InitializeComponent();
             DataContext = this;
 
-            //TextBlock tb = new TextBlock();
-            //Hyperlink hyperlink = new Hyperlink();
-            //Run run = new Run();
-            //run.Text = "Ещё не зарегистрированы?";
-            //hyperlink.NavigateUri = new Uri("AddNewUser.xaml");
-            //hyperlink.Inlines.Add(run);
-            //tb.Inlines.Add(hyperlink);
         }
 
 
@@ -60,7 +53,7 @@ namespace Sanatory.View
                     break;
 
                 case "Staff":
-                    StaffWindow staffWindow = new StaffWindow();
+                    StaffWindow staffWindow = new StaffWindow(user.Id);
                     staffWindow.ShowDialog();
                     this.Close();
                     break;

@@ -10,10 +10,10 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Registration" Style="{StaticResource Page}">
 
-    <!--<Page.Resources>
+    <Page.Resources>
         <vm:RegVM x:Key="regVM"/>
         <vm:GuVM x:Key="guVM"/>
-    </Page.Resources>-->
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -87,7 +87,7 @@
             <Button Content="Выйти на экран авторизации" Click="GoOut"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <RadioButton Content="Чистые номера" IsChecked="{Binding ShowCleanRoom}"/>
+            <CheckBox Content="Чистые номера" IsChecked="{Binding ShowCleanRoom}"/>
         </StackPanel>
     </Grid>
 </Page>

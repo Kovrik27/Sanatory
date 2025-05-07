@@ -17,11 +17,10 @@ namespace Sanatory.ViewModel
     public class StAddVM : BaseVM
     {
         public CommandVM Save { get; set; }
-        public CommandVM<Problem> AddP { get; set; }
-        public CommandVM<Cabinet> AddC { get; set; }
+
         ListBox ListDays;
         private ObservableCollection<JobTitle> jobTitles;
-        public ObservableCollection<Day> AllDays {  get; set; }
+        public ObservableCollection<Day> allDays {  get; set; }
 
         private Staff staff = new();
 
@@ -44,6 +43,16 @@ namespace Sanatory.ViewModel
                 Signal();
             }
         }
+
+        public ObservableCollection<Day> AllDays
+        {
+            get => allDays;
+            set
+            {
+                allDays = value;
+                Signal();
+            }
+        }
         public StAddVM()
         {
             GetAllDays();
@@ -57,7 +66,9 @@ namespace Sanatory.ViewModel
 
 
                 if (Staff.ID == 0)
+                {
                     await DB.GetInstance().AddNewStaff(Staff);
+                }              
                 else
                     await DB.GetInstance().EditStaff(Staff);
 
@@ -81,11 +92,7 @@ namespace Sanatory.ViewModel
         {
            this.ListDays = listDays;
         }
-
-        internal void SetStaff (Staff selectedStaff)
-        {
-            Staff = selectedStaff;
-        }
+     
 
         private async void GetAllDays()
         {

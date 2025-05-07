@@ -43,6 +43,7 @@ namespace Sanatory.ViewModel
             {
                 search = value;
                 Signal();
+                GetAllRooms();
             }
         }
         public bool ShowCleanRoom
@@ -52,6 +53,7 @@ namespace Sanatory.ViewModel
             {
                 showCleanRoom = value;
                 Signal();
+                GetAllRooms();
             }
         }
 
@@ -111,24 +113,22 @@ namespace Sanatory.ViewModel
 
         }
 
-        //public async void GetAllRooms()
-        //{
-        //    var allRooms = await DB.GetInstance().GetRoomWithStatus();
-           
-        //    if(!string.IsNullOrEmpty(search))
-        //    {
-        //        allRooms = allRooms.Where(s=> s.Type.Contains(search)).ToList();
-        //    }
+        public async void GetAllRooms()
+        {
+            var allRooms = await DB.GetInstance().GetRoomWithStatus();
 
-        //    if(showCleanRoom)
-        //    {
-        //        allRooms = allRooms.Where(s => s.Status.Title == "Чистый").ToList();
-        //    }
+            if (!string.IsNullOrEmpty(Search))
+            {
+                allRooms = new ObservableCollection<Room>(Rooms.Where(s => s.Type.Contains(Search)));
+            }
 
-        //    allRooms = new ObservableCollection<Room>(allRooms);
+            if (ShowCleanRoom)
+            {
+                allRooms = new ObservableCollection<Room>(Rooms.Where(s => s.Status.Title == "Чистый"));
+            }
 
-
-        //}
+            Rooms = new ObservableCollection<Room>(allRooms);
+        }
 
     }
 }

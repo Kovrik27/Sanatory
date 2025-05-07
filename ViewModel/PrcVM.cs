@@ -54,7 +54,7 @@ namespace Sanatory.ViewModel
 
                 if (MessageBox.Show("Удалить процедуру?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    await DB.GetInstance().DeleteProcedure(SelectedProcedure.ID);
+                    await DB.GetInstance().DeleteProcedure(SelectedProcedure.Id);
                     Procedures.Remove(SelectedProcedure);
                 }
 

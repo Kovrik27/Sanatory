@@ -28,7 +28,7 @@ namespace Sanatory.Model
 
         public int? ProblemID { get; set; }
 
-        public Problem? Problem { get; set; } = new();
+        public List<Problem>? Problem { get; set; } = new();
 
         public int? CabinetID { get; set; }
 

@@ -729,6 +729,21 @@ namespace Sanatory.Api
                 return jobtitles;
             }
         }
+
+        internal async Task<ObservableCollection<Problem>> GetProblemsByStaff(int id)
+        {
+            var responce = await client.GetAsync($"Problems/GetProblemsByStaff/{id}");
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                return null;
+            }
+            else
+            {
+                var problems = await responce.Content.ReadFromJsonAsync<ObservableCollection<Problem>>();
+                return problems;
+            }
+        }
     }
     /////////////////////TestingCheatsEnabled true
     /////bb.moveobjects 

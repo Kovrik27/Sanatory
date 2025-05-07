@@ -15,6 +15,8 @@ namespace Sanatory.ViewModel
     {
         public static StaffWindowVM Instance { get; set; }
         private ObservableCollection<Problem> problems;
+        private int staffId;
+
 
         private Page currentPage;
 
@@ -41,11 +43,14 @@ namespace Sanatory.ViewModel
         public StaffWindowVM()
         {
             Instance = this;
+          
         }
 
-       //public async void GetAllProblems()
-       // {
-       //     Problems = DB.GetInstance().GetStaffId(id);
-       // }
+
+        internal async void SetStaffId(int id)
+        {
+            staffId = id;
+            Problems = await DB.GetInstance().GetProblemsByStaff(id);
+        }
     }
 }

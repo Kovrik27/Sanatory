@@ -6,11 +6,10 @@
         xmlns:local="clr-namespace:Sanatory.View"
         xmlns:vm="clr-namespace:Sanatory.ViewModel"
         mc:Ignorable="d"
-        DataContext="{DynamicResource vm}"
+        DataContext="{DynamicResource stWinVM}"
         Title="StaffWindow" Height="450" Width="800">
     <Window.Resources>
-        <vm:StaffWindowVM x:Key="vm"/>
-        <vm:PrVM x:Key="prVM"/>
+        <vm:StaffWindowVM x:Key="stWinVM"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -19,9 +18,9 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Label Content="Список задач" Style="{StaticResource Label}"/>
-        
-        <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{DynamicResource prVM}">
-            <ListView ItemsSource="{Binding Problems}" SelectedItem="{Binding SelectedProblem}" Style="{StaticResource ListView}">
+
+        <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{DynamicResource stWinVM}">
+            <ListView ItemsSource="{Binding Problems}" Style="{StaticResource ListView}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Описание" DisplayMemberBinding="{Binding Description}" />
