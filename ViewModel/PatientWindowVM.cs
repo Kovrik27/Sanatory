@@ -25,7 +25,7 @@ namespace Sanatory.ViewModel
         }
 
         public CommandVM Information {  get; set; }
-        public CommandVM Procedures { get; set; }
+        public CommandVM Problemss { get; set; }
 
         public PatientWindowVM()
         {
@@ -36,9 +36,9 @@ namespace Sanatory.ViewModel
                 OpenInformation();
             });
 
-            Procedures = new CommandVM(() =>
+            Problemss = new CommandVM(() =>
             {
-                OpenProcedures();
+                OpenProblems();
             });
         }
 
@@ -47,9 +47,9 @@ namespace Sanatory.ViewModel
             CurrentPage = new Information();
         }
 
-        private void OpenProcedures()
+        private void OpenProblems()
         {
-            CurrentPage = new ProceduresGuest();
+            CurrentPage = new ProblemGuests();
         }
     }
 }

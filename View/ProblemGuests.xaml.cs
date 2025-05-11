@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Sanatory.View
 {
     /// <summary>
-    /// Логика взаимодействия для ProceduresGuest.xaml
+    /// Логика взаимодействия для ProblemGuests.xaml
     /// </summary>
-    public partial class ProceduresGuest : Page
+    public partial class ProblemGuests : Page
     {
-        public ProceduresGuest()
+        public ProblemGuests()
         {
             InitializeComponent();
         }

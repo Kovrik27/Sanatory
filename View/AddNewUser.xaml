@@ -5,24 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sanatory.View"
         mc:Ignorable="d"
-        Title="AddNewUser" Height="250" Width="500">
+        Title="AddNewUser" Height="450" Width="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.ColumnSpan="3">
-            <TextBlock Text="Регистрация" FontSize="20" HorizontalAlignment="Center"/>
-        </StackPanel>
-        <StackPanel Grid.Column="1" VerticalAlignment="Center">
-            <TextBox/>
-            <TextBox/>
-            <Button Content="Зарегистрироваться"/>
-        </StackPanel>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
-            <Label Content="Введите логин"/>
-            <Label Content="Введите пароль"/>
+        <StackPanel>
+            <StackPanel DataContext="{Binding User}">
+                <Label Content=" "/>
+                <TextBlock Text="{Binding Selected}"/>
+                <Label Content="Логин" Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding Login}" Style="{StaticResource TextBox}"/>
+                <Label Content="Пароль" Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding Password}" Style="{StaticResource TextBox}"/>
+                <Label Content="Роль" Style="{StaticResource Label}"/>
+                <ComboBox ItemsSource="{Binding Roles}"/>
+            </StackPanel>
+
+            <Button Content="Сохранить" Command="{Binding Save}" Style="{StaticResource Button}"/>
         </StackPanel>
     </Grid>
 </Window>

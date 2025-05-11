@@ -14,10 +14,34 @@
     </Window.Resources>-->
 
     <Grid>
-        <Frame NavigationUIVisibility="Hidden" Grid.RowSpan="7" Grid.ColumnSpan="4" Background="AliceBlue" Content="{Binding CurrentPage}"/>
-        <Menu Grid.ColumnSpan="4" Style="{StaticResource Menu}">
-            <MenuItem Header="Информация" Command="{Binding Information}" Style="{StaticResource MenuItem}"/>
-            <MenuItem Header="Процедуры" Command="{Binding ProceduresGuest}" Style="{StaticResource MenuItem}"/>
-        </Menu>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1" Background="AliceBlue" >
+            <Label Content="Ваши процедуры:"/>
+            <ListView/>
+        </StackPanel>
+        
+        <StackPanel Background="AliceBlue">
+            <Frame NavigationUIVisibility="Hidden" Grid.RowSpan="7" Grid.ColumnSpan="4" Content="{Binding CurrentPage}"/>
+            <Menu Grid.ColumnSpan="4" Style="{StaticResource Menu}">
+                <MenuItem Header="Информация" Command="{Binding Information}" Style="{StaticResource MenuItem}"/>
+                <MenuItem Header="Заявка" Command="{Binding ProceduresGuest}" Style="{StaticResource MenuItem}"/>
+            </Menu>
+
+            <TextBlock HorizontalAlignment="Center" Text="Добро пожаловать!" FontSize="20"/>
+            <StackPanel >
+                <TextBlock FontSize="16">
+                    <Run Text="Если Вы хотите узнать, что запланировано на определённый день, перейдите во вкладку:"/>
+                    <Run Text="''ИНФОРМАЦИЯ''" FontWeight="Bold"/>
+                </TextBlock>
+                <TextBlock FontSize="16" Text="Если Вы хотите оставить заявку на какую-либо поломку в номере, перейдите во вкладку Заявка"/>
+            </StackPanel>
+           
+        </StackPanel>
+
     </Grid>
 </Window>

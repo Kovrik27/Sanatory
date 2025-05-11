@@ -44,19 +44,18 @@ namespace Sanatory.ViewModel
         }
         public GuAddVM()
         {
-            GetAllUsers();
 
-            Save = new CommandVM(async() =>
+            Save = new CommandVM(async () =>
             {
 
                 if (Guest.ID == 0)
                 {
                     await DB.GetInstance().AddNewGuest(Guest);
-                    //доделать await DB.GetInstance().EditStatus(Guests.Room);
+                    await DB.GetInstance().EditStatusRoom(Guest.Room);
                 }
 
                 else
-                    await DB.GetInstance().EditGuest(Guest);                
+                    await DB.GetInstance().EditGuest(Guest);
                 MainWindowVM.Instance.CurrentPage = new Guests();
 
             });
@@ -64,7 +63,6 @@ namespace Sanatory.ViewModel
 
             AddPrc = new CommandVM<Procedure>(s =>
             {
-                //await DB.GetInstance().AddNewProcedure(Guest, s);
                 MainWindowVM.Instance.CurrentPage = new Guests();
             });
 
@@ -82,9 +80,5 @@ namespace Sanatory.ViewModel
             Signal(nameof(Guest));
         }
 
-        public async void GetAllUsers()
-        {
-            Users = await DB.GetInstance().GetAllUsers();
-        }
     }
 }

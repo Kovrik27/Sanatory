@@ -91,6 +91,47 @@ namespace Sanatory.Api
                 return result;
             }
         }
+
+        public async Task AddUserOnStaff(Staff staff, User user)
+        {
+            var useronDTO = new UserOnDTO
+            {
+                StaffId = staff.ID,
+                UserId = user.Id
+            };
+
+            var arg = JsonSerializer.Serialize(useronDTO);
+            var responce = await client.PostAsync($"Users/AddUserOn", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
+        public async Task AddUserOnGuest(Guest guest, User user)
+        {
+            var useronDTO = new UserOnDTO
+            {
+                GuestId = guest.ID,
+                UserId = user.Id
+            };
+
+            var arg = JsonSerializer.Serialize(useronDTO);
+            var responce = await client.PostAsync($"Users/AddUserOn", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
         ////////////////////////////
 
         public async Task<ObservableCollection<Cabinet>> GetAllCabinets()
@@ -744,14 +785,44 @@ namespace Sanatory.Api
                 return problems;
             }
         }
+
+        public async Task<ObservableCollection<Role>> GetAllRoleUser()
+        {
+            var responce = await client.GetAsync($"Users/GetAllRoleUser");
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                return null;
+            }
+            else
+            {
+                var roles = await responce.Content.ReadFromJsonAsync<ObservableCollection<Role>>();
+                return roles;
+            }
+        }
+        public async Task EditStatusRoom(Room room)
+        {
+            var arg = JsonSerializer.Serialize(room);
+            var responce = await client.PutAsync($"Rooms/EditStatusRoom", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
+
     }
     /////////////////////TestingCheatsEnabled true
     /////bb.moveobjects 
     /////cas.fulleditmode
-    
 
 
-    
 
-    
+
+
+
 }

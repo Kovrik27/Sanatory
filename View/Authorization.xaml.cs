@@ -49,19 +49,19 @@ namespace Sanatory.View
                 case "Admin":
                     MainWindow mainWindow = new MainWindow();
                     mainWindow.ShowDialog();
-                    this.Close();
+                    Close();
                     break;
 
                 case "Staff":
                     StaffWindow staffWindow = new StaffWindow(user.Id);
                     staffWindow.ShowDialog();
-                    this.Close();
+                    Close();
                     break;
 
                 case "Guest":
                     PatientsWindow patientsWindow = new PatientsWindow();
                     patientsWindow.ShowDialog();
-                    this.Close();
+                    Close();
                     break;
 
                 default:

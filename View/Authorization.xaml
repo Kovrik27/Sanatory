@@ -24,9 +24,5 @@
             <Label Content="Введите логин"/>
             <Label Content="Введите пароль"/>
         </StackPanel>
-        <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
-            <!--<TextBlock><Hyperlink NavigateUri="Authorization.xaml">Ещё не зарегистрированы?</Hyperlink></TextBlock>-->
-            <Button Content="Ещё не зарегистрированы?" Click="AuthorizationButton"/>
-        </StackPanel>
     </Grid>
 </Window>

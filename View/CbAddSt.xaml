@@ -41,7 +41,7 @@
             </ListView>
         </StackPanel>
         <StackPanel Grid.Row="3">
-            <Button Content="Назначить задачу" Command="{Binding AddCabinetOnStaff}" CommandParameter="{Binding ElementName=listCabinets, Path=SelectedItem}" Style="{StaticResource Button}"/>
+            <Button Content="Назначить кабинет" Command="{Binding AddCabinetOnStaff}" CommandParameter="{Binding ElementName=listCabinets, Path=SelectedItem}" Style="{StaticResource Button}"/>
         </StackPanel>
     </Grid>
 </Page>

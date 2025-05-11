@@ -19,6 +19,7 @@ namespace Sanatory.ViewModel
 
         public CommandVM EditGuests { get; set; }
         public CommandVM DeleteGuests { get; set; }
+
         private Procedure selectedProcedure;
         public CommandVM AddProcedure { get; set; }
         public Guest SelectedGuest { get; set; }
