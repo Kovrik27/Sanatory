@@ -88,7 +88,7 @@
                         <GridViewColumn Header="Задачи">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ItemsControl Style="{StaticResource DaysItem}" DisplayMemberPath="Title" ItemsSource="{Binding Problems}"/>
+                                    <ItemsControl DisplayMemberPath="Title" ItemsSource="{Binding Problem}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

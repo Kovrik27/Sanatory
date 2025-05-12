@@ -2,6 +2,7 @@
 using Sanatory.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
@@ -35,8 +36,17 @@ namespace Sanatory.View
                 var vm = DataContext as RegVM;
                 if (vm.SelectedRoom.Status.Title == "Чистый")
                     Bronirovanie.Visibility = Visibility.Visible;
-                else
+                else if(vm.SelectedRoom.Status.Title == "Занят")
+                {
                     Bronirovanie.Visibility = Visibility.Collapsed;
+                    Visilenie.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    Bronirovanie.Visibility = Visibility.Collapsed;
+                    Visilenie.Visibility = Visibility.Collapsed;
+                }
+                    
             }
 
         }

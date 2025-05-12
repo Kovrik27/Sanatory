@@ -77,6 +77,24 @@
                 </Style>
             </Button.Style>
         </Button>
+        <Button x:Name="Visilenie" Grid.Row="3" Grid.Column="3" Content="Выгнать гостя на улицу" Visibility="Hidden"
+         Command="{Binding Visilenie}">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="#007ACC"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontSize" Value="12"/>
+                    <Setter Property="Padding" Value="10"/>
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=Rm, Path=SelectedItem}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Label Content="Поиск"/>

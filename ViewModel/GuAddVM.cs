@@ -20,8 +20,9 @@ namespace Sanatory.ViewModel
         public CommandVM<Procedure> AddPrc { get; set; }
 
         private Guest guest = new();
+        public Procedure SelectedProcedure { get; set; }
         private ObservableCollection<User> users;
-
+        private ObservableCollection<Procedure> procedures;
 
         public Guest Guest
         {
@@ -42,9 +43,21 @@ namespace Sanatory.ViewModel
                 Signal();
             }
         }
+
+
+        public ObservableCollection<Procedure> Procedures
+        {
+            get => procedures;
+            set
+            {
+                procedures = value;
+                Signal();
+            }
+        }
+
         public GuAddVM()
         {
-
+            GetAllProcedures();
             Save = new CommandVM(async () =>
             {
 
@@ -61,8 +74,12 @@ namespace Sanatory.ViewModel
             });
 
 
-            AddPrc = new CommandVM<Procedure>(s =>
+            AddPrc = new CommandVM<Procedure>(async s =>
             {
+                if (Guest == null)
+                    return;
+                await DB.GetInstance().AddProcedureOnGuest(Guest, SelectedProcedure);
+                MessageBox.Show("Процедура успешно назначена гостю!", "Юху");
                 MainWindowVM.Instance.CurrentPage = new Guests();
             });
 
@@ -78,6 +95,11 @@ namespace Sanatory.ViewModel
             Guest.RoomID = selectedRoom.ID;
             Guest.Room = selectedRoom;
             Signal(nameof(Guest));
+        }
+
+        public async void GetAllProcedures()
+        {
+            Procedures = await DB.GetInstance().GetAllProcedure();
         }
 
     }

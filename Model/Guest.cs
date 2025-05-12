@@ -21,9 +21,9 @@ namespace Sanatory.Model
 
         public string Policy { get; set; }
 
-        public DateOnly DataArrival { get; set; }
+        public DateTime DataArrival { get; set; }
 
-        public DateOnly DataOfDeparture { get; set; }
+        public DateTime DataOfDeparture { get; set; }
 
         public int RoomID {  get; set; }
 

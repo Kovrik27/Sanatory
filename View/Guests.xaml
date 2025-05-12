@@ -84,7 +84,13 @@
                         <GridViewColumn Header="Номер комнаты" DisplayMemberBinding="{Binding Room.Number}"/>
                         <GridViewColumn Header="Дата заезда" DisplayMemberBinding="{Binding DataArrival}"/>
                         <GridViewColumn Header="Дата выезда" DisplayMemberBinding="{Binding DataOfDeparture}"/>
-                        <GridViewColumn Header="Назначенные процедуры" DisplayMemberBinding="{Binding Procedures}"/>
+                        <GridViewColumn Header="Процедуры">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ItemsControl DisplayMemberPath="Title" ItemsSource="{Binding Procedures}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
                 <ListView.Resources>

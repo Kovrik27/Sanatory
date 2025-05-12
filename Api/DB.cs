@@ -348,6 +348,26 @@ namespace Sanatory.Api
             }
         }
 
+        public async Task AddProcedureOnGuest(Guest guest, Procedure procedure)
+        {
+            var procedureOnGuest = new ProcedureOnGuestDTO
+            {
+                GuestId = guest.ID,
+                ProcedureId = procedure.Id
+            };
+
+            var arg = JsonSerializer.Serialize(procedureOnGuest);
+            var responce = await client.PostAsync($"Guests/AddProcedureOnGuest", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
         ///////////////////////
 
         public async Task<ObservableCollection<Problem>> GetAllProblems()

@@ -12,7 +12,6 @@
 
     <Page.Resources>
         <vm:GuAddVM x:Key="guAddVM"/>
-        <vm:PrcVM x:Key="prcVM"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -23,7 +22,7 @@
         </Grid.RowDefinitions>
         <Label Content=" "/>
         <Label Grid.Row="1" Content="Выберите процедуру, чтобы назначить её гостю" Style="{StaticResource Label}"/>
-        <StackPanel x:Name="listProcedures" Grid.Row="2" DataContext="{DynamicResource prcVM}">
+        <StackPanel Grid.Row="2">
             <ListView ItemsSource="{Binding Procedures}" SelectedItem="{Binding SelectedProcedure}" Style="{StaticResource ListView}">
                 <ListView.View>
                     <GridView>
@@ -45,7 +44,7 @@
         </StackPanel>
        
         <StackPanel Grid.Row="3" DataContext="{DynamicResource guAddVM}" >
-            <Button Content="Назначить процедуры" Command="{Binding AddPrc}" Style="{StaticResource Button}" CommandParameter="{Binding ElementName=listProcedures, Path=SelectedItem}"/>
+            <Button Content="Назначить процедуры" Command="{Binding AddPrc}" Style="{StaticResource Button}" />
         </StackPanel>
     </Grid>
 </Page>

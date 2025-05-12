@@ -18,7 +18,8 @@ namespace Sanatory.Model
 
         public int? StaffId {  get; set; }
 
-        public Staff Staff { get; set; }
+        public Staff? Staff { get; set; }
+
         public StatusProblem StatusProblem { get; set; }
     }
 }

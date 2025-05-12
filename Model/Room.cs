@@ -18,7 +18,7 @@ namespace Sanatory.Model
 
         public int StatusId { get; set; } = 1;
 
-        public Status Status { get; set; } 
+        public Status? Status { get; set; } 
 
     }
 }

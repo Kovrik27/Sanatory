@@ -10,6 +10,6 @@ namespace Sanatory.DTO
     public class EventOnDayDTO
     {
         public List<Events> Events { get; set; } = new List<Events>();
-        public DateOnly Day { get; set; }
+        public DateTime Day { get; set; }
     }
 }
