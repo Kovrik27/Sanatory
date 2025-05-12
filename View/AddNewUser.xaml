@@ -16,7 +16,7 @@
                 <Label Content="Пароль" Style="{StaticResource Label}"/>
                 <TextBox Text="{Binding Password}" Style="{StaticResource TextBox}"/>
                 <Label Content="Роль" Style="{StaticResource Label}"/>
-                <ComboBox ItemsSource="{Binding Roles}"/>
+                <ComboBox ItemsSource="{Binding Roles}" Style="{DynamicResource ComboBox}"/>
             </StackPanel>
 
             <Button Content="Сохранить" Command="{Binding Save}" Style="{StaticResource Button}"/>

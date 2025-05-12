@@ -30,7 +30,8 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Frame NavigationUIVisibility="Hidden" Grid.RowSpan="7" Grid.ColumnSpan="4" Background="AliceBlue" Content="{Binding CurrentPage}"/>
+        <Frame NavigationUIVisibility="Hidden" Grid.RowSpan="7" Grid.ColumnSpan="4" Content="{Binding CurrentPage}"/>
+        <Label Content="Добрый день, администратор санатория! Время работать:)" Grid.Row="2" Grid.ColumnSpan="5" FontSize="20" HorizontalAlignment="Center" Style="{DynamicResource Label}"/>
         <Menu Grid.ColumnSpan="4" Style="{StaticResource Menu}">
             <MenuItem Header="Бронирование" Command="{Binding Bronirovanie}" Style="{StaticResource MenuItem}"/>
             <MenuItem Header="Персонал" Command="{Binding Personal}"  Style="{StaticResource MenuItem}"/>

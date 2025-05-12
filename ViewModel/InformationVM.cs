@@ -1,4 +1,6 @@
-﻿using Sanatory.Model;
+﻿using Microsoft.Extensions.Logging;
+using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -24,11 +26,52 @@ namespace Sanatory.ViewModel
         public ObservableCollection<Events> eventss { get; set; }
 
 
-        public InformationVM()
-        {
+        private DateTime? selectedDate;
+        private ObservableCollection<Events> events;
 
+        public DateTime? SelectedDate
+        {
+            get => selectedDate;
+            set
+            {
+                if (selectedDate != value)
+                {
+                    selectedDate = value;
+                    Signal();
+                    GetEventsDyDate();
+                }
+            }
         }
 
-        
+        public ObservableCollection<Events> Events
+        {
+            get => events;
+            set
+            {
+                events = value;
+                Signal();
+            }
+        }
+
+        public InformationVM()
+        {
+            GetEventsDyDate();
+        }
+
+        private async void GetEventsDyDate()
+        {
+            if (SelectedDate.HasValue)
+            {
+                var events = await DB.GetInstance().GetEventsByDate(SelectedDate.Value);
+
+                Events.Clear();
+                foreach (var evt in events)
+                {
+                    Events.Add(evt);
+                }
+            }
+        }
+
+
     }
 }

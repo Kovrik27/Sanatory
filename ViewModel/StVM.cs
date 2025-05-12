@@ -95,6 +95,19 @@ namespace Sanatory.ViewModel
             }
         }
 
+        private string search;
+
+        public string Search
+        {
+            get => search;
+            set
+            {
+                search = value;
+                Signal();
+                GetAll();
+            }
+        }
+
         public StVM()
         {
             MainVM = MainWindowVM.Instance;
@@ -198,8 +211,28 @@ namespace Sanatory.ViewModel
             Staffs2 = await DB.GetInstance().GetStaffWithCabinet();
             //SelectedDays = AllDays[0];
             AllDays = await DB.GetInstance().GetAllDays();
-            Problems = await DB.GetInstance().GetAllProblems();
-            Cabinets = await DB.GetInstance().GetAllCabinets();
+
+
+            var allCabinets = await DB.GetInstance().GetAllCabinets();
+
+            if (!string.IsNullOrEmpty(Search))
+            {
+                allCabinets = new ObservableCollection<Cabinet>(Cabinets.Where(s => s.Type.Contains(Search)));
+            }
+
+            Cabinets = new ObservableCollection<Cabinet>(allCabinets);
+
+
+
+
+            var allProblems = await DB.GetInstance().GetAllProblems();
+
+            if (!string.IsNullOrEmpty(Search))
+            {
+                allProblems = new ObservableCollection<Problem>(Problems.Where(s => s.Description.Contains(Search)));
+            }
+
+            Problems = new ObservableCollection<Problem>(allProblems);
         }
 
         internal void SetStaff(Staff selectedStaff)

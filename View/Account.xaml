@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Sanatory.View"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Account">
+      Title="Account" Style="{DynamicResource Page}">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -19,20 +19,17 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <Label Content="Это Ваш профиль!" HorizontalAlignment="Center" FontSize="20" Style="{DynamicResource Label}"/>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Label BorderThickness="2" Content="Логин"/>
-            <TextBlock x:Name="userLogin"/>
-            <TextBlock x:Name="userRole"/>
+            <Label BorderThickness="2" Content="Логин:" FontSize="16" Style="{DynamicResource Label}"/>
+            <TextBlock x:Name="userLogin" Style="{DynamicResource TextBlock}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Label Content="ФИО"/>
-            <TextBlock x:Name="userLastname"/>
-            <TextBlock x:Name="userName"/>
-            <TextBlock x:Name="userSurname"/>
-            <Label Content="Данные"/>
-            <TextBlock x:Name="userDataArrival"/>
-            <TextBlock x:Name="userDataOfDeparture"/>
+            <Label Content="ФИО:" FontSize="16" Style="{DynamicResource Label}"/>
+            <TextBlock x:Name="userLastname" Style="{DynamicResource TextBlock}"/>
+            <TextBlock x:Name="userName" Style="{DynamicResource TextBlock}"/>
+            <TextBlock x:Name="userSurname" Style="{DynamicResource TextBlock}"/>
         </StackPanel>
     </Grid>
 </Page>

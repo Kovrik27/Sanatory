@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sanatory.View"
         mc:Ignorable="d"
-        Title="Authorization" Height="250" Width="500">
+        Title="Authorization" Height="250" Width="500" Style="{DynamicResource Window}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -13,16 +13,16 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.ColumnSpan="3">
-            <TextBlock Text="Добро пожаловать в наш санаторий!" FontSize="20" HorizontalAlignment="Center"/>
+            <TextBlock Text="Добро пожаловать в наш санаторий!" FontSize="20" HorizontalAlignment="Center" Style="{DynamicResource TextBlock}"/>
         </StackPanel>
         <StackPanel Grid.Column="1" VerticalAlignment="Center">
-            <TextBox Name="UserTextBox" />
-            <PasswordBox Name="PasswordTextBox" />
-            <Button Content="Войти" Click="PathButton"/>
+            <TextBox Name="UserTextBox" Style="{DynamicResource TextBox}"/>
+            <PasswordBox Name="PasswordTextBox" Style="{DynamicResource PasswordBox}"/>
+            <Button Content="Войти" Click="PathButton" Style="{DynamicResource Button}"/>
         </StackPanel>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
-            <Label Content="Введите логин"/>
-            <Label Content="Введите пароль"/>
+        <StackPanel VerticalAlignment="Center" >
+            <Label Content="Введите логин" Style="{DynamicResource Label}"/>
+            <Label Content="Введите пароль" Style="{DynamicResource Label}"/>
         </StackPanel>
     </Grid>
 </Window>

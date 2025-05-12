@@ -1,5 +1,4 @@
-﻿using Sanatory.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,20 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Sanatory.View
 {
     /// <summary>
-    /// Логика взаимодействия для PatientsWindow.xaml
+    /// Логика взаимодействия для AddUserOn.xaml
     /// </summary>
-    public partial class PatientsWindow : Window
+    public partial class AddUserOn : Page
     {
-        public PatientsWindow(int Id)
+        public AddUserOn()
         {
-            var patientVM = new PatientWindowVM();
-            DataContext = patientVM;
-            patientVM.SetGuestId(Id);
+            InitializeComponent();
         }
     }
 }

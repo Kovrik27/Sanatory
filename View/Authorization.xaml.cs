@@ -44,26 +44,31 @@ namespace Sanatory.View
             User user = new User { Login = username, Password = password, Role = new Role{ Title = "ыыы"  } };
             User result = await DB.GetInstance().CheckUser(user);
 
-            switch (result.Login)
+            switch (result.Role.Id)
             {
-                case "Admin":
+                case 1:
                     MainWindow mainWindow = new MainWindow();
-                    mainWindow.ShowDialog();
+                    mainWindow.Show();
                     Close();
                     break;
 
-                case "Staff":
+                case 2:
                     StaffWindow staffWindow = new StaffWindow(user.Id);
-                    staffWindow.ShowDialog();
+                    staffWindow.Show();
                     Close();
                     break;
 
-                case "Guest":
-                    PatientsWindow patientsWindow = new PatientsWindow();
-                    patientsWindow.ShowDialog();
+                case 3:
+                    PatientsWindow patientsWindow = new PatientsWindow(user.Id);
+                    patientsWindow.Show();
                     Close();
                     break;
 
+                case 4:
+                    ProgWindow progWindow = new ProgWindow();
+                    progWindow.Show();
+                    Close();
+                    break;
                 default:
                     MessageBox.Show("Неизвестный тип пользователя.");
                     break;

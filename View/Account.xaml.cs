@@ -46,7 +46,6 @@ namespace Sanatory.View
                 userLastname.Text = User.Lastname;
                 userName.Text = User.Name;
                 userSurname.Text = User.Surname;
-                userRole.Text = User.Role.Title;
                 //userDataArrival.Text = User.DataArrival;
                 //userDataOfDeparture = User.DataOfDeparture;
             }          

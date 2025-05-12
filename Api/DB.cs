@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.Logging;
 
 namespace Sanatory.Api
 {
@@ -92,32 +93,21 @@ namespace Sanatory.Api
             }
         }
 
-        public async Task AddUserOnStaff(Staff staff, User user)
+        public async Task AddUserOn(Staff staff, Guest guest, User user)
         {
+
+            int doctorId = 0;
+            if (staff.JobTitle.Title.Contains("Врач"))
+            {
+                doctorId = staff.ID;
+            }
+
             var useronDTO = new UserOnDTO
             {
                 StaffId = staff.ID,
-                UserId = user.Id
-            };
-
-            var arg = JsonSerializer.Serialize(useronDTO);
-            var responce = await client.PostAsync($"Users/AddUserOn", new StringContent(arg, Encoding.UTF8, "application/json"));
-            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
-            {
-                var result = await responce.Content.ReadAsStringAsync();
-            }
-            else
-            {
-                var result = await responce.Content.ReadAsStringAsync();
-            }
-        }
-
-        public async Task AddUserOnGuest(Guest guest, User user)
-        {
-            var useronDTO = new UserOnDTO
-            {
+                UserId = user.Id,
                 GuestId = guest.ID,
-                UserId = user.Id
+                DoctorId = doctorId
             };
 
             var arg = JsonSerializer.Serialize(useronDTO);
@@ -131,6 +121,7 @@ namespace Sanatory.Api
                 var result = await responce.Content.ReadAsStringAsync();
             }
         }
+
 
         ////////////////////////////
 
@@ -221,10 +212,6 @@ namespace Sanatory.Api
             }
         }
 
-        //public async Task<ObservableCollection<EventOnDayDTO>> GetAllEventsOnDay()
-        //{
-
-        //}
 
         public async Task AddNewDaytime(Daytime daytime)
         {
@@ -287,8 +274,24 @@ namespace Sanatory.Api
             }
         }
 
+        public async Task<ObservableCollection<Events>> GetEventsByDate(DateTime date)
+        {
+            var response = await client.GetAsync($"Daytime/GetEventsByDate/{date:yyyy-MM-dd}");
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                return null;
+            }
+            else
+            {
+                var eventByDate = await response.Content.ReadFromJsonAsync<ObservableCollection<Events>>();
+                return eventByDate;
+            }
+        }
+
         ///////////////////////////
-     
+
 
         //////////////////////////////
 
@@ -365,6 +368,21 @@ namespace Sanatory.Api
             else
             {
                 var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
+        internal async Task<ObservableCollection<Procedure>> GetProceduresByGuest(int id)
+        {
+            var responce = await client.GetAsync($"Guests/GetProceduresByGuest/{id}");
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                return null;
+            }
+            else
+            {
+                var procedures = await responce.Content.ReadFromJsonAsync<ObservableCollection<Procedure>>();
+                return procedures;
             }
         }
 
@@ -515,20 +533,6 @@ namespace Sanatory.Api
        
         ///////////////////////
 
-        //public async Task<ObservableCollection<Room>> GetAllRooms()
-        //{
-        //    var responce = await client.GetAsync($"Rooms/GetAllRooms");
-        //    if (responce.StatusCode != System.Net.HttpStatusCode.OK)
-        //    {
-        //        var result = await responce.Content.ReadAsStringAsync();
-        //        return null;
-        //    }
-        //    else
-        //    {
-        //        var rooms = await responce.Content.ReadFromJsonAsync<ObservableCollection<Room>>();
-        //        return rooms;
-        //    }
-        //}
 
         public async Task<ObservableCollection<Room>> GetRoomWithStatus()
         {

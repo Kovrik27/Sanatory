@@ -62,10 +62,6 @@ namespace Sanatory.ViewModel
                 }
             });
 
-            //CheckUser = new CommandVM(async () =>
-            //{
-            //    //await DB.GetInstance().CheckUser()
-            //});
         }
 
         public async void GetAllUsers()

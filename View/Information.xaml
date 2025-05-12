@@ -7,7 +7,7 @@
       xmlns:vm="clr-namespace:Sanatory.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Information">
+      Title="Information" Style="{DynamicResource Page}">
 
     <Page.Resources>
         <vm:InformationVM x:Key="infVM"/>
@@ -23,17 +23,15 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Label Content=" "/>
-        <Label Grid.Row="1" Content="Выберите дату" FontSize="16"/>
-        <Calendar Grid.Row="2"/>
-        <Label Grid.Column="1" Grid.Row="1" Content="Мероприятия" FontSize="16"/>
-        <ListView Grid.Row="2" Grid.Column="1">
+        <Label Grid.Row="1" Content="Выберите дату" FontSize="16" Style="{DynamicResource Label}"/>
+        <Calendar Grid.Row="2" Style="{DynamicResource Calendar}" SelectedDate="{Binding SelectedDate, Mode=TwoWay}"/>
+        <Label Grid.Column="1" Grid.Row="1" Content="Мероприятия" FontSize="16" Style="{DynamicResource Label}"/>
+        <ListView Grid.Row="2" Grid.Column="1" Style="{DynamicResource ListView}" x:Name="EventsListView">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Название"/>
-                    <GridViewColumn Header="Место"/>
-                    <GridViewColumn Header="Время"/>
-                    <GridViewColumn Header="Дата"/>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Название" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                    <GridViewColumn Header="Место" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                    <GridViewColumn Header="Время" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
                 </GridView>
             </ListView.View>
         </ListView>

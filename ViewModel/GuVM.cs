@@ -43,7 +43,18 @@ namespace Sanatory.ViewModel
             }
         }
 
+        private string search;
 
+        public string Search
+        {
+            get => search;
+            set
+            {
+                search = value;
+                Signal();
+                GetAllGuests();
+            }
+        }
 
         public GuVM()
         {
@@ -69,7 +80,14 @@ namespace Sanatory.ViewModel
 
         private async void GetAllGuests()
         {
-            Guests = await DB.GetInstance().GetAllGuests();
+            var allGuests = await DB.GetInstance().GetAllGuests();
+
+            if (!string.IsNullOrEmpty(Search))
+            {
+                allGuests = new ObservableCollection<Guest>(Guests.Where(s => s.Lastname.Contains(Search)));
+            }
+
+            Guests = new ObservableCollection<Guest>(allGuests);
         }
 
         

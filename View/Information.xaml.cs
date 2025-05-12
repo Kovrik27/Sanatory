@@ -24,5 +24,7 @@ namespace Sanatory.View
         {
             InitializeComponent();
         }
+
+     
     }
 }

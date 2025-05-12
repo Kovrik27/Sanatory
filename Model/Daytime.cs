@@ -12,7 +12,7 @@ namespace Sanatory.Model
         public int ID { get; set; }
         public DateTime Time { get; set; }
         public int? EventID { get; set; }
-        public List<Events>? Event = new();
+        public List<Events>? Events = new();
 
     }
 }

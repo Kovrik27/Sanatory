@@ -32,9 +32,9 @@
                 <TextBox Text="{Binding Mail}" Style="{StaticResource TextBox}"/>
             </StackPanel>
             <Label Content="Должность" Style="{StaticResource Label}"/>
-            <ComboBox DisplayMemberPath="Title" SelectedItem="{Binding Staff.JobTitle}" ItemsSource="{Binding JobTitles}"/>
+            <ComboBox DisplayMemberPath="Title" SelectedItem="{Binding Staff.JobTitle}" ItemsSource="{Binding JobTitles}" Style="{DynamicResource ComboBox}"/>
             <Label Content="График работы" Style="{StaticResource Label}"/>
-            <ListBox DisplayMemberPath="Day1" ItemsSource="{Binding AllDays}" SelectionMode="Multiple" x:Name="ListDays"/>
+            <ListBox DisplayMemberPath="Day1" ItemsSource="{Binding AllDays}" SelectionMode="Multiple" x:Name="ListDays" Style="{DynamicResource ListBox}"/>
             <Button Content="Сохранить" Command="{Binding Save}" Style="{StaticResource Button}"/>
         </StackPanel>
     </Grid>

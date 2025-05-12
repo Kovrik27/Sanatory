@@ -47,7 +47,7 @@ namespace Sanatory.ViewModel
         }
 
 
-        internal async void SetStaffId(int id)
+        internal async Task SetStaffId(int id)
         {
             staffId = id;
             Problems = await DB.GetInstance().GetProblemsByStaff(id);

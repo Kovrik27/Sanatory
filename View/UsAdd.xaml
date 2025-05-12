@@ -7,21 +7,21 @@
       xmlns:vm="clr-namespace:Sanatory.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="UsAdd">
+      Title="UsAdd" Style="{DynamicResource Page}">
 
     <Page.Resources>
         <vm:UsAddVM x:Key="usAddVM"/>
     </Page.Resources>
     <Grid>
-        <StackPanel>
+        <StackPanel DataContext="{Binding User}">
             <Label Content=" "/>
-            <Label Content="Введите логин"/>
-            <TextBox/>
-            <Label Content="Введите пароль"/>
-            <TextBox/>
-            <Label Content="Выберите роль"/>
-            <ComboBox ItemsSource="{Binding Roles}" />
-            <Button Content="Сохранить"/>
+            <Label Content="Введите логин" Style="{DynamicResource Label}"/>
+            <TextBox Style="{DynamicResource TextBox}" Text="{Binding Login}"/>
+            <Label Content="Введите пароль" Style="{DynamicResource Label}"/>
+            <TextBox Style="{DynamicResource TextBox}" Text="{Binding Password}"/>
+            <Label Content="Выберите роль" Style="{DynamicResource Label}"/>
+            <ComboBox ItemsSource="{Binding Roles}" SelectedItem="{Binding User.Role.Title}" Style="{DynamicResource ComboBox}"/>
+            <Button Content="Сохранить" Style="{DynamicResource Button}" Command="{Binding Save}"/>
         </StackPanel>
     </Grid>
 </Page>

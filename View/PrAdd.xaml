@@ -25,7 +25,7 @@
                 <TextBox Text="{Binding Place}" Style="{StaticResource TextBox}"/>
             </StackPanel>
             <Label Content="Статус" Style="{StaticResource Label}"/>
-            <ComboBox ItemsSource="{Binding StatusesProblem}" SelectedItem="{Binding Problem.StatusProblem}"  DisplayMemberPath="Title"/>
+            <ComboBox ItemsSource="{Binding StatusesProblem}" SelectedItem="{Binding Problem.StatusProblem}"  DisplayMemberPath="Title" Style="{DynamicResource ComboBox}"/>
 
             <Button Content="Сохранить" Command="{Binding Save}" Style="{StaticResource Button}"/>
         </StackPanel>

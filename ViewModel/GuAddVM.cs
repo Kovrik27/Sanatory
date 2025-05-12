@@ -55,6 +55,18 @@ namespace Sanatory.ViewModel
             }
         }
 
+        private string search;
+
+        public string Search
+        {
+            get => search;
+            set
+            {
+                search = value;
+                Signal();
+                GetAllProcedures();
+            }
+        }
         public GuAddVM()
         {
             GetAllProcedures();
@@ -99,7 +111,14 @@ namespace Sanatory.ViewModel
 
         public async void GetAllProcedures()
         {
-            Procedures = await DB.GetInstance().GetAllProcedure();
+            var allProcedures = await DB.GetInstance().GetAllProcedure();
+
+            if (!string.IsNullOrEmpty(Search))
+            {
+                allProcedures = new ObservableCollection<Procedure>(Procedures.Where(s => s.Description.Contains(Search)));
+            }
+
+            Procedures = new ObservableCollection<Procedure>(allProcedures);
         }
 
     }

@@ -9,8 +9,8 @@ namespace Sanatory.DTO
     public class UserOnDTO
     {
         public int UserId { get; set; }
-        public int StaffId { get; set; }
-        public int GuestId { get; set; }
-        public int DoctorId { get; set; }
+        public int? StaffId { get; set; }
+        public int? GuestId { get; set; }
+        public int? DoctorId { get; set; }
     }
 }

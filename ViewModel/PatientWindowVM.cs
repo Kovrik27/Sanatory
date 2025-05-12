@@ -1,6 +1,9 @@
-﻿using Sanatory.View;
+﻿using Sanatory.Api;
+using Sanatory.Model;
+using Sanatory.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,5 +54,25 @@ namespace Sanatory.ViewModel
         {
             CurrentPage = new ProblemGuests();
         }
+
+        private ObservableCollection<Procedure> procedures;
+        private int guestId;
+
+        public ObservableCollection<Procedure> Procedures
+        {
+            get => procedures;
+            set
+            {
+                procedures = value;
+                Signal();
+            }
+        }
+
+        internal async Task SetGuestId(int id)
+        {
+            guestId = id;
+            Procedures = await DB.GetInstance().GetProceduresByGuest(id);
+        }
     }
 }
+

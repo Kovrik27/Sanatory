@@ -51,16 +51,6 @@ namespace Sanatory.View
 
         }
 
-        private void Broni(object sender, RoutedEventArgs e)
-        {
-            MainWindowVM.Instance.CurrentPage = new GuAdd();
-        }
-
-        private void Viselit(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Гость выселен");
-        }
-
         private void GoOut(object sender, RoutedEventArgs e)
         {
             Authorization authorization = new Authorization();  

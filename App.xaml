@@ -6,24 +6,39 @@
     <Application.Resources>
         <ResourceDictionary>
 
-            <Style x:Key="Page" TargetType="Page">
-                <Setter Property="Background" Value="#F0F0F0"/>
-                <Setter Property="FontFamily" Value="Segoe UI"/>
-                <Setter Property="FontSize" Value="12"/>
+            <Style TargetType="Border" x:Key="Border">
+                <Setter Property="BorderBrush" Value="DarkGreen"/>
+                <Setter Property="BorderThickness" Value="4"/>
+            </Style>
+
+            <Style TargetType="Page" x:Key="Page">
+                <Setter Property="Background" Value="#E0F8E0"/>
+            </Style>
+
+            <Style TargetType="Window" x:Key="Window">
+                <Setter Property="Background" Value="#E0F8E0"/>
+                <Setter Property="WindowStyle" Value="None"/>
+                <Setter Property="ResizeMode" Value="CanResize"/>
+                <Setter Property="BorderBrush" Value="DarkGreen"/>
+                <Setter Property="BorderThickness" Value="4"/>
             </Style>
 
             <Style x:Key="Menu" TargetType="Menu">
-                <Setter Property="Background" Value="#333333"/>
+                <Setter Property="Background" Value="#2E7D32"/>
                 <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderBrush" Value="DarkGreen"/>
+                <Setter Property="BorderThickness" Value="1"/>
             </Style>
 
             <Style x:Key="MenuItem" TargetType="MenuItem">
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="#388E3C"/>
+                <Setter Property="Padding" Value="5"/>
             </Style>
 
             <Style x:Key="Button" TargetType="Button">
-                <Setter Property="Background" Value="#007ACC"/>
+                <Setter Property="Background" Value="#4CAF50"/>
                 <Setter Property="Foreground" Value="White"/>
                 <Setter Property="FontSize" Value="12"/>
                 <Setter Property="Padding" Value="10"/>
@@ -33,7 +48,7 @@
 
             <Style x:Key="ListView" TargetType="ListView">
                 <Setter Property="Background" Value="#FFFFFF"/>
-                <Setter Property="BorderBrush" Value="#CCCCCC"/>
+                <Setter Property="BorderBrush" Value="#388E3C"/>
                 <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="Margin" Value="5"/>
             </Style>
@@ -41,32 +56,149 @@
             <Style x:Key="ListViewItem" TargetType="ListViewItem">
                 <Setter Property="FontSize" Value="12"/>
                 <Setter Property="Padding" Value="5"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="#A5D6A7"/>
+            </Style>
+
+            <Style x:Key="ListViewColumnHeader" TargetType="{x:Type GridViewColumnHeader}">
+                <Setter Property="Background" Value="#388E3C"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="14"/>
             </Style>
 
             <Style x:Key="Label" TargetType="Label">
-                <Setter Property="Foreground" Value="#333333"/>
+                <Setter Property="Foreground" Value="DarkGreen"/>
                 <Setter Property="FontWeight" Value="Bold"/>
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="Padding" Value="5"/>
-                <Setter Property="Background" Value="#EFEFEF"/>
             </Style>
 
-            <Style  x:Key="TextBox" TargetType="TextBox">
-                <Setter Property="Foreground" Value="#333333"/>
+            <Style x:Key="TextBox" TargetType="TextBox">
+                <Setter Property="Foreground" Value="DarkGreen"/>
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="Padding" Value="5"/>
-                <Setter Property="BorderBrush" Value="#CCCCCC"/>
+                <Setter Property="BorderBrush" Value="#388E3C"/>
                 <Setter Property="BorderThickness" Value="1"/>
-                <Setter Property="Background" Value="#FFFFFF"/>
+                <Setter Property="Background" Value="#C8E6C9"/>
             </Style>
 
-            <Style  x:Key="DatePicker" TargetType="DatePicker">
-                <Setter Property="Foreground" Value="#333333"/>
+            <Style x:Key="DatePicker" TargetType="DatePicker">
+                <Setter Property="Foreground" Value="DarkGreen"/>
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="Padding" Value="5"/>
-                <Setter Property="BorderBrush" Value="#CCCCCC"/>
+                <Setter Property="BorderBrush" Value="#388E3C"/>
                 <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Background" Value="#C8E6C9"/>
+            </Style>
+
+            <Style x:Key="TextBlock" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="#004D00"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+
+            <Style x:Key="ComboBox" TargetType="ComboBox">
+                <Setter Property="Foreground" Value="#FFFFFF"/>
+                <Setter Property="Background" Value="#4CAF50"/>
+                <Setter Property="BorderBrush" Value="#388E3C"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Padding" Value="5"/>
+            </Style>
+
+            <Style x:Key="ListBox" TargetType="ListBox">
                 <Setter Property="Background" Value="#FFFFFF"/>
+                <Setter Property="BorderBrush" Value="#388E3C"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Style>
+
+            <Style x:Key="ListBoxItem" TargetType="{x:Type ListBoxItem}">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="Foreground" Value="#FFFFFF"/>
+                <Setter Property="Background" Value="#A5D6A7"/>
+            </Style>
+
+            <Style x:Key="PasswordBox" TargetType="PasswordBox">
+                <Setter Property="Foreground" Value="DarkGreen"/>
+                <Setter Property="Background" Value="#C8E6C9"/>
+                <Setter Property="BorderBrush" Value="#388E3C"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Padding" Value="5"/>
+            </Style>
+            <Style x:Key="Calendar" TargetType="Calendar">
+                <Setter Property="Background" Value="#E8F5E9"/>
+                <Setter Property="BorderBrush" Value="#A5D6A7"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="CalendarDayButtonStyle">
+                    <Setter.Value>
+                        <Style TargetType="CalendarDayButton">
+                            <Setter Property="Background" Value="#C8E6C9"/>
+                            <Setter Property="BorderBrush" Value="#81C784"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Margin" Value="2"/>
+                            <Setter Property="Padding" Value="5"/>
+                            <Setter Property="Foreground" Value="#2E7D32"/>
+                            <Setter Property="FontSize" Value="12"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#A5D6A7"/>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#388E3C"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="CheckBox" TargetType="CheckBox">
+                <Setter Property="Background" Value="#E8F5E9"/>
+                <Setter Property="Foreground" Value="#2E7D32"/>
+                <Setter Property="BorderBrush" Value="#A5D6A7"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Cursor" Value="Hand"/>
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="CheckBox">
+                            <Grid>
+                                <Border Background="{TemplateBinding Background}" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    BorderThickness="{TemplateBinding BorderThickness}" 
+                                    CornerRadius="2">
+                                    <ContentPresenter 
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Center" 
+                                    Margin="{TemplateBinding Padding}"/>
+                                </Border>
+                                <Path x:Name="CheckMark" 
+                                  Data="M 0 0 L 1 1 L 2 0" 
+                                  Stroke="#388E3C" 
+                                  StrokeThickness="2"
+                                  Visibility="Collapsed"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                                    <Setter Property="Background" Value="#A5D6A7"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#C8E6C9"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
         </ResourceDictionary>
     </Application.Resources>
