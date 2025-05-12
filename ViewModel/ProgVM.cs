@@ -45,9 +45,9 @@ namespace Sanatory.ViewModel
             }
         }
 
-        private Staff SelectedStaff { get; set; }
-        private Guest SelectedGuets {  get; set; }
-        private User SelectedUser { get; set; }
+        public Staff SelectedStaff { get; set; }
+        public Guest SelectedGuets {  get; set; }
+        public User SelectedUser { get; set; }
 
         public CommandVM UsersList { get; set; }
         public CommandVM AddUserOn {  get; set; }

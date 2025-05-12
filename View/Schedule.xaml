@@ -6,14 +6,13 @@
       xmlns:local="clr-namespace:Sanatory.View"
       xmlns:vm="clr-namespace:Sanatory.ViewModel"
       mc:Ignorable="d"
-      DataContext="{DynamicResource dayTimVM}"
+      
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Schedule" Style="{StaticResource Page}">
 
-    <Page.Resources>
-        <vm:DayTimVM x:Key="dayTimVM"/>
-        <vm:EvVM x:Key="evVM"/>
-    </Page.Resources>
+    <!--<Page.Resources>
+        <vm:DayTimVM x:Key="daytimVM"/>
+    </Page.Resources>-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
