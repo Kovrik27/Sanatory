@@ -131,21 +131,20 @@ namespace Sanatory.ViewModel
                 if (SelectedStaff == null)
                     return;
 
-                if (SelectedStaff.ProblemID != 0 || SelectedStaff.CabinetID != 0)
-                {
-                    {
-                        MessageBox.Show("Ошибка! Сотрудник не может быть удалён", "Ошибка", MessageBoxButton.OK);
-                    }
-                }
-                else
-                {
+                //if (SelectedStaff.ProblemID != 0 || SelectedStaff.CabinetID != 0)
+                //{
+                //    {
+                //        MessageBox.Show("Ошибка! Сотрудник не может быть удалён", "Ошибка", MessageBoxButton.OK);
+                //    }
+                //}
+                //else
+                //{
                     if (MessageBox.Show("Удалить сотрудника?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
                         await DB.GetInstance().DeleteStaff(SelectedStaff.ID);
-                        Staffs.Remove(SelectedStaff);
                         MainWindowVM.Instance.CurrentPage = new Personal();
                     }
-                }
+                //}
 
             });
 
@@ -190,7 +189,6 @@ namespace Sanatory.ViewModel
                 if (MessageBox.Show("Сотрудник выполнил задачу?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     await DB.GetInstance().DoneProblem(SelectedProblem.ID);
-                    Problems.Remove(SelectedProblem);
                     MainWindowVM.Instance.CurrentPage = new Personal();
                 }
 

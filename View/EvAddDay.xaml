@@ -12,7 +12,6 @@
 
     <Page.Resources>
         <vm:DaysTimAddVM x:Key="daysTimeAddVM"/>
-        <vm:EvVM x:Key="evVM"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -25,11 +24,11 @@
         <Label Content=" "/>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Label Content="Дата:" Style="{DynamicResource Label}"/>
-            <TextBlock Text="{Binding SelectedStaff.Lastname}" Style="{DynamicResource TextBlock}"/>
+            <TextBlock Text="{Binding SelectedDaytime.Time}" Style="{DynamicResource TextBlock}"/>
         </StackPanel>
         <Label Grid.Row="2" Content="Выберите мероприятие, чтобы внести его в расписание дня" Style="{StaticResource Label}"/>
-        <StackPanel Grid.Row="3" Grid.Column="1" DataContext="{DynamicResource evVM}">
-            <ListView x:Name="listEvent" ItemsSource="{Binding Events}" SelectedItem="{Binding SelectedEvent}" Style="{StaticResource ListView}">
+        <StackPanel Grid.Row="3" Grid.Column="1">
+            <ListView ItemsSource="{Binding Events}" SelectedItem="{Binding SelectedEvent}" Style="{StaticResource ListView}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Title}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>

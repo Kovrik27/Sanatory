@@ -77,7 +77,7 @@
                         <GridViewColumn Header="Задачи">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ItemsControl DisplayMemberPath="Title" ItemsSource="{Binding Problems}" />
+                                    <ItemsControl DisplayMemberPath="Description" ItemsSource="{Binding Problems}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -125,7 +125,6 @@
         <StackPanel Grid.Row="5" Grid.ColumnSpan="2" DataContext="{DynamicResource stVM}" Orientation="Horizontal">
             <Menu Style="{StaticResource Menu}">
                 <MenuItem Header="Назначить задачу" Command="{Binding AddProblem}" Style="{StaticResource MenuItem}"/>
-                <MenuItem Header="Выполнить задачу" Command="{Binding DoneProblem}" Style="{StaticResource MenuItem}"/>
             </Menu>
         </StackPanel>
 

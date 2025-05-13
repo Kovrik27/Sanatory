@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sanatory.View"
         mc:Ignorable="d"
-        Title="Authorization" Height="250" Width="500" Style="{DynamicResource Window}">
+        Title="Authorization" Height="250" WindowStartupLocation="CenterScreen" Width="500" Style="{DynamicResource Window}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

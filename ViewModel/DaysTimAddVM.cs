@@ -3,6 +3,7 @@ using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace Sanatory.ViewModel
         public CommandVM<Events> AddEvent { get; set; }
 
         private Daytime daytime = new();
+        private ObservableCollection<Events> events {  get; set; }
 
         public Daytime Daytime
         {
@@ -25,9 +27,19 @@ namespace Sanatory.ViewModel
                 Signal();
             }
         }
+
+        public ObservableCollection<Events> Events
+        {
+            get => events;
+            set
+            {
+                events = value;
+                Signal();
+            }
+        }
         public DaysTimAddVM()
         {
-
+            GetAllEvents();
             Save = new CommandVM(async() =>
             {
 
@@ -57,6 +69,10 @@ namespace Sanatory.ViewModel
 
         }
 
+        public async void GetAllEvents()
+        {
+            Events = await DB.GetInstance().GetAllEvents();
+        }
       
     }
 }

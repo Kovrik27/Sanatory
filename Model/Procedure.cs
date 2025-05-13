@@ -19,7 +19,7 @@ namespace Sanatory.Model
 
         public decimal Price { get; set; }
 
-        public DateTime? Date { get; set; }
+        public DateTime? Date { get; set; } = DateTime.Now;
 
         public virtual List<Guest> Guests { get; set; } = new List<Guest>();
     }

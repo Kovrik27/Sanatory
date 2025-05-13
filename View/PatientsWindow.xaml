@@ -9,9 +9,9 @@
         DataContext="{DynamicResource vm}"
         Title="PatientsWindow" Height="450" Width="800">
 
-    <!--<Window.Resources>
+    <Window.Resources>
         <vm:PatientWindowVM x:Key="vm"/>
-    </Window.Resources>-->
+    </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>

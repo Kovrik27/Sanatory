@@ -15,6 +15,7 @@ namespace Sanatory.ViewModel
     {
         private ObservableCollection<Guest> guests;
         private ObservableCollection<Staff> staffs;
+        private ObservableCollection<Staff> staffs2;
         private ObservableCollection<User> users;
         public ObservableCollection<Guest> Guests
         {
@@ -35,6 +36,16 @@ namespace Sanatory.ViewModel
             }
         }
 
+        public ObservableCollection<Staff> Staffs2
+        {
+            get => staffs2;
+            set
+            {
+                staffs2 = value;
+                Signal();
+            }
+        }
+
         public ObservableCollection<User> Users
         {
             get => users;
@@ -50,7 +61,10 @@ namespace Sanatory.ViewModel
         public User SelectedUser { get; set; }
 
         public CommandVM UsersList { get; set; }
-        public CommandVM AddUserOn {  get; set; }
+        public CommandVM AddUserOnPage {  get; set; }
+        public CommandVM AddUserOnSave { get; set; }
+
+
 
         private string search;
 
@@ -69,6 +83,7 @@ namespace Sanatory.ViewModel
             CurrentPage = new UsersList();
         }
 
+
         public ProgVM()
         {
             GetAll();
@@ -80,15 +95,20 @@ namespace Sanatory.ViewModel
                 OpenUsersList();
             });
 
-            AddUserOn = new CommandVM(async () =>
+
+
+            AddUserOnSave = new CommandVM(async () =>
             {
                 await DB.GetInstance().AddUserOn(SelectedStaff, SelectedGuets, SelectedUser);
+                ProgWindow progWindow = new ProgWindow();
+                progWindow.Show();
             });
 
         }
         public async void GetAll()
         {
-            Staffs = await DB.GetInstance().GetAllStaff();
+            Staffs = await DB.GetInstance().GetStaffWithProblem();
+            Staffs2 = await DB.GetInstance().GetStaffWithCabinet();
             Guests = await DB.GetInstance().GetAllGuests();
 
             var allUsers = await DB.GetInstance().GetAllUsers();
@@ -98,7 +118,7 @@ namespace Sanatory.ViewModel
                 allUsers = new ObservableCollection<User>(Users.Where(s => s.Login.Contains(Search)));
             }
 
-            Users = new ObservableCollection<Room>(allUsers);
+            Users = new ObservableCollection<User>(allUsers);
         }
 
         public static ProgVM Instance { get; private set; }

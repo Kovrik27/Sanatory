@@ -51,7 +51,6 @@
             <Menu Style="{StaticResource Menu}">
                 <MenuItem Header="Добавить процедуру" Command="{Binding CreateProcedure}" Style="{StaticResource MenuItem}"/>
                 <MenuItem Header="Изменить процедуру" Command="{Binding EditProcedure}" Style="{StaticResource MenuItem}"/>
-                <MenuItem Header="Удалить процедуру" Command="{Binding DeleteProcedure}" Style="{StaticResource MenuItem}"/>
             </Menu>
         </StackPanel>
 
@@ -59,8 +58,7 @@
             <Menu Style="{StaticResource Menu}">
                 <MenuItem Header="Добавить задачу" Command="{Binding CreateProblem}" Style="{StaticResource MenuItem}"/>
                 <MenuItem Header="Изменить задачу" Command="{Binding EditProblem}" Style="{StaticResource MenuItem}"/>
-                <MenuItem Header="Удалить задачу" Command="{Binding DeleteProblem}" Style="{StaticResource MenuItem}"/>
-    </Menu>
+            </Menu>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="1" DataContext="{DynamicResource prVM}">
      <ListView ItemsSource="{Binding Problems}" SelectedItem="{Binding SelectedProblem}" Style="{StaticResource ListView}">
@@ -77,8 +75,7 @@
             <Menu Style="{StaticResource Menu }" >
          <MenuItem Header="Добавить кабинет" Command="{Binding CreateCabinet}" Style="{StaticResource MenuItem}"/>
                 <MenuItem Header="Изменить данные кабинета" Command="{Binding EditCabinet}" Style="{StaticResource MenuItem}"/>
-                <MenuItem Header="Удалить кабинет" Command="{Binding DeleteCabinet}" Style="{StaticResource MenuItem}"/>
-     </Menu>
+            </Menu>
             </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="2" DataContext="{DynamicResource cbVM}">
     <ListView ItemsSource="{Binding Cabinets}" SelectedItem="{Binding SelectedCabinet}" Style="{StaticResource ListView}">

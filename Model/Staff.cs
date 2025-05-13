@@ -32,7 +32,7 @@ namespace Sanatory.Model
 
         public int? CabinetID { get; set; }
 
-        public Cabinet? Cabinet { get; set; } = new();
+        public Cabinet? Cabinet { get; set; }
 
 
 

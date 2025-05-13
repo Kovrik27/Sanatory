@@ -1,49 +1,46 @@
-﻿<Page x:Class="Sanatory.View.AddUserOn"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Sanatory.View"
-      xmlns:vm="clr-namespace:Sanatory.ViewModel"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      DataContext="{DynamicResource vm}"
-      Title="AddUserOn" Style="{DynamicResource Page}">
-
-    <Page.Resources>
+﻿<Window x:Class="Sanatory.View.AddUserOn"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sanatory.View"
+        xmlns:vm="clr-namespace:Sanatory.ViewModel"
+        mc:Ignorable="d"
+        DataContext="{DynamicResource vm}"
+        Title="AddUserOn" Height="450" Width="800" Style="{DynamicResource Window}">
+    <Window.Resources>
         <vm:ProgVM x:Key="progVM"/>
-    </Page.Resources>
+    </Window.Resources>
     
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Label Content=" " Style="{DynamicResource Label}"/>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Label Content="Сотрудник/Гость:" Style="{DynamicResource Label}"/>
-            <TextBlock Text="{Binding SelectedStaff.Lastname}" Style="{DynamicResource TextBlock}"/>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Label Content="Поиск" Style="{DynamicResource Label}"/>
-            <TextBox Width="155" Height="20" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource TextBox}"/>
-        </StackPanel>
-        <Label Grid.Row="2" Content="Выберите юзера, чтобы назначить его сотруднику" Style="{StaticResource Label}"/>
-        <StackPanel Grid.Row="3" Grid.Column="1">
-            <ListView x:Name="listUsers" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" Style="{StaticResource ListView}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Login}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Role.Title}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </StackPanel>
-        <StackPanel Grid.Row="4">
-            <Button Content="Назначить юзера" Command="{Binding AddCabinetOnStaff}" CommandParameter="{Binding ElementName=listCabinets, Path=SelectedItem}" Style="{StaticResource Button}"/>
-        </StackPanel>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content=" " Style="{DynamicResource Label}"/>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label Content="Поиск" Style="{DynamicResource Label}"/>
+                <TextBox Width="155" Height="30" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource TextBox}"/>
+            </StackPanel>
+            <Label Grid.Row="2" Content="Выберите юзера, чтобы назначить его сотруднику/гостю" Style="{StaticResource Label}"/>
+            <StackPanel Grid.Row="3" Grid.Column="1" DataContext="{DynamicResource progVM}">
+                <ListView ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" Style="{StaticResource ListView}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Login}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Role.Title}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+            <StackPanel Grid.Row="4" DataContext="{DynamicResource progVM}">
+                <Button Content="Назначить юзера" Command="{Binding AddUserOnSave}" CommandParameter="{Binding ElementName=listCabinets, Path=SelectedItem}" Style="{StaticResource Button}"/>
+            </StackPanel>
+        </Grid>
     </Grid>
-</Page>
+</Window>

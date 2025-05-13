@@ -44,7 +44,7 @@ namespace Sanatory.View
             User user = new User { Login = username, Password = password, Role = new Role{ Title = "ыыы"  } };
             User result = await DB.GetInstance().CheckUser(user);
 
-            switch (result.Role.Id)
+            switch (result.RoleId)
             {
                 case 1:
                     MainWindow mainWindow = new MainWindow();
@@ -52,19 +52,19 @@ namespace Sanatory.View
                     Close();
                     break;
 
-                case 2:
-                    StaffWindow staffWindow = new StaffWindow(user.Id);
+                case 3:
+                    StaffWindow staffWindow = new StaffWindow(result.Id);
                     staffWindow.Show();
                     Close();
                     break;
 
-                case 3:
-                    PatientsWindow patientsWindow = new PatientsWindow(user.Id);
+                case 5:
+                    PatientsWindow patientsWindow = new PatientsWindow(result.Id);
                     patientsWindow.Show();
                     Close();
                     break;
 
-                case 4:
+                case 2:
                     ProgWindow progWindow = new ProgWindow();
                     progWindow.Show();
                     Close();

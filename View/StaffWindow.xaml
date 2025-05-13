@@ -10,6 +10,7 @@
         Title="StaffWindow" Height="450" Width="800">
     <Window.Resources>
         <vm:StaffWindowVM x:Key="stWinVM"/>
+        <vm:PrVM x:Key="prVM"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -20,7 +21,7 @@
         <Label Content="Список задач" Style="{StaticResource Label}"/>
 
         <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{DynamicResource stWinVM}">
-            <ListView ItemsSource="{Binding Problems}" Style="{StaticResource ListView}">
+            <ListView ItemsSource="{Binding Problems}" Style="{StaticResource ListView}" >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Описание" DisplayMemberBinding="{Binding Description}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>

@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Sanatory.View
@@ -18,7 +17,7 @@ namespace Sanatory.View
     /// <summary>
     /// Логика взаимодействия для AddUserOn.xaml
     /// </summary>
-    public partial class AddUserOn : Page
+    public partial class AddUserOn : Window
     {
         public AddUserOn()
         {

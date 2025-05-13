@@ -49,7 +49,7 @@
         <Label Content=" "/>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Label Content="Поиск" Style="{DynamicResource Label}"/>
-            <TextBox Width="155" Height="20" Style="{DynamicResource TextBox}" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Width="155" Height="30" Style="{DynamicResource TextBox}" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <Label Content="Карта гостя" Grid.Row="2" Style="{StaticResource Label}"/>
         <Label Content="Санаторно-курортная книжка" Grid.Column="1" Grid.Row="2" Style="{StaticResource Label}"/>
@@ -61,8 +61,8 @@
                         <GridViewColumn Header="Фамилия гостя" DisplayMemberBinding="{Binding Lastname }" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
                         <GridViewColumn Header="Имя гостя" DisplayMemberBinding="{Binding Name }" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
                         <GridViewColumn Header="Отчество гостя" DisplayMemberBinding="{Binding Surname }" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
-                        <GridViewColumn Header="Дата заезда" DisplayMemberBinding="{Binding DataArrival}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
-                        <GridViewColumn Header="Дата выезда" DisplayMemberBinding="{Binding DataOfDeparture}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                        <GridViewColumn Header="Дата заезда" DisplayMemberBinding="{Binding DataArrival, StringFormat=dd.MM.yyyy}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                        <GridViewColumn Header="Дата выезда" DisplayMemberBinding="{Binding DataOfDeparture, StringFormat=dd.MM.yyyy}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
                         <GridViewColumn Header="Номер комнаты" DisplayMemberBinding="{Binding Room.Number}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
                     </GridView>
                 </ListView.View>

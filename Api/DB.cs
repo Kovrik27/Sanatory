@@ -95,20 +95,32 @@ namespace Sanatory.Api
 
         public async Task AddUserOn(Staff staff, Guest guest, User user)
         {
-
+            UserOnDTO useronDTO = null;
             int doctorId = 0;
-            if (staff.JobTitle.Title.Contains("Врач"))
+            if (staff != null && staff.JobTitle.Title.Contains("Врач"))
             {
                 doctorId = staff.ID;
             }
 
-            var useronDTO = new UserOnDTO
+            if(staff == null)
             {
-                StaffId = staff.ID,
-                UserId = user.Id,
-                GuestId = guest.ID,
-                DoctorId = doctorId
-            };
+                useronDTO = new UserOnDTO
+                {
+                    UserId = user.Id,
+                    GuestId = guest.ID,
+                };
+            }
+            
+            else if(guest == null)
+            {
+                useronDTO = new UserOnDTO
+                {
+                    UserId = user.Id,
+                    StaffId = staff.ID,
+                    DoctorId = doctorId,
+                };
+            }
+            
 
             var arg = JsonSerializer.Serialize(useronDTO);
             var responce = await client.PostAsync($"Users/AddUserOn", new StringContent(arg, Encoding.UTF8, "application/json"));
@@ -199,7 +211,7 @@ namespace Sanatory.Api
 
         public async Task<ObservableCollection<Daytime>> GetAllDaytime()
         {
-            var responce = await client.GetAsync($"Daytims/GetAllDaytime");
+            var responce = await client.GetAsync($"Eventss/GetAllDaysWithEvents");
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
@@ -251,6 +263,21 @@ namespace Sanatory.Api
             else
             {
                 var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
+        public async Task<ObservableCollection<Events>> GetAllEvents()
+        {
+            var responce = await client.GetAsync($"Eventss/GetAllEvents");
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                return null;
+            }
+            else
+            {
+                var events = await responce.Content.ReadFromJsonAsync<ObservableCollection<Events>>();
+                return events;
             }
         }
 
@@ -636,7 +663,7 @@ namespace Sanatory.Api
             }
         }
 
-        public async Task<ObservableCollection<Staff>> GetStaffId(int id)
+        public async Task<Staff> GetStaffId(int id)
         {
             var responce = await client.GetAsync($"Staffs/GetStaffId/{id}");
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
@@ -646,7 +673,7 @@ namespace Sanatory.Api
             }
             else
             {
-                var staffid = await responce.Content.ReadFromJsonAsync<ObservableCollection<Staff>>();
+                var staffid = await responce.Content.ReadFromJsonAsync<Staff>();
                 return staffid;
             }
         }
@@ -681,7 +708,7 @@ namespace Sanatory.Api
 
         public async Task DeleteStaff(int id)
         {
-            var responce = await client.DeleteAsync($"Staffs/GoOutStaff");
+            var responce = await client.DeleteAsync($"Staffs/GoOutStaff/{id}");
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();

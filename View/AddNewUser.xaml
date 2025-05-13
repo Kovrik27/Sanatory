@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sanatory.View"
         mc:Ignorable="d"
-        Title="AddNewUser" Height="450" Width="800">
+        Title="AddNewUser" Height="450" Width="800" Style="{DynamicResource Window}">
     <Grid>
         <StackPanel>
             <StackPanel DataContext="{Binding User}">

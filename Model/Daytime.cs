@@ -10,9 +10,10 @@ namespace Sanatory.Model
     public class Daytime
     {
         public int ID { get; set; }
-        public DateTime Time { get; set; }
-        public int? EventID { get; set; }
-        public List<Events>? Events = new();
+
+        public DateTime Time { get; set; } = DateTime.Now;
+
+        public List<Events>? Events { get; set; }
 
     }
 }
