@@ -22,9 +22,8 @@ namespace Sanatory.View
     {
         public PatientsWindow(int Id)
         {
-            var patientVM = new PatientWindowVM();
-            DataContext = patientVM;
-            patientVM.SetGuestId(Id);
+            InitializeComponent();
+            (DataContext as PatientWindowVM).SetGuestId(Id);
         }
     }
 }

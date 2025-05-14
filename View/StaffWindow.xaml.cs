@@ -24,9 +24,7 @@ namespace Sanatory.View
         public StaffWindow(int Id)
         {
             InitializeComponent();
-            var staffVM = new StaffWindowVM();
-            DataContext = staffVM;
-            staffVM.SetStaffId(Id);
+            (DataContext as StaffWindowVM).SetStaffId(Id);
         }
     }
 }

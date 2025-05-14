@@ -21,7 +21,7 @@
         <Label Content="Список задач" Style="{StaticResource Label}"/>
 
         <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{DynamicResource stWinVM}">
-            <ListView ItemsSource="{Binding Problems}" Style="{StaticResource ListView}" >
+            <ListView ItemsSource="{Binding Problems}"  >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Описание" DisplayMemberBinding="{Binding Description}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>

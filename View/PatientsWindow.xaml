@@ -22,7 +22,9 @@
 
         <StackPanel Grid.Row="1">
             <Label Content="Ваши процедуры:" Style="{StaticResource Label}"/>
-            <ListView Style="{DynamicResource ListView}"/>
+            <ListView Style="{DynamicResource ListView}">
+                
+            </ListView>
         </StackPanel>
         
         <StackPanel>

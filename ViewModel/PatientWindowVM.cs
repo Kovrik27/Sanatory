@@ -71,7 +71,7 @@ namespace Sanatory.ViewModel
         internal async Task SetGuestId(int id)
         {
             guestId = id;
-            Procedures = await DB.GetInstance().GetProceduresByGuest(id);
+            Procedures = new ObservableCollection<Procedure> (await DB.GetInstance().GetProceduresByGuest(id));
         }
     }
 }
