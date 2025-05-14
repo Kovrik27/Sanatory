@@ -15,7 +15,12 @@ namespace Sanatory.ViewModel
         public CommandVM Save { get; set; }
         public CommandVM<Events> AddEvent { get; set; }
 
-        private Daytime daytime = new();
+        private Daytime daytime;
+
+        public Daytime SelectedDaytime;
+
+        public Events SelectedEvent;
+
         private ObservableCollection<Events> events {  get; set; }
 
         public Daytime Daytime
@@ -37,6 +42,19 @@ namespace Sanatory.ViewModel
                 Signal();
             }
         }
+
+        private string search;
+
+        public string Search
+        {
+            get => search;
+            set
+            {
+                search = value;
+                Signal();
+                GetAllEvents();
+            }
+        }
         public DaysTimAddVM()
         {
             GetAllEvents();
@@ -52,11 +70,11 @@ namespace Sanatory.ViewModel
 
             });
 
-            //AddEvent = new CommandVM<Events>(s =>
-            //{
-            //    DB.GetInstance().AddNewEvent(Daytime, s);
-            //    MainWindowVM.Instance.CurrentPage = new Schedule();
-            //});
+            AddEvent = new CommandVM<Events>(s =>
+            {
+                DB.GetInstance().AddNewEventOnDay(SelectedDaytime, SelectedEvent);
+                MainWindowVM.Instance.CurrentPage = new Schedule();
+            });
 
 
 
@@ -71,7 +89,14 @@ namespace Sanatory.ViewModel
 
         public async void GetAllEvents()
         {
-            Events = await DB.GetInstance().GetAllEvents();
+            var allEvents = await DB.GetInstance().GetAllEvents();
+
+            if (!string.IsNullOrEmpty(Search))
+            {
+                allEvents = new ObservableCollection<Events>(Events.Where(s => s.Title.Contains(Search)));
+            }
+
+            Events = new ObservableCollection<Events>(allEvents);
         }
       
     }

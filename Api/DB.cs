@@ -41,7 +41,9 @@ namespace Sanatory.Api
             if(responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в выводе списка!");
                 return null;
+                
             }
             else
             {
@@ -57,6 +59,7 @@ namespace Sanatory.Api
             if(responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -70,6 +73,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка!");
             }
             else
             {
@@ -84,6 +88,7 @@ namespace Sanatory.Api
             if(responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка! Пользователь не найден!");
                 return null;
             }
             else
@@ -93,46 +98,64 @@ namespace Sanatory.Api
             }
         }
 
-        public async Task AddUserOn(Staff staff, Guest guest, User user)
+        public async Task AddUserOnStaff(Staff staff, User user)
         {
-            UserOnDTO useronDTO = null;
+            UserOnDTO useronDTO;
             int doctorId = 0;
             if (staff != null && staff.JobTitle.Title.Contains("Врач"))
             {
                 doctorId = staff.ID;
-            }
 
-            if(staff == null)
-            {
                 useronDTO = new UserOnDTO
                 {
                     UserId = user.Id,
-                    GuestId = guest.ID,
+                    DoctorId = doctorId,
                 };
             }
-            
-            else if(guest == null)
+            else
             {
                 useronDTO = new UserOnDTO
                 {
                     UserId = user.Id,
                     StaffId = staff.ID,
-                    DoctorId = doctorId,
                 };
             }
-            
-
+                
             var arg = JsonSerializer.Serialize(useronDTO);
-            var responce = await client.PostAsync($"Users/AddUserOn", new StringContent(arg, Encoding.UTF8, "application/json"));
+            var responce = await client.PostAsync($"Users/AddUserOnStaff", new StringContent(arg, Encoding.UTF8, "application/json"));
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
                 var result = await responce.Content.ReadAsStringAsync();
             }
         }
+
+        public async Task AddUserOnGuest(Guest guets, User user)
+        {
+            var userOnDTO = new UserOnDTO
+            {
+                GuestId = guets.ID,
+                UserId = user.Id,
+            };
+
+            var arg = JsonSerializer.Serialize(userOnDTO);
+            var responce = await client.PostAsync($"Users/AddUserOnGuest", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
+
 
 
         ////////////////////////////
@@ -143,6 +166,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -159,6 +183,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -173,6 +198,7 @@ namespace Sanatory.Api
             if(responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -186,6 +212,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -200,6 +227,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -215,6 +243,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -232,6 +261,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -246,6 +276,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -259,6 +290,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -272,6 +304,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -281,12 +314,12 @@ namespace Sanatory.Api
             }
         }
 
-        public async Task AddNewEventOnDay(Daytime daytime, List<Events> eventt)
+        public async Task AddNewEventOnDay(Daytime daytime, Events eventt)
         {
             var eventOnDayDTO = new EventOnDayDTO
             {
-                Events = eventt,
-                Day = daytime.Time
+                DaytimeId = daytime.ID,
+                EventId = eventt.Id,
             };
 
             var arg = JsonSerializer.Serialize(eventOnDayDTO);
@@ -294,6 +327,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -308,6 +342,7 @@ namespace Sanatory.Api
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await response.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -328,6 +363,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -336,6 +372,23 @@ namespace Sanatory.Api
                 return guests;
             }
         }
+        public async Task<Guest> GetGuestId(int id)
+        {
+            var responce = await client.GetAsync($"Guests/GetGuestId/{id}");
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
+                return null;
+            }
+            else
+            {
+                var guestid = await responce.Content.ReadFromJsonAsync<Guest>();
+                return guestid;
+            }
+        }
+
+
 
         public async Task AddNewGuest(Guest guest)
         {
@@ -344,6 +397,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -358,6 +412,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -371,6 +426,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -391,6 +447,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -404,6 +461,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -421,6 +479,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -437,6 +496,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -451,6 +511,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -464,6 +525,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -478,6 +540,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -492,6 +555,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -507,6 +571,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -523,6 +588,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -537,6 +603,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -550,6 +617,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -567,6 +635,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -583,6 +652,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -597,6 +667,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -610,6 +681,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -624,6 +696,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -639,6 +712,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -654,6 +728,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -669,6 +744,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -685,6 +761,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -699,6 +776,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -712,6 +790,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -732,6 +811,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -752,6 +832,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {
@@ -767,6 +848,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -782,6 +864,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -798,6 +881,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -813,6 +897,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -828,6 +913,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -843,6 +929,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
                 return null;
             }
             else
@@ -858,6 +945,7 @@ namespace Sanatory.Api
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
             }
             else
             {

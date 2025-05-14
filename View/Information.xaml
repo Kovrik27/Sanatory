@@ -16,6 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -35,5 +36,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+
+        <Button Click="GoBackOnPatientWindow" Grid.Column="1" Grid.Row="3" Content="Вернуться" Style="{DynamicResource Button}" VerticalAlignment="Bottom"/>
     </Grid> 
 </Page>

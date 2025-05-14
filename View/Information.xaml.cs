@@ -25,6 +25,12 @@ namespace Sanatory.View
             InitializeComponent();
         }
 
-     
+        private void GoBackOnPatientWindow(object sender, RoutedEventArgs e)
+        {
+            //мы его теряем(закрытие страницы для андрея, он только что сказал про онлифанс страницу) NavigationService.RemoveBackEntry();
+            PatientsWindow patientsWindow = new PatientsWindow();
+            patientsWindow.Show();
+            NavigationService.GoBack();
+        }
     }
 }

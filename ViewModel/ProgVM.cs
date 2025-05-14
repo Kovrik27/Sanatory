@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Sanatory.ViewModel
@@ -61,9 +62,10 @@ namespace Sanatory.ViewModel
         public User SelectedUser { get; set; }
 
         public CommandVM UsersList { get; set; }
-        public CommandVM AddUserOnPage {  get; set; }
-        public CommandVM AddUserOnSave { get; set; }
-
+        public CommandVM AddUserOnStaffPage {  get; set; }
+        public CommandVM AddUserOnGuestPage { get; set; }
+        public CommandVM AddUserOnStaff { get; set; }
+        public CommandVM AddUserOnGuest { get; set; }
 
 
         private string search;
@@ -95,13 +97,28 @@ namespace Sanatory.ViewModel
                 OpenUsersList();
             });
 
-
-
-            AddUserOnSave = new CommandVM(async () =>
+            AddUserOnStaffPage = new CommandVM(() =>
             {
-                await DB.GetInstance().AddUserOn(SelectedStaff, SelectedGuets, SelectedUser);
-                ProgWindow progWindow = new ProgWindow();
-                progWindow.Show();
+                AddUserOn addUserOn = new AddUserOn(SelectedStaff);
+                addUserOn.Show();
+            });
+
+            AddUserOnGuestPage = new CommandVM(() =>
+            {
+                AddUserOn addUserOn = new AddUserOn(SelectedGuets);
+                addUserOn.Show();
+            });
+
+            AddUserOnStaff = new CommandVM(async () =>
+            {
+                await DB.GetInstance().AddUserOnStaff(SelectedStaff, SelectedUser);
+                MessageBox.Show("Юзер успешно добавлен  сотруднику!");
+            });
+
+            AddUserOnGuest = new CommandVM(async () =>
+            {
+                await DB.GetInstance().AddUserOnGuest(SelectedGuets, SelectedUser);
+                MessageBox.Show("Юзер успешно добавлен  гостю!");
             });
 
         }
@@ -135,7 +152,14 @@ namespace Sanatory.ViewModel
             }
         }
 
-
+        internal void SetStaff(Staff selectedStaff)
+        {
+            SelectedStaff = selectedStaff;
+        }
+        internal void SetGuest(Guest selectedGuest)
+        {
+            SelectedGuets = selectedGuest;
+        }
     }
 }
 

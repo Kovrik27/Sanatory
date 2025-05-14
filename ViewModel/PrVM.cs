@@ -18,7 +18,7 @@ namespace Sanatory.ViewModel
         private MainWindowVM MainVM;
         public CommandVM CreateProblem { get; set; }
         public CommandVM EditProblem { get; set; }
-        public CommandVM DeleteProblem { get; set; }
+        public CommandVM EditStatusProblem { get; set; }
 
 
 
@@ -50,17 +50,10 @@ namespace Sanatory.ViewModel
                 MainWindowVM.Instance.CurrentPage = new PrAdd(SelectedProblem);
             });
 
-            DeleteProblem = new CommandVM(async() =>
+            EditStatusProblem = new CommandVM(async () =>
             {
-                if (SelectedProblem == null)
-                    return;
-
-                if (MessageBox.Show("Удалить задачу?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    await DB.GetInstance().DeleteProblem(SelectedProblem.ID);
-                    Problems.Remove(SelectedProblem);
-                }
-
+                await DB.GetInstance().EditStatusProblem(SelectedProblem);
+                MessageBox.Show("Задача выполнена!");
             });
 
         }

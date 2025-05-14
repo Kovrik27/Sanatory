@@ -24,5 +24,12 @@ namespace Sanatory.View
         {
             InitializeComponent();
         }
+
+        private void GoOut(object sender, RoutedEventArgs e)
+        {
+            Authorization authorization = new Authorization();
+            authorization.Show();
+            NavigationService.GoBack();
+        }
     }
 }

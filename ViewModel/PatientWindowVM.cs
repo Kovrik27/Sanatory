@@ -27,6 +27,17 @@ namespace Sanatory.ViewModel
             }
         }
 
+        private Guest guest;
+        public Guest Guest
+        {
+            get => guest;
+            set
+            {
+                guest = value;
+                Signal();
+            }
+        }
+
         public CommandVM Information {  get; set; }
         public CommandVM Problemss { get; set; }
 
@@ -56,7 +67,7 @@ namespace Sanatory.ViewModel
         }
 
         private ObservableCollection<Procedure> procedures;
-        private int guestId;
+
 
         public ObservableCollection<Procedure> Procedures
         {
@@ -70,8 +81,8 @@ namespace Sanatory.ViewModel
 
         internal async Task SetGuestId(int id)
         {
-            guestId = id;
-            Procedures = new ObservableCollection<Procedure> (await DB.GetInstance().GetProceduresByGuest(id));
+            Guest = await DB.GetInstance().GetGuestId(id);
+            Procedures = new ObservableCollection<Procedure> (await DB.GetInstance().GetProceduresByGuest(Guest.ID));
         }
     }
 }

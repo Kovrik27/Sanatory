@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace Sanatory.ViewModel
 {
@@ -32,9 +33,10 @@ namespace Sanatory.ViewModel
 
             Save = new CommandVM(async () =>
             {
-                    await DB.GetInstance().AddNewProblem(Problem);
-                MainWindowVM.Instance.CurrentPage = new Processes();
-           });
+                await DB.GetInstance().AddNewProblem(Problem);
+                PatientsWindow patientsWindow = new PatientsWindow();
+                patientsWindow.Show();
+            });
 
         }
     }

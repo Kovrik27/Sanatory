@@ -9,7 +9,7 @@ namespace Sanatory.DTO
 {
     public class EventOnDayDTO
     {
-        public List<Events> Events { get; set; } = new List<Events>();
-        public DateTime Day { get; set; }
+        public int DaytimeId { get; set; }
+        public int EventId { get; set; }
     }
 }

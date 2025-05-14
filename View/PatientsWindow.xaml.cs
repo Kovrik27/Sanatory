@@ -20,6 +20,10 @@ namespace Sanatory.View
     /// </summary>
     public partial class PatientsWindow : Window
     {
+        public PatientsWindow()
+        {
+            InitializeComponent();
+        }
         public PatientsWindow(int Id)
         {
             InitializeComponent();

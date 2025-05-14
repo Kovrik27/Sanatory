@@ -14,6 +14,8 @@ namespace Sanatory.ViewModel
     public class UsVM : BaseVM
     {
         private ObservableCollection<User> users;
+        private ObservableCollection<Staff> staffs;
+
 
         private MainWindowVM MainVM;
         public CommandVM CreateUser { get; set; }
@@ -29,6 +31,39 @@ namespace Sanatory.ViewModel
             {
                 users = value;
                 Signal();
+            }
+        }
+        public ObservableCollection<Staff> Staffs
+        {
+            get => staffs;
+            set
+            {
+                staffs = value;
+                Signal();
+            }
+        }
+
+
+        private string search;
+        private bool showCleanUsers;
+        public string Search
+        {
+            get => search;
+            set
+            {
+                search = value;
+                Signal();
+                GetAllUsers();
+            }
+        }
+        public bool ShowCleanUsers
+        {
+            get => showCleanUsers;
+            set
+            {
+                showCleanUsers = value;
+                Signal();
+                GetAllUsers();
             }
         }
 
@@ -66,7 +101,20 @@ namespace Sanatory.ViewModel
 
         public async void GetAllUsers()
         {
-            Users = await DB.GetInstance().GetAllUsers();
+            var allUsers = await DB.GetInstance().GetAllUsers();
+
+            if (!string.IsNullOrEmpty(Search))
+            {
+                allUsers = new ObservableCollection<User>(Users.Where(s => s.Login.Contains(Search)));
+            }
+
+            if (ShowCleanUsers)
+            {
+                var staffWithUser = staffs.Select(s => s.UserId).ToHashSet();
+                allUsers = new ObservableCollection<User>(Users.Where(s => !staffWithUser.Contains(s.Id)));
+            }
+
+            Users = new ObservableCollection<User>(allUsers);
         }
     }
 }

@@ -34,7 +34,7 @@
             <Menu Style="{StaticResource Menu}">
                 <MenuItem Header="Добавить задачу" Command="{Binding CreateProblem}" Style="{StaticResource MenuItem}"/>
                 <MenuItem Header="Изменить задачу" Command="{Binding EditProblem}" Style="{StaticResource MenuItem}"/>
-                <MenuItem Header="Пометить задачу, как выполненную" Command="{Binding EditProblem}" Style="{StaticResource MenuItem}"/>
+                <MenuItem Header="Пометить задачу, как выполненную" Command="{Binding EditStatusProblem}" Style="{StaticResource MenuItem}"/>
             </Menu>
         </StackPanel>
     </Grid>

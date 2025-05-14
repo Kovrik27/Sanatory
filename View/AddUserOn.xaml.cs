@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Sanatory.Model;
+using Sanatory.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,16 @@ namespace Sanatory.View
     /// </summary>
     public partial class AddUserOn : Window
     {
-        public AddUserOn()
+        public AddUserOn(Staff selectedStaff)
         {
             InitializeComponent();
+            ((ProgVM)DataContext).SetStaff(selectedStaff);
         }
+        public AddUserOn(Guest selectedGuest)
+        {
+            InitializeComponent();
+            ((ProgVM)DataContext).SetGuest(selectedGuest);
+        }
+
     }
 }

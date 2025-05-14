@@ -24,7 +24,7 @@
         <Label Content=" "/>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Label Content="Гость:" Style="{DynamicResource Label}"/>
-            <TextBlock Text="{Binding Guest.Lastname}" Style="{DynamicResource TextBlock}"/>
+            <TextBlock Height="39" Text="{Binding Guest.Lastname}" Style="{DynamicResource TextBlock}" Width="151"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="Поиск" Style="{DynamicResource Label}"/>
@@ -43,7 +43,7 @@
                 </ListView.View>
             </ListView>
         </StackPanel>
-       
+
         <StackPanel Grid.Row="4" DataContext="{DynamicResource guAddVM}" >
             <Button Content="Назначить процедуры" Command="{Binding AddPrc}" Style="{StaticResource Button}" />
         </StackPanel>

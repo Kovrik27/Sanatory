@@ -20,7 +20,6 @@ namespace Sanatory.View
     /// </summary>
     public partial class StaffWindow : Window
     {
-
         public StaffWindow(int Id)
         {
             InitializeComponent();

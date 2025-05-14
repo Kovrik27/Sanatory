@@ -24,11 +24,5 @@ namespace Sanatory.View
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            AddUserOn addUserOn = new AddUserOn();
-            addUserOn.Show();
-            Close();
-        }
     }
 }

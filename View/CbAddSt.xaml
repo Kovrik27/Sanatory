@@ -24,7 +24,11 @@
         <Label Content=" " Style="{DynamicResource Label}"/>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Label Content="Сотрудник:" Style="{DynamicResource Label}"/>
-            <TextBlock Text="{Binding SelectedStaff.Lastname}" Style="{DynamicResource TextBlock}"/>
+            <TextBlock Height="39" Text="{Binding SelectedStaff.Lastname}" Style="{DynamicResource TextBlock}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label Content="Поиск" Style="{DynamicResource Label}"/>
+            <TextBox Width="155" Height="30" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource TextBox}"/>
         </StackPanel>
         <Label Grid.Row="2" Content="Выберите кабинет, чтобы назначить его сотруднику" Style="{StaticResource Label}"/>
         <StackPanel Grid.Row="3" Grid.Column="1">

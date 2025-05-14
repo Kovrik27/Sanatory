@@ -34,7 +34,7 @@
         <Frame NavigationUIVisibility="Hidden" Grid.RowSpan="7" Grid.ColumnSpan="4" Content="{Binding CurrentPage}"/>
         <Menu Grid.ColumnSpan="4" Style="{StaticResource Menu}">
             <MenuItem Header="Список юзеров" Command="{Binding UsersList}" Style="{StaticResource MenuItem}"/>
-            <MenuItem Header="Список без юзеров" Command="{Binding UserAddList}" Style="{StaticResource MenuItem}"/>
+            <MenuItem Header="Список без юзеров" Style="{StaticResource MenuItem}"/>
         </Menu>
         <Label Content=" "/>
         <Label Content=" " Grid.Row="1"/>
@@ -67,7 +67,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2">
-            <ListView ItemsSource="{Binding Staffs2}" SelectedItem="{Binding SelectedStaff}" Style="{StaticResource ListView}">
+            <ListView ItemsSource="{Binding Guests}" SelectedItem="{Binding SelectedGuest}" Style="{StaticResource ListView}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Фамилия гостя" DisplayMemberBinding="{Binding Lastname }" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
@@ -77,6 +77,7 @@
             </ListView>
         </StackPanel>
         <StackPanel Grid.Row="5"/>
-        <Button Click="Button_Click" Content="Назначить юзера" Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="4" Style="{DynamicResource Button}" Margin="5,271,5,5"/>
+        <Button Command="{Binding AddUserOnStaffPage}"  Content="Назначить юзера гостю" Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="4" Style="{DynamicResource Button}" Margin="5,271,5,5"/>
+        <Button Command="{Binding AddUserOnGuestPage}" Content="Назначить юзера сотруднику" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Style="{DynamicResource Button}" Margin="5,271,5,5"/>
     </Grid>
 </Window>
