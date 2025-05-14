@@ -323,7 +323,7 @@ namespace Sanatory.Api
             };
 
             var arg = JsonSerializer.Serialize(eventOnDayDTO);
-            var responce = await client.PostAsync($"Events/AddNewEventOnDay", new StringContent(arg, Encoding.UTF8, "application/json"));
+            var responce = await client.PostAsync($"Eventss/AddEventOnDaytime", new StringContent(arg, Encoding.UTF8, "application/json"));
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();

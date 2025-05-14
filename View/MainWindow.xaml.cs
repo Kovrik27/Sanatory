@@ -23,23 +23,23 @@ namespace Sanatory.View
     {
         public MainWindow()
         {
-            //аааа минус лабель блинб грустно пипец
+            //аааа минус лабель блинб грустно пипец Loaded="FrameNoLabel" Navigated="FrameNoLabel"
             InitializeComponent();
-            myframe.Navigated += FrameNoLabel;
+            //myframe.Navigated += FrameNoLabel;
         }
 
 
 
-        private void FrameNoLabel(object sender, NavigationEventArgs e)
-        {
-            if(myframe.Visibility == Visibility.Hidden)
-            {
-                label.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                label.Visibility = Visibility.Visible;
-            }
-        }
+        //private void FrameNoLabel(object sender, NavigationEventArgs e)
+        //{
+        //    if(myframe.Visibility == Visibility.Hidden)
+        //    {
+        //        label.Visibility = Visibility.Collapsed;
+        //    }
+        //    else
+        //    {
+        //        label.Visibility = Visibility.Visible;
+        //    }
+        //}
     }
 }

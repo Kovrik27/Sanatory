@@ -61,10 +61,7 @@ namespace Sanatory.ViewModel
                 OpenRaspisanie();
             });
 
-            UsersList = new CommandVM(() =>
-            {
-                OpenUsersList();
-            });
+            
 
            
         }

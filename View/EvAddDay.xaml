@@ -22,28 +22,28 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Label Content=" "/>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
+        <StackPanel Orientation="Horizontal" Grid.Row="1" DataContext="{DynamicResource daysTimeAddVM}">
             <Label Content="Дата:" Style="{DynamicResource Label}"/>
             <TextBlock Height="39" Text="{Binding SelectedDaytime.Time}" Style="{DynamicResource TextBlock}"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" DataContext="{DynamicResource daysTimeAddVM}">
             <Label Content="Поиск" Style="{DynamicResource Label}"/>
             <TextBox Width="155" Height="30" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource TextBox}"/>
         </StackPanel>
         <Label Grid.Row="2" Content="Выберите мероприятие, чтобы внести его в расписание дня" Style="{StaticResource Label}"/>
-        <StackPanel Grid.Row="3" Grid.Column="1">
+        <StackPanel Grid.Row="3" Grid.Column="1" DataContext="{DynamicResource daysTimeAddVM}">
             <ListView ItemsSource="{Binding Events}" SelectedItem="{Binding SelectedEvent}" Style="{StaticResource ListView}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Title}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Times}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Date}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Place}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
         </StackPanel>
         <StackPanel Grid.Row="4" DataContext="{DynamicResource daysTimeAddVM}" >
-            <Button Content="Добавить мероприятие" Command="{Binding AddEvent}" CommandParameter="{Binding ElementName=listEvent, Path=SelectedItem}" Style="{StaticResource Button}"/>
+            <Button Content="Добавить мероприятие" Command="{Binding AddEvent}" Style="{StaticResource Button}"/>
         </StackPanel>
     </Grid>
 </Page>

@@ -17,9 +17,9 @@ namespace Sanatory.ViewModel
 
         private Daytime daytime;
 
-        public Daytime SelectedDaytime;
+        public Daytime selectedDaytime;
 
-        public Events SelectedEvent;
+        public Events selectedEvent;
 
         private ObservableCollection<Events> events {  get; set; }
 
@@ -29,6 +29,24 @@ namespace Sanatory.ViewModel
             set
             {
                 daytime = value;
+                Signal();
+            }
+        }
+        public Daytime SelectedDaytime
+        {
+            get => selectedDaytime;
+            set
+            {
+                selectedDaytime = value;
+                Signal();
+            }
+        }
+        public Events SelectedEvent
+        {
+            get => selectedEvent;
+            set
+            {
+                selectedEvent = value;
                 Signal();
             }
         }
@@ -83,7 +101,7 @@ namespace Sanatory.ViewModel
 
         internal void SetEditDaytime(Daytime selectedDayTime)
         {
-            Daytime = selectedDayTime;
+            SelectedDaytime = selectedDayTime;
 
         }
 

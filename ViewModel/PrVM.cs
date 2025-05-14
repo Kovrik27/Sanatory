@@ -52,7 +52,7 @@ namespace Sanatory.ViewModel
 
             EditStatusProblem = new CommandVM(async () =>
             {
-                await DB.GetInstance().EditStatusProblem(SelectedProblem);
+                await DB.GetInstance().DoneProblem(SelectedProblem.ID);
                 MessageBox.Show("Задача выполнена!");
             });
 
