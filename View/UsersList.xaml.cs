@@ -29,7 +29,7 @@ namespace Sanatory.View
         {
             Authorization authorization = new Authorization();
             authorization.Show();
-            NavigationService.GoBack();
+            //NavigationService.GoBack();
         }
     }
 }

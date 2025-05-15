@@ -24,12 +24,27 @@ namespace Sanatory.View
         public AddUserOn(Staff selectedStaff)
         {
             InitializeComponent();
-            ((ProgVM)DataContext).SetStaff(selectedStaff);
+            if (selectedStaff != null)
+            {
+                ((ProgVM)DataContext).SetStaff(selectedStaff);
+            }
+            else
+            {
+                MessageBox.Show("Staff не имеет данных");
+            }
         }
         public AddUserOn(Guest selectedGuest)
         {
             InitializeComponent();
-            ((ProgVM)DataContext).SetGuest(selectedGuest);
+            if (selectedGuest != null) 
+            {
+            
+                ((ProgVM)DataContext).SetGuest(selectedGuest);
+            }
+            else
+            {
+                MessageBox.Show("Гость не имеет данных");
+            }
         }
 
     }

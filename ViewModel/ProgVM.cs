@@ -58,13 +58,13 @@ namespace Sanatory.ViewModel
         }
 
         public Staff SelectedStaff { get; set; }
-        public Guest SelectedGuets {  get; set; }
+        public Guest SelectedGuest {  get; set; }
         public User SelectedUser { get; set; }
 
         public CommandVM UsersList { get; set; }
         public CommandVM AddUserOnStaffPage {  get; set; }
         public CommandVM AddUserOnGuestPage { get; set; }
-        public CommandVM AddUserOnStaff { get; set; }
+        public CommandVM AddUserOnSave { get; set; }
         public CommandVM AddUserOnGuest { get; set; }
 
 
@@ -105,20 +105,22 @@ namespace Sanatory.ViewModel
 
             AddUserOnGuestPage = new CommandVM(() =>
             {
-                AddUserOn addUserOn = new AddUserOn(SelectedGuets);
+                AddUserOn addUserOn = new AddUserOn(SelectedGuest);
                 addUserOn.Show();
             });
 
-            AddUserOnStaff = new CommandVM(async () =>
+            AddUserOnSave = new CommandVM(async () =>
             {
-                await DB.GetInstance().AddUserOnStaff(SelectedStaff, SelectedUser);
-                MessageBox.Show("Юзер успешно добавлен  сотруднику!");
-            });
-
-            AddUserOnGuest = new CommandVM(async () =>
-            {
-                await DB.GetInstance().AddUserOnGuest(SelectedGuets, SelectedUser);
-                MessageBox.Show("Юзер успешно добавлен  гостю!");
+                if(SelectedStaff != null)
+                {
+                    await DB.GetInstance().AddUserOnStaff(SelectedStaff, SelectedUser);
+                    MessageBox.Show("Юзер успешно добавлен  сотруднику!");
+                }
+                else
+                {
+                    await DB.GetInstance().AddUserOnGuest(SelectedGuest, SelectedUser);
+                    MessageBox.Show("Юзер успешно добавлен  гостю!");
+                }
             });
 
         }
@@ -158,7 +160,7 @@ namespace Sanatory.ViewModel
         }
         internal void SetGuest(Guest selectedGuest)
         {
-            SelectedGuets = selectedGuest;
+            SelectedGuest = selectedGuest;
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Sanatory.View
             string username = UserTextBox.Text;
             string password = PasswordTextBox.Password;
 
-            User user = new User { Login = username, Password = password, Role = new Role{ Title = "ыыы"  } };
+            User user = new User { Login = username, Password = password, Role = new Role{ Title = "Администратор"  } };
             User result = await DB.GetInstance().CheckUser(user);
 
             switch (result.RoleId)
@@ -55,6 +55,12 @@ namespace Sanatory.View
                 case 3:
                     StaffWindow staffWindow = new StaffWindow(result.Id);
                     staffWindow.Show();
+                    Close();
+                    break;
+
+                case 7:
+                    StaffWindow staffWindow2 = new StaffWindow(result.Id);
+                    staffWindow2.Show();
                     Close();
                     break;
 

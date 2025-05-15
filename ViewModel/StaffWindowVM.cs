@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Sanatory.ViewModel
@@ -14,6 +15,7 @@ namespace Sanatory.ViewModel
     public class StaffWindowVM : BaseVM
     {
         public static StaffWindowVM Instance { get; set; }
+        public Problem selectedProblem { get; set; }
         private ObservableCollection<Problem> problems;
         private Staff staff;
         public Staff Staff
@@ -25,6 +27,10 @@ namespace Sanatory.ViewModel
                 Signal();
             }
         }
+
+        public CommandVM CreateProblem { get; set; }
+        public CommandVM EditProblem { get; set; }
+        public CommandVM EditStatusProblem { get; set; }
 
 
         private Page currentPage;
@@ -49,9 +55,33 @@ namespace Sanatory.ViewModel
             }
         }
 
+        public Problem SelectedProblem
+        {
+            get => selectedProblem;
+            set
+            {
+                selectedProblem = value;
+                Signal();
+            }
+        }
+
         public StaffWindowVM()
         {
             Instance = this;
+          
+
+            EditProblem = new CommandVM(() =>
+            {
+                if (SelectedProblem == null)
+                    return;
+                MainWindowVM.Instance.CurrentPage = new PrAdd(SelectedProblem);
+            });
+
+            EditStatusProblem = new CommandVM(async () =>
+            {
+                await DB.GetInstance().DoneProblem(SelectedProblem.ID);
+                MessageBox.Show("Задача выполнена!");
+            });
         }
 
 

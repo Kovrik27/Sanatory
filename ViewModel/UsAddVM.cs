@@ -12,10 +12,30 @@ namespace Sanatory.ViewModel
 {
     public class UsAddVM : BaseVM
     {
-        public User User { get; set; } = new();
+        public User user { get; set; } = new();
+        public User User
+        {
+            get => user;
+            set
+            {
+                user = value;
+                Signal();
+            }
+        }
+
         public List<User> Users { get; set; }
 
-        public ObservableCollection<Role> Roles { get; set; }
+        public ObservableCollection<Role> roles { get; set; }
+
+        public ObservableCollection<Role> Roles
+        {
+            get => roles;
+            set
+            {
+                roles = value;
+                Signal();
+            }
+        }
 
         public CommandVM Save { get; set; }
 
@@ -32,6 +52,7 @@ namespace Sanatory.ViewModel
         public async void GetAllRole()
         {
             Roles = await DB.GetInstance().GetAllRoleUser();
+
         }
         internal void SetUser(User selectedUser)
         {

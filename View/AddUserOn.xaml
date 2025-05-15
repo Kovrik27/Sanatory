@@ -39,7 +39,7 @@
                 </ListView>
             </StackPanel>
             <StackPanel Grid.Row="4" DataContext="{DynamicResource progVM}">
-                <Button Content="Назначить юзера" Command="{Binding AddUserOnSave}" CommandParameter="{Binding ElementName=listCabinets, Path=SelectedItem}" Style="{StaticResource Button}"/>
+                <Button Content="Назначить юзера" Command="{Binding AddUserOnSave}" Style="{StaticResource Button}"/>
             </StackPanel>
         </Grid>
     </Grid>

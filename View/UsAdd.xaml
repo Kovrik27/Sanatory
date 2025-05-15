@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:Sanatory.View"
       xmlns:vm="clr-namespace:Sanatory.ViewModel"
       mc:Ignorable="d" 
+      DataContext="{DynamicResource usAddVM}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="UsAdd" Style="{DynamicResource Page}">
 
@@ -13,14 +14,16 @@
         <vm:UsAddVM x:Key="usAddVM"/>
     </Page.Resources>
     <Grid>
-        <StackPanel DataContext="{Binding User}">
-            <Label Content=" "/>
-            <Label Content="Введите логин" Style="{DynamicResource Label}"/>
-            <TextBox Style="{DynamicResource TextBox}" Text="{Binding Login}"/>
-            <Label Content="Введите пароль" Style="{DynamicResource Label}"/>
-            <TextBox Style="{DynamicResource TextBox}" Text="{Binding Password}"/>
+        <StackPanel>
+            <StackPanel DataContext="{Binding User}">
+                <Label Content=" "/>
+                <Label Content="Введите логин" Style="{DynamicResource Label}"/>
+                <TextBox Style="{DynamicResource TextBox}" Text="{Binding Login}"/>
+                <Label Content="Введите пароль" Style="{DynamicResource Label}"/>
+                <TextBox Style="{DynamicResource TextBox}" Text="{Binding Password}"/>
+            </StackPanel>
             <Label Content="Выберите роль" Style="{DynamicResource Label}"/>
-            <ComboBox ItemsSource="{Binding Roles}" SelectedItem="{Binding User.Role.Title}" Style="{DynamicResource ComboBox}"/>
+            <ComboBox DisplayMemberPath="Title" ItemsSource="{Binding Roles}" SelectedItem="{Binding User.Role}" Style="{DynamicResource ComboBox}"/>
             <Button Content="Сохранить" Style="{DynamicResource Button}" Command="{Binding Save}"/>
         </StackPanel>
     </Grid>

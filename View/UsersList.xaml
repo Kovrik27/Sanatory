@@ -4,17 +4,22 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sanatory.View"
+      xmlns:vm="clr-namespace:Sanatory.ViewModel"
       mc:Ignorable="d" 
+      DataContext="{DynamicResource usVM}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="UsersList" Style="{DynamicResource Page}">
 
+    <Page.Resources>
+        <vm:UsVM x:Key="usVM"/>
+    </Page.Resources>
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -37,11 +42,9 @@
                 </ListView>
             </StackPanel>
 
-            <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
+            <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" DataContext="{DynamicResource usVM}">
                 <Menu Style="{StaticResource Menu}">
-                    <MenuItem Header="Добавить юзера" Command="{Binding AddUser}" Style="{StaticResource MenuItem}"/>
-                    <MenuItem Header="Изменить юзера" Command="{Binding EditUser}" Style="{StaticResource MenuItem}"/>
-                    <MenuItem Header="Удалить юзера" Command="{Binding EditUser}" Style="{StaticResource MenuItem}"/>
+                    <MenuItem Header="Добавить юзера" Command="{Binding CreateUser}" Style="{StaticResource MenuItem}"/>
                 </Menu>
             </StackPanel>
 
@@ -50,10 +53,8 @@
                 <Label Content="Поиск" Style="{DynamicResource Label}"/>
                 <TextBox Width="155" Height="30" Style="{DynamicResource TextBox}"/>
             </StackPanel>
-            <StackPanel Grid.Row="1" Grid.Column="1">
-                <CheckBox Content="Чистые юзеры" IsChecked="{Binding ShowCleanUsers}" Style="{DynamicResource CheckBox}"/>
-            </StackPanel>
-            <StackPanel Grid.Row="3" Grid.Column="3" Margin="0,286,0,-286">
+            
+            <StackPanel Grid.Row="2" Grid.Column="3" Margin="0,286,0,-286">
                 <Button Content="Выйти на экран авторизации" Style="{DynamicResource Button}" Click="GoOut"/>
             </StackPanel>
             

@@ -20,6 +20,6 @@ namespace Sanatory.Model
 
         public Staff? Staff { get; set; }
 
-        public StatusProblem StatusProblem { get; set; }
+        public StatusProblem? StatusProblem { get; set; }
     }
 }

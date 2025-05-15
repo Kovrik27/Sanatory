@@ -30,10 +30,8 @@
                 </ListView.View>
             </ListView>
         </StackPanel>
-        <StackPanel Grid.Row="2" DataContext="{DynamicResource prVM}">
+        <StackPanel Grid.Row="2" DataContext="{DynamicResource stWinVM}">
             <Menu Style="{StaticResource Menu}">
-                <MenuItem Header="Добавить задачу" Command="{Binding CreateProblem}" Style="{StaticResource MenuItem}"/>
-                <MenuItem Header="Изменить задачу" Command="{Binding EditProblem}" Style="{StaticResource MenuItem}"/>
                 <MenuItem Header="Пометить задачу, как выполненную" Command="{Binding EditStatusProblem}" Style="{StaticResource MenuItem}"/>
             </Menu>
         </StackPanel>

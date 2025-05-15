@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sanatory.ViewModel
 {
@@ -26,10 +27,10 @@ namespace Sanatory.ViewModel
         public ObservableCollection<Events> eventss { get; set; }
 
 
-        private DateTime? selectedDate;
+        private DateTime selectedDate;
         private ObservableCollection<Events> events;
 
-        public DateTime? SelectedDate
+        public DateTime SelectedDate
         {
             get => selectedDate;
             set
@@ -60,15 +61,13 @@ namespace Sanatory.ViewModel
 
         private async void GetEventsDyDate()
         {
-            if (SelectedDate.HasValue)
+            if (SelectedDate == null)
             {
-                var events = await DB.GetInstance().GetEventsByDate(SelectedDate.Value);
-
-                Events.Clear();
-                foreach (var evt in events)
-                {
-                    Events.Add(evt);
-                }
+                MessageBox.Show("Мероприятия на этот день не найдены!");
+            }
+            else
+            {
+                Events = await DB.GetInstance().GetEventsByDate(SelectedDate);
             }
         }
 

@@ -335,9 +335,9 @@ namespace Sanatory.Api
             }
         }
 
-        public async Task<ObservableCollection<Events>> GetEventsByDate(DateTime date)
+        public async Task<ObservableCollection<Events>> GetEventsByDate(DateTime? date)
         {
-            var response = await client.GetAsync($"Daytime/GetEventsByDate/{date:yyyy-MM-dd}");
+            var response = await client.GetAsync($"Daytims/GetEventByDate/{date.Value.ToString("yyyy-MM-dd")}");
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
@@ -492,7 +492,8 @@ namespace Sanatory.Api
         public async Task AddNewProblem(Problem problem)
         {
             var arg = JsonSerializer.Serialize(problem);
-            var responce = await client.PostAsync($"Problems/AddNewProblem", new StringContent(arg, Encoding.UTF8, "application/json"));
+            var responce = await client.PostAsync("Problems/AddNewProblem"
+                , new StringContent(arg, Encoding.UTF8, "application/json"));
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();

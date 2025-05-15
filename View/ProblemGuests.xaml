@@ -14,7 +14,7 @@
     </Page.Resources>
     
     <Grid>
-        <StackPanel>
+        <StackPanel DataContext="{DynamicResource vm}">
             <StackPanel DataContext="{Binding Problem}">
                 <Label Content=" "/>
                 <Label Content="Что сломалось?" Style="{StaticResource Label}"/>
@@ -22,7 +22,6 @@
                 <Label Content="Где сломалось?" Style="{StaticResource Label}"/>
                 <TextBox Text="{Binding Place}" Style="{StaticResource TextBox}"/>
             </StackPanel>
-
             <Button Content="Отправить заявку" Command="{Binding Save}" Style="{StaticResource Button}"/>
         </StackPanel>
     </Grid>

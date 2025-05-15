@@ -17,7 +17,7 @@ namespace Sanatory.ViewModel
         private ObservableCollection<Staff> staffs;
 
 
-        private MainWindowVM MainVM;
+        private ProgVM ProgVM;
         public CommandVM CreateUser { get; set; }
         public CommandVM EditUser { get; set; }
         public CommandVM DeleteUser { get; set; }
@@ -69,12 +69,12 @@ namespace Sanatory.ViewModel
 
         public UsVM()
         {
-            MainVM = MainWindowVM.Instance;
+            ProgVM = ProgVM.Instance;
             GetAllUsers();
 
             CreateUser = new CommandVM(() =>
             {
-                MainWindowVM.Instance.CurrentPage = new UsAdd();
+                ProgVM.Instance.CurrentPage = new UsAdd();
             });
 
             EditUser = new CommandVM(() =>
@@ -108,11 +108,7 @@ namespace Sanatory.ViewModel
                 allUsers = new ObservableCollection<User>(Users.Where(s => s.Login.Contains(Search)));
             }
 
-            if (ShowCleanUsers)
-            {
-                var staffWithUser = staffs.Select(s => s.UserId).ToHashSet();
-                allUsers = new ObservableCollection<User>(Users.Where(s => !staffWithUser.Contains(s.Id)));
-            }
+            
 
             Users = new ObservableCollection<User>(allUsers);
         }

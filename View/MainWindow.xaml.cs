@@ -25,21 +25,25 @@ namespace Sanatory.View
         {
             //аааа минус лабель блинб грустно пипец Loaded="FrameNoLabel" Navigated="FrameNoLabel"
             InitializeComponent();
-            //myframe.Navigated += FrameNoLabel;
+            myframe.Navigated += FrameNavigated;
+            FrameNoLabel(null, null);
         }
 
+        private void FrameNavigated(object sender, NavigationEventArgs e)
+        {
+            FrameNoLabel(null, null);
+        }
 
-
-        //private void FrameNoLabel(object sender, NavigationEventArgs e)
-        //{
-        //    if(myframe.Visibility == Visibility.Hidden)
-        //    {
-        //        label.Visibility = Visibility.Collapsed;
-        //    }
-        //    else
-        //    {
-        //        label.Visibility = Visibility.Visible;
-        //    }
-        //}
+        private void FrameNoLabel(object sender, RoutedEventArgs e)
+        {
+            if (myframe.Content != null)
+            {
+                label.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                label.Visibility = Visibility.Visible;
+            }
+        }
     }
 }

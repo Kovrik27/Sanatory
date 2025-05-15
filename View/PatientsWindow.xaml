@@ -22,8 +22,15 @@
 
         <StackPanel Grid.Row="1">
             <Label Content="Ваши процедуры:" Style="{StaticResource Label}"/>
-            <ListView Style="{DynamicResource ListView}">
-                
+            <ListView ItemsSource="{Binding Procedures}" Style="{StaticResource ListView}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Название процедуры" DisplayMemberBinding="{Binding Title}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                        <GridViewColumn Header="Описание" DisplayMemberBinding="{Binding Description}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                        <GridViewColumn Header="Длительность" DisplayMemberBinding="{Binding Duration}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                        <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Price}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                    </GridView>
+                </ListView.View>
             </ListView>
         </StackPanel>
         
@@ -31,7 +38,7 @@
             <Frame NavigationUIVisibility="Hidden" Grid.RowSpan="7" Grid.ColumnSpan="4" Content="{Binding CurrentPage}"/>
             <Menu Grid.ColumnSpan="4" Style="{StaticResource Menu}">
                 <MenuItem Header="Информация" Command="{Binding Information}" Style="{StaticResource MenuItem}"/>
-                <MenuItem Header="Заявка" Command="{Binding ProceduresGuest}" Style="{StaticResource MenuItem}"/>
+                <MenuItem Header="Заявка" Command="{Binding Problemss}" Style="{StaticResource MenuItem}"/>
             </Menu>
 
             <TextBlock HorizontalAlignment="Center" Text="Добро пожаловать!" FontSize="20" Style="{DynamicResource TextBlock}"/>

@@ -23,6 +23,7 @@ namespace Sanatory.View
         public ProblemGuests()
         {
             InitializeComponent();
+
         }
     }
 }
