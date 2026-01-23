@@ -40,6 +40,9 @@
             <MenuItem Header="Гости" Command="{Binding Gosti}"  Style="{StaticResource MenuItem}"/>
             <MenuItem Header="Процессы" Command="{Binding Processes}"  Style="{StaticResource MenuItem}"/>
             <MenuItem Header="Расписание" Command="{Binding Raspisanie}"  Style="{StaticResource MenuItem}"/>
+            <MenuItem Header="Отзывы" Command="{Binding Raspisanie}"  Style="{StaticResource MenuItem}"/>
+            <MenuItem Header="Отчёты" Command="{Binding Raspisanie}"  Style="{StaticResource MenuItem}"/>
+            <MenuItem Header="Инвентаризация" Command="{Binding Raspisanie}"  Style="{StaticResource MenuItem}"/>
         </Menu>
 
     </Grid>

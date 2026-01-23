@@ -40,6 +40,7 @@ namespace Sanatory.ViewModel
 
         public CommandVM Information {  get; set; }
         public CommandVM Problemss { get; set; }
+        public CommandVM Feedbacks { get; set; } 
 
         public PatientWindowVM()
         {
@@ -54,6 +55,11 @@ namespace Sanatory.ViewModel
             {
                 OpenProblems();
             });
+
+            Feedbacks = new CommandVM(() =>
+            {
+                OpenFeedbacks();
+            });
         }
 
         private void OpenInformation()
@@ -64,6 +70,11 @@ namespace Sanatory.ViewModel
         private void OpenProblems()
         {
             CurrentPage = new ProblemGuests();
+        }
+
+        private void OpenFeedbacks()
+        {
+            CurrentPage = new FeedbacksGuest();
         }
 
         private ObservableCollection<Procedure> procedures;

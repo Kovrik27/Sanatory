@@ -39,6 +39,7 @@
             <Menu Grid.ColumnSpan="4" Style="{StaticResource Menu}">
                 <MenuItem Header="Информация" Command="{Binding Information}" Style="{StaticResource MenuItem}"/>
                 <MenuItem Header="Заявка" Command="{Binding Problemss}" Style="{StaticResource MenuItem}"/>
+                <MenuItem Header="Отзыв" Command="{Binding }" Style="{StaticResource MenuItem}"/>
             </Menu>
 
             <TextBlock HorizontalAlignment="Center" Text="Добро пожаловать!" FontSize="20" Style="{DynamicResource TextBlock}"/>
@@ -49,7 +50,11 @@
                 </TextBlock>
                 <TextBlock FontSize="16" Style="{DynamicResource TextBlock}">
                     <Run  Text="Если Вы хотите оставить заявку на какую-либо поломку в номере, перейдите во вкладку"/>
-                    <Run Text="'ЗАЯВКА'" FontWeight="Bold"/>
+                    <Run Text="''ЗАЯВКА''" FontWeight="Bold"/>
+                </TextBlock>
+                <TextBlock FontSize="16" Style="{DynamicResource TextBlock}">
+                    <Run  Text="Если Вы хотите оставить отзыв на проживание или плохую работу, перейдите во вкладку"/>
+                    <Run Text="''ОТЗЫВ''" FontWeight="Bold"/>
                 </TextBlock>
             </StackPanel>
            
