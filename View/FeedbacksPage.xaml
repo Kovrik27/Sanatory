@@ -6,9 +6,50 @@
       xmlns:local="clr-namespace:Sanatory.View"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="FeedbacksPage">
+      Title="FeedbacksPage" Style="{StaticResource Page}">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content=" "/>
+        <Label Grid.Row="1" Content="Список отзывов на санаторий" Style="{StaticResource Label}"/>
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Все" Margin="1,1,15,1" Style="{StaticResource Button}"/>
+            <Button Content="Положительные" Margin="1,1,15,1" Style="{StaticResource Button}"/>
+            <Button Content="Отрицательные" Margin="1,1,15,1" Style="{StaticResource Button}"/>
+        </StackPanel>
+        <ListView Grid.Row="2" Style="{StaticResource ListView}" Grid.RowSpan="2">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Аккаунт" HeaderContainerStyle="{StaticResource ListViewColumnHeader}"/>
+                    <GridViewColumn Header="Оценка" HeaderContainerStyle="{StaticResource ListViewColumnHeader}"/>
+                    <GridViewColumn Header="Описание отзыва" HeaderContainerStyle="{StaticResource ListViewColumnHeader}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+            <Label Content="Общая оценка" Style="{StaticResource Label}"/>
+            <Label Content="Всего отзывов" Style="{StaticResource Label}"/>
+            <Label Content="Отзывы по звёздам" Style="{StaticResource Label}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal">
+            <TextBlock Text="1" Style="{StaticResource TextBlock}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="2" Style="{StaticResource TextBlock}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Text="3" Style="{StaticResource TextBlock}" HorizontalAlignment="Right"/>
+        </StackPanel>
     </Grid>
 </Page>
