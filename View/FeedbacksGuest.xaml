@@ -6,8 +6,23 @@
       xmlns:local="clr-namespace:Sanatory.View"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="FeedbacksGuest">
+      Title="FeedbacksGuest" Style="{StaticResource Page}">
     <Grid>
-        
+        <StackPanel>
+            <Label Content=" "/>
+            <Label Content="Введите своё имя" Style="{StaticResource Label}"/>
+            <TextBox Style="{StaticResource TextBox}"/>
+            <Label Content="Выставьте оценку" Style="{StaticResource Label}"/>
+            <StackPanel Orientation="Horizontal">
+                <CheckBox/>
+                <CheckBox/>
+                <CheckBox/>
+                <CheckBox/>
+                <CheckBox/>
+            </StackPanel>
+            <Label Content="Введите текст отзыва" Style="{StaticResource Label}"/>
+            <TextBox Style="{StaticResource TextBox}"/>
+            <Button Content="Сохранить" Style="{StaticResource Button}"/>
+        </StackPanel>
     </Grid>
 </Page>
