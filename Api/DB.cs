@@ -21,7 +21,7 @@ namespace Sanatory.Api
 
         public static DB GetInstance()
         {
-            if(instance == null)
+            if (instance == null)
             {
                 instance = new DB();
             }
@@ -29,7 +29,7 @@ namespace Sanatory.Api
         }
 
         HttpClient client = new HttpClient();
-        
+
         public DB()
         {
             client.BaseAddress = new Uri("http://localhost:5179/api/");
@@ -38,12 +38,12 @@ namespace Sanatory.Api
         public async Task<ObservableCollection<User>> GetAllUsers()
         {
             var responce = await client.GetAsync($"Users/GetAllUsers");
-            if(responce.StatusCode != System.Net.HttpStatusCode.OK)
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
                 MessageBox.Show("Ошибка в выводе списка!");
                 return null;
-                
+
             }
             else
             {
@@ -56,7 +56,7 @@ namespace Sanatory.Api
         {
             var arg = JsonSerializer.Serialize(user);
             var responce = await client.PostAsync($"Users/AddNewUser", new StringContent(arg, Encoding.UTF8, "application/json"));
-            if(responce.StatusCode != System.Net.HttpStatusCode.OK)
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
                 MessageBox.Show("Ошибка данных!");
@@ -85,7 +85,7 @@ namespace Sanatory.Api
         {
             var arg = JsonSerializer.Serialize(user);
             var responce = await client.PostAsync($"Users/CheckUser", new StringContent(arg, Encoding.UTF8, "application/json"));
-            if(responce.StatusCode != System.Net.HttpStatusCode.OK)
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
                 MessageBox.Show("Ошибка! Пользователь не найден!");
@@ -120,7 +120,7 @@ namespace Sanatory.Api
                     StaffId = staff.ID,
                 };
             }
-                
+
             var arg = JsonSerializer.Serialize(useronDTO);
             var responce = await client.PostAsync($"Users/AddUserOnStaff", new StringContent(arg, Encoding.UTF8, "application/json"));
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
@@ -195,7 +195,7 @@ namespace Sanatory.Api
         {
             var arg = JsonSerializer.Serialize(cabinet);
             var responce = await client.PutAsync($"Cabinets/EditCabinet", new StringContent(arg, Encoding.UTF8, "application/json"));
-            if(responce.StatusCode != System.Net.HttpStatusCode.OK)
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
                 MessageBox.Show("Ошибка данных!");
@@ -392,7 +392,7 @@ namespace Sanatory.Api
 
         public async Task AddNewGuest(Guest guest)
         {
-            var arg = JsonSerializer.Serialize(guest);    
+            var arg = JsonSerializer.Serialize(guest);
             var responce = await client.PostAsync($"Guests/AddNewGuest", new StringContent(arg, Encoding.UTF8, "application/json"));
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
@@ -626,7 +626,7 @@ namespace Sanatory.Api
             }
         }
 
-       
+
         ///////////////////////
 
 
@@ -806,7 +806,7 @@ namespace Sanatory.Api
                 StaffId = staff.ID,
                 CabinetId = cabinet.ID
             };
-           
+
             var arg = JsonSerializer.Serialize(cabinetOnStaffDTO);
             var responce = await client.PostAsync($"Staffs/AddCabinetOnStaff", new StringContent(arg, Encoding.UTF8, "application/json"));
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
@@ -955,14 +955,66 @@ namespace Sanatory.Api
         }
 
 
+
+
+        ///////////
+
+        public async Task<ObservableCollection<Feedback>> GetFeedbacks()
+        {
+            var responce = await client.GetAsync("FeedbackMobile/GetAllFeedbacks");
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
+                return null;
+            }
+            else
+            {
+                var feedbacks = await responce.Content.ReadFromJsonAsync<ObservableCollection<Feedback>>();
+                return feedbacks;
+            }
+        }
+        public async Task AddNewFeedback(Feedback feedback)
+        {
+            var arg = JsonSerializer.Serialize(feedback);
+            var responce = await client.PostAsync($"FeedbackMobile/AddNewFeedback", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+        public async Task EditFeedback(Feedback feedback)
+        {
+            var arg = JsonSerializer.Serialize(feedback);
+            var responce = await client.PostAsync($"FeedbackMobile/EditFeedback", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
+
+
+
+
+        /////////////////////TestingCheatsEnabled true
+        /////bb.moveobjects 
+        /////cas.fulleditmode
+
+
+
+
+
+
     }
-    /////////////////////TestingCheatsEnabled true
-    /////bb.moveobjects 
-    /////cas.fulleditmode
-
-
-
-
-
-
 }

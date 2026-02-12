@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,6 +25,7 @@ namespace Sanatory.ViewModel
         public CommandVM GetAll { get; set; }
         public CommandVM GetHappy { get; set; }
         public CommandVM GetBad {  get; set; }
+        public CommandVM CreateFeedback { get; set; }
 
         private bool showAll;
         private bool showHappy;
@@ -60,19 +62,19 @@ namespace Sanatory.ViewModel
 
         //public async void GetAll()
         //{
-        //    //var allFeedbacks = await 
+        //    var allFeedbacks = await DB.GetInstance().GetFeedbacks();
 
-        //    if(ShowAll)
+        //    if (ShowAll)
         //    {
-
+        //        allFeedbacks = new ObservableCollection<Feedback>();
         //    }
 
-        //    if(ShowHappy)
+        //    if (ShowHappy)
         //    {
-
+        //        allFeedbacks = new ObservableCollection<Feedback>(s => s.Mark );
         //    }
 
-        //    if(ShowBad)
+        //    if (ShowBad)
         //    {
 
         //    }
