@@ -43,6 +43,7 @@
             <MenuItem Header="Отзывы" Command="{Binding Raspisanie}"  Style="{StaticResource MenuItem}"/>
             <MenuItem Header="Отчёты" Command="{Binding Raspisanie}"  Style="{StaticResource MenuItem}"/>
             <MenuItem Header="Инвентаризация" Command="{Binding Raspisanie}"  Style="{StaticResource MenuItem}"/>
+            <MenuItem Header="Заявки"  Style="{StaticResource MenuItem}"/>
         </Menu>
 
     </Grid>

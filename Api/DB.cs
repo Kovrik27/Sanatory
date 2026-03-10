@@ -1,6 +1,8 @@
-﻿using Sanatory.DTO;
+﻿using Microsoft.Extensions.Logging;
 using Sanatory.Api;
+using Sanatory.DTO;
 using Sanatory.Model;
+using Sanatory.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,9 +11,9 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
-using Microsoft.Extensions.Logging;
 
 namespace Sanatory.Api
 {
@@ -389,21 +391,38 @@ namespace Sanatory.Api
         }
 
 
-
-        public async Task AddNewGuest(Guest guest)
+        public async Task<bool> AddNewGuestWithProcedures(GuestWithProceduresDTO guestWithProcedures)
         {
-            var arg = JsonSerializer.Serialize(guest);
-            var responce = await client.PostAsync($"Guests/AddNewGuest", new StringContent(arg, Encoding.UTF8, "application/json"));
-            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
-            {
-                var result = await responce.Content.ReadAsStringAsync();
-                MessageBox.Show("Ошибка данных!");
+                var arg = JsonSerializer.Serialize(guestWithProcedures);
+                var responce = await client.PostAsync($"Guests/AddNewGuestWithProcedures", new StringContent(arg, Encoding.UTF8, "application/json"));
+                if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    var result = await responce.Content.ReadAsStringAsync();
+                    MessageBox.Show("Ошибка данных!");
+                    return false;
             }
-            else
-            {
-                var result = await responce.Content.ReadAsStringAsync();
-            }
+                else
+                {
+                    var result = await responce.Content.ReadAsStringAsync();
+                    return true; 
+                }
+
         }
+
+        //public async Task AddNewGuest(Guest guest)
+        //{
+        //    var arg = JsonSerializer.Serialize(guest);
+        //    var responce = await client.PostAsync($"Guests/AddNewGuest", new StringContent(arg, Encoding.UTF8, "application/json"));
+        //    if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+        //    {
+        //        var result = await responce.Content.ReadAsStringAsync();
+        //        MessageBox.Show("Ошибка данных!");
+        //    }
+        //    else
+        //    {
+        //        var result = await responce.Content.ReadAsStringAsync();
+        //    }
+        //}
 
         public async Task EditGuest(Guest guest)
         {
@@ -434,26 +453,26 @@ namespace Sanatory.Api
             }
         }
 
-        public async Task AddProcedureOnGuest(Guest guest, Procedure procedure)
-        {
-            var procedureOnGuest = new ProcedureOnGuestDTO
-            {
-                GuestId = guest.ID,
-                ProcedureId = procedure.Id
-            };
+        //public async Task AddProcedureOnGuest(Guest guest, Procedure procedure)
+        //{
+        //    var procedureOnGuest = new ProcedureOnGuestDTO
+        //    {
+        //        GuestId = guest.ID,
+        //        ProcedureId = procedure.Id
+        //    };
 
-            var arg = JsonSerializer.Serialize(procedureOnGuest);
-            var responce = await client.PostAsync($"Guests/AddProcedureOnGuest", new StringContent(arg, Encoding.UTF8, "application/json"));
-            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
-            {
-                var result = await responce.Content.ReadAsStringAsync();
-                MessageBox.Show("Ошибка данных!");
-            }
-            else
-            {
-                var result = await responce.Content.ReadAsStringAsync();
-            }
-        }
+        //    var arg = JsonSerializer.Serialize(procedureOnGuest);
+        //    var responce = await client.PostAsync($"Guests/AddProcedureOnGuest", new StringContent(arg, Encoding.UTF8, "application/json"));
+        //    if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+        //    {
+        //        var result = await responce.Content.ReadAsStringAsync();
+        //        MessageBox.Show("Ошибка данных!");
+        //    }
+        //    else
+        //    {
+        //        var result = await responce.Content.ReadAsStringAsync();
+        //    }
+        //}
 
         internal async Task<ObservableCollection<Procedure>> GetProceduresByGuest(int id)
         {
@@ -908,7 +927,7 @@ namespace Sanatory.Api
             }
         }
 
-        internal async Task<ObservableCollection<Problem>> GetProblemsByStaff(int id)
+        public async Task<ObservableCollection<Problem>> GetProblemsByStaff(int id)
         {
             var responce = await client.GetAsync($"Problems/GetProblemsByStaff/{id}");
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)

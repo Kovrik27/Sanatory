@@ -18,20 +18,19 @@ using System.Windows.Shapes;
 namespace Sanatory.View
 {
     /// <summary>
-    /// Логика взаимодействия для FeedbacksGuest.xaml
+    /// Логика взаимодействия для AddInventory.xaml
     /// </summary>
-    public partial class FeedbacksGuest : Page
+    public partial class AddInventory : Page
     {
+        public AddInventory()
+        {
+            InitializeComponent();
+        }
 
-        public FeedbacksGuest(Feedback selectedFeedback)
-        {
-            InitializeComponent();
-            ((FdGuVM)DataContext).SetEditFeedback(selectedFeedback);
-        }
-        public FeedbacksGuest(User selectedUser)
-        {
-            InitializeComponent();
-            ((FdGuVM)DataContext).SetUser(selectedUser);
-        }
+        //public AddInventory(Re selectedProblem)
+        //{
+        //    InitializeComponent();
+        //    ((PrAddVM)DataContext).SetEditProblem(selectedProblem);
+        //}
     }
 }

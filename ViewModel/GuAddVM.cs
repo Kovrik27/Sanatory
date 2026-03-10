@@ -1,6 +1,7 @@
 ﻿using Sanatory.Api;
 using Sanatory.Model;
 using Sanatory.View;
+using Sanatory.DTO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,13 +15,23 @@ namespace Sanatory.ViewModel
 {
     public class GuAddVM : BaseVM
     {
-
         public CommandVM Save { get; set; }
-
-        public CommandVM<Procedure> AddPrc { get; set; }
+        public CommandVM SelectAllCommand { get; set; }
+        public CommandVM DeselectAllCommand { get; set; }
 
         private Guest guest = new();
-        public Procedure SelectedProcedure { get; set; }
+
+        private ObservableCollection<ProcedureCheckbox> proceduresWithSelection;
+        public ObservableCollection<ProcedureCheckbox> ProceduresWithSelection
+        {
+            get => proceduresWithSelection;
+            set
+            {
+                proceduresWithSelection = value;
+                Signal();
+            }
+        }
+
         private ObservableCollection<User> users;
         private ObservableCollection<Procedure> procedures;
 
@@ -44,7 +55,6 @@ namespace Sanatory.ViewModel
             }
         }
 
-
         public ObservableCollection<Procedure> Procedures
         {
             get => procedures;
@@ -56,7 +66,6 @@ namespace Sanatory.ViewModel
         }
 
         private string search;
-
         public string Search
         {
             get => search;
@@ -64,37 +73,159 @@ namespace Sanatory.ViewModel
             {
                 search = value;
                 Signal();
-                GetAllProcedures();
+                FilterProcedures();
             }
         }
+
+        private int selectedProceduresCount;
+        public int SelectedProceduresCount
+        {
+            get => selectedProceduresCount;
+            set
+            {
+                selectedProceduresCount = value;
+                Signal();
+            }
+        }
+
+        private decimal totalProceduresPrice;
+        public decimal TotalProceduresPrice
+        {
+            get => totalProceduresPrice;
+            set
+            {
+                totalProceduresPrice = value;
+                Signal();
+            }
+        }
+
         public GuAddVM()
         {
-            GetAllProcedures();
+            LoadProcedures();
+
             Save = new CommandVM(async () =>
             {
+                await SaveGuest();
+            });
+
+            SelectAllCommand = new CommandVM(() =>
+            {
+                foreach (var proc in ProceduresWithSelection)
+                {
+                    proc.IsSelected = true;
+                }
+                UpdateSelectedInfo();
+            });
+
+            DeselectAllCommand = new CommandVM(() =>
+            {
+                foreach (var proc in ProceduresWithSelection)
+                {
+                    proc.IsSelected = false;
+                }
+                UpdateSelectedInfo();
+            });
+        }
+
+        private async void LoadProcedures()
+        {
+            var allProcedures = await DB.GetInstance().GetAllProcedure();
+
+            ProceduresWithSelection = new ObservableCollection<ProcedureCheckbox>(
+                allProcedures.Select(p => new ProcedureCheckbox
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Description = p.Description,
+                    Duration = p.Duration,
+                    Price = p.Price,
+                    IsSelected = false
+                })
+            );
+        }
+
+        private void FilterProcedures()
+        {
+            if (ProceduresWithSelection == null) return;
+
+            if (string.IsNullOrEmpty(Search))
+            {
+                foreach (var proc in ProceduresWithSelection)
+                {
+                    proc.IsVisible = true;
+                }
+            }
+            else
+            {
+                foreach (var proc in ProceduresWithSelection)
+                {
+                    proc.IsVisible = proc.Title.Contains(Search) || proc.Description.Contains(Search);
+                }
+            }
+        }
+
+        private void UpdateSelectedInfo()
+        {
+            var selected = ProceduresWithSelection.Where(p => p.IsSelected).ToList();
+            SelectedProceduresCount = selected.Count;
+            TotalProceduresPrice = selected.Sum(p => p.Price);
+        }
+
+        public void OnProcedureSelectionChanged()
+        {
+            UpdateSelectedInfo();
+        }
+
+        private async Task SaveGuest()
+        {
+            try
+            {
+                var selectedProcedures = ProceduresWithSelection
+                    .Where(p => p.IsSelected)
+                    .Select(p => new Procedure
+                    {
+                        Id = p.Id,
+                        Title = p.Title,
+                        Description = p.Description,
+                        Duration = p.Duration,
+                        Price = p.Price
+                    })
+                    .ToList();
 
                 if (Guest.ID == 0)
                 {
-                    await DB.GetInstance().AddNewGuest(Guest);
-                    await DB.GetInstance().EditStatusRoom(Guest.Room);
+
+                    var guestWithProcedures = new GuestWithProceduresDTO
+                    {
+                        Guest = Guest,
+                        ProcedureIds = selectedProcedures.Select(p => p.Id).ToList()
+                    };
+
+                    var result = await DB.GetInstance().AddNewGuestWithProcedures(guestWithProcedures);
+
+                    if (result)
+                    {
+                        if (Guest.Room != null)
+                        {
+                            await DB.GetInstance().EditStatusRoom(Guest.Room);
+                        }
+
+                        MessageBox.Show("Гость успешно добавлен с выбранными процедурами!", "Успех",
+                                      MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                else
+                {
+                    await DB.GetInstance().EditGuest(Guest);
                 }
 
-                else
-                    await DB.GetInstance().EditGuest(Guest);
                 MainWindowVM.Instance.CurrentPage = new Guests();
-
-            });
-
-
-            AddPrc = new CommandVM<Procedure>(async s =>
+            }
+            catch (Exception ex)
             {
-                if (Guest == null)
-                    return;
-                await DB.GetInstance().AddProcedureOnGuest(Guest, SelectedProcedure);
-                MessageBox.Show("Процедура успешно назначена гостю!", "Юху");
-                MainWindowVM.Instance.CurrentPage = new Guests();
-            });
-
+                MessageBox.Show($"Ошибка при сохранении: {ex.Message}", "Ошибка",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         internal void SetEditGuest(Guest selectedGuest)
@@ -108,18 +239,37 @@ namespace Sanatory.ViewModel
             Guest.Room = selectedRoom;
             Signal(nameof(Guest));
         }
+    }
+    public class ProcedureCheckbox : BaseVM
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public int Duration { get; set; }
+        public decimal Price { get; set; }
 
-        public async void GetAllProcedures()
+        private bool isSelected;
+        public bool IsSelected
         {
-            var allProcedures = await DB.GetInstance().GetAllProcedure();
-
-            if (!string.IsNullOrEmpty(Search))
+            get => isSelected;
+            set
             {
-                allProcedures = new ObservableCollection<Procedure>(Procedures.Where(s => s.Description.Contains(Search)));
+                isSelected = value;
+                Signal();
             }
-
-            Procedures = new ObservableCollection<Procedure>(allProcedures);
         }
 
+        private bool isVisible = true;
+        public bool IsVisible
+        {
+            get => isVisible;
+            set
+            {
+                isVisible = value;
+                Signal();
+            }
+        }
+
+        public object CurrentPageViewModel { get; set; }
     }
 }

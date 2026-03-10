@@ -52,9 +52,9 @@
             <TextBox Width="155" Height="30" Style="{DynamicResource TextBox}" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <Label Content="Карта гостя" Grid.Row="2" Style="{StaticResource Label}"/>
-        <Label Content="Санаторно-курортная книжка" Grid.Column="1" Grid.Row="2" Style="{StaticResource Label}"/>
+        <!--<Label Content="Санаторно-курортная книжка" Grid.Column="1" Grid.Row="2" Style="{StaticResource Label}"/>-->
 
-        <StackPanel Grid.Row="3" DataContext="{DynamicResource guVM}">
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" DataContext="{DynamicResource guVM}">
             <ListView ItemsSource="{Binding Guests}" SelectedItem="{Binding SelectedGuest}" Style="{StaticResource ListView}">
                 <ListView.View>
                     <GridView>
@@ -64,6 +64,13 @@
                         <GridViewColumn Header="Дата заезда" DisplayMemberBinding="{Binding DataArrival, StringFormat=dd.MM.yyyy}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
                         <GridViewColumn Header="Дата выезда" DisplayMemberBinding="{Binding DataOfDeparture, StringFormat=dd.MM.yyyy}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
                         <GridViewColumn Header="Номер комнаты" DisplayMemberBinding="{Binding Room.Number}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                        <GridViewColumn Header="Процедуры" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ItemsControl DisplayMemberPath="Title" ItemsSource="{Binding Procedures}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -71,7 +78,7 @@
 
 
 
-        <StackPanel Grid.Row="3"  Grid.Column="1" DataContext="{DynamicResource guVM}">
+        <!--<StackPanel Grid.Row="3"  Grid.Column="1" DataContext="{DynamicResource guVM}">
             <ListView ItemsSource="{Binding Guests}" SelectedItem="{Binding SelectedGuest}" Style="{StaticResource ListView}">
                 <ListView.View>
                     <GridView>
@@ -91,7 +98,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-        </StackPanel>
+        </StackPanel>-->
 
 
         <StackPanel Grid.Row="4" DataContext="{DynamicResource guVM}">
@@ -102,11 +109,11 @@
                       
 
 
-        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" DataContext="{DynamicResource guVM}">
+        <!--<StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" DataContext="{DynamicResource guVM}">
             <Menu Style="{StaticResource Menu}">
                 <MenuItem Header="Добавить гостю назначенную процедуру" Command="{Binding AddProcedure}" Style="{StaticResource MenuItem}"/>
             </Menu>
-        </StackPanel>
+        </StackPanel>-->
 
     </Grid>
 </Page>

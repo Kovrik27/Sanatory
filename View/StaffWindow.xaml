@@ -19,6 +19,9 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Label Content="Список задач" Style="{StaticResource Label}"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Материалы" Style="{DynamicResource Button}"/>
+        </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{DynamicResource stWinVM}">
             <ListView ItemsSource="{Binding Problems}" SelectedItem="{Binding SelectedProblem}" >

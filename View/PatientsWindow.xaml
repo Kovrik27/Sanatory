@@ -56,6 +56,10 @@
                     <Run  Text="Если Вы хотите оставить отзыв на проживание или плохую работу, перейдите во вкладку"/>
                     <Run Text="''ОТЗЫВ''" FontWeight="Bold"/>
                 </TextBlock>
+                <TextBlock FontSize="16" Style="{DynamicResource TextBlock}">
+    <Run  Text="Если Вы приобрести дополнительные услуги, перейдите во вкладку"/>
+    <Run Text="''ДОП.УСЛУГИ''" FontWeight="Bold"/>
+                </TextBlock>
             </StackPanel>
            
         </StackPanel>

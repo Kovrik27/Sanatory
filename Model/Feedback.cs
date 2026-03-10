@@ -9,7 +9,9 @@ namespace Sanatory.Model
     public class Feedback
     {
         public int Id { get; set; }
-        public int Mark {  get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
+        public int Mark { get; set; }
         public string Description { get; set; }
     }
 }

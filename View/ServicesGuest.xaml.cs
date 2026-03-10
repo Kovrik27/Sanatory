@@ -1,6 +1,4 @@
-﻿using Sanatory.Model;
-using Sanatory.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,20 +16,13 @@ using System.Windows.Shapes;
 namespace Sanatory.View
 {
     /// <summary>
-    /// Логика взаимодействия для FeedbacksGuest.xaml
+    /// Логика взаимодействия для ServicesGuest.xaml
     /// </summary>
-    public partial class FeedbacksGuest : Page
+    public partial class ServicesGuest : Page
     {
-
-        public FeedbacksGuest(Feedback selectedFeedback)
+        public ServicesGuest()
         {
             InitializeComponent();
-            ((FdGuVM)DataContext).SetEditFeedback(selectedFeedback);
-        }
-        public FeedbacksGuest(User selectedUser)
-        {
-            InitializeComponent();
-            ((FdGuVM)DataContext).SetUser(selectedUser);
         }
     }
 }

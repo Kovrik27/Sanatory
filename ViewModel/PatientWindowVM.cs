@@ -56,10 +56,10 @@ namespace Sanatory.ViewModel
                 OpenProblems();
             });
 
-            Feedbacks = new CommandVM(() =>
-            {
-                OpenFeedbacks();
-            });
+            //Feedbacks = new CommandVM(() =>
+            //{
+            //    OpenFeedbacks();
+            //});
         }
 
         private void OpenInformation()
@@ -72,10 +72,10 @@ namespace Sanatory.ViewModel
             CurrentPage = new ProblemGuests();
         }
 
-        private void OpenFeedbacks()
-        {
-            CurrentPage = new FeedbacksGuest();
-        }
+        //private void OpenFeedbacks()
+        //{
+        //    CurrentPage = new FeedbacksGuest();
+        //}
 
         private ObservableCollection<Procedure> procedures;
 
@@ -90,7 +90,7 @@ namespace Sanatory.ViewModel
             }
         }
 
-        internal async Task SetGuestId(int id)
+        public async Task SetGuestId(int id)
         {
             Guest = await DB.GetInstance().GetGuestId(id);
             Procedures = new ObservableCollection<Procedure> (await DB.GetInstance().GetProceduresByGuest(Guest.ID));
