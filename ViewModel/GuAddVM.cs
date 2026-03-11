@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Spire.Doc;
 
 namespace Sanatory.ViewModel
 {
@@ -239,7 +240,11 @@ namespace Sanatory.ViewModel
             Guest.Room = selectedRoom;
             Signal(nameof(Guest));
         }
+
+       
     }
+
+    
     public class ProcedureCheckbox : BaseVM
     {
         public int Id { get; set; }
