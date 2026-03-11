@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Spire.Doc;
+using Sanatory.Documents;
 
 namespace Sanatory.ViewModel
 {
@@ -21,6 +22,7 @@ namespace Sanatory.ViewModel
         public CommandVM DeselectAllCommand { get; set; }
 
         private Guest guest = new();
+        private DocumentCardWord DocumentCardWord { get; set; }
 
         private ObservableCollection<ProcedureCheckbox> proceduresWithSelection;
         public ObservableCollection<ProcedureCheckbox> ProceduresWithSelection
@@ -74,7 +76,7 @@ namespace Sanatory.ViewModel
             {
                 search = value;
                 Signal();
-                FilterProcedures();
+                GetAllProcedures();
             }
         }
 
@@ -102,7 +104,7 @@ namespace Sanatory.ViewModel
 
         public GuAddVM()
         {
-            LoadProcedures();
+            GetAllProcedures();
 
             Save = new CommandVM(async () =>
             {
@@ -128,41 +130,17 @@ namespace Sanatory.ViewModel
             });
         }
 
-        private async void LoadProcedures()
+        
+        private async void GetAllProcedures()
         {
             var allProcedures = await DB.GetInstance().GetAllProcedure();
 
-            ProceduresWithSelection = new ObservableCollection<ProcedureCheckbox>(
-                allProcedures.Select(p => new ProcedureCheckbox
-                {
-                    Id = p.Id,
-                    Title = p.Title,
-                    Description = p.Description,
-                    Duration = p.Duration,
-                    Price = p.Price,
-                    IsSelected = false
-                })
-            );
-        }
-
-        private void FilterProcedures()
-        {
-            if (ProceduresWithSelection == null) return;
-
-            if (string.IsNullOrEmpty(Search))
+            if (!string.IsNullOrEmpty(Search))
             {
-                foreach (var proc in ProceduresWithSelection)
-                {
-                    proc.IsVisible = true;
-                }
+                allProcedures = new ObservableCollection<Procedure>(Procedures.Where(s => s.Title.Contains(Search) || s.Description.Contains(Search)));
             }
-            else
-            {
-                foreach (var proc in ProceduresWithSelection)
-                {
-                    proc.IsVisible = proc.Title.Contains(Search) || proc.Description.Contains(Search);
-                }
-            }
+
+            Procedures = new ObservableCollection<Procedure>(allProcedures);
         }
 
         private void UpdateSelectedInfo()
@@ -219,6 +197,8 @@ namespace Sanatory.ViewModel
                 {
                     await DB.GetInstance().EditGuest(Guest);
                 }
+
+                DocumentCardWord.ExportGuestToWord(Guest);
 
                 MainWindowVM.Instance.CurrentPage = new Guests();
             }

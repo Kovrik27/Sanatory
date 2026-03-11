@@ -20,7 +20,7 @@ namespace Sanatory.Documents
             guestsDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "GuestsDirectory");
             Directory.CreateDirectory(guestsDirectory);
         }
-        public bool ExportGuestToWord(Guest guest)
+        public void ExportGuestToWord(Guest guest)
         {
             string fileName = $"Карта гостя: {guest.Lastname}";
             string fileToDirectory = Path.Combine(guestsDirectory, fileName);
