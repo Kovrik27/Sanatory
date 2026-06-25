@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sanatory.ViewModel
+namespace Sanatory.DTO
 {
-    public class ScVM : BaseVM
+    public class DaytimeDTO
     {
-        private MainWindowVM MainVM;
-        
+        public int Id { get; set; }
+        public DateTime? Time { get; set; }
     }
 }

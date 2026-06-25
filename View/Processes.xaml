@@ -36,22 +36,20 @@
         <Label Content="Список кабинетов" Style="{StaticResource Label}" Grid.Column="2" Grid.Row="1"/>
         <StackPanel Grid.Row="2" DataContext="{DynamicResource prcVM}">
             <ListView ItemsSource="{Binding Procedures}" SelectedItem="{Binding SelectedProcedure}" Style="{StaticResource ListView}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Название процедуры" DisplayMemberBinding="{Binding Title}"/>
-                        <GridViewColumn Header="Описание" DisplayMemberBinding="{Binding Description}"/>
-                        <GridViewColumn Header="Длительность" DisplayMemberBinding="{Binding Duration}"/>
-                        <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Price}"/>
-                    </GridView>
-                </ListView.View>
                 <ListView.Resources>
-                    <Style TargetType="GridViewColumnHeader">
-                        <Setter Property="Background" Value="#EFEFEF"/>
-                        <Setter Property="Foreground" Value="#333333"/>
-                        <Setter Property="FontWeight" Value="Bold"/>
-                        <Setter Property="FontSize" Value="14"/>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="Foreground" Value="#1B5E20"/>
                     </Style>
                 </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Название процедуры" DisplayMemberBinding="{Binding Title}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                        <GridViewColumn Header="Описание" DisplayMemberBinding="{Binding Description}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                        <GridViewColumn Header="Длительность" DisplayMemberBinding="{Binding Duration}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                        <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Price}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                    </GridView>
+                </ListView.View>
             </ListView>
         </StackPanel>
         
@@ -59,7 +57,6 @@
             <Menu Style="{StaticResource Menu}">
                 <MenuItem Header="Добавить процедуру" Command="{Binding CreateProcedure}" Style="{StaticResource MenuItem}"/>
                 <MenuItem Header="Изменить процедуру" Command="{Binding EditProcedure}" Style="{StaticResource MenuItem}"/>
-                <MenuItem Header="Удалить процедуру" Command="{Binding DeleteProcedure}" Style="{StaticResource MenuItem}"/>
             </Menu>
         </StackPanel>
 
@@ -67,51 +64,45 @@
             <Menu Style="{StaticResource Menu}">
                 <MenuItem Header="Добавить задачу" Command="{Binding CreateProblem}" Style="{StaticResource MenuItem}"/>
                 <MenuItem Header="Изменить задачу" Command="{Binding EditProblem}" Style="{StaticResource MenuItem}"/>
-                <MenuItem Header="Удалить задачу" Command="{Binding DeleteProblem}" Style="{StaticResource MenuItem}"/>
-    </Menu>
+            </Menu>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="1" DataContext="{DynamicResource prVM}">
      <ListView ItemsSource="{Binding Problems}" SelectedItem="{Binding SelectedProblem}" Style="{StaticResource ListView}">
-         <ListView.View>
-             <GridView>
-                 <GridViewColumn Header="Описание" DisplayMemberBinding="{Binding Description}" />
-                 <GridViewColumn Header="Местоположение" DisplayMemberBinding="{Binding Place}"/>
-             </GridView>
-         </ListView.View>
                 <ListView.Resources>
-                    <Style TargetType="GridViewColumnHeader">
-                        <Setter Property="Background" Value="#EFEFEF"/>
-                        <Setter Property="Foreground" Value="#333333"/>
-                        <Setter Property="FontWeight" Value="Bold"/>
-                        <Setter Property="FontSize" Value="14"/>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="Foreground" Value="#1B5E20"/>
                     </Style>
                 </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Описание" DisplayMemberBinding="{Binding Description}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}" />
+                        <GridViewColumn Header="Местоположение" DisplayMemberBinding="{Binding Place}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                    </GridView>
+                </ListView.View>
             </ListView>
  </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="2" DataContext="{DynamicResource cbVM}">
             <Menu Style="{StaticResource Menu }" >
-         <MenuItem Header="Добавить кабинет" Command="{Binding CreateCabinets}" Style="{StaticResource MenuItem}"/>
-                <MenuItem Header="Изменить данные кабинета" Command="{Binding EditCabinets}" Style="{StaticResource MenuItem}"/>
-                <MenuItem Header="Удалить кабинет" Command="{Binding DeleteCabinets}" Style="{StaticResource MenuItem}"/>
-     </Menu>
+         <MenuItem Header="Добавить кабинет" Command="{Binding CreateCabinet}" Style="{StaticResource MenuItem}"/>
+                <MenuItem Header="Изменить данные кабинета" Command="{Binding EditCabinet}" Style="{StaticResource MenuItem}"/>
+            </Menu>
             </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="2" DataContext="{DynamicResource cbVM}">
-    <ListView ItemsSource="{Binding Cabinets}" SelectedItem="{Binding SelectedCabinets}" Style="{StaticResource ListView}">
-        <ListView.View>
-            <GridView>
-                <GridViewColumn Header="Номер" DisplayMemberBinding="{Binding Number}"/>
-                <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding Type}"/>
-            </GridView>
-        </ListView.View>
+    <ListView ItemsSource="{Binding Cabinets}" SelectedItem="{Binding SelectedCabinet}" Style="{StaticResource ListView}">
                 <ListView.Resources>
-                    <Style TargetType="GridViewColumnHeader">
-                        <Setter Property="Background" Value="#EFEFEF"/>
-                        <Setter Property="Foreground" Value="#333333"/>
-                        <Setter Property="FontWeight" Value="Bold"/>
-                        <Setter Property="FontSize" Value="14"/>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="Foreground" Value="#1B5E20"/>
                     </Style>
                 </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Номер" DisplayMemberBinding="{Binding Number}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                        <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding Type}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                    </GridView>
+                </ListView.View>
             </ListView>
 </StackPanel>
 

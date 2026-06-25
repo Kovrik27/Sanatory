@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace Sanatory.ViewModel
         private ObservableCollection<Staff> staffs;
         private ObservableCollection<Staff> staffs2;
         private ObservableCollection<Problem> problems;
+        private ObservableCollection<Cabinet> cabinets;
+        private ObservableCollection<JobTitle> jobTitles;
 
 
         private MainWindowVM MainVM;
@@ -32,9 +35,14 @@ namespace Sanatory.ViewModel
         public CommandVM DoneProblem { get; set; }
         public CommandVM DoneCabinet { get; set; }
 
+        public CommandVM AddProblemOnStaff { get; set; }
+        public CommandVM AddCabinetOnStaff { get; set; }
+
         public Staff SelectedStaff { get; set; }
-        private Days selectedDays;
-        public ObservableCollection<Days> AllDays { get; set; }
+        private Day selectedDays;
+        public Problem SelectedProblem { get; set; }
+        public Cabinet SelectedCabinet { get; set; }
+        public ObservableCollection<Day> AllDays { get; set; }
 
         public ObservableCollection<Staff> Staffs
         {
@@ -57,7 +65,7 @@ namespace Sanatory.ViewModel
         }
 
 
-        public Days SelectedDays
+        public Day SelectedDays
         {
             get => selectedDays;
             set
@@ -77,52 +85,69 @@ namespace Sanatory.ViewModel
             }
         }
 
+        public ObservableCollection<Cabinet> Cabinets
+        {
+            get => cabinets;
+            set
+            {
+                cabinets = value;
+                Signal();
+            }
+        }
+
+        private string search;
+
+        public string Search
+        {
+            get => search;
+            set
+            {
+                search = value;
+                Signal();
+                GetAll();
+            }
+        }
+
         public StVM()
         {
             MainVM = MainWindowVM.Instance;
 
-            string sql = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay, p.Description AS Description FROM Days d JOIN CrossDaysStaff cds ON cds.DaysID = d.ID JOIN Staff s ON cds.StaffID = s.ID LEFT JOIN Problem p ON p.ID = s.ProblemID AND JobTitle NOT LIKE 'Врач%'";
-            string sql2 = "SELECT s.ID, s.Lastname, s.Name, s.Surname, s.JobTitle, s.Phone, s.Mail, d.ID AS daysID, d.Day AS daysDay, c.Number AS Number  FROM Days d JOIN CrossDaysStaff cds ON cds.DaysID = d.ID JOIN Staff s ON cds.StaffID = s.ID LEFT JOIN Cabinet c ON c.ID = s.CabinetID WHERE JobTitle LIKE 'Врач%'";
-            Staffs = new ObservableCollection<Staff>(StaffRepository.Instance.GetTechStaff(sql));
-            Staffs2 = new ObservableCollection<Staff>(StaffRepository.Instance.GetMedStaff(sql2));
-            AllDays = new ObservableCollection<Days> (DaysRepository.Instance.GetDays());
-            //AllDays.Insert(0, new Days { ID = 0, Day = "Все теги" });
-            SelectedDays = AllDays[0];
-
+            GetAll();
 
             CreateStaff = new CommandVM(() =>
             {
                 MainWindowVM.Instance.CurrentPage = new StAdd();
             });
 
-            EditStaff = new CommandVM(() => {
+            EditStaff = new CommandVM(() =>
+            {
                 if (SelectedStaff == null)
                     return;
                 MainWindowVM.Instance.CurrentPage = new StAdd(SelectedStaff);
             });
 
-            DeleteStaff = new CommandVM(() =>
+            DeleteStaff = new CommandVM(async() =>
             {
                 if (SelectedStaff == null)
                     return;
 
-                if (SelectedStaff.ProblemID != 0 || SelectedStaff.CabinetID != 0)
-                {
-                    {
-                        MessageBox.Show("Ошибка! Сотрудник не может быть удалён", "Ошибка", MessageBoxButton.OK);
-                    }
-                }
-                else
-                {
+                //if (SelectedStaff.ProblemID != 0 || SelectedStaff.CabinetID != 0)
+                //{
+                //    {
+                //        MessageBox.Show("Ошибка! Сотрудник не может быть удалён", "Ошибка", MessageBoxButton.OK);
+                //    }
+                //}
+                //else
+                //{
                     if (MessageBox.Show("Удалить сотрудника?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        StaffRepository.Instance.Remove(SelectedStaff);
-                        Staffs.Remove(SelectedStaff);
+                        await DB.GetInstance().DeleteStaff(SelectedStaff.ID);
                         MainWindowVM.Instance.CurrentPage = new Personal();
                     }
-                }
+                //}
 
             });
+
 
             AddProblem = new CommandVM(() =>
             {
@@ -138,27 +163,79 @@ namespace Sanatory.ViewModel
                 MainWindowVM.Instance.CurrentPage = new CbAddSt(SelectedStaff);
             });
 
-            DoneProblem = new CommandVM(() =>
+            AddProblemOnStaff = new CommandVM(async () =>
+            {
+                if (SelectedStaff == null)
+                    return;
+                await DB.GetInstance().AddProblemOnStaff(SelectedStaff, SelectedProblem);
+                MessageBox.Show("Задача успешно назначена сотруднику!", "Юху");
+                MainWindowVM.Instance.CurrentPage = new Personal();
+            });
+
+            AddCabinetOnStaff = new CommandVM(async () =>
+            {
+                if (SelectedStaff == null)
+                    return;
+                await DB.GetInstance().AddCabinetOnStaff(SelectedStaff, SelectedCabinet);
+                MessageBox.Show("Кабинет успешно назначен сотруднику!", "Юху");
+                MainWindowVM.Instance.CurrentPage = new Personal();
+            });
+
+            DoneProblem = new CommandVM(async() =>
             {
                 if (SelectedStaff == null)
                     return;
 
                 if (MessageBox.Show("Сотрудник выполнил задачу?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    StaffRepository.Instance.DoneP(SelectedStaff);
+                    await DB.GetInstance().DoneProblem(SelectedProblem.ID);
                     MainWindowVM.Instance.CurrentPage = new Personal();
                 }
 
             });
 
-            DoneCabinet = new CommandVM(() =>
+            DoneCabinet = new CommandVM(async() =>
             {
                 if (SelectedStaff == null)
                     return;
-                StaffRepository.Instance.DoneC(SelectedStaff);
+                await DB.GetInstance().DoneCabinet(SelectedStaff.ID);
                 MainWindowVM.Instance.CurrentPage = new Personal();
             });
         }
 
+        public async void GetAll()
+        {
+            Staffs = await DB.GetInstance().GetStaffWithProblem();
+            Staffs2 = await DB.GetInstance().GetStaffWithCabinet();
+            //SelectedDays = AllDays[0];
+            AllDays = await DB.GetInstance().GetAllDays();
+
+
+            var allCabinets = await DB.GetInstance().GetAllCabinets();
+
+            if (!string.IsNullOrEmpty(Search))
+            {
+                allCabinets = new ObservableCollection<Cabinet>(Cabinets.Where(s => s.Type.Contains(Search)));
+            }
+
+            Cabinets = new ObservableCollection<Cabinet>(allCabinets);
+
+
+
+
+            var allProblems = await DB.GetInstance().GetAllProblems();
+
+            if (!string.IsNullOrEmpty(Search))
+            {
+                allProblems = new ObservableCollection<Problem>(Problems.Where(s => s.Description.Contains(Search)));
+            }
+
+            Problems = new ObservableCollection<Problem>(allProblems);
+        }
+
+        internal void SetStaff(Staff selectedStaff)
+        {
+            SelectedStaff = selectedStaff;
+        }
     }
 }

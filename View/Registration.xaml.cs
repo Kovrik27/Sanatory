@@ -1,7 +1,9 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Documents;
+using Sanatory.Model;
 using Sanatory.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
@@ -33,21 +35,29 @@ namespace Sanatory.View
             if (Rm.SelectedItem != null)
             {
                 var vm = DataContext as RegVM;
-                if (vm.SelectedRoom.Status == "Свободен")
-                    Bronirovanie.Visibility = Visibility.Visible;             
+                if (vm.SelectedRoom.Status.Title == "Чистый")
+                    Bronirovanie.Visibility = Visibility.Visible;
+                else if(vm.SelectedRoom.Status.Title == "Занят")
+                {
+                    Bronirovanie.Visibility = Visibility.Collapsed;
+                    Visilenie.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    Bronirovanie.Visibility = Visibility.Collapsed;
+                    Visilenie.Visibility = Visibility.Collapsed;
+                }
+                    
             }
 
         }
 
-        //private void Broni(object sender, RoutedEventArgs e)
-        //{
+        private void OutButton(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Content = null;          
 
-        //    MainWindowVM.Instance.CurrentPage = new GuAdd();
-        //}
+        }
 
-        //private void Viselit(object sender, RoutedEventArgs e)
-        //{
-        //    MessageBox.Show("Гость выселен");
-        //}
+        
     }
 }

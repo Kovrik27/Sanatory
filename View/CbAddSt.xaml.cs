@@ -25,7 +25,7 @@ namespace Sanatory.View
         public CbAddSt(Staff selectedStaff)
         {
             InitializeComponent();
-            ((StAddVM)DataContext).SetStaff(selectedStaff);
+            ((StVM)DataContext).SetStaff(selectedStaff);
         }
     }
 }

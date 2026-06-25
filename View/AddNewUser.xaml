@@ -1,0 +1,25 @@
+﻿<Window x:Class="Sanatory.View.AddNewUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sanatory.View"
+        mc:Ignorable="d"
+        Title="AddNewUser" Height="450" Width="800" Style="{DynamicResource Window}">
+    <Grid>
+        <StackPanel>
+            <StackPanel DataContext="{Binding User}">
+                <Label Content=" "/>
+                <TextBlock Text="{Binding Selected}"/>
+                <Label Content="Логин" Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding Login}" Style="{StaticResource TextBox}"/>
+                <Label Content="Пароль" Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding Password}" Style="{StaticResource TextBox}"/>
+                <Label Content="Роль" Style="{StaticResource Label}"/>
+                <ComboBox ItemsSource="{Binding Roles}" Style="{DynamicResource ComboBox}"/>
+            </StackPanel>
+
+            <Button Content="Сохранить" Command="{Binding Save}" Style="{StaticResource Button}"/>
+        </StackPanel>
+    </Grid>
+</Window>

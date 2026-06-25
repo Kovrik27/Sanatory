@@ -7,12 +7,20 @@ using System.Threading.Tasks;
 
 namespace Sanatory.Model
 {
-    public class Procedure
+    public partial class Procedure
     {
-        public int ID {  get; set; }
-        public string Title { get; set; } 
-        public string Description { get; set; } 
+        public int Id { get; set; }
+
+        public string Title { get; set; } = null!;
+
+        public string Description { get; set; } = null!;
+
         public int Duration { get; set; }
-        public double Price { get; set; }
+
+        public decimal Price { get; set; }
+
+        public DateTime? Date { get; set; }
+        public string? Category { get; set; }
+        public virtual ICollection<Guest> Guests { get; set; } = new List<Guest>();
     }
 }

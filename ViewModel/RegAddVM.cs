@@ -1,7 +1,9 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -16,6 +18,7 @@ namespace Sanatory.ViewModel
         public CommandVM Save {  get; set; }
 
         private Room room = new();
+        private ObservableCollection<Status> statuses = new();
 
         public Room Room
         {
@@ -26,32 +29,43 @@ namespace Sanatory.ViewModel
                 Signal();
             }
         }
+
+
+        public ObservableCollection<Status> Statuses
+        {
+            get => statuses;
+            set
+            {
+                statuses = value;
+                Signal();
+            }
+        }
         public RegAddVM() 
         {
+            GetAllStatuses();
 
-            Save = new CommandVM(() =>
+            Save = new CommandVM(async() =>
             {
 
-                if (Room.ID == 0)
-                {
-                    RoomsRepository.Instance.AddRoom(Room);
-                }
-                    
+                if (Room.ID == 0)             
+                    await DB.GetInstance().AddNewRoom(Room);             
                 else
-                    RoomsRepository.Instance.UpdateRoom(Room);
-
+                   await DB.GetInstance().EditRoom(Room);
 
                 MainWindowVM.Instance.CurrentPage = new Registration();
 
             });
-
         }
 
 
         internal void SetEditRoom(Room selectedRoom)
         {
-            Room = selectedRoom;
-            
+            Room = selectedRoom;        
+        }
+
+        private async void GetAllStatuses()
+        {
+            Statuses = await DB.GetInstance().GetAllStatusesForRoom();
         }
     }
 }

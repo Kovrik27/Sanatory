@@ -1,9 +1,11 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,14 +17,13 @@ namespace Sanatory.ViewModel
         private ObservableCollection<Cabinet> cabinets;
 
         private MainWindowVM MainVM;
-        public CommandVM CreateCabinets { get; set; }
-        public CommandVM EditCabinets { get; set; }
-        public CommandVM DeleteCabinets { get; set; }
-        public CommandVM AddCabinet { get; set; }
+        public CommandVM CreateCabinet { get; set; }
+        public CommandVM EditCabinet { get; set; }
+        public CommandVM DeleteCabinet { get; set; }
         public Staff SelectedStaff { get; set; }
 
 
-        public Cabinet SelectedCabinets { get; set; }
+        public Cabinet SelectedCabinet { get; set; }
         public ObservableCollection<Cabinet> Cabinets
         {
             get => cabinets;
@@ -36,43 +37,37 @@ namespace Sanatory.ViewModel
         public CbVM()
         {
             MainVM = MainWindowVM.Instance;
-            string sql = "SELECT * FROM Cabinet";
+            GetAllCabinets();
 
-            Cabinets = new ObservableCollection<Cabinet>(CabinetsRepository.Instance.GetAllCabinets(sql));
-
-
-
-            CreateCabinets = new CommandVM(() =>
+            CreateCabinet = new CommandVM(() =>
             {
                 MainWindowVM.Instance.CurrentPage = new CbAdd();
             });
 
-            EditCabinets = new CommandVM(() => {
-                if (SelectedCabinets == null)
+            EditCabinet = new CommandVM(() =>
+            {
+                if (SelectedCabinet == null)
                     return;
-                MainWindowVM.Instance.CurrentPage = new CbAdd(SelectedCabinets);
+                MainWindowVM.Instance.CurrentPage = new CbAdd(SelectedCabinet);
             });
 
-            DeleteCabinets = new CommandVM(() =>
+            DeleteCabinet = new CommandVM(async() =>
             {
-                if (SelectedCabinets == null)
+                if (SelectedCabinet == null)
                     return;
 
                 if (MessageBox.Show("Удалить кабинет?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    CabinetsRepository.Instance.Remove(SelectedCabinets);
-                    Cabinets.Remove(SelectedCabinets);
+                    await DB.GetInstance().DeleteCabinet(SelectedCabinet.ID);
+                    Cabinets.Remove(SelectedCabinet);
                 }
 
             });
-
-
-        
         }
 
-
-
-
-
+        public async void GetAllCabinets()
+        {
+            Cabinets = await DB.GetInstance().GetAllCabinets();
+        }
     }
 }

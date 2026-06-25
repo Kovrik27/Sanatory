@@ -1,7 +1,9 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +15,7 @@ namespace Sanatory.ViewModel
     {
         public CommandVM Save { get; set; }
 
+        private ObservableCollection<StatusProblem> statusesproblem;
         private Problem problem = new();
 
         public Problem Problem
@@ -24,31 +27,45 @@ namespace Sanatory.ViewModel
                 Signal();
             }
         }
+
+        public ObservableCollection<StatusProblem> StatusesProblem
+        {
+            get => statusesproblem;
+            set
+            {
+                statusesproblem = value;
+                Signal();
+            }
+        }
+
         public PrAddVM()
         {
+            GetAllStatusesProblem();
 
-
-            Save = new CommandVM(() =>
+            Save = new CommandVM(async() =>
             {
 
                 if (Problem.ID == 0)
-                    ProblemRepository.Instance.AddProblem(Problem);
+                   await DB.GetInstance().AddNewProblem(Problem);
                 else
-                    ProblemRepository.Instance.UpdateProblem(Problem);
-
+                   await DB.GetInstance().EditProblem(Problem);
 
                 MainWindowVM.Instance.CurrentPage = new Processes();
 
             });
 
         }
-
-        
+     
 
         internal void SetEditProblem(Problem selectedProblem)
         {
             Problem = selectedProblem;
 
+        }
+
+        private async void GetAllStatusesProblem()
+        {
+            StatusesProblem = await DB.GetInstance().GetAllStatusesProblem();
         }
     }
 }

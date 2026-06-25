@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -31,11 +32,7 @@ namespace Sanatory.ViewModel
         public DayTimVM()
         {
             MainVM = MainWindowVM.Instance;
-            string sql = "SELECT d.Time, e.ID, e.Title, e.Times, e.Place FROM Daytime d, Events e WHERE EventID = e.ID";
-
-            Daytimes = new ObservableCollection<Daytime>(DaystimeRepository.Instance.GetAllDaytime(sql));
-
-
+            GetAllDaytime();
 
             CreateDay = new CommandVM(() =>
             {
@@ -50,6 +47,10 @@ namespace Sanatory.ViewModel
             });
         }
 
+        public async void GetAllDaytime()
+        {
+            Daytimes = await DB.GetInstance().GetAllDaytime();
+        }
 
     }
 

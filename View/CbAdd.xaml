@@ -17,7 +17,7 @@
 
     <Grid>
         <StackPanel>
-            <StackPanel DataContext="{Binding Cabinets}">
+            <StackPanel DataContext="{Binding Cabinet}">
                 <Label Content=" "/>
                 <Label Content="Номер кабинета" Style="{StaticResource Label}"/>
                 <TextBox Text="{Binding Number}" Style="{StaticResource TextBox}"/>

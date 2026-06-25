@@ -30,6 +30,9 @@ namespace Sanatory.ViewModel
         public CommandVM Gosti {  get; set; }
         public CommandVM Processes {  get; set; }
         public CommandVM Raspisanie { get; set; }
+        public CommandVM Feedbacks { get; set; }
+        public CommandVM Reports { get; set; }
+        public CommandVM Inventory { get; set; }
 
 
         public MainWindowVM()
@@ -61,7 +64,35 @@ namespace Sanatory.ViewModel
                 OpenRaspisanie();
             });
 
-           
+            Feedbacks = new CommandVM(() =>
+            {
+                OpenFeedbacks();
+            });
+
+            Reports = new CommandVM(() =>
+            {
+                OpenReports();
+            });
+
+            Inventory = new CommandVM(() =>
+            {
+                OpenInventory();
+            });
+        }
+
+        private void OpenInventory()
+        {
+            CurrentPage = new InventoryPage();
+        }
+
+        private void OpenReports()
+        {
+            CurrentPage = new ReportsPage();
+        }
+
+        private void OpenFeedbacks()
+        {
+           CurrentPage = new FeedbacksPage();
         }
 
         private void OpenBronirovanie()
@@ -90,7 +121,10 @@ namespace Sanatory.ViewModel
             CurrentPage = new Schedule();
         }
 
-       
+       private void OpenUsersList()
+        {
+            CurrentPage = new UsersList();
+        }
 
     }
 }

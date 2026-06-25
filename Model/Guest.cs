@@ -10,16 +10,27 @@ namespace Sanatory.Model
     public class Guest
     {
         public int ID { get; set; }
+
         public string Surname { get; set; }
+
         public string Name { get; set; }
+
         public string Lastname { get; set; }
+
         public string Pasport { get; set; }
+
         public string Policy { get; set; }
-        public DateOnly DataArrival { get; set; }
-        public DateOnly DataOfDeparture { get; set; }
-        public int RoomID {  get; set; }
-        public Room Room { get; set; } = new();
-        public int ProcedureID { get; set; } = new();
-        public Procedure Procedure { get; set; }
+
+        public DateTime DataArrival { get; set; } = DateTime.Now;
+
+        public DateTime DataOfDeparture { get; set; } = DateTime.Now;
+
+        public int? RoomID {  get; set; }
+
+        public Room? Room { get; set; } = new();
+        public int? UserId { get; set; }
+        public virtual User? User { get; set; }
+
+        public List<Procedure>? Procedures { get; set; } = new List<Procedure>();
     }
 }

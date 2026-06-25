@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -34,41 +35,38 @@ namespace Sanatory.ViewModel
         public EvVM()
         {
             MainVM = MainWindowVM.Instance;
-            string sql = "SELECT * FROM Events WHERE ID > 1";
-
-            Events = new ObservableCollection<Events>(EventsRepository.Instance.GetAllEvents(sql));
-
-
 
             CreateEvent = new CommandVM(() =>
             {
                 MainWindowVM.Instance.CurrentPage = new EvAdd();
             });
 
-            EditEvent = new CommandVM(() => {
+            EditEvent = new CommandVM(() =>
+            {
                 if (SelectedEvent == null)
                     return;
                 MainWindowVM.Instance.CurrentPage = new EvAdd(SelectedEvent);
             });
 
-            DeleteEvent = new CommandVM(() =>
-            {
-                if (SelectedEvent == null)
-                    return;
+            //DeleteEvent = new CommandVM(async() =>
+            //{
+            //    if (SelectedEvent == null)
+            //        return;
 
-                if (MessageBox.Show("Удалить мероприятие?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    EventsRepository.Instance.Remove(SelectedEvent);
-                    Events.Remove(SelectedEvent);
-                }
+            //    if (MessageBox.Show("Удалить мероприятие?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            //    {
+            //        await DB.GetInstance().DeleteEvent(SelectedEvent.ID);
+            //        Events.Remove(SelectedEvent);
+            //    }
 
-            });
-
-
+            //});
 
         }
 
-
+        //public async void GetAllEvents()
+        //{
+        //    Events = await DB.GetInstance().GetAllEventsOnDay();
+        //}
 
     }
 }

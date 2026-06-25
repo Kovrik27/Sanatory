@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Sanatory.ViewModel
         private MainWindowVM MainVM;
         public CommandVM CreateProblem { get; set; }
         public CommandVM EditProblem { get; set; }
-        public CommandVM DeleteProblem { get; set; }
+        public CommandVM EditStatusProblem { get; set; }
 
 
 
@@ -35,43 +36,31 @@ namespace Sanatory.ViewModel
         public PrVM()
         {
             MainVM = MainWindowVM.Instance;
-            string sql = "SELECT * FROM Problem";
-
-            Problems = new ObservableCollection<Problem>(ProblemRepository.Instance.GetAllProblem(sql));
-
-
+            GetAllProblems();
 
             CreateProblem = new CommandVM(() =>
             {
                 MainWindowVM.Instance.CurrentPage = new PrAdd();
             });
 
-            EditProblem = new CommandVM(() => {
+            EditProblem = new CommandVM(() =>
+            {
                 if (SelectedProblem == null)
                     return;
                 MainWindowVM.Instance.CurrentPage = new PrAdd(SelectedProblem);
             });
 
-            DeleteProblem = new CommandVM(() =>
+            EditStatusProblem = new CommandVM(async () =>
             {
-                if (SelectedProblem == null)
-                    return;
-
-                if (MessageBox.Show("Удалить задачу?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    ProblemRepository.Instance.Remove(SelectedProblem);
-                    Problems.Remove(SelectedProblem);
-                }
-
+                await DB.GetInstance().DoneProblem(SelectedProblem.ID);
+                MessageBox.Show("Задача выполнена!");
             });
-
-           
-
-
 
         }
 
-
-
+        public async void GetAllProblems()
+        {
+            Problems = await DB.GetInstance().GetAllProblems();
+        }
     }
 }

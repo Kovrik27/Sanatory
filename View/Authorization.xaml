@@ -1,0 +1,28 @@
+﻿<Window x:Class="Sanatory.View.Authorization"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sanatory.View"
+        mc:Ignorable="d"
+        Title="Authorization" Height="250" WindowStartupLocation="CenterScreen" Width="500" Style="{DynamicResource Window}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.ColumnSpan="3">
+            <TextBlock Text="Добро пожаловать в наш санаторий!" FontSize="20" HorizontalAlignment="Center" Style="{DynamicResource TextBlock}"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+            <TextBox Name="UserTextBox" Style="{DynamicResource TextBox}"/>
+            <PasswordBox Name="PasswordTextBox" Style="{DynamicResource PasswordBox}"/>
+            <Button Content="Войти" Click="PathButton" Style="{DynamicResource Button}"/>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center" >
+            <Label Content="Введите логин" Style="{DynamicResource Label}"/>
+            <Label Content="Введите пароль" Style="{DynamicResource Label}"/>
+        </StackPanel>
+    </Grid>
+</Window>

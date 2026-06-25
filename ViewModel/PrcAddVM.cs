@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,6 @@ namespace Sanatory.ViewModel
     {
 
         public CommandVM Save { get; set; }
-
 
         private Procedure procedure = new();
 
@@ -30,20 +30,16 @@ namespace Sanatory.ViewModel
         public PrcAddVM()
         {
 
-            Save = new CommandVM(() =>
+            Save = new CommandVM(async() =>
             {
 
-                if (Procedure.ID == 0)
-                    ProceduresRepository.Instance.AddProcedures(Procedure);
+                if (Procedure.Id == 0)
+                    await DB.GetInstance().AddNewProcedure(Procedure);
                 else
-                    ProceduresRepository.Instance.UpdateProcedures(Procedure);
-
-
+                    await DB.GetInstance().EditProcedure(Procedure);
                 MainWindowVM.Instance.CurrentPage = new Processes();
 
             });
-
-          
 
         }
 

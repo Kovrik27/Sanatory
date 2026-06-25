@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Api;
+using Sanatory.Model;
 using Sanatory.View;
 using System;
 using System.Collections.Generic;
@@ -10,84 +11,78 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-
 namespace Sanatory.ViewModel
 {
     public class StAddVM : BaseVM
     {
         public CommandVM Save { get; set; }
-        public CommandVM<Problem> AddP { get; set; }
-        public CommandVM<Cabinet> AddC { get; set; }
-        ListBox ListDays;
-        public List<Days> AllDays {  get; set; }
 
-        private Staff staff = new();
+        private ListBox _listDays;
+        private ObservableCollection<JobTitle> _jobTitles;
+        public ObservableCollection<JobTitle> JobTitles
+        {
+            get => _jobTitles;
+            set { _jobTitles = value; Signal(); }
+        }
 
+        private ObservableCollection<Day> _allDays;
+        public ObservableCollection<Day> AllDays
+        {
+            get => _allDays;
+            set { _allDays = value; Signal(); }
+        }
+
+        private Staff _staff = new();
         public Staff Staff
         {
-            get => staff;
-            set
-            {
-                staff = value;
-                Signal();
-            }
+            get => _staff;
+            set { _staff = value; Signal(); }
         }
+
         public StAddVM()
         {
-            AllDays = DaysRepository.Instance.GetDays();
+            GetAllDays();
 
-
-            Save = new CommandVM(() =>
+            Save = new CommandVM(async () =>
             {
+                if (_listDays == null) return;
+                if (Staff.Days == null) Staff.Days = new List<Day>();
+
                 Staff.Days.Clear();
-                foreach (Days days in ListDays.SelectedItems)
-                Staff.Days.Add(days);
-                                   
+                foreach (Day day in _listDays.SelectedItems)
+                    Staff.Days.Add(day);
 
                 if (Staff.ID == 0)
-                    StaffRepository.Instance.AddStaff(Staff);
+                    await DB.GetInstance().AddNewStaff(Staff);
                 else
-                    StaffRepository.Instance.UpdateStaff(Staff);
-
+                    await DB.GetInstance().EditStaff(Staff);
 
                 MainWindowVM.Instance.CurrentPage = new Personal();
-
             });
-
-            AddP = new CommandVM<Problem>(s =>
-            {
-                StaffRepository.Instance.AddProblem(Staff, s);
-                MainWindowVM.Instance.CurrentPage = new Personal();
-                
-
-            });
-
-            AddC = new CommandVM<Cabinet>(s =>
-            {
-                StaffRepository.Instance.AddCabinet(Staff, s);
-                MainWindowVM.Instance.CurrentPage = new Personal();
-            });
-
-
-
         }
 
         internal void SetEditStaff(Staff selectedStaff)
         {
             Staff = selectedStaff;
-            foreach (var days in Staff.Days)
-                ListDays.SelectedItems.Add(days);
+            if (_listDays == null || Staff.Days == null) return;
 
+            _listDays.SelectedItems.Clear();
+            foreach (var day in Staff.Days)
+            {
+                if (AllDays?.Contains(day) == true)
+                    _listDays.SelectedItems.Add(day);
+            }
         }
 
         internal void SetList(ListBox listDays)
         {
-           this.ListDays = listDays;
+            _listDays = listDays;
         }
 
-        internal void SetStaff (Staff selectedStaff)
+        private async void GetAllDays()
         {
-            Staff = selectedStaff;
+            AllDays = await DB.GetInstance().GetAllDays();
+            JobTitles = await DB.GetInstance().GetAllJobTitle();
         }
     }
 }
