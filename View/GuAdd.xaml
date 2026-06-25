@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sanatory.View"
+      xmlns:c="clr-namespace:Sanatory.Converters"
       xmlns:vm="clr-namespace:Sanatory.ViewModel"
       DataContext="{DynamicResource guAddVM}"
       mc:Ignorable="d" 
@@ -12,6 +13,7 @@
 
     <Page.Resources>
         <vm:GuAddVM x:Key="guAddVM"/>
+        <c:InverseBooleanToVisibilityConverter x:Key="conv"/>
     </Page.Resources>
     <Grid>
         <ScrollViewer>
@@ -47,10 +49,10 @@
                     <TextBlock Text="{Binding TotalProceduresPrice, StringFormat={}0:C}"/>
                 </StackPanel>
                 <ScrollViewer MaxHeight="300" VerticalScrollBarVisibility="Auto">
-                    <ItemsControl ItemsSource="{Binding ProceduresWithSelection}">
+                    <ItemsControl ItemsSource="{Binding Procedures}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Margin="0,2" BorderBrush="LightGray" BorderThickness="0,0,0,1" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <Border Margin="0,2" BorderBrush="LightGray" BorderThickness="0,0,0,1" >
                                     <StackPanel Orientation="Horizontal" Margin="5">
                                         <CheckBox IsChecked="{Binding IsSelected}" VerticalAlignment="Center" Margin="0,0,10,0"/>
                                         <StackPanel>
@@ -61,7 +63,7 @@
                                                 <TextBlock Text="{Binding Duration}" Margin="0,0,5,0"/>
                                                 <TextBlock Text="мин." Margin="0,0,15,0"/>
                                                 <TextBlock Text="Цена: " FontStyle="Italic"/>
-                                                <TextBlock Text="{Binding Price, StringFormat={}0:C}" Foreground="Green" FontWeight="Bold"/>
+                                                <TextBlock Text="{Binding Price}" Foreground="Green" FontWeight="Bold"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
