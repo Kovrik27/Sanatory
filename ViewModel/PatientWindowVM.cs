@@ -2,12 +2,19 @@
 using Sanatory.Model;
 using Sanatory.View;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Media;
+using Sanatory.Api;
+using Sanatory.Model;
+using Sanatory.View;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Sanatory.ViewModel
 {
@@ -15,86 +22,146 @@ namespace Sanatory.ViewModel
     {
         public static PatientWindowVM Instance { get; set; }
 
-        private Page currentPage;
-
-        public Page CurrentPage
-        {
-            get => currentPage;
-            set
-            {
-                currentPage = value;
-                Signal();
-            }
-        }
-
         private Guest guest;
+        private int guestId;
+
         public Guest Guest
         {
             get => guest;
-            set
-            {
-                guest = value;
-                Signal();
-            }
+            set { guest = value; Signal(); }
         }
+        public ObservableCollection<Procedure> Procedures { get; set; } = new ObservableCollection<Procedure>();
 
-        public CommandVM Information {  get; set; }
-        public CommandVM Problemss { get; set; }
-        public CommandVM Feedbacks { get; set; } 
+        public CommandVM OpenHome { get; set; }
+        public CommandVM OpenInformation { get; set; }
+        public CommandVM OpenProblems { get; set; }
+        public CommandVM OpenFeedbacks { get; set; }
+
+        public CommandVM OpenServiceRequest { get; set; }
 
         public PatientWindowVM()
         {
             Instance = this;
 
-            Information = new CommandVM(() =>
+            OpenHome = new CommandVM(() =>
             {
-                OpenInformation();
+                var mainWindow = Application.Current.Windows.Cast<Window>()
+                    .FirstOrDefault(w => w is PatientsWindow);
+
+                if (mainWindow != null)
+                {
+                    var frame = FindVisualChild<Frame>(mainWindow);
+                    if (frame != null && Guest != null)
+                    {
+                        frame.Content = new PatientHome(Guest.ID);
+                    }
+                }
             });
 
-            Problemss = new CommandVM(() =>
+            OpenInformation = new CommandVM(() =>
             {
-                OpenProblems();
+                var mainWindow = Application.Current.Windows.Cast<Window>()
+                    .FirstOrDefault(w => w is PatientsWindow);
+
+                if (mainWindow != null)
+                {
+                    var frame = FindVisualChild<Frame>(mainWindow);
+                    if (frame != null)
+                    {
+                        frame.Content = new Information();
+                    }
+                }
             });
 
-            //Feedbacks = new CommandVM(() =>
-            //{
-            //    OpenFeedbacks();
-            //});
-        }
-
-        private void OpenInformation()
-        {
-            CurrentPage = new Information();
-        }
-
-        private void OpenProblems()
-        {
-            CurrentPage = new ProblemGuests();
-        }
-
-        //private void OpenFeedbacks()
-        //{
-        //    CurrentPage = new FeedbacksGuest();
-        //}
-
-        private ObservableCollection<Procedure> procedures;
-
-
-        public ObservableCollection<Procedure> Procedures
-        {
-            get => procedures;
-            set
+            OpenProblems = new CommandVM(() =>
             {
-                procedures = value;
-                Signal();
+                var mainWindow = Application.Current.Windows.Cast<Window>()
+                    .FirstOrDefault(w => w is PatientsWindow);
+
+                if (mainWindow != null)
+                {
+                    var frame = FindVisualChild<Frame>(mainWindow);
+                    if (frame != null)
+                    {
+                        frame.Content = new ProblemGuests();
+                    }
+                }
+            });
+
+            OpenFeedbacks = new CommandVM(() =>
+            {
+                var mainWindow = Application.Current.Windows.Cast<Window>()
+                    .FirstOrDefault(w => w is PatientsWindow);
+
+                if (mainWindow != null)
+                {
+                    var frame = FindVisualChild<Frame>(mainWindow);
+                    if (frame != null && Guest != null)
+                    {
+                        frame.Content = new FeedbacksGuest(Guest.User);
+                    }
+                }
+            });
+
+           
+        OpenServiceRequest = new CommandVM(() =>
+{
+            var mainWindow = Application.Current.Windows.Cast<Window>()
+                .FirstOrDefault(w => w is PatientsWindow);
+
+            if (mainWindow != null)
+            {
+                var frame = FindVisualChild<Frame>(mainWindow);
+                if (frame != null && Guest != null)
+                {
+                    frame.Content = new ServiceRequestPage(Guest.ID);
+                }
+            }
+        });
+        }
+
+        public async Task SetGuestId(int userId)
+        {
+            try
+            {
+                guestId = userId;
+                Guest = await DB.GetInstance().GetGuestByUserId(userId);
+
+                if (Guest == null)
+                {
+                    Procedures = new ObservableCollection<Procedure>();
+                    Signal(nameof(Procedures));
+                    return;
+                }
+
+                var proceduresList = await DB.GetInstance().GetProceduresByGuest(Guest.ID);
+
+                Procedures = proceduresList != null
+                    ? new ObservableCollection<Procedure>(proceduresList)
+                    : new ObservableCollection<Procedure>();
+                Signal(nameof(Procedures));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки данных пациента: {ex.Message}");
+                Procedures = new ObservableCollection<Procedure>();
+                Signal(nameof(Procedures));
             }
         }
 
-        public async Task SetGuestId(int id)
+        private T FindVisualChild<T>(DependencyObject parent) where T : DependencyObject
         {
-            Guest = await DB.GetInstance().GetGuestId(id);
-            Procedures = new ObservableCollection<Procedure> (await DB.GetInstance().GetProceduresByGuest(Guest.ID));
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+                if (child is T typedChild)
+                    return typedChild;
+
+                var childOfChild = FindVisualChild<T>(child);
+                if (childOfChild != null)
+                    return childOfChild;
+            }
+            return null;
         }
     }
 }
-

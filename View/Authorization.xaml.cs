@@ -53,9 +53,19 @@ namespace Sanatory.View
                     break;
 
                 case 3:
-                    StaffWindow staffWindow = new StaffWindow(result.Id);
-                    staffWindow.Show();
-                    Close();
+                    var staff = await DB.GetInstance().GetStaffByUserId(result.Id);
+
+                    if (staff != null)
+                    {
+
+                        StaffWindow staffWindow = new StaffWindow(result.Id);
+                        staffWindow.Show();
+                        Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Сотрудник с UserId={result.Id} не найден!");
+                    }
                     break;
 
                 case 7:
@@ -65,9 +75,18 @@ namespace Sanatory.View
                     break;
 
                 case 5:
-                    PatientsWindow patientsWindow = new PatientsWindow(result.Id);
-                    patientsWindow.Show();
-                    Close();
+                    var guest = await DB.GetInstance().GetGuestByUserId(result.Id);
+
+                    if (guest != null)
+                    {
+                        PatientsWindow patientsWindow = new PatientsWindow(result.Id);
+                        patientsWindow.Show();
+                        Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Гость с UserId={result.Id} не найден!");
+                    }
                     break;
 
                 case 2:

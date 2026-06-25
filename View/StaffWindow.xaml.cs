@@ -1,29 +1,33 @@
 ﻿using Sanatory.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Sanatory.View
 {
-    /// <summary>
-    /// Логика взаимодействия для StaffWindow.xaml
-    /// </summary>
     public partial class StaffWindow : Window
     {
-        public StaffWindow(int Id)
+        public StaffWindow(int userId)
         {
             InitializeComponent();
-            (DataContext as StaffWindowVM).SetStaffId(Id);
+
+            var vm = (StaffWindowVM)FindResource("stWinVM");
+            LoadStaffAndShowTasks(vm, userId);
+        }
+
+        private async void LoadStaffAndShowTasks(StaffWindowVM vm, int userId)
+        {
+            await vm.SetStaffId(userId);
+
+            if (vm.Staff != null)
+            {
+                MainFrame.Content = new StaffTasksPage(vm.Staff.ID);
+            }
+        }
+
+        private void OutButton(object sender, RoutedEventArgs e)
+        {
+            Authorization authorization = new Authorization();
+            authorization.Show();
+            this.Close();
         }
     }
 }

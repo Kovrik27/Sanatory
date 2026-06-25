@@ -45,5 +45,12 @@ namespace Sanatory.View
                 label.Visibility = Visibility.Visible;
             }
         }
+
+        private void OutButton(object sender, RoutedEventArgs e)
+        {
+            Authorization authorization = new Authorization();
+            authorization.Show();
+            this.Close();
+        }
     }
 }

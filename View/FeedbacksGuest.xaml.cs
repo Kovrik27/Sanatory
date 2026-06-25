@@ -22,6 +22,10 @@ namespace Sanatory.View
     /// </summary>
     public partial class FeedbacksGuest : Page
     {
+        public FeedbacksGuest()
+        {
+            InitializeComponent();
+        }
 
         public FeedbacksGuest(Feedback selectedFeedback)
         {

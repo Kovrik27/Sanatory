@@ -2,6 +2,7 @@
 using Sanatory.Model;
 using Sanatory.View;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace Sanatory.ViewModel
@@ -72,11 +73,17 @@ namespace Sanatory.ViewModel
                     return;
                 }
 
-                Feedback.UserId = SelectedUser.Id;
-                Feedback.User = SelectedUser;
+                if (SelectedUser != null)
+                {
+                    if (Feedback.Users == null)
+                        Feedback.Users = new List<User>();
+
+                    Feedback.Users.Add(SelectedUser);
+                }
+
                 await DB.GetInstance().AddNewFeedback(Feedback);
 
-                PatientsWindow patientsWindow = new PatientsWindow();
+                PatientsWindow patientsWindow = new PatientsWindow(SelectedUser.Id);
                 patientsWindow.Show();
 
                 var currentWindow = Window.GetWindow(Application.Current.Windows[0]);

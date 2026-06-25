@@ -20,9 +20,6 @@ namespace Sanatory.ViewModel
         private int star3Count;
         private int star4Count;
         private int star5Count;
-        private bool showAll;
-        private bool showHappy;
-        private bool showBad;
         private string search;
 
         public ObservableCollection<Feedback> Feedbacks
@@ -55,88 +52,11 @@ namespace Sanatory.ViewModel
             }
         }
 
-        public int Star1Count
-        {
-            get => star1Count;
-            set
-            {
-                star1Count = value;
-                Signal();
-            }
-        }
-
-        public int Star2Count
-        {
-            get => star2Count;
-            set
-            {
-                star2Count = value;
-                Signal();
-            }
-        }
-
-        public int Star3Count
-        {
-            get => star3Count;
-            set
-            {
-                star3Count = value;
-                Signal();
-            }
-        }
-
-        public int Star4Count
-        {
-            get => star4Count;
-            set
-            {
-                star4Count = value;
-                Signal();
-            }
-        }
-
-        public int Star5Count
-        {
-            get => star5Count;
-            set
-            {
-                star5Count = value;
-                Signal();
-            }
-        }
-
-        public bool ShowAll
-        {
-            get => showAll;
-            set
-            {
-                showAll = value;
-                Signal();
-                GetAll();
-            }
-        }
-
-        public bool ShowHappy
-        {
-            get => showHappy;
-            set
-            {
-                showHappy = value;
-                Signal();
-                GetAll();
-            }
-        }
-
-        public bool ShowBad
-        {
-            get => showBad;
-            set
-            {
-                showBad = value;
-                Signal();
-                GetAll();
-            }
-        }
+        public int Star1Count { get => star1Count; set { star1Count = value; Signal(); } }
+        public int Star2Count { get => star2Count; set { star2Count = value; Signal(); } }
+        public int Star3Count { get => star3Count; set { star3Count = value; Signal(); } }
+        public int Star4Count { get => star4Count; set { star4Count = value; Signal(); } }
+        public int Star5Count { get => star5Count; set { star5Count = value; Signal(); } }
 
         public string Search
         {
@@ -149,55 +69,81 @@ namespace Sanatory.ViewModel
             }
         }
 
-        public CommandVM GetHappy { get; set; }
-        public CommandVM GetBad { get; set; }
-        public CommandVM CreateFeedback { get; set; }
+        public CommandVM ShowAllCommand { get; set; }
+        public CommandVM ShowHappyCommand { get; set; }
+        public CommandVM ShowBadCommand { get; set; }
+
+        private bool _filterHappy;
+        private bool _filterBad;
 
         public FdVM()
         {
-            GetHappy = new CommandVM(() => ShowHappy = true);
-            GetBad = new CommandVM(() => ShowBad = true);
-            CreateFeedback = new CommandVM(() => { });
+            ShowAllCommand = new CommandVM(() =>
+            {
+                _filterHappy = false;
+                _filterBad = false;
+                GetAll();
+            });
+
+            ShowHappyCommand = new CommandVM(() =>
+            {
+                _filterHappy = true;
+                _filterBad = false;
+                GetAll();
+            });
+
+            ShowBadCommand = new CommandVM(() =>
+            {
+                _filterHappy = false;
+                _filterBad = true;
+                GetAll();
+            });
 
             LoadFeedbacks();
         }
 
         private async void LoadFeedbacks()
         {
-            allFeedbacks = new ObservableCollection<Feedback>(await DB.GetInstance().GetFeedbacks());
-            GetAll();
+            try
+            {
+                var feedbacksFromServer = await DB.GetInstance().GetFeedbacks();
+                allFeedbacks = feedbacksFromServer != null
+                    ? new ObservableCollection<Feedback>(feedbacksFromServer)
+                    : new ObservableCollection<Feedback>();
+                GetAll();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Ошибка загрузки: {ex.Message}");
+                allFeedbacks = new ObservableCollection<Feedback>();
+            }
         }
 
-        public async void GetAll()
+        public void GetAll()
         {
             if (allFeedbacks == null)
-            {
-                allFeedbacks = new ObservableCollection<Feedback>(await DB.GetInstance().GetFeedbacks());
-            }
+                return;
 
-            var filteredFeedbacks = allFeedbacks;
+            IEnumerable<Feedback> filtered = allFeedbacks;
 
             if (!string.IsNullOrEmpty(Search))
             {
-                filteredFeedbacks = new ObservableCollection<Feedback>(filteredFeedbacks.Where(s => s.Description != null && s.Description.Contains(Search)));
+                var searchLower = Search.ToLower();
+                filtered = filtered.Where(s =>
+                    (s.Description?.ToLower().Contains(searchLower) ?? false) ||
+                    (s.UserLogin?.ToLower().Contains(searchLower) ?? false));
             }
 
-            if (ShowAll)
+            if (_filterHappy)
             {
-                filteredFeedbacks = new ObservableCollection<Feedback>();
+                filtered = filtered.Where(s => s.Mark > 4);
             }
-
-            if (ShowHappy)
+            else if (_filterBad)
             {
-                filteredFeedbacks = new ObservableCollection<Feedback>(filteredFeedbacks.Where(s => s.Mark > 4));
+                filtered = filtered.Where(s => s.Mark < 4);
             }
 
-            if (ShowBad)
-            {
-                filteredFeedbacks = new ObservableCollection<Feedback>(filteredFeedbacks.Where(s => s.Mark < 4));
-            }
-
-            Feedbacks = new ObservableCollection<Feedback>(filteredFeedbacks);
+            Feedbacks = new ObservableCollection<Feedback>(filtered);
             UpdateStatistics();
         }
 

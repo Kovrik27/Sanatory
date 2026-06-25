@@ -103,37 +103,41 @@
         </Style>
     </Page.Resources>
     <Grid>
-        <StackPanel DataContext="{Binding Feedback}">
+        <StackPanel>
             <Label Content=" "/>
             <Label Content="Введите своё имя" Style="{StaticResource Label}"/>
-            <TextBox Style="{StaticResource TextBox}" Text="{Binding CurrentUser.Login, Mode=OneWay}" IsReadOnly="True"/>
+            <TextBox Style="{StaticResource TextBox}" 
+             Text="{Binding SelectedUser.Login, Mode=OneWay}" 
+             IsReadOnly="True"/>
             <Label Content="Выставьте оценку" Style="{StaticResource Label}"/>
             <StackPanel Orientation="Horizontal">
                 <CheckBox Style="{DynamicResource CheckBoxStyle1}" 
-                  Command="{Binding SetRatingCommand}" 
+                  Command="{Binding SetRating}" 
                   CommandParameter="1"
                   IsChecked="{Binding Star1, Mode=OneWay}"/>
                 <CheckBox Style="{DynamicResource CheckBoxStyle1}" 
-                  Command="{Binding SetRatingCommand}" 
+                  Command="{Binding SetRating}" 
                   CommandParameter="2"
                   IsChecked="{Binding Star2, Mode=OneWay}"/>
                 <CheckBox Style="{DynamicResource CheckBoxStyle1}" 
-                  Command="{Binding SetRatingCommand}" 
+                  Command="{Binding SetRating}" 
                   CommandParameter="3"
                   IsChecked="{Binding Star3, Mode=OneWay}"/>
                 <CheckBox Style="{DynamicResource CheckBoxStyle1}" 
-                  Command="{Binding SetRatingCommand}" 
+                  Command="{Binding SetRating}" 
                   CommandParameter="4"
                   IsChecked="{Binding Star4, Mode=OneWay}"/>
                 <CheckBox Style="{DynamicResource CheckBoxStyle1}" 
-                  Command="{Binding SetRatingCommand}" 
+                  Command="{Binding SetRating}" 
                   CommandParameter="5"
                   IsChecked="{Binding Star5, Mode=OneWay}"/>
             </StackPanel>
             <Label Content="Введите текст отзыва" Style="{StaticResource Label}"/>
-            <TextBox Style="{StaticResource TextBox}" Text="{Binding Feedback.Description, UpdateSourceTrigger=PropertyChanged}" 
+            <TextBox Style="{StaticResource TextBox}" 
+             Text="{Binding Feedback.Description, UpdateSourceTrigger=PropertyChanged}" 
              TextWrapping="Wrap" AcceptsReturn="True" Height="100"/>
-            <Button Content="Сохранить" Style="{StaticResource Button}" Command="{Binding Save}"/>
+            <Button Content="Сохранить" Style="{StaticResource Button}" 
+            Command="{Binding Save}"/>
         </StackPanel>
     </Grid>
 </Page>

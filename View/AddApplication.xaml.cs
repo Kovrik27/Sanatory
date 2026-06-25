@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Sanatory.Model;
+using Sanatory.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +18,19 @@ using System.Windows.Shapes;
 namespace Sanatory.View
 {
     /// <summary>
-    /// Логика взаимодействия для MaterialsStaff.xaml
+    /// Логика взаимодействия для AddApplication.xaml
     /// </summary>
-    public partial class MaterialsStaff : Page
+    public partial class AddApplication : Page
     {
-        public MaterialsStaff()
+        public AddApplication()
         {
             InitializeComponent();
+        }
+
+        public AddApplication(Applications selectedApplications)
+        {
+            InitializeComponent();
+            ((AppAddVM)DataContext).SetEditApplication(selectedApplications);
         }
     }
 }

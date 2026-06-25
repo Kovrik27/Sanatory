@@ -133,7 +133,7 @@ namespace Sanatory.ViewModel
             var allProcedures = await DB.GetInstance().GetAllProcedure();
 
             ProceduresWithSelection = new ObservableCollection<ProcedureCheckbox>(
-                allProcedures.Select(p => new ProcedureCheckbox
+                allProcedures.Where(p => p.Id != 1).Select(p => new ProcedureCheckbox
                 {
                     Id = p.Id,
                     Title = p.Title,
@@ -195,7 +195,6 @@ namespace Sanatory.ViewModel
 
                 if (Guest.ID == 0)
                 {
-
                     var guestWithProcedures = new GuestWithProceduresDTO
                     {
                         Guest = Guest,
@@ -212,15 +211,16 @@ namespace Sanatory.ViewModel
                         }
 
                         MessageBox.Show("Гость успешно добавлен с выбранными процедурами!", "Успех",
-                                      MessageBoxButton.OK, MessageBoxImage.Information);
+                                      MessageBoxButton.OK);
+
+                        MainWindowVM.Instance.CurrentPage = new Guests();
                     }
                 }
                 else
                 {
                     await DB.GetInstance().EditGuest(Guest);
+                    MainWindowVM.Instance.CurrentPage = new Guests();
                 }
-
-                MainWindowVM.Instance.CurrentPage = new Guests();
             }
             catch (Exception ex)
             {

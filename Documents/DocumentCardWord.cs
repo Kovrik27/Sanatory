@@ -1,52 +1,70 @@
 ﻿using Sanatory.Model;
-using Spire.Doc;
-using Spire.Doc.Documents;
-using Spire.Doc.Fields;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+using Xceed.Document.NET;
+using Xceed.Words.NET;
 
 namespace Sanatory.Documents
 {
     public class DocumentCardWord
     {
         private readonly string guestsDirectory;
+
         public DocumentCardWord()
         {
             guestsDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "GuestsDirectory");
             Directory.CreateDirectory(guestsDirectory);
         }
-        public bool ExportGuestToWord(Guest guest)
+
+        public void ExportGuestToWord(Guest guest)
         {
-            string fileName = $"Карта гостя: {guest.Lastname}";
+            string safeSurName = GetSafeFileName(guest.Surname);
+            string fileName = $"Карта гостя {safeSurName}.docx";
             string fileToDirectory = Path.Combine(guestsDirectory, fileName);
 
-            Document doc = new Document();
-            Section section = doc.AddSection();
-            Paragraph headerParagraph = section.AddParagraph();
-            headerParagraph.AppendText("Пропуск в номер");
+            var doc = DocX.Create(fileToDirectory);
 
-            Table table = section.AddTable();
-            table.ResetCells(6, 2);
+            var header = doc.InsertParagraph("Пропуск в номер");
+            header.Alignment = Alignment.center;
+            header.FontSize(16);
+            header.Bold();
+            header.SpacingAfter(20);
 
-            AddRowToTable(table, 0, "Фамилия:", guest.Lastname);
-            AddRowToTable(table, 1, "Имя:", guest.Name);
-            AddRowToTable(table, 2, "Отчество:", guest.Surname);
-            AddRowToTable(table, 3, "Дата заезда:", guest.DataArrival.ToShortDateString());
-            AddRowToTable(table, 4, "Дата выезда:", guest.DataOfDeparture.ToShortDateString());
-            AddRowToTable(table, 5, "Комната:", guest.Room.Number.ToString());
-            
-            doc.SaveToFile(fileToDirectory, FileFormat.Docx2019);
+            var data = new[]
+            {
+                new[] { "Фамилия:", guest.Surname ?? "-" },
+                new[] { "Имя:", guest.Name ?? "-" },
+                new[] { "Отчество:", guest.Lastname ?? "-" },
+                new[] { "Дата заезда:", guest.DataArrival.ToShortDateString() },
+                new[] { "Дата выезда:", guest.DataOfDeparture.ToShortDateString() },
+                new[] { "Комната:", guest.Room?.Number.ToString() ?? "-" }
+            };
+
+            var table = doc.InsertTable(data.Length, 2);
+            table.Design = TableDesign.LightShadingAccent1;
+            table.Alignment = Alignment.left;
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                table.Rows[i].Cells[0].Paragraphs[0].Append(data[i][0]);
+                table.Rows[i].Cells[1].Paragraphs[0].Append(data[i][1]);
+            }
+
+            doc.Save();
+            doc.Dispose();
         }
 
-        private void AddRowToTable(Table table, int rowIndex, string label, string value)
+        private string GetSafeFileName(string fileName)
         {
-            table.Rows[rowIndex].Cells[0].AddParagraph().AppendText(label);
-            table.Rows[rowIndex].Cells[1].AddParagraph().AppendText(value ?? "-");
+            if (string.IsNullOrEmpty(fileName))
+                return "Без_фамилии";
+
+            foreach (char c in Path.GetInvalidFileNameChars())
+            {
+                fileName = fileName.Replace(c, '_');
+            }
+
+            return fileName.Trim();
         }
     }
 }

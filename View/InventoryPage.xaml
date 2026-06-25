@@ -4,10 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sanatory.View"
+      xmlns:vm="clr-namespace:Sanatory.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="InventoryPage" Style="{DynamicResource Page}">
+      Title="InventoryPage" Style="{DynamicResource Page}"
+      DataContext="{DynamicResource invVM}">
 
+    <Page.Resources>
+        <vm:InvVM x:Key="invVM"/>
+    </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -17,28 +22,52 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Label Content=" "/>
         <Label Grid.Row="1" Content="Список материалов санатория" Style="{DynamicResource Label}"/>
         <Label Grid.Row="1" Grid.Column="1" Content="Список заявок" Style="{DynamicResource Label}"/>
-        <ListView Grid.Row="2" Style="{DynamicResource ListBox}">
+        <StackPanel Grid.Row="2" DataContext="{DynamicResource invVM}">
+            <ListView Grid.Row="2" Style="{DynamicResource ListView}" ItemsSource="{Binding Resources}" SelectedItem="{Binding SelectedResource}">
+                <ListView.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="Foreground" Value="#1B5E20"/>
+                    </Style>
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Название" HeaderContainerStyle="{DynamicResource ListViewColumnHeader }" DisplayMemberBinding="{Binding Title}"/>
+                        <GridViewColumn Header="Сотрудник" HeaderContainerStyle="{DynamicResource ListViewColumnHeader }" DisplayMemberBinding="{Binding Staff.Lastname}"/>
+                        <GridViewColumn Header="Количество" HeaderContainerStyle="{DynamicResource ListViewColumnHeader }" DisplayMemberBinding="{Binding Amount}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+        
+        <ListView Grid.Row="2" Grid.Column="1" Style="{DynamicResource ListView}" ItemsSource="{Binding Applications}">
+            <ListView.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Foreground" Value="#1B5E20"/>
+                </Style>
+            </ListView.Resources>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Название"/>
-                    <GridViewColumn Header="Сотрудник"/>
-                    <GridViewColumn Header="Количество"/>
+                    <GridViewColumn Header="Название материала" HeaderContainerStyle="{DynamicResource ListViewColumnHeader }" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="Количество" HeaderContainerStyle="{DynamicResource ListViewColumnHeader }" DisplayMemberBinding="{Binding Count}"/>
+                    <GridViewColumn Header="Сотрудник" HeaderContainerStyle="{DynamicResource ListViewColumnHeader }" DisplayMemberBinding="{Binding Staf.Lastname}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView Grid.Row="2" Grid.Column="1" Style="{DynamicResource ListBox}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Номер"/>
-                    <GridViewColumn Header="Название материала"/>
-                    <GridViewColumn Header="Статус"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+
+        <StackPanel Grid.Row="3">
+            <Button Content="Добавить материал" Style="{DynamicResource Button}" Command="{Binding CreateResource}"/>
+            <Button Content="Изменить материал" Style="{DynamicResource Button}" Command="{Binding EditResource}"/>
+        </StackPanel>
+
+        
+
     </Grid>
 </Page>

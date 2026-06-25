@@ -27,10 +27,10 @@ namespace Sanatory.View
             InitializeComponent();
         }
 
-        //public AddInventory(Re selectedProblem)
-        //{
-        //    InitializeComponent();
-        //    ((PrAddVM)DataContext).SetEditProblem(selectedProblem);
-        //}
+        public AddInventory(Resource selectedResource)
+        {
+            InitializeComponent();
+            ((InvAddVM)DataContext).SetEditResource(selectedResource);
+        }
     }
 }

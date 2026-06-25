@@ -1,0 +1,67 @@
+﻿<Page x:Class="Sanatory.View.StaffTasksPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:vm="clr-namespace:Sanatory.ViewModel"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Задачи сотрудника"
+      Style="{DynamicResource Page}">
+
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+            <Label Content="📋 Список задач" 
+                   Style="{StaticResource Label}"
+                   FontSize="16" FontWeight="Bold"/>
+        </StackPanel>
+
+        <ListView Grid.Row="1" 
+                  ItemsSource="{Binding Problems}" 
+                  SelectedItem="{Binding SelectedProblem}"
+                  Style="{StaticResource ListView}">
+            <ListView.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Foreground" Value="#1B5E20"/>
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Описание" 
+                                    DisplayMemberBinding="{Binding Description}" 
+                                    Width="300"
+                                    HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                    <GridViewColumn Header="Местоположение" 
+                                    DisplayMemberBinding="{Binding Place}" 
+                                    Width="200"
+                                    HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                    <GridViewColumn Header="Статус" 
+                                    DisplayMemberBinding="{Binding StatusTitle}" 
+                                    Width="150"
+                                    HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Content="✏️ Редактировать" 
+                    Command="{Binding EditProblemCommand}"
+                    Style="{StaticResource Button}"
+                    Margin="0,0,10,0"/>
+            <Button Content="✓ Выполнить" 
+                    Command="{Binding CompleteProblemCommand}"
+                    Style="{StaticResource Button}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="6" HorizontalAlignment="Left" >
+            <Button Content="Выйти" Click="OutButton" Style="{DynamicResource ButtonOut}" Width="102"/>
+        </StackPanel>
+    </Grid>
+</Page>

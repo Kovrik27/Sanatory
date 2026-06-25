@@ -59,6 +59,7 @@ namespace Sanatory.ViewModel
 
 
 
+
         public RegVM()
         {
             GetAllRooms();

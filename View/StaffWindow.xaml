@@ -3,40 +3,45 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Sanatory.View"
         xmlns:vm="clr-namespace:Sanatory.ViewModel"
         mc:Ignorable="d"
         DataContext="{DynamicResource stWinVM}"
-        Title="StaffWindow" Height="450" Width="800">
+        Title="Задачи сотрудника" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen" Style="{DynamicResource Window}">
+
     <Window.Resources>
         <vm:StaffWindowVM x:Key="stWinVM"/>
-        <vm:PrVM x:Key="prVM"/>
     </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label Content="Список задач" Style="{StaticResource Label}"/>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Материалы" Style="{DynamicResource Button}"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+            <Label Content="Задачи и материалы сотрудника" 
+                   Style="{StaticResource Label}"
+                   FontSize="16" FontWeight="Bold"/>
+            <Button Content="📦 Материалы" 
+                    Style="{DynamicResource Button}"
+                    Command="{Binding OpenMaterials}"
+                    Margin="20,0,0,0"/>
+            <Button Content="📋 Задачи" 
+                    Style="{DynamicResource Button}"
+                    Command="{Binding OpenTasks}"
+                    Margin="10,0,0,0"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{DynamicResource stWinVM}">
-            <ListView ItemsSource="{Binding Problems}" SelectedItem="{Binding SelectedProblem}" >
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Описание" DisplayMemberBinding="{Binding Description}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
-                        <GridViewColumn Header="Местоположение" DisplayMemberBinding="{Binding Place}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+        <StackPanel Grid.Row="6" HorizontalAlignment="Right" >
+            <Button Content="Выйти" Click="OutButton" Style="{DynamicResource ButtonOut}" Width="102"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" DataContext="{DynamicResource stWinVM}">
-            <Menu Style="{StaticResource Menu}">
-                <MenuItem Header="Пометить задачу, как выполненную" Command="{Binding EditStatusProblem}" Style="{StaticResource MenuItem}"/>
-            </Menu>
-        </StackPanel>
+
+        <Frame x:Name="MainFrame" 
+               Grid.Row="1" 
+               NavigationUIVisibility="Hidden" Grid.RowSpan="5"/>
     </Grid>
 </Window>

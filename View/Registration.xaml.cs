@@ -1,4 +1,5 @@
-﻿using Sanatory.Model;
+﻿using Sanatory.Documents;
+using Sanatory.Model;
 using Sanatory.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -51,12 +52,12 @@ namespace Sanatory.View
 
         }
 
-        private void GoOut(object sender, RoutedEventArgs e)
+        private void OutButton(object sender, RoutedEventArgs e)
         {
-            Authorization authorization = new Authorization();  
-            authorization.Show();
-            
+            this.NavigationService.Content = null;          
+
         }
 
+        
     }
 }

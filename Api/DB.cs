@@ -258,31 +258,40 @@ namespace Sanatory.Api
 
         public async Task AddNewDaytime(Daytime daytime)
         {
-            var arg = JsonSerializer.Serialize(daytime);
-            var responce = await client.PostAsync($"Daytims/AddNewDaytime", new StringContent(arg, Encoding.UTF8, "application/json"));
-            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            var daytimeToSend = new DaytimeDTO
             {
-                var result = await responce.Content.ReadAsStringAsync();
-                MessageBox.Show("Ошибка данных!");
-            }
-            else
+                Id = daytime.Id,
+                Time = daytime.Time
+            };
+
+            var arg = JsonSerializer.Serialize(daytimeToSend);
+            var response = await client.PostAsync($"Daytims/AddNewDaytime",
+                new StringContent(arg, Encoding.UTF8, "application/json"));
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
-                var result = await responce.Content.ReadAsStringAsync();
+                var result = await response.Content.ReadAsStringAsync();
+                MessageBox.Show($"Ошибка: {result}");
             }
         }
 
         public async Task EditDaytime(Daytime daytime)
         {
-            var arg = JsonSerializer.Serialize(daytime);
-            var responce = await client.PutAsync($"Daytims/EditDaytime", new StringContent(arg, Encoding.UTF8, "application/json"));
-            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            var daytimeToSend = new DaytimeDTO
             {
-                var result = await responce.Content.ReadAsStringAsync();
-                MessageBox.Show("Ошибка данных!");
-            }
-            else
+                Id = daytime.Id,
+                Time = daytime.Time
+            };
+
+            var arg = JsonSerializer.Serialize(daytimeToSend);
+
+            var response = await client.PutAsync($"Daytims/EditDaytime",
+                new StringContent(arg, Encoding.UTF8, "application/json"));
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
-                var result = await responce.Content.ReadAsStringAsync();
+                var result = await response.Content.ReadAsStringAsync();
+                MessageBox.Show($"Ошибка данных!\n{result}");
             }
         }
 
@@ -320,7 +329,7 @@ namespace Sanatory.Api
         {
             var eventOnDayDTO = new EventOnDayDTO
             {
-                DaytimeId = daytime.ID,
+                DaytimeId = daytime.Id,
                 EventId = eventt.Id,
             };
 
@@ -860,6 +869,42 @@ namespace Sanatory.Api
             }
         }
 
+        public async Task<Staff> GetStaffByUserId(int userId)
+{
+    try
+    {
+        Console.WriteLine($"=== GetStaffByUserId({userId}) ===");
+        
+        var response = await client.GetAsync($"Staffs/GetByUserId/{userId}");
+        
+        Console.WriteLine($"Status: {response.StatusCode}");
+        
+        if (response.StatusCode != System.Net.HttpStatusCode.OK)
+        {
+            var errorText = await response.Content.ReadAsStringAsync();
+            Console.WriteLine($"Ошибка API: {errorText}");
+            MessageBox.Show($"Ошибка получения сотрудника: {errorText}");
+            return null;
+        }
+        
+        var json = await response.Content.ReadAsStringAsync();
+        Console.WriteLine($"JSON получен (первые 200 символов):\n{json.Substring(0, Math.Min(200, json.Length))}...");
+        
+        var staff = await response.Content.ReadFromJsonAsync<Staff>(
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        
+        Console.WriteLine($"Десериализовано: ID={staff?.ID}, UserId={staff?.UserId}, Name={staff?.Name}");
+        
+        return staff;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Исключение: {ex.Message}\n{ex.StackTrace}");
+        MessageBox.Show($"Исключение: {ex.Message}");
+        return null;
+    }
+}
+
         ///////////////////////////////
 
         public async Task<ObservableCollection<Day>> GetAllDays()
@@ -929,17 +974,30 @@ namespace Sanatory.Api
 
         public async Task<ObservableCollection<Problem>> GetProblemsByStaff(int id)
         {
-            var responce = await client.GetAsync($"Problems/GetProblemsByStaff/{id}");
-            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            try
             {
-                var result = await responce.Content.ReadAsStringAsync();
-                MessageBox.Show("Ошибка в получении списка!");
-                return null;
-            }
-            else
-            {
-                var problems = await responce.Content.ReadFromJsonAsync<ObservableCollection<Problem>>();
+                var response = await client.GetAsync($"Problems/GetProblemsByStaff/{id}");
+
+                if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show($"Ошибка в получении списка: {result}");
+                    return null;
+                }
+
+
+                var problems = await response.Content.ReadFromJsonAsync<ObservableCollection<Problem>>(
+                    new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
                 return problems;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Исключение: {ex.Message}");
+                return null;
             }
         }
 
@@ -978,9 +1036,172 @@ namespace Sanatory.Api
 
         ///////////
 
-        public async Task<ObservableCollection<Feedback>> GetFeedbacks()
+        public async Task<List<Feedback>> GetFeedbacks()
         {
-            var responce = await client.GetAsync("FeedbackMobile/GetAllFeedbacks");
+            try
+            {
+                var response = await client.GetAsync($"FeedbackMobile/GetAllFeedbacks");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    var feedbacks = JsonSerializer.Deserialize<List<Feedback>>(result, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
+                    return feedbacks ?? new List<Feedback>();
+                }
+
+                return new List<Feedback>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки отзывов: {ex.Message}");
+                return new List<Feedback>();
+            }
+        }
+        public async Task AddNewFeedback(Feedback feedback)
+        {
+            var feedbackToSend = new Feedback
+            {
+                Id = feedback.Id,
+                Mark = feedback.Mark,
+                Description = feedback.Description,
+                Users = feedback.Users?.Select(u => new User
+                {
+                    Id = u.Id,
+                    Login = u.Login,
+                }).ToList()
+            };
+
+            var arg = JsonSerializer.Serialize(feedbackToSend);
+            var response = await client.PostAsync($"Feedbacks/AddNewFeedback",
+                new StringContent(arg, Encoding.UTF8, "application/json"));
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                MessageBox.Show($"Ошибка: {result}");
+            }
+        }
+        public async Task EditFeedback(Feedback feedback)
+        {
+            var arg = JsonSerializer.Serialize(feedback);
+            var responce = await client.PutAsync($"FeedbackMobile/EditFeedback", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
+
+        ///////////////////////////////////
+        public async Task<AccommodationReportDTO> GetAccommodationReport(DateTime? startDate, DateTime? endDate)
+        {
+            try
+            {
+                var response = await client.GetAsync($"Reports/accommodation?startDate={startDate:yyyy-MM-dd}&endDate={endDate:yyyy-MM-dd}");
+                if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show("Ошибка в получении отчёта по проживанию!");
+                    return null;
+                }
+                else
+                {
+                    var report = await response.Content.ReadFromJsonAsync<AccommodationReportDTO>();
+                    return report;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}");
+                return null;
+            }
+        }
+
+        public async Task<ProcedureReportDTO> GetProcedureReport(DateTime? startDate, DateTime? endDate)
+        {
+            try
+            {
+                var response = await client.GetAsync($"Reports/Procedures?startDate={startDate:yyyy-MM-dd}&endDate={endDate:yyyy-MM-dd}");
+                if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show("Ошибка в получении отчёта по процедурам!");
+                    return null;
+                }
+                else
+                {
+                    var report = await response.Content.ReadFromJsonAsync<ProcedureReportDTO>();
+                    return report;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}");
+                return null;
+            }
+        }
+
+        public async Task<FinancialReportDTO> GetFinancialReport(DateTime? startDate, DateTime? endDate)
+        {
+            try
+            {
+                var response = await client.GetAsync($"Reports/financial?startDate={startDate:yyyy-MM-dd}&endDate={endDate:yyyy-MM-dd}");
+                if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show("Ошибка в получении финансового отчёта!");
+                    return null;
+                }
+                else
+                {
+                    var report = await response.Content.ReadFromJsonAsync<FinancialReportDTO>();
+                    return report;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}");
+                return null;
+            }
+        }
+
+        public async Task<byte[]> ExportReport(string reportType, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var response = await client.GetAsync(
+                    $"Reports/export?reportType={reportType}" +
+                    $"&startDate={startDate:yyyy-MM-dd}" +
+                    $"&endDate={endDate:yyyy-MM-dd}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsByteArrayAsync();
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка экспорта: {ex.Message}");
+                return null;
+            }
+        }
+
+        ////////////////////////////////////////////////
+
+        public async Task<ObservableCollection<Resource>> GetResourcesWithStaff()
+        {
+            var responce = await client.GetAsync("Resources/GetResourcesWithStaff");
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
@@ -989,28 +1210,15 @@ namespace Sanatory.Api
             }
             else
             {
-                var feedbacks = await responce.Content.ReadFromJsonAsync<ObservableCollection<Feedback>>();
-                return feedbacks;
+                var resources = await responce.Content.ReadFromJsonAsync<ObservableCollection<Resource>>();
+                return resources;
             }
         }
-        public async Task AddNewFeedback(Feedback feedback)
+
+        public async Task AddNewResource(Resource resource)
         {
-            var arg = JsonSerializer.Serialize(feedback);
-            var responce = await client.PostAsync($"FeedbackMobile/AddNewFeedback", new StringContent(arg, Encoding.UTF8, "application/json"));
-            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
-            {
-                var result = await responce.Content.ReadAsStringAsync();
-                MessageBox.Show("Ошибка данных!");
-            }
-            else
-            {
-                var result = await responce.Content.ReadAsStringAsync();
-            }
-        }
-        public async Task EditFeedback(Feedback feedback)
-        {
-            var arg = JsonSerializer.Serialize(feedback);
-            var responce = await client.PostAsync($"FeedbackMobile/EditFeedback", new StringContent(arg, Encoding.UTF8, "application/json"));
+            var arg = JsonSerializer.Serialize(resource);
+            var responce = await client.PostAsync($"Resource/AddNewResource", new StringContent(arg, Encoding.UTF8, "application/json"));
             if (responce.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var result = await responce.Content.ReadAsStringAsync();
@@ -1022,9 +1230,192 @@ namespace Sanatory.Api
             }
         }
 
+        public async Task EditResource(Resource resource)
+        {
+            var arg = JsonSerializer.Serialize(resource);
+            var responce = await client.PutAsync($"Resource/EditResource", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
 
+        ////////////////////////////////////////////
 
+        public async Task<ObservableCollection<Applications>> GetApplicationWithStaff()
+        {
+            var responce = await client.GetAsync("Applications/GetApplicationsWithStaff");
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка в получении списка!");
+                return null;
+            }
+            else
+            {
+                var applications = await responce.Content.ReadFromJsonAsync<ObservableCollection<Applications>>();
+                return applications;
+            }
+        }
 
+        public async Task AddNewApplication(Applications applications)
+        {
+            var arg = JsonSerializer.Serialize(applications);
+            var responce = await client.PostAsync($"Applications/AddNewApplication", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
+        public async Task EditApplication(Applications applications)
+        {
+            var arg = JsonSerializer.Serialize(applications);
+            var responce = await client.PutAsync($"Applications/EditApplication", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("Ошибка данных!");
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+            }
+        }
+
+        //////////////////////////////////
+
+        public async Task<List<Resource>> GetResourcesByStaff(int staffId)
+        {
+            try
+            {
+                var response = await client.GetAsync($"Resources/GetByStaff/{staffId}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var resources = JsonSerializer.Deserialize<List<Resource>>(json, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+                    return resources ?? new List<Resource>();
+                }
+
+                return new List<Resource>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}");
+                return new List<Resource>();
+            }
+        }
+
+        public async Task<bool> UpdateResourceAmount(int resourceId, decimal newAmount)
+        {
+            try
+            {
+
+                var json = JsonSerializer.Serialize(newAmount);
+
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await client.PutAsync($"Resources/UpdateAmount/{resourceId}", content);
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show($"Ошибка API: {responseContent}");
+                    return false;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Исключение в UpdateResourceAmount: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<Guest> GetGuestByUserId(int userId)
+        {
+            try
+            {
+                var response = await client.GetAsync($"Guests/GetByUserId/{userId}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var guest = await response.Content.ReadFromJsonAsync<Guest>(
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    return guest;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}");
+                return null;
+            }
+        }
+
+        public async Task<bool> CreateServiceRequest(Service service)
+        {
+            try
+            {
+                var response = await client.PostAsJsonAsync("Services/CreateServiceRequest", service);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    var error = await response.Content.ReadAsStringAsync();
+                    System.Diagnostics.Debug.WriteLine($"Ошибка создания заявки: {error}");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Исключение: {ex.Message}");
+                return false;
+            }
+        }
+
+        //////////////////////////
+
+        public async Task<List<Service>> GetAllServices()
+        {
+            var response = await client.GetAsync("Services/GetAllServices");
+            if (response.IsSuccessStatusCode)
+            {
+                var services = await response.Content.ReadFromJsonAsync<List<Service>>();
+                return services;
+            }
+            return new List<Service>();
+        }
+
+        public async Task<List<Service>> GetServicesByGuest(int guestId)
+        {
+            var response = await client.GetAsync($"Services/GetServicesByGuest/{guestId}");
+            if (response.IsSuccessStatusCode)
+            {
+                var services = await response.Content.ReadFromJsonAsync<List<Service>>();
+                return services;
+            }
+            return new List<Service>();
+        }
 
         /////////////////////TestingCheatsEnabled true
         /////bb.moveobjects 

@@ -33,5 +33,10 @@ namespace Sanatory.View
             InitializeComponent();
             ((GuAddVM)DataContext).SetRoom(selectedRoom);
         }
+
+        private void OutButton(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Content = null;
+        }
     }
 }

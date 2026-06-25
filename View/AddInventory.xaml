@@ -4,10 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sanatory.View"
+      xmlns:vm="clr-namespace:Sanatory.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      DataContext="{DynamicResource invAddVM}"
       Title="AddInventory" Style="{DynamicResource Page}">
 
+    <Page.Resources>
+        <vm:InvAddVM x:Key="invAddVM"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -16,11 +21,13 @@
         </Grid.RowDefinitions>
         <Label Content=" "/>
         <StackPanel Grid.Row="1">
-            <Label Content="Выберите материал" Style="{DynamicResource Label}"/>
+            <Label Content="Введите название материала" Style="{DynamicResource Label}"/>
+            <TextBox Style="{DynamicResource TextBox}"/>
+            <Label Content="Выберите количество материала" Style="{DynamicResource Label}"/>
+            <TextBox Style="{DynamicResource TextBox}"/>
+            <Label Content="Выберите сотрудника, которому выдать этот материал" Style="{DynamicResource Label}"/>
             <ComboBox Style="{DynamicResource ComboBox}"/>
-            <Label Content="Выберите количество" Style="{DynamicResource Label}"/>
-            <ComboBox Style="{DynamicResource ComboBox}"/>
-            <Button Content="Отправить заявку" Style="{DynamicResource Button}"/>
+            <Button Content="Сохранить" Style="{DynamicResource Button}"/>
         </StackPanel>
     </Grid>
 </Page>

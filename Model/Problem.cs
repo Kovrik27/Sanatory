@@ -9,17 +9,12 @@ namespace Sanatory.Model
     public class Problem
     {
         public int ID { get; set; }
-
         public string Description { get; set; }
-
-        public string Place {  get; set; }
-
-        public int StatusProblemId {  get; set; } 
-
-        public int? StaffId {  get; set; }
-
+        public string Place { get; set; }
+        public int? StatusProblemId { get; set; }
+        public int? StaffId { get; set; }
+        public string StatusTitle { get; set; }
         public Staff? Staff { get; set; }
-
         public StatusProblem? StatusProblem { get; set; }
     }
 }

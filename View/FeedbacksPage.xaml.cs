@@ -24,5 +24,10 @@ namespace Sanatory.View
         {
             InitializeComponent();
         }
+
+        private void OutButton(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Content = null;
+        }
     }
 }

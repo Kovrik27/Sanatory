@@ -37,13 +37,33 @@
         
 
         <ListView Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Daytimes}" SelectedItem="{Binding SelectedDaytime}" Style="{StaticResource ListView}">
+            <ListView.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Foreground" Value="#1B5E20"/>
+                </Style>
+            </ListView.Resources>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="День" DisplayMemberBinding="{Binding Time, StringFormat=dd.MM.yyyy}" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
                     <GridViewColumn Header="Мероприятия" HeaderContainerStyle="{DynamicResource ListViewColumnHeader}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ItemsControl DisplayMemberPath="Title" ItemsSource="{Binding Events}" />
+                                <ItemsControl ItemsSource="{Binding Events}">
+                                    <ItemsControl.Resources>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="FontSize" Value="16"/>
+                                            <Setter Property="Foreground" Value="#1B5E20"/>
+                                        </Style>
+                                    </ItemsControl.Resources>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Title}" 
+                           FontSize="16" 
+                           Foreground="#1B5E20"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

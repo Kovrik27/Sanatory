@@ -40,11 +40,11 @@
             <MenuItem Header="Гости" Command="{Binding Gosti}"  Style="{StaticResource MenuItem}"/>
             <MenuItem Header="Процессы" Command="{Binding Processes}"  Style="{StaticResource MenuItem}"/>
             <MenuItem Header="Расписание" Command="{Binding Raspisanie}"  Style="{StaticResource MenuItem}"/>
-            <MenuItem Header="Отзывы" Command="{Binding Raspisanie}"  Style="{StaticResource MenuItem}"/>
-            <MenuItem Header="Отчёты" Command="{Binding Raspisanie}"  Style="{StaticResource MenuItem}"/>
-            <MenuItem Header="Инвентаризация" Command="{Binding Raspisanie}"  Style="{StaticResource MenuItem}"/>
-            <MenuItem Header="Заявки"  Style="{StaticResource MenuItem}"/>
+            <MenuItem Header="Отзывы" Command="{Binding Feedbacks}"  Style="{StaticResource MenuItem}"/>
+            <MenuItem Header="Отчёты" Command="{Binding Reports}"  Style="{StaticResource MenuItem}"/>
+            <MenuItem Header="Инвентаризация" Command="{Binding Inventory}"  Style="{StaticResource MenuItem}"/>
+            <MenuItem Header="Вых" Click="OutButton"  Background="IndianRed"/>
         </Menu>
-
+        
     </Grid>
 </Window>

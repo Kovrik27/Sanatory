@@ -4,40 +4,19 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Sanatory.Converters"
+      xmlns:vm="clr-namespace:Sanatory.ViewModel"
       mc:Ignorable="d"
       d:DesignHeight="600" d:DesignWidth="800"
-      Title="Отчеты">
+      Title="Отчеты"
+      DataContext="{DynamicResource rpVM}"
+      Style="{StaticResource Page}">
 
     <Page.Resources>
-        <!-- Конвертеры -->
         <local:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
         <local:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
         <local:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-
-        <Style TargetType="Border" x:Key="CardStyle">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="CornerRadius" Value="5"/>
-            <Setter Property="Padding" Value="10"/>
-            <Setter Property="Margin" Value="0,0,0,10"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect BlurRadius="5" Opacity="0.2" ShadowDepth="2"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style TargetType="DataGrid" x:Key="ReportGridStyle">
-            <Setter Property="AutoGenerateColumns" Value="False"/>
-            <Setter Property="IsReadOnly" Value="True"/>
-            <Setter Property="HeadersVisibility" Value="Column"/>
-            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="RowHeight" Value="25"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="MaxHeight" Value="250"/>
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
-        </Style>
+        <vm:RpVM x:Key="rpVM"/>
     </Page.Resources>
 
     <Grid Margin="5">
@@ -48,16 +27,15 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Заголовок и панель управления -->
-        <StackPanel Grid.Row="0" Margin="0,0,0,5">
+        <Label Content=" "/>
+        <StackPanel Grid.Row="1" Margin="0,0,0,5">
             <TextBlock Text="Отчеты санатория" 
+                       Style="{StaticResource TextBlock}"
                        FontSize="16" 
                        FontWeight="Bold" 
                        Margin="0,0,0,5"/>
 
-            <!-- Панель управления в две строки для компактности -->
             <WrapPanel>
-                <!-- Выбор типа отчета -->
                 <RadioButton Content="Проживание" 
                              IsChecked="{Binding SelectedReportType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=accommodation}"
                              GroupName="ReportType"
@@ -73,63 +51,39 @@
             </WrapPanel>
 
             <WrapPanel Margin="0,3,0,0">
-                <!-- Выбор периода -->
-                <TextBlock Text="Период:" VerticalAlignment="Center" Margin="0,0,5,0" FontSize="11"/>
-                <DatePicker SelectedDate="{Binding StartDate}" Width="100" Height="22" FontSize="11" Margin="0,0,3,0"/>
-                <TextBlock Text="-" VerticalAlignment="Center" Margin="0,0,3,0" FontSize="11"/>
-                <DatePicker SelectedDate="{Binding EndDate}" Width="100" Height="22" FontSize="11" Margin="0,0,10,0"/>
-
-                <!-- Кнопки -->
+                <TextBlock Text="Период:" Style="{StaticResource TextBlock}" FontSize="12" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <DatePicker SelectedDate="{Binding StartDate}" 
+                            Style="{StaticResource DatePicker}"/>
+                <TextBlock Text="-" Style="{StaticResource TextBlock}" FontSize="12" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                <DatePicker SelectedDate="{Binding EndDate}" 
+                            Style="{StaticResource DatePicker}"/>
                 <Button Content="Сформировать" 
+                        Style="{StaticResource Button}"
                         Command="{Binding GenerateReportCommand}"
-                        Height="25" 
-                        Width="90"
-                        FontSize="11"
-                        Margin="0,0,3,0"/>
-                <Button Content="Экспорт CSV" 
-                        Command="{Binding ExportToCsvCommand}"
-                        Height="25" 
-                        Width="80"
-                        FontSize="11"/>
+                        Margin="5,0,0,0"/>
+                <Button Content="📊 Экспорт Excel" 
+                        Style="{StaticResource Button}"
+                        Command="{Binding ExportToExcelCommand}"
+                        Margin="5,0,0,0"/>
             </WrapPanel>
         </StackPanel>
 
-        <!-- Индикатор загрузки -->
-        <Border Grid.Row="2" 
-                Background="#80FFFFFF" 
-                HorizontalAlignment="Stretch" 
-                VerticalAlignment="Stretch"
-                Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Text="Загрузка данных..." 
-                           FontSize="14" 
-                           HorizontalAlignment="Center" 
-                           Margin="0,0,0,5"/>
-                <ProgressBar IsIndeterminate="True" Width="150" Height="10"/>
-            </StackPanel>
-        </Border>
-
-        <!-- Содержимое отчетов -->
         <ScrollViewer Grid.Row="2" 
                       VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Auto"
                       Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
 
             <StackPanel>
-                <!-- Отчет по проживанию -->
-                <Border Visibility="{Binding SelectedReportType, Converter={StaticResource StringToVisibilityConverter}, ConverterParameter=accommodation}"
-                        Style="{StaticResource CardStyle}">
+                <Border Visibility="{Binding SelectedReportType, Converter={StaticResource StringToVisibilityConverter}, ConverterParameter=accommodation}">
                     <StackPanel>
-                        <!-- Ключевые показатели мини-карточками -->
                         <WrapPanel Margin="0,0,0,10">
                             <Border Background="#4CAF50" CornerRadius="3" Padding="8" Margin="2" Width="130">
                                 <StackPanel>
                                     <TextBlock Text="Доход" FontSize="9" Foreground="White"/>
-                                    <TextBlock Text="{Binding AccommodationReport.Summary.TotalIncome, StringFormat={}{0:C0}}" 
+                                    <TextBlock Text="{Binding AccommodationReport.Summary.TotalIncome, StringFormat={}{0:N2} руб.}" 
                                                FontSize="12" FontWeight="Bold" Foreground="White"/>
                                 </StackPanel>
                             </Border>
-
                             <Border Background="#2196F3" CornerRadius="3" Padding="8" Margin="2" Width="130">
                                 <StackPanel>
                                     <TextBlock Text="Загрузка" FontSize="9" Foreground="White"/>
@@ -137,7 +91,6 @@
                                                FontSize="12" FontWeight="Bold" Foreground="White"/>
                                 </StackPanel>
                             </Border>
-
                             <Border Background="#FF9800" CornerRadius="3" Padding="8" Margin="2" Width="130">
                                 <StackPanel>
                                     <TextBlock Text="Гостей" FontSize="9" Foreground="White"/>
@@ -147,47 +100,57 @@
                             </Border>
                         </WrapPanel>
 
-                        <!-- Детализация -->
-                        <TextBlock Text="Детализация проживания" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                        <DataGrid ItemsSource="{Binding AccommodationReport.Details}" Style="{StaticResource ReportGridStyle}">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Гость" Binding="{Binding GuestName}" Width="150"/>
-                                <DataGridTextColumn Header="№" Binding="{Binding RoomNumber}" Width="35"/>
-                                <DataGridTextColumn Header="Заезд" Binding="{Binding CheckInDate, StringFormat={}dd.MM}" Width="55"/>
-                                <DataGridTextColumn Header="Выезд" Binding="{Binding CheckOutDate, StringFormat={}dd.MM}" Width="55"/>
-                                <DataGridTextColumn Header="Ночей" Binding="{Binding Nights}" Width="45"/>
-                                <DataGridTextColumn Header="Сумма" Binding="{Binding TotalCost, StringFormat={}C0}" Width="70"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <TextBlock Text="Детализация проживания" Style="{StaticResource TextBlock}" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ListView ItemsSource="{Binding AccommodationReport.Details}" Style="{StaticResource ListView}">
+                            <ListView.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontSize" Value="16"/>
+                                    <Setter Property="Foreground" Value="#1B5E20"/>
+                                </Style>
+                            </ListView.Resources>
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Гость" DisplayMemberBinding="{Binding GuestName}" Width="150"/>
+                                    <GridViewColumn Header="№" DisplayMemberBinding="{Binding RoomNumber}" Width="35"/>
+                                    <GridViewColumn Header="Заезд" DisplayMemberBinding="{Binding CheckInDate, StringFormat={}dd.MM}" Width="55"/>
+                                    <GridViewColumn Header="Выезд" DisplayMemberBinding="{Binding CheckOutDate, StringFormat={}dd.MM}" Width="55"/>
+                                    <GridViewColumn Header="Ночей" DisplayMemberBinding="{Binding Nights}" Width="45"/>
+                                    <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding TotalCost, StringFormat={}{0:N2} руб.}" Width="70"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
 
-                        <!-- Статистика по номерам -->
-                        <TextBlock Text="Загрузка номеров" FontSize="12" FontWeight="SemiBold" Margin="0,10,0,5"/>
-                        <DataGrid ItemsSource="{Binding AccommodationReport.RoomStats}" Style="{StaticResource ReportGridStyle}">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Номер" Binding="{Binding RoomNumber}" Width="45"/>
-                                <DataGridTextColumn Header="Тип" Binding="{Binding RoomType}" Width="80"/>
-                                <DataGridTextColumn Header="Занято дней" Binding="{Binding OccupiedDays}" Width="70"/>
-                                <DataGridTextColumn Header="%" Binding="{Binding OccupancyPercentage, StringFormat={}{0:F1}%}" Width="50"/>
-                                <DataGridTextColumn Header="Доход" Binding="{Binding TotalIncome, StringFormat={}C0}" Width="70"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <TextBlock Text="Загрузка номеров" Style="{StaticResource TextBlock}" FontSize="12" FontWeight="SemiBold" Margin="0,10,0,5"/>
+                        <ListView ItemsSource="{Binding AccommodationReport.RoomStats}" Style="{StaticResource ListView}">
+                            <ListView.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontSize" Value="16"/>
+                                    <Setter Property="Foreground" Value="#1B5E20"/>
+                                </Style>
+                            </ListView.Resources>
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Номер" DisplayMemberBinding="{Binding RoomNumber}" Width="45"/>
+                                    <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding RoomType}" Width="80"/>
+                                    <GridViewColumn Header="Занято дней" DisplayMemberBinding="{Binding OccupiedDays}" Width="70"/>
+                                    <GridViewColumn Header="%" DisplayMemberBinding="{Binding OccupancyPercentage, StringFormat={}{0:F1}%}" Width="50"/>
+                                    <GridViewColumn Header="Доход" DisplayMemberBinding="{Binding TotalIncome, StringFormat={}{0:N2} руб.}" Width="70"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
                     </StackPanel>
                 </Border>
 
-                <!-- Отчет по процедурам -->
-                <Border Visibility="{Binding SelectedReportType, Converter={StaticResource StringToVisibilityConverter}, ConverterParameter=procedures}"
-                        Style="{StaticResource CardStyle}">
+                <Border Visibility="{Binding SelectedReportType, Converter={StaticResource StringToVisibilityConverter}, ConverterParameter=procedures}">
                     <StackPanel>
-                        <!-- Ключевые показатели -->
                         <WrapPanel Margin="0,0,0,10">
                             <Border Background="#9C27B0" CornerRadius="3" Padding="8" Margin="2" Width="130">
                                 <StackPanel>
                                     <TextBlock Text="Доход" FontSize="9" Foreground="White"/>
-                                    <TextBlock Text="{Binding ProcedureReport.Summary.TotalIncome, StringFormat={}{0:C0}}" 
+                                    <TextBlock Text="{Binding ProcedureReport.Summary.TotalIncome, StringFormat={}{0:N2} руб.}" 
                                                FontSize="12" FontWeight="Bold" Foreground="White"/>
                                 </StackPanel>
                             </Border>
-
                             <Border Background="#E91E63" CornerRadius="3" Padding="8" Margin="2" Width="130">
                                 <StackPanel>
                                     <TextBlock Text="Процедур" FontSize="9" Foreground="White"/>
@@ -195,7 +158,6 @@
                                                FontSize="12" FontWeight="Bold" Foreground="White"/>
                                 </StackPanel>
                             </Border>
-
                             <Border Background="#00BCD4" CornerRadius="3" Padding="8" Margin="2" Width="130">
                                 <StackPanel>
                                     <TextBlock Text="На гостя" FontSize="9" Foreground="White"/>
@@ -205,110 +167,109 @@
                             </Border>
                         </WrapPanel>
 
-                        <!-- Популярность процедур -->
-                        <TextBlock Text="Популярность процедур" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                        <DataGrid ItemsSource="{Binding ProcedureReport.Popularity}" Style="{StaticResource ReportGridStyle}" MaxHeight="150">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Процедура" Binding="{Binding ProcedureName}" Width="130"/>
-                                <DataGridTextColumn Header="Выполнено" Binding="{Binding TimesPerformed}" Width="60"/>
-                                <DataGridTextColumn Header="Доход" Binding="{Binding TotalIncome, StringFormat={}C0}" Width="70"/>
-                                <DataGridTextColumn Header="%" Binding="{Binding PopularityPercent, StringFormat={}{0:F1}%}" Width="50"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <TextBlock Text="Популярность процедур" Style="{StaticResource TextBlock}" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ListView ItemsSource="{Binding ProcedureReport.Popularity}" Style="{StaticResource ListView}" MaxHeight="150">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Процедура" DisplayMemberBinding="{Binding ProcedureName}" Width="130"/>
+                                    <GridViewColumn Header="Выполнено" DisplayMemberBinding="{Binding TimesPerformed}" Width="60"/>
+                                    <GridViewColumn Header="Доход" DisplayMemberBinding="{Binding TotalIncome, StringFormat={}{0:N2} руб.}" Width="70"/>
+                                    <GridViewColumn Header="%" DisplayMemberBinding="{Binding PopularityPercent, StringFormat={}{0:F1}%}" Width="50"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
 
-                        <!-- Детализация процедур -->
-                        <TextBlock Text="Последние процедуры" FontSize="12" FontWeight="SemiBold" Margin="0,10,0,5"/>
-                        <DataGrid ItemsSource="{Binding ProcedureReport.Details}" Style="{StaticResource ReportGridStyle}">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Дата" Binding="{Binding ServiceDate, StringFormat={}dd.MM HH:mm}" Width="70"/>
-                                <DataGridTextColumn Header="Гость" Binding="{Binding GuestName}" Width="120"/>
-                                <DataGridTextColumn Header="Процедура" Binding="{Binding ProcedureName}" Width="120"/>
-                                <DataGridTextColumn Header="Врач" Binding="{Binding DoctorName}" Width="100"/>
-                                <DataGridTextColumn Header="Сумма" Binding="{Binding TotalCost, StringFormat={}C0}" Width="60"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <TextBlock Text="Последние процедуры" Style="{StaticResource TextBlock}" FontSize="12" FontWeight="SemiBold" Margin="0,10,0,5"/>
+                        <ListView ItemsSource="{Binding ProcedureReport.Details}" Style="{StaticResource ListView}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding ServiceDate, StringFormat={}dd.MM HH:mm}" Width="70"/>
+                                    <GridViewColumn Header="Гость" DisplayMemberBinding="{Binding GuestName}" Width="120"/>
+                                    <GridViewColumn Header="Процедура" DisplayMemberBinding="{Binding ProcedureName}" Width="120"/>
+                                    <GridViewColumn Header="Врач" DisplayMemberBinding="{Binding DoctorName}" Width="100"/>
+                                    <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding TotalCost, StringFormat={}{0:N2} руб.}" Width="70"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
                     </StackPanel>
                 </Border>
 
-                <!-- Финансовый отчет -->
-                <Border Visibility="{Binding SelectedReportType, Converter={StaticResource StringToVisibilityConverter}, ConverterParameter=financial}"
-                        Style="{StaticResource CardStyle}">
+                <Border Visibility="{Binding SelectedReportType, Converter={StaticResource StringToVisibilityConverter}, ConverterParameter=financial}">
                     <StackPanel>
-                        <!-- Ключевые показатели -->
                         <WrapPanel Margin="0,0,0,10">
-                            <Border Background="#F44336" CornerRadius="3" Padding="6" Margin="2" Width="100">
+                            <Border Background="#F44336" CornerRadius="3" Padding="6" Margin="2" Width="110">
                                 <StackPanel>
                                     <TextBlock Text="Всего" FontSize="8" Foreground="White"/>
-                                    <TextBlock Text="{Binding FinancialReport.Summary.TotalIncome, StringFormat={}{0:C0}}" 
+                                    <TextBlock Text="{Binding FinancialReport.Summary.TotalIncome, StringFormat={}{0:N0} руб.}" 
                                                FontSize="11" FontWeight="Bold" Foreground="White"/>
                                 </StackPanel>
                             </Border>
-
-                            <Border Background="#4CAF50" CornerRadius="3" Padding="6" Margin="2" Width="90">
+                            <Border Background="#4CAF50" CornerRadius="3" Padding="6" Margin="2" Width="100">
                                 <StackPanel>
                                     <TextBlock Text="Прожив." FontSize="8" Foreground="White"/>
-                                    <TextBlock Text="{Binding FinancialReport.Summary.AccommodationIncome, StringFormat={}{0:C0}}" 
+                                    <TextBlock Text="{Binding FinancialReport.Summary.AccommodationIncome, StringFormat={}{0:N0} руб.}" 
                                                FontSize="10" FontWeight="Bold" Foreground="White"/>
                                     <TextBlock Text="{Binding FinancialReport.Summary.AccommodationPercent, StringFormat={}{0:F0}%}" 
                                                FontSize="8" Foreground="White"/>
                                 </StackPanel>
                             </Border>
-
-                            <Border Background="#9C27B0" CornerRadius="3" Padding="6" Margin="2" Width="90">
+                            <Border Background="#9C27B0" CornerRadius="3" Padding="6" Margin="2" Width="100">
                                 <StackPanel>
                                     <TextBlock Text="Проц." FontSize="8" Foreground="White"/>
-                                    <TextBlock Text="{Binding FinancialReport.Summary.ProceduresIncome, StringFormat={}{0:C0}}" 
+                                    <TextBlock Text="{Binding FinancialReport.Summary.ProceduresIncome, StringFormat={}{0:N0} руб.}" 
                                                FontSize="10" FontWeight="Bold" Foreground="White"/>
                                     <TextBlock Text="{Binding FinancialReport.Summary.ProceduresPercent, StringFormat={}{0:F0}%}" 
                                                FontSize="8" Foreground="White"/>
                                 </StackPanel>
                             </Border>
-
-                            <Border Background="#FF9800" CornerRadius="3" Padding="6" Margin="2" Width="100">
+                            <Border Background="#FF9800" CornerRadius="3" Padding="6" Margin="2" Width="110">
                                 <StackPanel>
                                     <TextBlock Text="Ср. чек" FontSize="8" Foreground="White"/>
-                                    <TextBlock Text="{Binding FinancialReport.Summary.AverageGuestSpending, StringFormat={}{0:C0}}" 
+                                    <TextBlock Text="{Binding FinancialReport.Summary.AverageGuestSpending, StringFormat={}{0:N0} руб.}" 
                                                FontSize="11" FontWeight="Bold" Foreground="White"/>
                                 </StackPanel>
                             </Border>
                         </WrapPanel>
 
-                        <!-- Топ гостей -->
-                        <TextBlock Text="Топ гостей" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                        <DataGrid ItemsSource="{Binding FinancialReport.TopSpenders}" Style="{StaticResource ReportGridStyle}" MaxHeight="120">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Гость" Binding="{Binding GuestName}" Width="150"/>
-                                <DataGridTextColumn Header="№" Binding="{Binding RoomNumber}" Width="35"/>
-                                <DataGridTextColumn Header="Прожив." Binding="{Binding AccommodationCost, StringFormat={}C0}" Width="60"/>
-                                <DataGridTextColumn Header="Проц." Binding="{Binding ProceduresCost, StringFormat={}C0}" Width="60"/>
-                                <DataGridTextColumn Header="Всего" Binding="{Binding TotalSpent, StringFormat={}C0}" Width="70"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <TextBlock Text="Топ гостей" Style="{StaticResource TextBlock}" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ListView ItemsSource="{Binding FinancialReport.TopSpenders}" Style="{StaticResource ListView}" MaxHeight="120">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Гость" DisplayMemberBinding="{Binding GuestName}" Width="150"/>
+                                    <GridViewColumn Header="№" DisplayMemberBinding="{Binding RoomNumber}" Width="35"/>
+                                    <GridViewColumn Header="Прожив." DisplayMemberBinding="{Binding AccommodationCost, StringFormat={}{0:N2} руб.}" Width="70"/>
+                                    <GridViewColumn Header="Проц." DisplayMemberBinding="{Binding ProceduresCost, StringFormat={}{0:N2} руб.}" Width="70"/>
+                                    <GridViewColumn Header="Всего" DisplayMemberBinding="{Binding TotalSpent, StringFormat={}{0:N2} руб.}" Width="80"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
 
-                        <!-- Помесячное сравнение -->
-                        <TextBlock Text="По месяцам" FontSize="12" FontWeight="SemiBold" Margin="0,10,0,5"/>
-                        <DataGrid ItemsSource="{Binding FinancialReport.MonthlyComparison}" Style="{StaticResource ReportGridStyle}">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Месяц" Binding="{Binding Month}" Width="70"/>
-                                <DataGridTextColumn Header="Прожив." Binding="{Binding AccommodationIncome, StringFormat={}C0}" Width="70"/>
-                                <DataGridTextColumn Header="Проц." Binding="{Binding ProceduresIncome, StringFormat={}C0}" Width="70"/>
-                                <DataGridTextColumn Header="Всего" Binding="{Binding TotalIncome, StringFormat={}C0}" Width="80"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <TextBlock Text="По месяцам" Style="{StaticResource TextBlock}" FontSize="12" FontWeight="SemiBold" Margin="0,10,0,5"/>
+                        <ListView ItemsSource="{Binding FinancialReport.MonthlyComparison}" Style="{StaticResource ListView}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Месяц" DisplayMemberBinding="{Binding Month}" Width="70"/>
+                                    <GridViewColumn Header="Прожив." DisplayMemberBinding="{Binding AccommodationIncome, StringFormat={}{0:N2} руб.}" Width="80"/>
+                                    <GridViewColumn Header="Проц." DisplayMemberBinding="{Binding ProceduresIncome, StringFormat={}{0:N2} руб.}" Width="80"/>
+                                    <GridViewColumn Header="Всего" DisplayMemberBinding="{Binding TotalIncome, StringFormat={}{0:N2} руб.}" Width="90"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
                     </StackPanel>
                 </Border>
             </StackPanel>
         </ScrollViewer>
 
-        <!-- Нижняя панель с информацией о периоде -->
         <Border Grid.Row="3" 
-                Background="#F5F5F5" 
+                Background="#E8F5E9" 
                 CornerRadius="3" 
                 Padding="5"
-                Margin="0,5,0,0">
+                Margin="0,5,0,0"
+                BorderBrush="#388E3C"
+                BorderThickness="1">
             <WrapPanel HorizontalAlignment="Right">
-                <TextBlock Text="Период:" FontWeight="Bold" FontSize="10" Margin="0,0,5,0"/>
-                <TextBlock Text="{Binding PeriodDisplay}" FontSize="10" FontStyle="Italic"/>
+                <TextBlock Text="Период:" Style="{StaticResource TextBlock}" FontWeight="Bold" FontSize="10" Margin="0,0,5,0"/>
+                <TextBlock Text="{Binding PeriodDisplay}" Style="{StaticResource TextBlock}" FontSize="10" FontStyle="Italic"/>
             </WrapPanel>
         </Border>
     </Grid>

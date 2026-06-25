@@ -25,9 +25,11 @@ namespace Sanatory.Model
 
         public DateTime DataOfDeparture { get; set; } = DateTime.Now;
 
-        public int RoomID {  get; set; }
+        public int? RoomID {  get; set; }
 
-        public Room Room { get; set; } = new();
+        public Room? Room { get; set; } = new();
+        public int? UserId { get; set; }
+        public virtual User? User { get; set; }
 
         public List<Procedure>? Procedures { get; set; } = new List<Procedure>();
     }

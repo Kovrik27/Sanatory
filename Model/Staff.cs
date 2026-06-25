@@ -34,7 +34,7 @@ namespace Sanatory.Model
 
         public Cabinet? Cabinet { get; set; }
         public int? UserId { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
 
 
     }

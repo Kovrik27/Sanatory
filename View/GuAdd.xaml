@@ -14,8 +14,10 @@
         <vm:GuAddVM x:Key="guAddVM"/>
     </Page.Resources>
     <Grid>
-        <StackPanel>
-            <StackPanel DataContext="{Binding Guest}">
+        <ScrollViewer>
+            <StackPanel>
+                <Label Content=" "/>
+                <StackPanel DataContext="{Binding Guest}">
                 <Label Content="Фамилия гостя" Style="{StaticResource Label}"/>
                 <TextBox Text="{Binding Lastname}" Style="{StaticResource TextBox}"/>
                 <Label Content="Имя гостя" Style="{StaticResource Label}"/>
@@ -71,5 +73,6 @@
             </StackPanel>
             <Button Content="Сохранить" Command="{Binding Save}" Margin="0,20" Style="{StaticResource Button}"/>
         </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

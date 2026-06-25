@@ -11,88 +11,73 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-
 namespace Sanatory.ViewModel
 {
     public class StAddVM : BaseVM
     {
         public CommandVM Save { get; set; }
 
-        ListBox ListDays;
-        private ObservableCollection<JobTitle> jobTitles;
-        public ObservableCollection<Day> allDays {  get; set; }
-
-        private Staff staff = new();
-
-        public Staff Staff
-        {
-            get => staff;
-            set
-            {
-                staff = value;
-                Signal();
-            }
-        }
-
+        private ListBox _listDays;
+        private ObservableCollection<JobTitle> _jobTitles;
         public ObservableCollection<JobTitle> JobTitles
         {
-            get => jobTitles;
-            set
-            {
-                jobTitles = value;
-                Signal();
-            }
+            get => _jobTitles;
+            set { _jobTitles = value; Signal(); }
         }
 
+        private ObservableCollection<Day> _allDays;
         public ObservableCollection<Day> AllDays
         {
-            get => allDays;
-            set
-            {
-                allDays = value;
-                Signal();
-            }
+            get => _allDays;
+            set { _allDays = value; Signal(); }
         }
+
+        private Staff _staff = new();
+        public Staff Staff
+        {
+            get => _staff;
+            set { _staff = value; Signal(); }
+        }
+
         public StAddVM()
         {
             GetAllDays();
 
-
-            Save = new CommandVM(async() =>
+            Save = new CommandVM(async () =>
             {
-                Staff.Days.Clear();
-                foreach (Day days in ListDays.SelectedItems)
-                    Staff.Days.Add(days);
+                if (_listDays == null) return;
+                if (Staff.Days == null) Staff.Days = new List<Day>();
 
+                Staff.Days.Clear();
+                foreach (Day day in _listDays.SelectedItems)
+                    Staff.Days.Add(day);
 
                 if (Staff.ID == 0)
-                {
                     await DB.GetInstance().AddNewStaff(Staff);
-                }              
                 else
                     await DB.GetInstance().EditStaff(Staff);
 
-
                 MainWindowVM.Instance.CurrentPage = new Personal();
-
             });
-
-
         }
 
         internal void SetEditStaff(Staff selectedStaff)
         {
             Staff = selectedStaff;
-            foreach (var days in Staff.Days)
-                ListDays.SelectedItems.Add(days);
+            if (_listDays == null || Staff.Days == null) return;
 
+            _listDays.SelectedItems.Clear();
+            foreach (var day in Staff.Days)
+            {
+                if (AllDays?.Contains(day) == true)
+                    _listDays.SelectedItems.Add(day);
+            }
         }
 
         internal void SetList(ListBox listDays)
         {
-           this.ListDays = listDays;
+            _listDays = listDays;
         }
-     
 
         private async void GetAllDays()
         {

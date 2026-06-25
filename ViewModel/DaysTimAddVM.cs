@@ -16,12 +16,10 @@ namespace Sanatory.ViewModel
         public CommandVM<Events> AddEvent { get; set; }
 
         private Daytime daytime;
-
-        public Daytime selectedDaytime;
-
-        public Events selectedEvent;
-
-        private ObservableCollection<Events> events {  get; set; }
+        private Daytime selectedDaytime;
+        private Events selectedEvent;
+        private ObservableCollection<Events> events;
+        private string search;
 
         public Daytime Daytime
         {
@@ -32,6 +30,7 @@ namespace Sanatory.ViewModel
                 Signal();
             }
         }
+
         public Daytime SelectedDaytime
         {
             get => selectedDaytime;
@@ -41,6 +40,7 @@ namespace Sanatory.ViewModel
                 Signal();
             }
         }
+
         public Events SelectedEvent
         {
             get => selectedEvent;
@@ -61,8 +61,6 @@ namespace Sanatory.ViewModel
             }
         }
 
-        private string search;
-
         public string Search
         {
             get => search;
@@ -70,22 +68,27 @@ namespace Sanatory.ViewModel
             {
                 search = value;
                 Signal();
-                GetAllEvents();
+                FilterEvents();
             }
         }
+
         public DaysTimAddVM()
         {
-            GetAllEvents();
-            Save = new CommandVM(async() =>
-            {
+            Daytime = new Daytime();
 
-                if (Daytime.ID == 0)
+            GetAllEvents();
+
+            Save = new CommandVM(async () =>
+            {
+                if (Daytime == null)
+                    Daytime = new Daytime();
+
+                if (Daytime.Id == 0)
                     await DB.GetInstance().AddNewDaytime(Daytime);
                 else
                     await DB.GetInstance().EditDaytime(Daytime);
 
                 MainWindowVM.Instance.CurrentPage = new Schedule();
-
             });
 
             AddEvent = new CommandVM<Events>(s =>
@@ -93,30 +96,28 @@ namespace Sanatory.ViewModel
                 DB.GetInstance().AddNewEventOnDay(SelectedDaytime, SelectedEvent);
                 MainWindowVM.Instance.CurrentPage = new Schedule();
             });
-
-
-
         }
-
 
         internal void SetEditDaytime(Daytime selectedDayTime)
         {
-            SelectedDaytime = selectedDayTime;
-
+            if (selectedDayTime != null)
+            {
+                Daytime = selectedDayTime;
+                SelectedDaytime = selectedDayTime;
+            }
         }
 
         public async void GetAllEvents()
         {
             var allEvents = await DB.GetInstance().GetAllEvents();
-
-            if (!string.IsNullOrEmpty(Search))
-            {
-                allEvents = new ObservableCollection<Events>(Events.Where(s => s.Title.Contains(Search)));
-            }
-
-            Events = new ObservableCollection<Events>(allEvents);
+            Events = new ObservableCollection<Events>(allEvents ?? Enumerable.Empty<Events>());
         }
-      
+
+        private void FilterEvents()
+        {
+            if (Events == null)
+                return;
+
+        }
     }
 }
-

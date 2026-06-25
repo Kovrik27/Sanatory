@@ -1,33 +1,45 @@
-﻿using Sanatory.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Sanatory.Model;
+using Sanatory.View;
+using Sanatory.ViewModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Sanatory.View
 {
-    /// <summary>
-    /// Логика взаимодействия для PatientsWindow.xaml
-    /// </summary>
     public partial class PatientsWindow : Window
     {
-        public PatientsWindow()
+        public PatientsWindow(int userId)
         {
             InitializeComponent();
+
+            var vm = (PatientWindowVM)FindResource("ptWinVM");
+            LoadGuestAndShowHome(vm, userId);
         }
-        public PatientsWindow(int Id)
+
+        private async void LoadGuestAndShowHome(PatientWindowVM vm, int userId)
         {
-            InitializeComponent();
-            (DataContext as PatientWindowVM).SetGuestId(Id);
+            await vm.SetGuestId(userId);
+
+            if (vm.Guest != null)
+            {
+                MainFrame.Content = new PatientHome(vm.Guest.ID);
+            }
+            else
+            {
+                MessageBox.Show(
+                    $"Не удалось загрузить данные пациента!\n" +
+                    $"ID пользователя: {userId}\n" +
+                    $"Проверьте, существует ли пациент с этим ID в базе данных.",
+                    "Ошибка загрузки",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+            }
+        }
+
+        private void OutButton(object sender, RoutedEventArgs e)
+        {
+            Authorization authorization = new Authorization();
+            authorization.Show();
+            this.Close();
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sanatory.Model
 {
-    public class Procedure
+    public partial class Procedure
     {
         public int Id { get; set; }
 
@@ -19,8 +19,8 @@ namespace Sanatory.Model
 
         public decimal Price { get; set; }
 
-        public DateTime? Date { get; set; } = DateTime.Now;
-
-        public virtual List<Guest> Guests { get; set; } = new List<Guest>();
+        public DateTime? Date { get; set; }
+        public string? Category { get; set; }
+        public virtual ICollection<Guest> Guests { get; set; } = new List<Guest>();
     }
 }

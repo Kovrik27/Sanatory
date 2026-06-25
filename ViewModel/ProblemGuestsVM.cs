@@ -31,12 +31,12 @@ namespace Sanatory.ViewModel
         public ProblemGuestsVM()
         {
 
-            Save = new CommandVM(async () =>
-            {
-                await DB.GetInstance().AddNewProblem(Problem);
-                PatientsWindow patientsWindow = new PatientsWindow();
-                patientsWindow.Show();
-            });
+            //Save = new CommandVM(async () =>
+            //{
+            //    await DB.GetInstance().AddNewProblem(Problem);
+            //    PatientsWindow patientsWindow = new PatientsWindow();
+            //    patientsWindow.Show();
+            //});
 
         }
     }

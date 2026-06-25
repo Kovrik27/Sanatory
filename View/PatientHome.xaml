@@ -1,0 +1,79 @@
+﻿<Page x:Class="Sanatory.View.PatientHome"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Sanatory.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PatientHome" Style="{DynamicResource Page}">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок (как в StaffTasksPage) -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+            <Label Content="💊 Список процедур" 
+                   Style="{StaticResource Label}"
+                   FontSize="16" FontWeight="Bold"/>
+        </StackPanel>
+
+        <!-- Список процедур -->
+        <ListView Grid.Row="1" 
+                  ItemsSource="{Binding Procedures}" 
+                  SelectedItem="{Binding SelectedProcedure}"
+                  Style="{StaticResource ListView}">
+            <ListView.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Foreground" Value="#1B5E20"/>
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Название" 
+                                    DisplayMemberBinding="{Binding Title}" 
+                                    Width="150"
+                                    HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                    <GridViewColumn Header="Описание" 
+                                    DisplayMemberBinding="{Binding Description}" 
+                                    Width="300"
+                                    HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                    <GridViewColumn Header="Длительность" 
+                                    DisplayMemberBinding="{Binding Duration}" 
+                                    Width="100"
+                                    HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                    <GridViewColumn Header="Стоимость" 
+                                    DisplayMemberBinding="{Binding Price}" 
+                                    Width="100"
+                                    HeaderContainerStyle="{DynamicResource ListViewColumnHeader}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- Нижняя панель (сохранен изначальный вид окна) -->
+        <StackPanel Grid.Row="2" Margin="0,10,0,0">
+            <TextBlock FontSize="16" Style="{DynamicResource TextBlock}">
+                Если хотите посмотреть мероприятия —
+                <Bold>ИНФОРМАЦИЯ</Bold>
+            </TextBlock>
+
+            <TextBlock FontSize="16" Margin="0,10,0,0" Style="{DynamicResource TextBlock}">
+                Если хотите оставить заявку —
+                <Bold>ЗАЯВКА</Bold>
+            </TextBlock>
+
+            <TextBlock FontSize="16" Margin="0,10,0,0" Style="{DynamicResource TextBlock}">
+                Если хотите оставить отзыв —
+                <Bold>ОТЗЫВ</Bold>
+            </TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="6" HorizontalAlignment="Right" >
+            <Button Content="Выйти" Click="OutButton" Style="{DynamicResource ButtonOut}" Width="102"/>
+        </StackPanel>
+    </Grid>
+</Page>
